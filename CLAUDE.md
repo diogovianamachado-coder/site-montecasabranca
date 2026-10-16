@@ -65,7 +65,8 @@ o Diogo. Commits «SITE · assunto»; os do Claude levam o link da sessão. Nenh
 2. Juntar o repositório `appmontecasabranca` à sessão **só para ler** e ler lá o `CLAUDE.md` (secções 1, 5, 6 e 10) e o `docs/temas/SITE.md`,
    que é a memória do tema SITE até à passagem (estado, decisões, S1–S18, DESCONHECIDOS, dez linhas para o ChatGPT).
 3. Dizer em cinco linhas onde estamos; as perguntas do tema com as respostas do Diogo; os recados; as três linhas «o que vais ver».
-4. Verificar o que o ChatGPT fez aqui desde a última vez (`git log`, `docs/decisoes/`), sem lhe tocar.
+4. Verificar o que o ChatGPT fez aqui desde a última vez (`git log`, `docs/decisoes/`, as memórias dele `*_memoria_chatgpt.md`), sem lhe tocar;
+   **ler as sugestões S que ele numerou antes de numerar as do Claude** (numeração partilhada).
 5. Tudo em português, sempre (também as respostas). Fecho de sessão: três sugestões fora da caixa numeradas S19, S20… com sim/não a cada
    uma; depois a memória, commit, push, estado em cinco linhas e o commit.
 
@@ -102,7 +103,9 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
 - Acesso do Claude testado a 13/10 (app «Claude» do GitHub com «All repositories»). Este `CLAUDE.md` é a única escrita do Claude antes da passagem.
 - **16/10 (5.ª sessão SITE, a primeira aberta aqui):** nada mudou neste repositório desde 13/10 (fase 0 do ChatGPT por fazer; conformidade
   0/8). O Diogo colou o brief «conceito, perfis, domingo, LLM» (secção 1a); guardado na app com os factos novos no `FACTOS.md` e a leitura
-  técnica; no fecho, o widget do tempo (secção 1a). Nada em `design/`, `docs/`, `public/`, `src/`. **Sessão fechada com S19–S21 à espera
-  do sim/não** (S19 linha de base nos três assistentes · S20 pôr do sol calculado no browser · S21 as 20 perguntas dos três perfis pelo
-  ChatGPT; texto no `SITE.md`). Em aberto: S19–S21 · 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das
-  fotos. Próxima sugestão: S22.
+  técnica; no fecho, o widget do tempo (secção 1a). Nada em `design/`, `docs/`, `public/`, `src/`. **17/10: o ChatGPT fechou a sessão dele em `docs/decisoes/2026-10-17_memoria_chatgpt.md`**
+  (S19 convite para reunir o grupo ACEITE · S20 visita filmada FUTURO · S21 mensagem do hóspede → futura app; frente «logo e branding book»
+  secundária; observações técnicas às propostas do Claude, aceites no brief, secção 7.9). **Sugestões do Claude renumeradas S22–S24, à espera
+  do sim/não** (S22 linha de base nos três assistentes · S23 pôr do sol calculado no browser · S24 as 20 perguntas dos três perfis pelo
+  ChatGPT; texto no `SITE.md`). **Regra:** ler `docs/decisoes/` antes de numerar; a numeração S é partilhada pelos dois assistentes.
+  Em aberto: S22–S24 · 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das fotos. Próxima sugestão: S25.
