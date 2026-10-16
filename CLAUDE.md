@@ -32,6 +32,9 @@ Texto integral, factos novos e leitura técnica em `appmontecasabranca/docs/tema
   a dinâmica (fim de semana vs semana, estadia média por época, distrito de origem, antecedência); o site não os lê.
 - **Radar (sem data):** o site virar app à chegada (guia da casa em `/guia/`, `noindex`, ligado pela mensagem T6 da app): eletrodomésticos,
   «e se ficarem sem água», restaurantes, passeios. Só com a lista do Diogo.
+- **Widget do tempo (Diogo, 16/10):** próximos dias em Montemor-o-Novo na página de entrada; no simulador, o tempo por dia da estadia
+  (previsão até 16 dias, depois média dos últimos anos) e a hora do pôr do sol no domingo. Open-Meteo pelo browser, coordenadas da casa,
+  sem dados do visitante, some se falhar; segundo serviço externo a seguir ao Google Fonts (brief, secção 7.8).
 - **Por confirmar pelo Diogo:** 3,2 ha (brief) ou 3,6 ha (MyBestHotel 2022); regra miúda dos animais.
 
 ## 2. Papéis (acordo, secção 2)
@@ -99,5 +102,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
 - Acesso do Claude testado a 13/10 (app «Claude» do GitHub com «All repositories»). Este `CLAUDE.md` é a única escrita do Claude antes da passagem.
 - **16/10 (5.ª sessão SITE, a primeira aberta aqui):** nada mudou neste repositório desde 13/10 (fase 0 do ChatGPT por fazer; conformidade
   0/8). O Diogo colou o brief «conceito, perfis, domingo, LLM» (secção 1a); guardado na app com os factos novos no `FACTOS.md` e a leitura
-  técnica. Nada em `design/`, `docs/`, `public/`, `src/`. Em aberto: 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen ·
-  autorização das fotos. Próxima sugestão: S19.
+  técnica; no fecho, o widget do tempo (secção 1a). Nada em `design/`, `docs/`, `public/`, `src/`. **Sessão fechada com S19–S21 à espera
+  do sim/não** (S19 linha de base nos três assistentes · S20 pôr do sol calculado no browser · S21 as 20 perguntas dos três perfis pelo
+  ChatGPT; texto no `SITE.md`). Em aberto: S19–S21 · 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das
+  fotos. Próxima sugestão: S22.
