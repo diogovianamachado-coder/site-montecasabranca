@@ -118,4 +118,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   secundária; observações técnicas às propostas do Claude, aceites no brief, secção 7.9). **Sugestões do Claude renumeradas S22–S24, ACEITES pelo Diogo a 17/10 como ideias a passar ao ChatGPT** (S22 linha de base nos três
   assistentes · S23 pôr do sol calculado no browser, nota técnica · S24 as 20 perguntas dos três perfis pelo ChatGPT); **nenhuma vira código
   até ordem do Diogo (secção 1b: o Claude é monitor).** **Regra:** ler `docs/decisoes/` antes de numerar; a numeração S é partilhada pelos dois assistentes.
+  **17/10 · `docs/integracao-app/RECADOS_PARA_O_CHATGPT.md` criado** (pasta do Claude pelo acordo): recado ao ChatGPT para prever o widget do
+  tempo no desenho (onde aparece, estados, linha «Dados: Open-Meteo», dados fixos de exemplo no HTML de `design/`). É a segunda escrita do Claude
+  neste repositório antes da passagem, a pedido do Diogo; o ficheiro serve para os recados seguintes.
   Em aberto: 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das fotos · «começa a agir». Próxima sugestão: S25.
