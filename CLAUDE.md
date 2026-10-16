@@ -37,6 +37,16 @@ Texto integral, factos novos e leitura técnica em `appmontecasabranca/docs/tema
   sem dados do visitante, some se falhar; segundo serviço externo a seguir ao Google Fonts (brief, secção 7.8).
 - **Por confirmar pelo Diogo:** 3,2 ha (brief) ou 3,6 ha (MyBestHotel 2022); regra miúda dos animais.
 
+## 1b. Papel do Claude nesta fase: MONITOR (regra do Diogo, 17/10)
+
+«Não quero que comeces a fazer código algum sem fechar com ele os básicos. Nesta fase tens de servir como monitor e registar o que está a ser
+feito e ajudar a perceber se o que está a ser repensado do outro lado inviabiliza o que temos feito. Só quando eu achar que do outro lado está
+algo coerente é que te digo para começares a agir.» Logo, em cada sessão SITE até ao «começa a agir»: ler o que o ChatGPT entregou
+(`git log`, `docs/decisoes/`, `design/`), registar na memória, e **avisar o Diogo só quando algo contradiz** o acordo v1.2, o contrato das
+portas (`contrato_portas_v1.md`), o `FACTOS.md`, a stack da secção 6 ou as portas #189/#190. **Zero código** (site e app, portas incluídas),
+**zero propostas de desenho**. As sugestões aceites (S22–S24) passaram ao ChatGPT pelas linhas 12–14 da secção 8 do brief; a S23 fica como nota
+técnica para a construção.
+
 ## 2. Papéis (acordo, secção 2)
 
 - **Diogo** decide tudo por olho e por escrito; cria acessos; autoriza cada deploy («Lança»); faz as tarefas de painel (Amen, DNS, Linktree, Google).
@@ -105,7 +115,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   0/8). O Diogo colou o brief «conceito, perfis, domingo, LLM» (secção 1a); guardado na app com os factos novos no `FACTOS.md` e a leitura
   técnica; no fecho, o widget do tempo (secção 1a). Nada em `design/`, `docs/`, `public/`, `src/`. **17/10: o ChatGPT fechou a sessão dele em `docs/decisoes/2026-10-17_memoria_chatgpt.md`**
   (S19 convite para reunir o grupo ACEITE · S20 visita filmada FUTURO · S21 mensagem do hóspede → futura app; frente «logo e branding book»
-  secundária; observações técnicas às propostas do Claude, aceites no brief, secção 7.9). **Sugestões do Claude renumeradas S22–S24, à espera
-  do sim/não** (S22 linha de base nos três assistentes · S23 pôr do sol calculado no browser · S24 as 20 perguntas dos três perfis pelo
-  ChatGPT; texto no `SITE.md`). **Regra:** ler `docs/decisoes/` antes de numerar; a numeração S é partilhada pelos dois assistentes.
-  Em aberto: S22–S24 · 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das fotos. Próxima sugestão: S25.
+  secundária; observações técnicas às propostas do Claude, aceites no brief, secção 7.9). **Sugestões do Claude renumeradas S22–S24, ACEITES pelo Diogo a 17/10 como ideias a passar ao ChatGPT** (S22 linha de base nos três
+  assistentes · S23 pôr do sol calculado no browser, nota técnica · S24 as 20 perguntas dos três perfis pelo ChatGPT); **nenhuma vira código
+  até ordem do Diogo (secção 1b: o Claude é monitor).** **Regra:** ler `docs/decisoes/` antes de numerar; a numeração S é partilhada pelos dois assistentes.
+  Em aberto: 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das fotos · «começa a agir». Próxima sugestão: S25.
