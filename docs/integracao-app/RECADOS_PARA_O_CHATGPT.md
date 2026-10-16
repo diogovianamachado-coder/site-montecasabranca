@@ -10,7 +10,8 @@ memória dele em `docs/decisoes/`. Nada aqui altera o acordo; o Claude continua 
 em vez de o descobrires depois. O que ele quer, nas palavras dele: «um widget com o tempo que vai estar em Montemor nos próximos dias, com a
 possibilidade de projetar o tempo que vai estar no período de aluguer».
 
-O que isso significa para o desenho (dados que o Claude vai fornecer; a forma é tua):
+**Onde fica, como fica e que aspeto tem, decides tu** (palavras do Diogo, 17/10). O quadro abaixo não é um layout: diz só **que dados
+existem** e **em que momento da jornada** fazem sentido, para não desenhares sem os conhecer.
 
 | Onde | O que mostra | Estados a desenhar |
 |---|---|---|
