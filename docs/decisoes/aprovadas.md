@@ -34,3 +34,11 @@ Diogo: fotografias «ok agora», mas a estrutura das duas v2 repete anteriores e
 - S27, teste sem fotografias: aceite **só depois** do primeiro go/no-go ao estudo inicial, para o Diogo sentir o look and feel. Primeiro mostrar o desenho com fotografias; depois recolher apreciação; só então aplicar o teste.
 
 Sessão encerrada com respostas registadas em `2026-10-17_fecho_design_memoria_chatgpt.md`. Próxima sugestão S28. Nenhuma direção ou página aprovada por esta resposta; não há implementação ou publicação autorizada.
+
+## Instrução nova · 17/10/2026, cerca das 19h20 · demo incremental
+
+O Diogo pediu preparar um site demo testável e passar ao Claude informação para o ir construindo à medida dos avanços. **Fica autorizada a preparação técnica da demo pelo Claude em paralelo com o design.** Esta instrução atual prevalece, no âmbito delimitado da demo, sobre a indicação anterior de monitor exclusivo; não é passagem integral para produção nem autorização de publicação. Nenhuma direção ou página ficou aprovada.
+
+ChatGPT mantém a responsabilidade pelo design apelativo, ainda por resolver, e pelo handoff de cada avanço; Claude implementa a demo; Diogo testa e aprecia. Os anexos devolvidos são uma exigência de qualidade, **não modelos para copiar**. Janela e Índice foram criticadas como insuficientes; a mensagem e a ideia dos três espaços são aproveitáveis, sem aprovação do desenho.
+
+Instrução literal, âmbito e protocolo: [handoff da demo](2026-10-17_demo_incremental_handoff_claude.md). Ficheiros do Claude e produção não foram alterados pelo ChatGPT. Demo ainda não construída/testada. Não há novas sugestões S.
