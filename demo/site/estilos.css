@@ -1,0 +1,76 @@
+/* Demo Monte Casa Branca · estilos da base técnica (r0).
+   Neutro de propósito: não é um desenho do site. Quando o ChatGPT entregar
+   um desenho, o CSS dele substitui este. Sem fontes nem serviços externos. */
+
+/* Disposição: uma coluna de leitura, margens laterais de 16 px no mínimo. */
+:root {
+  --fundo: #f7f6f2;
+  --texto: #2b2d29;
+  --texto-suave: #656860;
+  --linha: #d9d8d0;
+  --realce: #4f5c42;
+  --realce-texto: #ffffff;
+  --aviso-fundo: #efe9d6;
+  --aviso-texto: #5b4b1e;
+  --fonte: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fonte-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fundo: #1d1f1b; --texto: #e8e7e0; --texto-suave: #a9aba2; --linha: #3b3e37;
+    --realce: #9db38a; --realce-texto: #15180f; --aviso-fundo: #3a3522; --aviso-texto: #e8dcb0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --fundo: #1d1f1b; --texto: #e8e7e0; --texto-suave: #a9aba2; --linha: #3b3e37;
+  --realce: #9db38a; --realce-texto: #15180f; --aviso-fundo: #3a3522; --aviso-texto: #e8dcb0;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 17px;
+  line-height: 1.55;
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--realce); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--realce); outline-offset: 2px; }
+
+.pagina { max-width: 40rem; margin-inline: auto; padding-block: 2.5rem 3rem; display: grid; gap: 2rem; min-width: 0; }
+.cabecalho { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; border-bottom: 1px solid var(--linha); padding-bottom: 1rem; }
+.marca { font-weight: 600; letter-spacing: .02em; text-decoration: none; color: var(--texto); }
+.rotulo { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--texto-suave); }
+h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.15; margin: 0 0 .75rem; text-wrap: balance; font-weight: 600; }
+h2 { font-size: 1.15rem; margin: 0 0 .5rem; font-weight: 600; }
+p { margin: 0 0 1rem; max-width: 65ch; }
+.suave { color: var(--texto-suave); }
+.aviso { background: var(--aviso-fundo); color: var(--aviso-texto); padding: .75rem 1rem; border-radius: 6px; font-size: .95rem; }
+.aviso p { margin: 0; color: inherit; }
+
+.chip { display: inline-block; font-family: var(--fonte-mono); font-size: .85rem; background: var(--realce); color: var(--realce-texto); padding: .15rem .55rem; border-radius: 999px; font-variant-numeric: tabular-nums; }
+
+.botoes { display: flex; flex-wrap: wrap; gap: .75rem; }
+.botao { display: inline-block; min-height: 48px; padding: .7rem 1.1rem; border: 1px solid var(--realce); border-radius: 6px; text-decoration: none; color: var(--realce); font-weight: 500; }
+.botao.principal { background: var(--realce); color: var(--realce-texto); }
+
+.tabela-envolvente { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; vertical-align: top; padding: .5rem .6rem; border-bottom: 1px solid var(--linha); }
+th { font-weight: 600; white-space: nowrap; }
+td code, .mono { font-family: var(--fonte-mono); font-size: .9em; word-break: break-all; }
+
+ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+li { margin-bottom: .35rem; }
+
+.rodape { border-top: 1px solid var(--linha); padding-top: 1rem; font-size: .85rem; color: var(--texto-suave); display: grid; gap: .35rem; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

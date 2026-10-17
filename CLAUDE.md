@@ -47,6 +47,14 @@ portas (`contrato_portas_v1.md`), o `FACTOS.md`, a stack da secção 6 ou as por
 **zero propostas de desenho**. As sugestões aceites (S22–S24) passaram ao ChatGPT pelas linhas 12–14 da secção 8 do brief; a S23 fica como nota
 técnica para a construção.
 
+**Atualização 17/10 (cerca das 19h20): a demo incremental.** Instrução do Diogo, registada pelo ChatGPT em
+`docs/decisoes/2026-10-17_demo_incremental_handoff_claude.md` (+ `aprovadas.md` e `pendentes.md`): «Prepara para fazer um site demo para que
+seja testado. Passa ao Claude informação para fazer a demo à medida que formos fazendo avanços.» O papel de monitor **deixa de impedir só
+este trabalho delimitado**: a área `demo/` (código do Claude), a implementação de cada entrega de design do ChatGPT como revisão da demo
+(rascunho até o Diogo apreciar), os testes e o endereço de teste privado. Continua tudo o resto: zero desenho de raiz, zero produção em
+`public/`/`src/`, zero portas, zero publicação no domínio, nada na app. Não é o «passa ao Claude» nem o «Lança». Regras da demo em
+`demo/LEIA-ME.md`; revisões em `demo/REGISTO.md`; estado atual em `demo/versao.json`. Não copiar `interacao.js` das propostas rejeitadas.
+
 ## 2. Papéis (acordo, secção 2)
 
 - **Diogo** decide tudo por olho e por escrito; cria acessos; autoriza cada deploy («Lança»); faz as tarefas de painel (Amen, DNS, Linktree, Google).
@@ -121,4 +129,14 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **17/10 · `docs/integracao-app/RECADOS_PARA_O_CHATGPT.md` criado** (pasta do Claude pelo acordo): recado ao ChatGPT para prever o widget do
   tempo no desenho (onde aparece, estados, linha «Dados: Open-Meteo», dados fixos de exemplo no HTML de `design/`). É a segunda escrita do Claude
   neste repositório antes da passagem, a pedido do Diogo; o ficheiro serve para os recados seguintes.
-  Em aberto: 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das fotos · «começa a agir». Próxima sugestão: S25.
+  Em aberto: 3,2 vs 3,6 ha · animais (regra miúda) · S8 · DESCONHECIDOS da Amen · autorização das fotos · «começa a agir».
+- **17/10 (6.ª sessão SITE, demo r0):** o ChatGPT entregou entretanto direções A/B/C (`design/direcoes/`), retoma-v2 e o estudo Janela/Índice;
+  **tudo rejeitado ou insuficiente pelo Diogo, nenhuma direção aprovada** (`docs/decisoes/2026-10-17_fecho_design_memoria_chatgpt.md`,
+  `docs/design/2026-10-17_estudo_inicial_go-nogo.md`). S25/S26 rejeitadas; S27 (teste sem fotos) aceite só depois do primeiro go/no-go e
+  ainda por executar. **Próxima sugestão: S28** (conferir `docs/decisoes/` antes). Por instrução do Diogo (secção 1b, atualização), o Claude
+  criou a base da demo: `demo/site/` (página neutra «Demo em preparação» + `revisao.html` com revisão/estado/entrega/commit),
+  `demo/ferramentas/demo.py` (testar · construir · servir · empacotar · artefacto) e `captura.cjs` (Chromium 390/1280), `versao.json`,
+  `REGISTO.md`, `LEIA-ME.md`, `.gitignore` para `demo/_saida/` e `demo/_pacotes/`. Testes e capturas verdes. **Endereço de teste:**
+  https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; a mesma ligação em todas as revisões; republicar com
+  `demo.py artefacto` + Artifact). Sem ambiente de preview no repositório (privado, Pages desligado); `novo.montecasabranca.pt` continua
+  DESCONHECIDO e é painel do Diogo. Nenhum desenho implementado; r1 só com entrega do ChatGPT indicada para implementação.

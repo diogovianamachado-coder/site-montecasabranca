@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Monte Casa Branca · demo · revisão</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<main class="pagina">
+  <header class="cabecalho">
+    <a class="marca" href="index.html">Monte Casa Branca</a>
+    <span class="rotulo">Zona de revisão · <span class="chip" data-versao="revisao">r?</span></span>
+  </header>
+
+  <section>
+    <p class="rotulo">Identificação técnica</p>
+    <h1>O que está implementado nesta demo</h1>
+    <p>Esta zona é para quem revê, não para quem visita. Diz exatamente que revisão da demo está a ver, de que entrega de design veio e com que commit foi construída.</p>
+  </section>
+
+  <section class="tabela-envolvente">
+    <table>
+      <tbody>
+        <tr><th scope="row">Revisão da demo</th><td data-versao="revisao">r?</td></tr>
+        <tr><th scope="row">Estado</th><td data-versao="estado">desconhecido</td></tr>
+        <tr><th scope="row">Data</th><td data-versao="data"></td></tr>
+        <tr><th scope="row">O que contém</th><td data-versao="titulo"></td></tr>
+        <tr><th scope="row">Entrega de design</th><td data-versao="design_entrega">nenhuma</td></tr>
+        <tr><th scope="row">Commit do design</th><td class="mono" data-versao="design_commit">nenhum</td></tr>
+        <tr><th scope="row">Estado do design</th><td data-versao="design_estado"></td></tr>
+        <tr><th scope="row">Commit do site</th><td class="mono" data-versao="site_commit">não carimbado</td></tr>
+        <tr><th scope="row">Construída em</th><td><time data-versao="construido_em" data-versao-hora>não carimbado</time></td></tr>
+        <tr><th scope="row">Endereço de teste</th><td data-versao="endereco_teste">ainda sem endereço</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Páginas nesta revisão e estado de cada uma</h2>
+    <ul data-versao-paginas>
+      <li>index.html · preparacao-tecnica</li>
+      <li>revisao.html · preparacao-tecnica</li>
+    </ul>
+    <p class="suave">Estados possíveis: preparação técnica · rascunho (entregue, ainda não apreciado) · aprovado (sim expresso do Diogo, com data) · rejeitado.</p>
+  </section>
+
+  <section>
+    <h2>Como se testa</h2>
+    <ul>
+      <li>No telemóvel, pelo endereço de teste indicado acima, quando existir.</li>
+      <li>No computador, abrindo <code>demo/site/index.html</code> do ficheiro, ou com <code>python3 demo/ferramentas/demo.py servir</code>.</li>
+      <li>Cada revisão fica registada em <code>demo/REGISTO.md</code> com o commit, para se poder voltar à anterior.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Limites desta fase</h2>
+    <ul>
+      <li>Nenhuma ligação à app de reservas: sem disponibilidade, tarifa ou pré-reserva reais.</li>
+      <li>Qualquer preço, calendário ou tempo mostrado é exemplo identificado.</li>
+      <li>Fotografias só com origem e autorização registadas em <code>docs/fotografia/creditos.md</code>.</li>
+      <li>Português primeiro; inglês entra na publicação.</li>
+    </ul>
+  </section>
+
+  <nav class="botoes" aria-label="Voltar">
+    <a class="botao" href="index.html">Voltar à entrada da demo</a>
+  </nav>
+
+  <footer class="rodape">
+    <span>Zona de revisão da demo · não indexada · não é conteúdo do site</span>
+  </footer>
+</main>
+<script src="versao.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
