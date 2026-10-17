@@ -15,7 +15,8 @@ no Linktree, nos workflows ou na app.
 | `versao.json` | Identificação da revisão atual: número (`r0`, `r1`…), estado, entrega de design implementada e commit dela, páginas e estado de cada uma. |
 | `REGISTO.md` | Histórico de revisões: rascunho, aprovado ou rejeitado, com commit e endereço, para se poder voltar atrás. |
 | `ferramentas/demo.py` | Python 3, biblioteca padrão: `testar`, `construir`, `servir`, `empacotar`, `artefacto`. |
-| `ferramentas/captura.cjs` | Capturas a 390 e 1280 px com Playwright/Chromium, opcional. |
+| `ferramentas/captura.cjs` | Capturas a 390 e 1280 px com Playwright/Chromium, opcional. Se existir `ferramentas/cenarios/<revisão>.cjs`, corre também esses cenários de interação em `index.html` e grava os estados. |
+| `site/correcoes-demo.css` | Correções técnicas provisórias, uma regra por falha, com data, motivo e recado ao ChatGPT; nunca desenho. |
 | `capturas/rN/` | **S28:** capturas versionadas de cada revisão, para comparar lado a lado sem abrir o commit antigo. |
 | `imagens.json` | Origem de cada imagem em `site/` (ficheiro no repositório, original, autor, autorização). O teste falha sem entrada. |
 | `site/revisoes.html` | **S29:** lista de todas as revisões com a ligação fixa de cada uma. |
@@ -83,7 +84,9 @@ Aprovado, rejeitado e rascunho ficam separados no registo. Nunca se presume apro
 
 ## Estado atual
 
-- **Revisão:** r0 · preparação técnica · 2026-10-17.
+- **Revisão:** r1 · **rascunho** · 2026-10-17 · D03 «Casa ao sol» (ChatGPT, `design/estudo-d03-2026-10-17/index.html`, commit e066def),
+  sem aprovação estética. Correção técnica provisória do logótipo em `site/correcoes-demo.css` (ver `REGISTO.md`).
 - **Ligação principal (mais recente):** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; abre no iPhone com a conta do Diogo).
-- **Ligação fixa r0:** https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV
+- **Ligação fixa r0:** https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV (página neutra, preparação técnica)
+- **Ligação fixa r1:** https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP (D03, rascunho)
 - **Commit do site:** carimbado em `versao.js` por `demo.py construir`; ver `REGISTO.md`.

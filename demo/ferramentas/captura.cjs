@@ -20,6 +20,8 @@ const base = opcao("--base", args.find(a => /^https?:/.test(a)) || "http://127.0
 const pasta = path.resolve(opcao("--saida", path.join(__dirname, "..", "capturas", versao.revisao)));
 const paginas = Object.keys(versao.paginas || { "index.html": "" });
 const larguras = [{ nome: "telemovel", w: 390, h: 844 }, { nome: "desktop", w: 1280, h: 800 }];
+let cenario = null;
+try { cenario = require(path.join(__dirname, "cenarios", versao.revisao + ".cjs")); } catch (e) { cenario = null; }
 
 (async () => {
   fs.mkdirSync(pasta, { recursive: true });
@@ -40,6 +42,14 @@ const larguras = [{ nome: "telemovel", w: 390, h: 844 }, { nome: "desktop", w: 1
       const rev = await page.evaluate(() => (document.querySelector("[data-versao=revisao]") || {}).textContent);
       const ficheiro = path.join(pasta, `${p.replace(/\.html$/, "").replace(/\//g, "-")}-${l.nome}.png`);
       await page.screenshot({ path: ficheiro, fullPage: true });
+      if (cenario && p === "index.html") {
+        try {
+          const extra = await cenario(page, l, async nome => {
+            await page.screenshot({ path: path.join(pasta, `index-${nome}-${l.nome}.png`), fullPage: false });
+          });
+          for (const pr of extra) problemas.push("cenário: " + pr);
+        } catch (e) { problemas.push("cenário rebentou: " + e.message); }
+      }
       const estado = problemas.length ? "FALHA" : "OK";
       if (problemas.length) falhas++;
       console.log(`${estado} ${p} @${l.w}px · revisão lida: ${rev} · ${path.relative(process.cwd(), ficheiro)}`);

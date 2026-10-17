@@ -1,42 +1,49 @@
 <!doctype html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Monte Casa Branca · demo</title>
-<link rel="stylesheet" href="estilos.css">
+<title>Monte Casa Branca · Cada um ao seu ritmo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400,50;1,9..144,400,50&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos-d03.css">
+<link rel="stylesheet" href="correcoes-demo.css">
 </head>
 <body>
-<main class="pagina">
-  <header class="cabecalho">
-    <a class="marca" href="index.html">Monte Casa Branca</a>
-    <span class="rotulo">Demo de teste · <span class="chip" data-versao="revisao">r?</span></span>
-  </header>
-
-  <section>
-    <p class="rotulo">Preparação técnica</p>
-    <h1>Demo em preparação</h1>
-    <p>Este endereço serve para testar o site novo do Monte Casa Branca à medida que o desenho avança. Ainda não há nenhum desenho implementado: esta página só confirma que a demo abre, identifica a revisão e mostra onde cada avanço vai aparecer.</p>
-    <p class="suave">Quando o ChatGPT entregar uma composição para implementar, ela substitui esta página e fica assinalada como rascunho até o Diogo a apreciar.</p>
-  </section>
-
-  <div class="aviso" role="note">
-    <p>Não é o site público. Nada aqui é indexado, e qualquer preço, disponibilidade ou tempo que venha a aparecer na demo é um exemplo identificado como tal, não um dado real.</p>
+<div class="mcb-d03" id="mcb-d03">
+<header class="site-head">
+ <a class="brand" href="#inicio" aria-label="Monte Casa Branca, início"><img data-mcb-image="logo" src="imagens/logo.png" alt="Monte Casa Branca" width="900" height="354"></a>
+ <nav class="head-center" aria-label="Navegação principal"><a href="#espacos">A casa</a><a href="#" data-open="local-dialog">Por aqui</a><a href="#" data-open="stay-dialog">Falar com o Diogo</a></nav>
+ <button class="book-link" type="button" data-open="stay-dialog">Escolher os dias <span class="arrow" aria-hidden="true">↗</span></button>
+ <button class="menu-button" type="button" data-open="menu-dialog" aria-label="Abrir menu">Menu <span aria-hidden="true">+</span></button>
+</header>
+<main id="inicio">
+ <section class="opening" aria-labelledby="opening-title">
+  <figure class="photo-stage">
+   <img id="scene-photo" class="scene-photo" data-mcb-image="pool" src="imagens/piscina-dia.jpg" alt="Piscina de dia em frente à casa branca e azul" width="1600" height="1066" fetchpriority="high">
+   <span class="photo-location">Reguengo · Montemor-o-Novo</span>
+   <figcaption class="scene-caption"><p id="scene-caption" aria-live="polite">Lá fora, o programa pode ser só este.</p><button type="button" class="photo-detail" data-open="space-dialog">Entrar na casa <span class="arrow" aria-hidden="true">↗</span></button></figcaption>
+  </figure>
+  <div class="clay-field">
+   <h1 class="opening-title" id="opening-title">Cada um <em>ao seu ritmo.</em></h1>
+   <div><p class="opening-copy">Uma casa inteira.<br>O Alentejo à vossa porta.</p><button type="button" class="clay-cta" data-open="stay-dialog">Vamos marcar uns dias? <span class="arrow" aria-hidden="true">↗</span></button></div>
   </div>
-
-  <nav class="botoes" aria-label="Zona de revisão">
-    <a class="botao principal" href="revisao.html">Ver revisão e estado técnico</a>
-    <a class="botao" href="revisoes.html">Todas as revisões</a>
-  </nav>
-
-  <footer class="rodape">
-    <span>Revisão <span data-versao="revisao">r?</span> · estado: <span data-versao="estado">desconhecido</span> · <span data-versao="data"></span></span>
-    <span>Commit do site: <span class="mono" data-versao="site_commit">não carimbado</span></span>
-    <span>Esta ligação: <span data-versao="ligacao">mais recente</span></span>
-  </footer>
+ </section>
+ <div class="explore-row" id="espacos">
+  <nav class="space-nav" aria-label="Explorar os espaços da casa"><button type="button" data-scene="pool" aria-pressed="true">Por fora</button><button type="button" data-scene="interior" aria-pressed="false">Por dentro</button><button type="button" data-scene="porch" aria-pressed="false">Sem pressa</button></nav>
+  <aside class="weather" aria-label="Exemplo visual de meteorologia, valores fictícios"><div class="weather-values"><span>Hoje ☀ 22°</span><span>Amanhã ☁ 19°</span><span>Depois ☀ 21°</span></div><small>Exemplo visual<br>Fonte prevista: Open-Meteo</small></aside>
+ </div>
+ <p class="house-line"><span>Casa inteira &nbsp; / &nbsp; 4 quartos &nbsp; / &nbsp; 8 pessoas &nbsp; / &nbsp; 270 m²</span><span>O Diogo ajuda a combinar os dias.</span></p>
 </main>
+<footer class="site-foot"><span>Monte Casa Branca · Alentejo</span><span>Estudo visual D03 · em apreciação · <a href="revisao.html">demo <span data-versao="revisao">r?</span>, rascunho</a></span></footer>
+<dialog id="space-dialog" aria-labelledby="space-title"><div class="dialog-head"><span class="small">A casa</span><button type="button" class="close" data-close>Fechar <span class="arrow" aria-hidden="true">×</span></button></div><div class="dialog-content"><h2 class="dialog-title" id="space-title">Cá dentro,<br>o conforto de casa.</h2><p class="dialog-copy">Uma mesa para juntar toda a gente. Uma cozinha para usar à vontade. Quatro quartos para dormir bem. E uma biblioteca com lareira para os dias mais frescos.</p><img class="dialog-photo" data-mcb-image="interior" src="imagens/portas-abertas.jpg" alt="Portas abertas para o salão contemporâneo, a mesa e a cozinha" width="1600" height="1066" loading="lazy"><p class="dialog-copy">270 m² de casa, com ar condicionado em todas as divisões. O campo fica logo ali.</p><button type="button" class="book-link" data-open="stay-dialog">Escolher os dias <span class="arrow" aria-hidden="true">↗</span></button></div></dialog>
+<dialog id="local-dialog" aria-labelledby="local-title"><div class="dialog-head"><span class="small">Reguengo · Montemor-o-Novo</span><button type="button" class="close" data-close>Fechar <span class="arrow" aria-hidden="true">×</span></button></div><div class="dialog-content"><h2 class="dialog-title" id="local-title">O resto dos planos<br>pode esperar.</h2><img class="dialog-photo" data-mcb-image="porch" src="imagens/alpendre-copos.jpg" alt="Cadeiras e copos de vinho no alpendre da casa" width="1600" height="1066"><p class="dialog-copy">À sombra do alpendre, uma conversa que se prolonga. O conforto da casa e o campo à volta são uma boa razão para ficar.</p><button type="button" class="book-link" data-open="stay-dialog">Pensar nos próximos dias <span class="arrow" aria-hidden="true">↗</span></button></div></dialog>
+<dialog id="stay-dialog" aria-labelledby="stay-title"><div class="dialog-head"><span class="small">Os vossos dias</span><button type="button" class="close" data-close>Fechar <span class="arrow" aria-hidden="true">×</span></button></div><div class="dialog-content"><h2 class="dialog-title" id="stay-title">Juntem as pessoas.<br>Escolham os dias.</h2><p class="dialog-copy">O preço é da casa inteira. O Diogo ajuda a combinar os dias e os pormenores da vossa estadia.</p><form id="stay-form"><div class="form-grid"><label>Entrada<input name="entry" type="date" required></label><label>Saída<input name="exit" type="date" required></label><label class="full">Quantas pessoas?<select name="guests"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected>8</option></select></label></div><p class="form-error" id="stay-error" role="alert" hidden></p><button type="submit" class="form-submit">Preparar os nossos dias <span class="arrow" aria-hidden="true">↗</span></button></form><div class="form-summary" id="stay-summary" aria-live="polite" hidden></div><p class="dialog-note">Este é um estudo de design. A escolha fica apenas neste ecrã; não consulta disponibilidade, calcula preços ou envia pedidos.</p></div></dialog>
+<dialog id="menu-dialog" aria-label="Menu principal"><div class="dialog-head"><span class="small">Monte Casa Branca</span><button type="button" class="close" data-close>Fechar <span class="arrow" aria-hidden="true">×</span></button></div><div class="dialog-content"><nav class="menu-links" aria-label="Navegação móvel"><a href="#inicio" data-home>Início</a><button type="button" data-open="space-dialog">A casa</button><button type="button" data-open="local-dialog">Por aqui</button><button type="button" data-open="stay-dialog">Escolher os dias</button></nav><p class="menu-location">Reguengo · Montemor-o-Novo<br>Uma casa inteira. O Alentejo à vossa porta.</p></div></dialog>
+</div>
 <script src="versao.js"></script>
 <script src="demo.js"></script>
+<script src="d03.js"></script>
 </body>
 </html>

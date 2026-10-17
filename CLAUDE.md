@@ -142,4 +142,9 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   DESCONHECIDO e é painel do Diogo. **S28–S30 ACEITES pelo Diogo (17/10, «29 sim 30 sim 28 sim») e feitas:** S28 capturas versionadas em
   `demo/capturas/rN/` · S29 ligação fixa por revisão (`demo.py artefacto --fixa`) + `site/revisoes.html` · S30 workflow «Capturas»
   (`.github/workflows/capturas.yml`, só `demo/`, sem deploy). Ligação fixa r0: https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV.
-  **Próxima sugestão: S31.**
+  **Próxima sugestão: S31.** **r1 (rascunho) = D03 «Casa ao sol»**, entrega do ChatGPT (`design/estudo-d03-2026-10-17/index.html`,
+  commit e066def, handoff `docs/design/2026-10-17_d03_casa_ao_sol_handoff.md`), implementada tal qual em `demo/site/` (CSS/JS em
+  ficheiros, imagens individuais, `noindex`); **falha técnica encontrada e reportada** (logótipo esticado: `height="354"` sem
+  `height:auto`), correção provisória em `demo/site/correcoes-demo.css` e recado em `docs/integracao-app/RECADOS_PARA_O_CHATGPT.md`.
+  Cenários (três espaços, menu, painéis, datas) verdes em Chromium. Ligação fixa r1: https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP.
+  **A r1 não está aprovada**: espera o olho do Diogo; não afinar a D03 por iniciativa técnica. Workflow «Capturas» verde no GitHub.

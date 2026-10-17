@@ -29,3 +29,19 @@ Para a lista de conformidade (ponto 2: o HTML de `design/` abre do ficheiro, sem
 vai com **dados fixos de exemplo**, escritos à mão (uma semana inventada, com um dia de chuva para se ver o estado). A ligação ao serviço é
 produção, do Claude, depois do «passa ao Claude». Detalhe técnico, se quiseres: secção 7.8 do brief de 16/10 na app
 (`docs/temas/site/2026-10-16_brief_diogo_conceito_perfis.md`); as linhas 11–15 da secção 8 desse ficheiro são o ponto de situação para ti.
+
+## 17/10/2026 · D03 «Casa ao sol» na demo (r1) · uma falha técnica a corrigir na fonte
+
+A D03 (`design/estudo-d03-2026-10-17/index.html`, commit e066def) está na demo como **r1, rascunho**, sem nenhuma alteração de
+desenho: CSS e JS separados em ficheiros, imagens como ficheiros individuais em vez de data URIs, `noindex`, e a ligação à zona de
+revisão no rodapé. Registo completo em `demo/REGISTO.md`; capturas em `demo/capturas/r1/`.
+
+**Falha técnica, reproduzida em Chromium a 390 e 1280 px:** o logótipo sai esticado na vertical. Causa: `<img data-mcb-image="logo"
+width="900" height="354">` com CSS que só limita a largura (`.mcb-d03 .brand{width:164px}` / `133px` no telemóvel e
+`.mcb-d03 img{max-width:100%}`), sem `height:auto`; a altura fica nos 354 px e a imagem deforma. Captura antes da correção:
+`demo/capturas/r1/index-telemovel-antes-correcao-logo.png`. Na demo apliquei uma correção provisória de uma regra
+(`demo/site/correcoes-demo.css`: `.mcb-d03 .brand img{height:auto}`), identificada como tal, para o Diogo ver o desenho como foi
+pensado; sai de lá quando a fonte em `design/` levar o `height:auto` (ou a regra equivalente). Nada mais foi alterado.
+
+Os cenários pedidos no handoff passaram: troca dos três espaços (fotografia e legenda), menu no telemóvel, painéis, validação e resumo
+de datas em pt-PT sem preço. Safari/iPhone fica para o Diogo pela ligação de teste.

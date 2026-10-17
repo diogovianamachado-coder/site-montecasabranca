@@ -1,3 +1,31 @@
 {
-  "_nota": "Uma entrada por imagem em demo/site/. «ficheiro_repo» é a cópia já no repositório de onde a demo copia sem retocar; «original» é o nome no Dropbox/creditos.md; «autorizacao_publica» fica vazio até o Diogo a escrever em docs/fotografia/creditos.md. A demo é privada; a publicação exige a linha preenchida."
+  "_nota": "Uma entrada por imagem em demo/site/. «ficheiro_repo» é a cópia já no repositório de onde a demo copia sem retocar; «original» é o nome no Dropbox/creditos.md; «autorizacao_publica» fica vazio até o Diogo a escrever em docs/fotografia/creditos.md. A demo é privada; a publicação exige a linha preenchida.",
+  "imagens/piscina-dia.jpg": {
+    "ficheiro_repo": "design/retoma-v2/imagens/piscina-dia.jpg",
+    "original": "DSC_4078",
+    "origem": "V2_verão/5.JPG ↔ Rodrigo/1/DSC_4078.JPG",
+    "autor": "Rodrigo (reportagem 2022)",
+    "autorizacao_publica": ""
+  },
+  "imagens/portas-abertas.jpg": {
+    "ficheiro_repo": "design/retoma-v2/imagens/portas-abertas.jpg",
+    "original": "DSC_4444",
+    "origem": "V2_verão/13.JPG ↔ Rodrigo/3/DSC_4444.JPG",
+    "autor": "Rodrigo (reportagem 2022)",
+    "autorizacao_publica": ""
+  },
+  "imagens/alpendre-copos.jpg": {
+    "ficheiro_repo": "design/retoma-v2/imagens/alpendre-copos.jpg",
+    "original": "DSC_4161",
+    "origem": "V2_verão/8.JPG ↔ Rodrigo/1/DSC_4161.JPG",
+    "autor": "Rodrigo (reportagem 2022)",
+    "autorizacao_publica": ""
+  },
+  "imagens/logo.png": {
+    "ficheiro_repo": "public/marca/logo.png",
+    "original": "",
+    "origem": "logótipo atual, public/marca/logo.png",
+    "autor": "Monte Casa Branca",
+    "autorizacao_publica": "logótipo atual, preservado (acordo, secção 10)"
+  }
 }

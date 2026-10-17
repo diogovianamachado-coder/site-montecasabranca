@@ -287,10 +287,10 @@ def construir():
     v = ler_versao()
     with open(os.path.join(SITE, "versao.js"), "w", encoding="utf-8") as f:
         f.write(versao_js(v, carimbar=False))
-    # limpa _saida/ mas conserva as capturas da execução anterior
+    # limpa _saida/ mas conserva capturas/ e artefacto*/ da execução anterior
     if os.path.isdir(SAIDA):
         for nome in os.listdir(SAIDA):
-            if nome != "capturas":
+            if nome != "capturas" and not nome.startswith("artefacto"):
                 alvo = os.path.join(SAIDA, nome)
                 shutil.rmtree(alvo) if os.path.isdir(alvo) else os.remove(alvo)
     shutil.copytree(SITE, SAIDA, dirs_exist_ok=True)
