@@ -1,5 +1,7 @@
 # Monte Casa Branca · direções iniciais v1 · 17/10/2026
 
+> HISTÓRICO REJEITADO pelo Diogo em 17/10/2026. Ler docs/decisoes/2026-10-17_reinicio_materiais.md e docs/fotografia/2026-10-17_leitura_materiais_v2.md. As propostas A/B/C e a seleção inicial não são a base a afinar.
+
 Estudos de apresentação, não produção. Nenhuma direção aprovada; nenhuma passagem ao Claude.
 
 ## Abrir

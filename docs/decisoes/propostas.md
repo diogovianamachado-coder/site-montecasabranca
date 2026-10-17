@@ -7,3 +7,8 @@
 - Tempo: distinguir previsão, médias históricas identificadas e ausência de dados. Open-Meteo é proposta técnica do Claude, não serviço ligado pelo ChatGPT.
 
 Não se altera o contrato de integração nesta retoma.
+
+
+## Atualização após o veto · 17/10
+
+As A/B/C e a seleção inicial foram rejeitadas. A recomendação anterior não mantém prioridade. Nova leitura e seleção de trabalho em `../fotografia/2026-10-17_leitura_materiais_v2.md`, ainda por apreciar pelo Diogo. Ver `2026-10-17_reinicio_materiais.md` antes de retomar.

@@ -254,3 +254,10 @@ Esta memória cumpre o fecho de 16–17/10. O Diogo autorizou guardar o Markdown
 
 ## 16. Frase para a próxima sessão
 “Continua o Monte Casa Branca: lê a memória docs/decisoes/2026-10-17_memoria_chatgpt.md no main de diogovianamachado-coder/site-montecasabranca e retoma o próximo passo aí registado.”
+
+
+## 17. Atualização após apresentação e veto · 17/10/2026
+
+O Diogo rejeitou as fotografias e as três direções A/B/C, que considerou demasiado semelhantes e sem qualidade de design suficiente. Pediu piscina com luz na abertura e inspeção real das subpastas e do Instagram. Gostou do tom, da maior parte dos textos, do tempo e da apresentação dos preços; afinar Diogo/anfitrião. Autorizou nova tentativa a partir dos materiais.
+
+Esta atualização prevalece sobre o próximo passo antigo: ler `2026-10-17_reinicio_materiais.md` e `../fotografia/2026-10-17_leitura_materiais_v2.md`. Anúncios/interiores e reportagem do Rodrigo agora revistos visualmente; duas pranchas de curadoria propostas, ainda sem aprovação. A/B/C preservadas apenas como histórico rejeitado. Não há página aprovada, passagem ao Claude ou publicação.

@@ -1,5 +1,7 @@
 # Seleção fotográfica inicial · estudo · 17/10/2026
 
+> HISTÓRICO REJEITADO pelo Diogo em 17/10/2026. Ler docs/decisoes/2026-10-17_reinicio_materiais.md e docs/fotografia/2026-10-17_leitura_materiais_v2.md. As propostas A/B/C e a seleção inicial não são a base a afinar.
+
 PROPOSTA do ChatGPT. Recuperadas e inspecionadas 24 miniaturas de 600 px da app; não foi vista toda a biblioteca. Ficheiros em design/estudo-imagens, não em public/imagens. A seleção ainda não foi aprovada pelo Diogo.
 
 Origens do Rodrigo relativas a Dropbox `/1. DVM/2. ANGULOS CASTIÇOS, LDA/5. Exploração AL/7. Fotos/`; autor conforme inventário; autorização pública pendente.

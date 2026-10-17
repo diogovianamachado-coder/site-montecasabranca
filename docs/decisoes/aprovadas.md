@@ -17,3 +17,8 @@ Fontes: acordo v1.2, validação de 13/10, memória ChatGPT de 17/10 e brief atu
 Atualização recebida durante a preparação: Claude é monitor, sem código de site/app/portas até nova ordem do Diogo. S22–S24 do Claude aceites como ideias; renumeração resolveu a colisão antiga. S24 é lista editorial do ChatGPT, agora entregue; não uma aprovação de layout. A escolha de lugar e aspeto do tempo pertence ao ChatGPT; exemplos fictícios de apresentação foram expressamente pedidos no recado.
 
 Nenhuma página aprovada. Nenhuma direção escolhida. Não houve «passa ao Claude» nem «Lança» nesta retoma.
+
+
+## Feedback confirmado · 17/10, após apresentação
+
+Diogo rejeitou A/B/C e as fotografias escolhidas; pediu piscina luminosa na abertura e revisão real dos materiais. Gostou do tom e da maior parte dos textos, do tempo e da apresentação dos preços; quer afinar Diogo/anfitrião. Autorizou nova tentativa a partir dos materiais. Nenhuma página ou nova seleção aprovada. Detalhe em `2026-10-17_reinicio_materiais.md`.
