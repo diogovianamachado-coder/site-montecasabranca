@@ -148,3 +148,8 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `height:auto`), correção provisória em `demo/site/correcoes-demo.css` e recado em `docs/integracao-app/RECADOS_PARA_O_CHATGPT.md`.
   Cenários (três espaços, menu, painéis, datas) verdes em Chromium. Ligação fixa r1: https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP.
   **A r1 não está aprovada**: espera o olho do Diogo; não afinar a D03 por iniciativa técnica. Workflow «Capturas» verde no GitHub.
+  **Fecho (17/10, cerca das 20h):** a pedido do Diogo, botões «Copiar» ao lado de cada ligação em `demo/site/revisoes.html` (commit
+  29eaa38) e as três ligações entregues em texto simples. **Sessão fechada sem sugestões novas (ordem do Diogo); próxima continua S31.**
+  **Próximo passo:** o Diogo vê a r1 no iPhone e diz sim/não por escrito (ChatGPT regista em `aprovadas.md`); o ChatGPT corrige o
+  logótipo na fonte D03 (recado) e entrega o avanço seguinte; o Claude implementa como r2 (rascunho), com capturas, ligação fixa e
+  `REGISTO.md`. Em aberto: autorização pública das fotos no `creditos.md` · `novo.montecasabranca.pt` · S27 · 3,2 vs 3,6 ha.
