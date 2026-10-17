@@ -261,3 +261,11 @@ Esta memória cumpre o fecho de 16–17/10. O Diogo autorizou guardar o Markdown
 O Diogo rejeitou as fotografias e as três direções A/B/C, que considerou demasiado semelhantes e sem qualidade de design suficiente. Pediu piscina com luz na abertura e inspeção real das subpastas e do Instagram. Gostou do tom, da maior parte dos textos, do tempo e da apresentação dos preços; afinar Diogo/anfitrião. Autorizou nova tentativa a partir dos materiais.
 
 Esta atualização prevalece sobre o próximo passo antigo: ler `2026-10-17_reinicio_materiais.md` e `../fotografia/2026-10-17_leitura_materiais_v2.md`. Anúncios/interiores e reportagem do Rodrigo agora revistos visualmente; duas pranchas de curadoria propostas, ainda sem aprovação. A/B/C preservadas apenas como histórico rejeitado. Não há página aprovada, passagem ao Claude ou publicação.
+
+## 18. Retoma do desenho após revisão · 17/10/2026
+
+O Diogo esclareceu que se pode gravar no GitHub: «Tens acesso ao github podes gravar». Autorização de gravação privada dos materiais deste trabalho; não é um «Lança» nem substitui licenças de publicação. As duas pranchas foram guardadas no repositório.
+
+Novos estudos completos de página inicial em `design/retoma-v2/casa-aberta.html` e `caderno-da-casa.html`, descritos em `docs/design/2026-10-17_direcoes_v2.md` e `design/retoma-v2/LEIA-ME.md`. Usam piscina luminosa, fotografias reais agora revistas, composições e tipografia diferentes, tempo de exemplo e simulador indicativo. Diogo/anfitrião afinados. A/B/C continuam rejeitadas.
+
+Verificados sintaxe, estrutura, recursos, âncoras, IDs e controlos locais. Não executado browser nem capturas 390/1280: controlo de navegador exigido pelo fluxo indisponível. Não declarar conformidade ou ausência de overflow confirmada. Próximo passo: apreciação visual do Diogo; depois verificação visual e refinamento. Nenhuma página aprovada, passagem ao Claude, código da app ou deploy.

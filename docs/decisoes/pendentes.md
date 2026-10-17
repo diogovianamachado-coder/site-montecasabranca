@@ -1,13 +1,12 @@
 # Pendentes · estado a 17/10/2026
 
-## Trabalho imediato · atualizado após o veto
+## Trabalho imediato · novos estudos entregues
 
-As três direções A/B/C e a seleção inicial foram rejeitadas pelo Diogo. Não continuar a afinar A nem pedir escolha entre as três antigas.
+1. Apreciar por olho `design/retoma-v2/casa-aberta.html` e `caderno-da-casa.html`, com a mesma base fotográfica luminosa e composições distintas. Descrição em `docs/design/2026-10-17_direcoes_v2.md`.
+2. Verificar a apresentação em navegador a 390 e 1280 px quando o controlo requerido estiver disponível. Não houve browser QA/capturas nesta entrega; estrutura e recursos foram verificados.
+3. Afinar a direção apreciada e só depois avançar às restantes páginas. Nenhuma página aprovada; A/B/C antigas permanecem rejeitadas.
 
-1. Ler `2026-10-17_reinicio_materiais.md` nesta pasta e `../fotografia/2026-10-17_leitura_materiais_v2.md` com as duas pranchas.
-2. Seleção v2 proposta, sem aprovação: piscina luminosa na abertura; interiores e vida da casa no percurso. A revisão visual cobriu os conjuntos de anúncios/interiores e a reportagem do Rodrigo; não o arquivo inteiro.
-3. Preparar direções realmente distintas na composição e sequência, preservando o tom apreciado, o tempo e a apresentação dos preços. Afinar Diogo/anfitrião.
-4. Mostrar e verificar desktop 1280 px e móvel 390 px em navegador; obter reação por olho antes de avançar nas restantes páginas.
+Diogo autorizou gravar os materiais no repositório privado. Pranchas em `docs/fotografia/curadoria-2026-10-17/`. Gravação privada não equivale a publicação ou licença pública.
 
 ## Não bloqueiam o estudo
 

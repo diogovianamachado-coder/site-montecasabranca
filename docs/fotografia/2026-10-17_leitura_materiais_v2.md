@@ -61,7 +61,11 @@ Abertura luminosa não obriga a usar só piscina. O percurso deve mostrar piscin
 | Lareira acesa | V3_inverno/WhatsApp Image 2022-12-06 at 09.59.52.jpeg | Fogo real; detalhe de inverno, resolução 768 × 1024 |
 | Vida na quinta | V2_verão/36.0.JPG (também V3_inverno/21.JPG) | Ovelhas; contexto ocasional, não serviço garantido |
 
-Pranchas entregues na conversa: 01 · Luz e casa; 02 · Interiores e estações. A cópia das imagens para o repositório ficou bloqueada pela revisão automática por exigir autorização explícita de exportação. Os JPG não fazem parte deste commit.
+Pranchas:
+- [01 · Luz e casa](curadoria-2026-10-17/01-luz-e-casa.jpg)
+- [02 · Interiores e estações](curadoria-2026-10-17/02-interiores-e-estacoes.jpg)
+
+Diogo autorizou explicitamente a gravação dos materiais no repositório privado nesta conversa de 17/10: «Tens acesso ao github podes gravar». As pranchas passam a estar guardadas aqui. Esta autorização de gravação privada não substitui a autorização de utilização pública prevista no acordo.
 
 São montagens de estudo com redimensionamento/recorte, sem filtro de cor, retoque ou imagens inventadas. Não são propostas de layout. As legendas são notas de curadoria, não texto do site.
 
