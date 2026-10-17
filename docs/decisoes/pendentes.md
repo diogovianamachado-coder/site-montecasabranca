@@ -1,12 +1,15 @@
 # Pendentes · estado a 17/10/2026
 
-## Trabalho imediato · novos estudos entregues
+## Trabalho imediato · design por resolver
 
-1. Apreciar por olho `design/retoma-v2/casa-aberta.html` e `caderno-da-casa.html`, com a mesma base fotográfica luminosa e composições distintas. Descrição em `docs/design/2026-10-17_direcoes_v2.md`.
-2. Verificar a apresentação em navegador a 390 e 1280 px quando o controlo requerido estiver disponível. Não houve browser QA/capturas nesta entrega; estrutura e recursos foram verificados.
-3. Afinar a direção apreciada e só depois avançar às restantes páginas. Nenhuma página aprovada; A/B/C antigas permanecem rejeitadas.
+Casa aberta e Caderno da casa foram rejeitadas pela estrutura demasiado semelhante às anteriores e entre si. As novas fotografias foram consideradas «ok agora» como base. Nenhuma direção aprovada.
 
-Diogo autorizou gravar os materiais no repositório privado. Pranchas em `docs/fotografia/curadoria-2026-10-17/`. Gravação privada não equivale a publicação ou licença pública.
+1. Ler `2026-10-17_fecho_design_memoria_chatgpt.md` antes de retomar; prevalece sobre os próximos passos antigos.
+2. Mostrar primeiro uma composição visual convincente e acessível ao Diogo, com diferenças de estrutura/hierarquia/navegação. Só desenvolver depois da apreciação; não afinar automaticamente uma proposta rejeitada.
+3. A última retoma encontrou problemas de contactos/meteorologia e executou 42 verificações DOM locais. As correções **não estão no main** e não são o próximo trabalho criativo. Sem QA visual/capturas 390/1280.
+4. Recolher respostas às três ideias de fecho S25–S27 antes de encerrar formalmente a memória. Estão por responder, sem aprovação.
+
+Gravação privada dos materiais autorizada pelo Diogo. Pranchas em `docs/fotografia/curadoria-2026-10-17/`. Publicação continua dependente do acordo e de licença pública.
 
 ## Não bloqueiam o estudo
 

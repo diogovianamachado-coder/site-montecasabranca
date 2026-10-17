@@ -1,4 +1,7 @@
 # Monte Casa Branca — memória de sessão do ChatGPT
+
+> **Estado mais recente:** ler [memória do fecho de design](2026-10-17_fecho_design_memoria_chatgpt.md). As A/B/C e as duas v2 foram rejeitadas pela estrutura. As fotografias melhoraram; o próximo trabalho é design.
+
 Fecho: 17/10/2026, após a meia-noite, Europe/Lisbon. Sessão de trabalho de 16–17/10/2026.  
 Estado: sessão fechada após as respostas do Diogo às três ideias finais.  
 Destino canónico: site-montecasabranca / main / docs/decisoes/2026-10-17_memoria_chatgpt.md.
@@ -269,3 +272,9 @@ O Diogo esclareceu que se pode gravar no GitHub: «Tens acesso ao github podes g
 Novos estudos completos de página inicial em `design/retoma-v2/casa-aberta.html` e `caderno-da-casa.html`, descritos em `docs/design/2026-10-17_direcoes_v2.md` e `design/retoma-v2/LEIA-ME.md`. Usam piscina luminosa, fotografias reais agora revistas, composições e tipografia diferentes, tempo de exemplo e simulador indicativo. Diogo/anfitrião afinados. A/B/C continuam rejeitadas.
 
 Verificados sintaxe, estrutura, recursos, âncoras, IDs e controlos locais. Não executado browser nem capturas 390/1280: controlo de navegador exigido pelo fluxo indisponível. Não declarar conformidade ou ausência de overflow confirmada. Próximo passo: apreciação visual do Diogo; depois verificação visual e refinamento. Nenhuma página aprovada, passagem ao Claude, código da app ou deploy.
+
+## 19. Veto das duas v2 e fecho de design · 17/10/2026
+
+O Diogo considerou as novas fotografias «ok agora», mas rejeitou a estrutura de Casa aberta e Caderno da casa por repetir as anteriores e ser demasiado semelhante entre si. Advertiu que se estavam a alterar coisas antes de ele as conseguir ver. O ChatGPT parou; as correções técnicas da última retoma ficaram apenas locais, sem push. O pedido final foi fechar a sessão e retomar design noutra conversa.
+
+A memória autónoma que prevalece é `2026-10-17_fecho_design_memoria_chatgpt.md`, com materiais revistos, entregas, limites e próximo passo. S25–S27 de fecho ainda aguardam resposta; não inferir aceitação. Nenhuma direção aprovada.

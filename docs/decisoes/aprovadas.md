@@ -22,3 +22,7 @@ Nenhuma página aprovada. Nenhuma direção escolhida. Não houve «passa ao Cla
 ## Feedback confirmado · 17/10, após apresentação
 
 Diogo rejeitou A/B/C e as fotografias escolhidas; pediu piscina luminosa na abertura e revisão real dos materiais. Gostou do tom e da maior parte dos textos, do tempo e da apresentação dos preços; quer afinar Diogo/anfitrião. Autorizou nova tentativa a partir dos materiais. Nenhuma página ou nova seleção aprovada. Detalhe em `2026-10-17_reinicio_materiais.md`.
+
+## Feedback e fecho · 17/10, depois da entrega v2
+
+Diogo: fotografias «ok agora», mas a estrutura das duas v2 repete anteriores e entre si. Casa aberta e Caderno da casa rejeitadas enquanto soluções de design. Nenhuma página aprovada. O aviso de não alterar antes de ele conseguir ver as propostas deve orientar a próxima apresentação. Pedido: fechar e continuar design noutra conversa. Memória: `2026-10-17_fecho_design_memoria_chatgpt.md`. Autorização de gravação privada mantém-se; não é autorização de publicação.
