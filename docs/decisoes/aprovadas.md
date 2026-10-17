@@ -26,3 +26,11 @@ Diogo rejeitou A/B/C e as fotografias escolhidas; pediu piscina luminosa na aber
 ## Feedback e fecho · 17/10, depois da entrega v2
 
 Diogo: fotografias «ok agora», mas a estrutura das duas v2 repete anteriores e entre si. Casa aberta e Caderno da casa rejeitadas enquanto soluções de design. Nenhuma página aprovada. O aviso de não alterar antes de ele conseguir ver as propostas deve orientar a próxima apresentação. Pedido: fechar e continuar design noutra conversa. Memória: `2026-10-17_fecho_design_memoria_chatgpt.md`. Autorização de gravação privada mantém-se; não é autorização de publicação.
+
+## Respostas finais e fecho concluído · 17/10/2026
+
+- S25, comparação de duas estações: rejeitada.
+- S26, três detalhes explicados pelo dono: rejeitada.
+- S27, teste sem fotografias: aceite **só depois** do primeiro go/no-go ao estudo inicial, para o Diogo sentir o look and feel. Primeiro mostrar o desenho com fotografias; depois recolher apreciação; só então aplicar o teste.
+
+Sessão encerrada com respostas registadas em `2026-10-17_fecho_design_memoria_chatgpt.md`. Próxima sugestão S28. Nenhuma direção ou página aprovada por esta resposta; não há implementação ou publicação autorizada.

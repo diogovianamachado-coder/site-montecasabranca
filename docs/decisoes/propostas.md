@@ -15,4 +15,4 @@ As A/B/C e a seleção inicial foram rejeitadas. A recomendação anterior não 
 
 ## Atualização depois da apreciação das v2 · 17/10
 
-Casa aberta e Caderno da casa rejeitadas pela estrutura; não são direções a afinar por omissão. Nova seleção fotográfica considerada «ok agora» como base, sem aprovação de uso público. A hipótese verbal de uma visita pelos espaços é apenas proposta do ChatGPT, não escolhida. S25–S27 de fecho registadas na nova memória, **por responder**. Próximo trabalho: composição visual/design, mostrada antes de construir outra página inteira.
+Casa aberta e Caderno da casa rejeitadas pela estrutura; não são direções a afinar por omissão. Nova seleção fotográfica considerada «ok agora» como base, sem aprovação de uso público. A hipótese verbal de uma visita pelos espaços é apenas proposta do ChatGPT, não escolhida. Respostas de fecho registadas na nova memória: **S25 e S26 rejeitadas; S27 aceite só depois do primeiro go/no-go ao estudo inicial de design**, para sentir o look and feel. Próximo trabalho: composição visual/design, mostrada antes de construir outra página inteira.

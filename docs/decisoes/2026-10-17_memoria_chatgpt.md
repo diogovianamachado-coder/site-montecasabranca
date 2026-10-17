@@ -277,4 +277,4 @@ Verificados sintaxe, estrutura, recursos, âncoras, IDs e controlos locais. Não
 
 O Diogo considerou as novas fotografias «ok agora», mas rejeitou a estrutura de Casa aberta e Caderno da casa por repetir as anteriores e ser demasiado semelhante entre si. Advertiu que se estavam a alterar coisas antes de ele as conseguir ver. O ChatGPT parou; as correções técnicas da última retoma ficaram apenas locais, sem push. O pedido final foi fechar a sessão e retomar design noutra conversa.
 
-A memória autónoma que prevalece é `2026-10-17_fecho_design_memoria_chatgpt.md`, com materiais revistos, entregas, limites e próximo passo. S25–S27 de fecho ainda aguardam resposta; não inferir aceitação. Nenhuma direção aprovada.
+A memória autónoma que prevalece é `2026-10-17_fecho_design_memoria_chatgpt.md`, com materiais revistos, entregas, limites e próximo passo. Respostas de fecho registadas: S25 e S26 rejeitadas; S27 aceite só depois do primeiro go/no-go ao estudo inicial, para o Diogo sentir o look and feel. Sessão encerrada; próxima sugestão S28. Nenhuma direção aprovada.

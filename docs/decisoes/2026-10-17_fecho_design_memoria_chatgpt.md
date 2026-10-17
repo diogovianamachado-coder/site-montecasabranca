@@ -1,7 +1,7 @@
 # Monte Casa Branca · memória da sessão de 17/10/2026 · fecho do trabalho de design
 
 **Referência para a próxima conversa.** Pedido do Diogo: «Fecha a sessão e avançamos na próxima conversa com o design», 17/10/2026, cerca das 18h18 Europe/Lisbon.
-**Estado do fecho:** trabalho interrompido para retomar noutra conversa; falta apenas recolher e registar as respostas às três ideias de fecho S25–S27. Não inventar respostas ou dar as ideias por aprovadas.
+**Estado do fecho:** sessão encerrada em 17/10/2026 após a resposta do Diogo às três ideias finais. S25 e S26 rejeitadas; S27 aceite com condição temporal. Próxima conversa dedicada ao estudo inicial de design e ao primeiro go/no-go do look and feel.
 
 ## 1. Ler primeiro: onde estamos realmente
 
@@ -120,36 +120,42 @@ Após o aviso do Diogo, **essas correções, testes e respetivos apontamentos lo
 1. Ler esta memória e o main atualizado, incluindo CLAUDE.md e o acordo v1.2.
 2. Dizer brevemente: fotografias melhores/aceitáveis como base, todas as estruturas propostas rejeitadas, nenhum design aprovado.
 3. Trabalhar **design**. Preparar uma composição visual realmente convincente, com os materiais reais já revistos e diferenças estruturais claras; garantir uma forma de apresentação que o Diogo consiga abrir.
-4. Mostrar e recolher apreciação antes de construir novamente uma página completa ou afinar uma proposta rejeitada.
-5. Só depois desenvolver a direção apreciada; concluir revisão visual em navegador antes de alegar conformidade.
-6. Não retomar por simulador, documentação, testes ou novas funcionalidades como substituto do problema principal de design.
-7. Manter tom, tempo, apresentação de preços e identificação coerente do Diogo. Branding secundário, logo atual preservado.
+4. Mostrar o estudo inicial com fotografias e recolher o primeiro go/no-go do Diogo sobre o look and feel antes de construir novamente uma página completa ou afinar uma proposta rejeitada.
+5. Só depois desse primeiro go/no-go aplicar S27, o teste temporário sem fotografias. Não o executar antes da primeira apreciação visual.
+6. Só depois desenvolver a direção apreciada; concluir revisão visual em navegador antes de alegar conformidade.
+7. Não retomar por simulador, documentação, testes ou novas funcionalidades como substituto do problema principal de design.
+8. Manter tom, tempo, apresentação de preços e identificação coerente do Diogo. Branding secundário, logo atual preservado.
 
 Não voltar a pedir todo o briefing ou a biblioteca. Não usar «visita pela casa» como uma escolha já feita.
 
-## 8. Ideias de fecho · aguardam resposta
+## 8. Ideias de fecho · respostas registadas
 
-Numeração conferida no main de docs/temas/SITE.md da app e no CLAUDE.md do site: S1–S24 usadas; S25 estava apenas indicada como próxima.
+Resposta literal do Diogo em 17/10/2026:
+> S25 s26 não
+> S27 sim mas só depois do primeiro go/nogo ao deste de design inicial para sentir o look and fell
+
+Interpretação direta: S25 e S26 rejeitadas; S27 aceite, mas apenas depois do primeiro go/no-go ao estudo inicial de design, para o Diogo sentir o look and feel.
 
 ### S25 · A mesma casa, duas estações
-**Estado: POR RESPONDER.**
-Comparar fotografias reais do mesmo lugar no verão e no inverno, lado a lado ou com um gesto simples, para tornar visível o motivo de vir fora da época alta. A piscina luminosa continua a ser a imagem principal.
-Não há implementação autorizada por este registo.
+**Estado: REJEITADA.**
+Era proposta uma comparação visual do mesmo lugar em duas estações. Não desenvolver nem voltar a apresentar como ideia nova. A rejeição desta interação não elimina os factos e imagens de inverno já disponíveis.
 
 ### S26 · Três detalhes que só o dono explicaria
-**Estado: POR RESPONDER.**
-Usar três pormenores fotografados para revelar escolhas do Diogo: os copos e utensílios generosos, o cuidado com a cama, a autonomia na chegada. Pequenas descobertas na visita, com informação também acessível sem interação.
-Não há implementação autorizada por este registo.
+**Estado: REJEITADA.**
+Era proposta uma descoberta por pormenores fotografados e explicações das escolhas do Diogo. Não desenvolver nem voltar a apresentar como ideia nova. Os factos de conforto e equipamento continuam válidos.
 
 ### S27 · O teste sem fotografias
-**Estado: POR RESPONDER.**
-Antes de aprovar uma direção, mostrar também a sua composição sem imagens. Se a hierarquia, a navegação e o ritmo ficarem iguais aos das outras, a direção ainda não é suficientemente distinta. É um teste de design, não uma proposta de site sem fotografias.
-Não há implementação autorizada por este registo.
+**Estado: ACEITE COM CONDIÇÃO — APENAS DEPOIS DO PRIMEIRO GO/NO-GO.**
+Ordem decidida pelo Diogo:
+1. Preparar e apresentar o estudo inicial de design **com fotografias**, para sentir o look and feel.
+2. Recolher o primeiro go/no-go do Diogo.
+3. Só depois aplicar o teste temporário sem fotografias para avaliar a distinção da estrutura, hierarquia e navegação.
 
-Até responder, nenhuma destas ideias é uma decisão do Diogo. Depois de registar as três respostas, próxima sugestão S28; conferir novamente a numeração partilhada antes de a usar.
+Não converter S27 num exercício prévio à primeira apresentação ou numa proposta de site sem fotografias. A aceitação deste teste não aprova nenhuma das direções rejeitadas nem autoriza implementação, produção ou publicação.
 
+As três respostas estão registadas; **próxima sugestão S28**, conferindo novamente a numeração partilhada antes de a atribuir.
 Estados anteriores preservados: S19 convite para reunir o grupo aceite para desenvolver; S20 visita filmada futuro/por decidir; S21 mensagem do hóspede na futura app; S22–S24 do Claude aceites como ideias, incluindo lista editorial de vinte perguntas. Não reapresentar como novas.
 
 ## 9. Frase de retoma
 
-«Continua o Monte Casa Branca: lê docs/decisoes/2026-10-17_fecho_design_memoria_chatgpt.md no main de diogovianamachado-coder/site-montecasabranca. Retoma pelo design, com as fotografias já revistas e todas as propostas anteriores rejeitadas pela estrutura. Mostra primeiro uma composição visual antes de construir outra página inteira.»
+«Continua o Monte Casa Branca: lê docs/decisoes/2026-10-17_fecho_design_memoria_chatgpt.md no main de diogovianamachado-coder/site-montecasabranca e retoma pelo estudo visual inicial de design, para eu avaliar o look and feel antes de avançarmos.»
