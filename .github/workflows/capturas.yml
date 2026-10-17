@@ -1,0 +1,55 @@
+# Capturas da demo (S30, aceite pelo Diogo a 17/10/2026): em cada push que toque em demo/,
+# corre os testes da demo e as capturas a 390 e 1280 px. Só demo/; sem deploy, sem
+# publicação, sem segredos. O workflow de deploy do site continua por criar (acordo v1.2,
+# secção 9: só com a raiz da Amen confirmada e o «Lança» do Diogo).
+name: Capturas
+
+on:
+  push:
+    paths:
+      - "demo/**"
+      - ".github/workflows/capturas.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capturas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Testes da demo
+        run: python3 demo/ferramentas/demo.py testar
+
+      - name: Instalar Playwright e Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Servir a demo construída
+        run: |
+          python3 demo/ferramentas/demo.py servir 8787 > servir.log 2>&1 &
+          for i in $(seq 1 20); do curl -sf http://127.0.0.1:8787/ > /dev/null && break; sleep 0.5; done
+          curl -sI http://127.0.0.1:8787/ | head -1
+
+      - name: Capturas 390 e 1280 px
+        run: node demo/ferramentas/captura.cjs --base http://127.0.0.1:8787 --saida demo/_saida/capturas
+
+      - name: Guardar capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-demo-${{ github.sha }}
+          path: demo/_saida/capturas
+          if-no-files-found: ignore

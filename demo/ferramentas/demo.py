@@ -5,7 +5,8 @@
     python3 demo/ferramentas/demo.py construir   gera demo/_saida/ com o commit carimbado
     python3 demo/ferramentas/demo.py servir      constrói e serve em http://127.0.0.1:8787
     python3 demo/ferramentas/demo.py empacotar   constrói e cria demo/_pacotes/demo-<rev>-<commit>.zip
-    python3 demo/ferramentas/demo.py artefacto   constrói e gera demo/_saida/artefacto/ (variante para o claude.ai)
+    python3 demo/ferramentas/demo.py artefacto   constrói e gera demo/_saida/artefacto/ (variante para o claude.ai, ligação «mais recente»)
+    python3 demo/ferramentas/demo.py artefacto --fixa   idem em demo/_saida/artefacto-<rev>/ (ligação fixa da revisão, S29)
 
 Nada aqui toca em public/, src/, design/, docs/ ou na app. _saida/ e _pacotes/ são
 gerados e não se versionam.
@@ -55,8 +56,9 @@ def commit_atual():
     return completo, sujo
 
 
-def versao_js(v, carimbar):
+def versao_js(v, carimbar, fixa=False):
     dados = dict(v)
+    dados["ligacao_fixa"] = bool(fixa)
     if carimbar:
         completo, sujo = commit_atual()
         dados["site_commit"] = completo[:12] if completo else None
@@ -143,8 +145,8 @@ def verificar_pagina(caminho, v, falhas, avisos):
     p.fim()
     for e in p.erros:
         falhas.append(f"{nome}: {e}")
-    if p.lang != "pt" and not nome.startswith("en/"):
-        falhas.append(f"{nome}: <html lang> devia ser «pt» (está {p.lang!r})")
+    if p.lang not in ("pt", "pt-PT") and not nome.startswith("en/"):
+        falhas.append(f"{nome}: <html lang> devia ser «pt» ou «pt-PT» (está {p.lang!r})")
     if not p.titulo or not p.titulo_texto.strip():
         falhas.append(f"{nome}: sem <title>")
     if "viewport" not in p.metas:
@@ -196,6 +198,21 @@ def testar(verboso=True):
             falhas.append(f"versao.json: página {pag} não existe em demo/site")
     if v.get("estado") in ("rascunho", "aprovado") and not (v.get("design") or {}).get("commit"):
         falhas.append("versao.json: estado rascunho/aprovado exige «design.commit»")
+    # histórico (S29): a revisão atual tem de estar no histórico; as anteriores com commit e ligação
+    hist = v.get("historico") or []
+    revs = [h.get("revisao") for h in hist]
+    if v.get("revisao") not in revs:
+        falhas.append("versao.json: a revisão atual não está em «historico»")
+    for h in hist:
+        if h.get("estado") not in ESTADOS:
+            falhas.append(f"versao.json: histórico {h.get('revisao')} com estado {h.get('estado')!r} inválido")
+        if h.get("revisao") != v.get("revisao") and not (h.get("site_commit") and h.get("endereco")):
+            falhas.append(f"versao.json: histórico {h.get('revisao')} sem «site_commit» ou «endereco»")
+    if os.path.exists(REGISTO):
+        texto_registo = open(REGISTO, encoding="utf-8").read()
+        for h in hist:
+            if f"| {h.get('revisao')} |" not in texto_registo:
+                falhas.append(f"REGISTO.md: sem linha para {h.get('revisao')} do histórico")
     # REGISTO.md menciona a revisão
     if os.path.exists(REGISTO):
         with open(REGISTO, encoding="utf-8") as f:
@@ -221,14 +238,29 @@ def testar(verboso=True):
         rel = os.path.relpath(pag, SITE)
         if rel not in (v.get("paginas") or {}):
             falhas.append(f"versao.json: página {rel} existe mas não está listada em «paginas»")
-    # imagens em demo/site exigem linha no creditos.md
+    # imagens em demo/site: cada uma com origem em demo/imagens.json e o original citado no creditos.md
     creditos = os.path.join(RAIZ, "docs", "fotografia", "creditos.md")
     texto_creditos = open(creditos, encoding="utf-8").read() if os.path.exists(creditos) else ""
+    mapa_imagens = os.path.join(DEMO, "imagens.json")
+    mapa = json.load(open(mapa_imagens, encoding="utf-8")) if os.path.exists(mapa_imagens) else {}
     for pasta, _, ficheiros in os.walk(SITE):
         for f in ficheiros:
             if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".avif")):
-                if f not in texto_creditos:
-                    falhas.append(f"imagem {f} em demo/site sem linha em docs/fotografia/creditos.md")
+                rel = os.path.relpath(os.path.join(pasta, f), SITE)
+                entrada = mapa.get(rel)
+                if not entrada:
+                    falhas.append(f"imagem {rel} em demo/site sem entrada em demo/imagens.json")
+                    continue
+                origem = os.path.join(RAIZ, entrada.get("ficheiro_repo", ""))
+                if not os.path.exists(origem):
+                    falhas.append(f"imagem {rel}: «ficheiro_repo» {entrada.get('ficheiro_repo')} não existe")
+                elif open(origem, "rb").read() != open(os.path.join(pasta, f), "rb").read():
+                    falhas.append(f"imagem {rel}: difere de {entrada.get('ficheiro_repo')} (a demo não retoca imagens)")
+                original = entrada.get("original", "")
+                if original and original not in texto_creditos:
+                    falhas.append(f"imagem {rel}: original {original} sem linha em docs/fotografia/creditos.md")
+                if not entrada.get("autorizacao_publica"):
+                    avisos.append(f"imagem {rel}: sem autorização pública registada (serve só na demo privada)")
     # sintaxe JS: só se houver node
     if shutil.which("node"):
         for pasta, _, ficheiros in os.walk(SITE):
@@ -313,23 +345,31 @@ def empacotar():
 
 # ---------- artefacto (variante para a página privada do claude.ai) ----------
 
-def artefacto():
+def artefacto(fixa=False):
     """A página do claude.ai embrulha o ficheiro num esqueleto próprio; por isso a
     entrada é entregue como fragmento (título, metas e corpo) e as restantes
-    páginas como ficheiros completos."""
-    construir()
-    destino = os.path.join(SAIDA, "artefacto")
-    shutil.copytree(SAIDA, destino, ignore=shutil.ignore_patterns("artefacto", "capturas"))
+    páginas como ficheiros completos. Com fixa=True gera a variante da ligação
+    própria da revisão (S29): pasta artefacto-<rev>, título com a revisão e
+    versao.js com ligacao_fixa."""
+    v = construir()
+    destino = os.path.join(SAIDA, "artefacto-" + v["revisao"] if fixa else "artefacto")
+    if os.path.isdir(destino):
+        shutil.rmtree(destino)
+    shutil.copytree(SAIDA, destino, ignore=shutil.ignore_patterns("artefacto*", "capturas"))
+    with open(os.path.join(destino, "versao.js"), "w", encoding="utf-8") as f:
+        f.write(versao_js(v, carimbar=True, fixa=fixa))
     entrada = os.path.join(destino, "index.html")
     texto = open(entrada, encoding="utf-8").read()
     titulo = re.search(r"<title>(.*?)</title>", texto, re.S).group(1)
+    if fixa:
+        titulo = "Monte Casa Branca · demo " + v["revisao"]
     cabeca = re.search(r"<head>(.*?)</head>", texto, re.S).group(1)
     corpo = re.search(r"<body>(.*?)</body>", texto, re.S).group(1)
     links = "\n".join(l for l in cabeca.splitlines() if "<link" in l or 'name="robots"' in l)
     fragmento = (f"<title>{titulo}</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n{links}\n{corpo}")
     with open(entrada, "w", encoding="utf-8") as f:
         f.write(fragmento)
-    print("Variante para artefacto em demo/_saida/artefacto/ (index.html como fragmento)")
+    print(f"Variante para artefacto em {os.path.relpath(destino, RAIZ)}/ (index.html como fragmento{', ligação fixa ' + v['revisao'] if fixa else ''})")
 
 
 # ---------- principal ----------
@@ -349,7 +389,7 @@ def principal(argv):
     if cmd == "empacotar":
         empacotar(); return 0
     if cmd == "artefacto":
-        artefacto(); return 0
+        artefacto(fixa="--fixa" in argv[2:]); return 0
     print("comando desconhecido:", cmd)
     print(__doc__)
     return 2

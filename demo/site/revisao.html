@@ -32,7 +32,8 @@
         <tr><th scope="row">Estado do design</th><td data-versao="design_estado"></td></tr>
         <tr><th scope="row">Commit do site</th><td class="mono" data-versao="site_commit">não carimbado</td></tr>
         <tr><th scope="row">Construída em</th><td><time data-versao="construido_em" data-versao-hora>não carimbado</time></td></tr>
-        <tr><th scope="row">Endereço de teste</th><td data-versao="endereco_teste">ainda sem endereço</td></tr>
+        <tr><th scope="row">Endereço de teste (mais recente)</th><td data-versao="endereco_teste">ainda sem endereço</td></tr>
+        <tr><th scope="row">Esta ligação</th><td data-versao="ligacao">mais recente</td></tr>
       </tbody>
     </table>
   </section>
@@ -51,7 +52,8 @@
     <ul>
       <li>No telemóvel, pelo endereço de teste indicado acima, quando existir.</li>
       <li>No computador, abrindo <code>demo/site/index.html</code> do ficheiro, ou com <code>python3 demo/ferramentas/demo.py servir</code>.</li>
-      <li>Cada revisão fica registada em <code>demo/REGISTO.md</code> com o commit, para se poder voltar à anterior.</li>
+      <li>Cada revisão fica registada em <code>demo/REGISTO.md</code> com o commit e tem ligação própria em <a href="revisoes.html">todas as revisões</a>.</li>
+      <li>As capturas de cada revisão a 390 e 1280 px ficam em <code>demo/capturas/rN/</code>, para comparar revisões lado a lado.</li>
     </ul>
   </section>
 
@@ -66,6 +68,7 @@
   </section>
 
   <nav class="botoes" aria-label="Voltar">
+    <a class="botao" href="revisoes.html">Todas as revisões</a>
     <a class="botao" href="index.html">Voltar à entrada da demo</a>
   </nav>
 

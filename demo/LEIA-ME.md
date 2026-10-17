@@ -16,6 +16,10 @@ no Linktree, nos workflows ou na app.
 | `REGISTO.md` | Histórico de revisões: rascunho, aprovado ou rejeitado, com commit e endereço, para se poder voltar atrás. |
 | `ferramentas/demo.py` | Python 3, biblioteca padrão: `testar`, `construir`, `servir`, `empacotar`, `artefacto`. |
 | `ferramentas/captura.cjs` | Capturas a 390 e 1280 px com Playwright/Chromium, opcional. |
+| `capturas/rN/` | **S28:** capturas versionadas de cada revisão, para comparar lado a lado sem abrir o commit antigo. |
+| `imagens.json` | Origem de cada imagem em `site/` (ficheiro no repositório, original, autor, autorização). O teste falha sem entrada. |
+| `site/revisoes.html` | **S29:** lista de todas as revisões com a ligação fixa de cada uma. |
+| `../.github/workflows/capturas.yml` | **S30:** workflow «Capturas», só para `demo/`: testes e capturas em cada push; sem deploy. |
 | `_saida/`, `_pacotes/` | Gerados; ignorados pelo git. |
 
 A zona de revisão (`site/revisao.html`) mostra que revisão, entrega de design e commit estão
@@ -31,7 +35,8 @@ implementados. A identificação técnica fica aí e no rodapé, não no conteú
    âncoras locais existentes, nenhum recurso externo fora do Google Fonts, imagens com linha em
    `docs/fotografia/creditos.md`, sintaxe JS, `versao.json` coerente com `REGISTO.md` e `versao.js`.
 4. **Capturas:** com o servidor a correr, `NODE_PATH=$(npm root -g) node demo/ferramentas/captura.cjs`.
-   Grava PNG em `demo/_saida/capturas/` e falha com rolagem horizontal, erros de consola ou pedidos falhados.
+   Grava PNG em `demo/capturas/<revisão>/` (versionadas, S28) e falha com rolagem horizontal, erros de consola
+   ou pedidos falhados. `--saida pasta` muda o destino; o workflow usa `demo/_saida/capturas`.
 5. **Pacote estático:** `python3 demo/ferramentas/demo.py empacotar` cria `demo/_pacotes/demo-<rev>-<commit>.zip`
    com a demo construída, para quem precise de a abrir noutro lado.
 
@@ -42,6 +47,10 @@ desligado, sem workflows). O único canal com evidência nas sessões do Claude 
 claude.ai** (ferramenta Artifact): o Claude publica a demo construída numa ligação `claude.ai/artifact/…`
 privada por omissão, que o Diogo abre no iPhone com a conta dele. A mesma ligação mantém-se de revisão
 para revisão; a página de revisão diz sempre que revisão e commit estão lá.
+
+**Duas ligações por revisão (S29):** a ligação principal mostra sempre a revisão mais recente; cada revisão tem
+ainda uma ligação fixa própria (`demo.py artefacto --fixa` gera `demo/_saida/artefacto-rN/`, publicada uma vez e
+nunca reescrita), listada em `site/revisoes.html` e em `REGISTO.md`, para comparar duas revisões por olho.
 
 Limites desse canal: não é um domínio do Monte, só o Diogo (ou quem ele partilhar) a vê, e a página de
 entrada é embrulhada pelo claude.ai (por isso `demo.py artefacto` gera a variante). Um endereço de ensaio
@@ -56,8 +65,9 @@ e desktop), o Claude:
 1. Implementa em `demo/site/`, sem copiar `interacao.js` das propostas rejeitadas.
 2. Sobe a revisão em `versao.json` (`r1`, `r2`…), com `design.entrega` e `design.commit`, e estado
    **rascunho** até apreciação do Diogo.
-3. Regista a linha em `REGISTO.md`, corre `testar` e as capturas, faz commit «SITE · demo rN · …» e
-   republica o endereço de teste.
+3. Regista a linha em `REGISTO.md` e em `versao.json` (`historico`), corre `testar` e as capturas para
+   `demo/capturas/rN/`, faz commit «SITE · demo rN · …», republica a ligação principal e publica a ligação
+   fixa da revisão. O workflow «Capturas» repete os testes no GitHub.
 4. Avisa na conversa antes de substituir uma revisão em apreciação; a anterior reproduz-se pelo commit.
 
 Aprovado, rejeitado e rascunho ficam separados no registo. Nunca se presume aprovação por silêncio.
@@ -74,5 +84,6 @@ Aprovado, rejeitado e rascunho ficam separados no registo. Nunca se presume apro
 ## Estado atual
 
 - **Revisão:** r0 · preparação técnica · 2026-10-17.
-- **Commit do site:** o commit «SITE · demo r0 · base técnica» no `git log`; carimbado em `versao.js` por `demo.py construir`.
-- **Endereço de teste:** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; abre no iPhone com a conta do Diogo).
+- **Ligação principal (mais recente):** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; abre no iPhone com a conta do Diogo).
+- **Ligação fixa r0:** https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV
+- **Commit do site:** carimbado em `versao.js` por `demo.py construir`; ver `REGISTO.md`.

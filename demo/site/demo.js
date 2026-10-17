@@ -14,7 +14,8 @@
     design_estado: "",
     site_commit: "não carimbado (cópia local; correr demo.py construir)",
     construido_em: "não carimbado",
-    endereco_teste: "ainda sem endereço"
+    endereco_teste: "ainda sem endereço",
+    ligacao: "mais recente"
   };
   var campos = {
     revisao: v.revisao,
@@ -26,7 +27,8 @@
     design_estado: v.design && v.design.estado,
     site_commit: v.site_commit ? (v.site_commit + (v.site_sujo ? " (com alterações por gravar)" : "")) : null,
     construido_em: v.construido_em,
-    endereco_teste: v.endereco_teste
+    endereco_teste: v.endereco_teste,
+    ligacao: v.ligacao_fixa ? ("fixa, revisão " + v.revisao + " (não muda)") : "mais recente (muda a cada revisão)"
   };
   var nos = document.querySelectorAll("[data-versao]");
   for (var i = 0; i < nos.length; i++) {
@@ -45,6 +47,35 @@
       li.appendChild(a);
       li.appendChild(document.createTextNode(" · " + v.paginas[p]));
       lista.appendChild(li);
+    });
+  }
+  var corpo = document.querySelector("[data-versao-historico]");
+  if (corpo && v.historico && v.historico.length) {
+    corpo.innerHTML = "";
+    v.historico.slice().reverse().forEach(function (h) {
+      var tr = document.createElement("tr");
+      var atual = h.revisao === v.revisao;
+      function celula(conteudo, mono) {
+        var td = document.createElement("td");
+        if (mono) td.className = "mono";
+        if (typeof conteudo === "string") td.textContent = conteudo; else td.appendChild(conteudo);
+        tr.appendChild(td);
+      }
+      celula(h.revisao + (atual ? " (atual)" : ""));
+      celula(h.data || "");
+      celula(h.estado || "");
+      celula(h.titulo || "");
+      if (h.endereco) {
+        var a = document.createElement("a"); a.href = h.endereco; a.textContent = "abrir " + h.revisao;
+        celula(a);
+      } else if (atual && v.ligacao_fixa) {
+        celula("esta ligação");
+      } else {
+        celula("ainda sem ligação própria");
+      }
+      var commit = h.site_commit || (atual ? v.site_commit : null);
+      celula(commit ? String(commit).slice(0, 12) : "por carimbar", true);
+      corpo.appendChild(tr);
     });
   }
   var hora = document.querySelector("[data-versao-hora]");

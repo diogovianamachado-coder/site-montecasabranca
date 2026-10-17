@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Monte Casa Branca · demo · revisões</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<main class="pagina">
+  <header class="cabecalho">
+    <a class="marca" href="index.html">Monte Casa Branca</a>
+    <span class="rotulo">Revisões · atual <span class="chip" data-versao="revisao">r?</span></span>
+  </header>
+
+  <section>
+    <p class="rotulo">Zona de revisão</p>
+    <h1>Todas as revisões da demo</h1>
+    <p>Cada revisão tem a sua ligação própria, que não muda depois de publicada, para se poder comparar duas por olho no telemóvel. A ligação principal da demo mostra sempre a revisão mais recente.</p>
+  </section>
+
+  <section class="tabela-envolvente">
+    <table>
+      <thead>
+        <tr><th scope="col">Revisão</th><th scope="col">Data</th><th scope="col">Estado</th><th scope="col">O que contém</th><th scope="col">Ligação</th><th scope="col">Commit</th></tr>
+      </thead>
+      <tbody data-versao-historico>
+        <tr><td>r0</td><td>2026-10-17</td><td>preparacao-tecnica</td><td>Base técnica</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="suave">Estados: preparação técnica · rascunho (entregue, ainda não apreciado) · aprovado (sim expresso do Diogo, com data) · rejeitado. A aprovação regista-se em <code>docs/decisoes/aprovadas.md</code>, não aqui.</p>
+  </section>
+
+  <nav class="botoes" aria-label="Navegação da zona de revisão">
+    <a class="botao" href="revisao.html">Estado técnico desta revisão</a>
+    <a class="botao" href="index.html">Entrada da demo</a>
+  </nav>
+
+  <footer class="rodape">
+    <span>Zona de revisão da demo · não indexada · não é conteúdo do site</span>
+    <span>Esta ligação: <span data-versao="ligacao">mais recente</span></span>
+  </footer>
+</main>
+<script src="versao.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
