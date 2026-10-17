@@ -30,6 +30,24 @@
     endereco_teste: v.endereco_teste,
     ligacao: v.ligacao_fixa ? ("fixa, revisão " + v.revisao + " (não muda)") : "mais recente (muda a cada revisão)"
   };
+  function botaoCopiar(texto, alvoSelecionavel) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "copiar"; b.textContent = "Copiar";
+    b.addEventListener("click", function () {
+      function feito(ok) { b.textContent = ok ? "Copiado" : "Seleciona e copia"; setTimeout(function () { b.textContent = "Copiar"; }, 2000); }
+      function selecionar() {
+        if (!alvoSelecionavel) return feito(false);
+        var r = document.createRange(); r.selectNodeContents(alvoSelecionavel);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        var ok = false; try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+        feito(ok);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(function () { feito(true); }, selecionar);
+      } else { selecionar(); }
+    });
+    return b;
+  }
   var nos = document.querySelectorAll("[data-versao]");
   for (var i = 0; i < nos.length; i++) {
     var chave = nos[i].getAttribute("data-versao");
@@ -66,8 +84,11 @@
       celula(h.estado || "");
       celula(h.titulo || "");
       if (h.endereco) {
-        var a = document.createElement("a"); a.href = h.endereco; a.textContent = "abrir " + h.revisao;
-        celula(a);
+        var bloco = document.createElement("span"); bloco.className = "ligacao";
+        var a = document.createElement("a"); a.href = h.endereco; a.textContent = "abrir " + h.revisao; a.target = "_blank"; a.rel = "noopener";
+        var url = document.createElement("code"); url.className = "url"; url.textContent = h.endereco;
+        bloco.appendChild(a); bloco.appendChild(url); bloco.appendChild(botaoCopiar(h.endereco, url));
+        celula(bloco);
       } else if (atual && v.ligacao_fixa) {
         celula("esta ligação");
       } else {
@@ -77,6 +98,13 @@
       celula(commit ? String(commit).slice(0, 12) : "por carimbar", true);
       corpo.appendChild(tr);
     });
+  }
+  var principal = document.querySelector("[data-versao-principal]");
+  if (principal && v.endereco_teste) {
+    principal.innerHTML = "";
+    var ap = document.createElement("a"); ap.href = v.endereco_teste; ap.textContent = "abrir a mais recente"; ap.target = "_blank"; ap.rel = "noopener";
+    var urlp = document.createElement("code"); urlp.className = "url"; urlp.textContent = v.endereco_teste;
+    principal.appendChild(ap); principal.appendChild(urlp); principal.appendChild(botaoCopiar(v.endereco_teste, urlp));
   }
   var hora = document.querySelector("[data-versao-hora]");
   if (hora && v.construido_em) hora.setAttribute("datetime", v.construido_em);
