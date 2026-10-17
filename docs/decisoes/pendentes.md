@@ -1,5 +1,15 @@
 # Pendentes · estado a 17/10/2026
 
+## Atualização que prevalece · cerca das 19h20
+
+- Design apelativo continua a prioridade. Janela/Índice insuficientes; nenhuma direção aprovada. Os anexos devolvidos demonstram qualidade esperada e não servem de modelos para copiar.
+- **Nova instrução do Diogo: Claude prepara a demo incremental em paralelo com o design**, no âmbito de [2026-10-17_demo_incremental_handoff_claude.md](2026-10-17_demo_incremental_handoff_claude.md). A indicação histórica de monitor exclusivo abaixo deixa de impedir esta preparação delimitada. Produção e app mantêm as restrições anteriores.
+- Próximo passo técnico do Claude: preparar execução/versões/acesso de teste da demo e devolver endereço real ou dependência concreta. Ainda não houve execução ou confirmação de leitura pelo Claude.
+- Próximo passo criativo do ChatGPT: resolver o desenho e entregar incrementos editáveis para a demo. Não transformar a prancha num site de uma imagem; não ressuscitar propostas rejeitadas.
+- A primeira apreciação das composições desta retoma ocorreu e foi negativa. S27 não executado; não substitui o design. Aguardar novos avanços visuais, não uma escolha automática entre as propostas insuficientes.
+
+As secções seguintes conservam o contexto anterior e devem ser lidas com esta atualização.
+
 ## Trabalho imediato · design por resolver
 
 Casa aberta e Caderno da casa foram rejeitadas pela estrutura demasiado semelhante às anteriores e entre si. As novas fotografias foram consideradas «ok agora» como base. Nenhuma direção aprovada.
