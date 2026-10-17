@@ -1,6 +1,14 @@
 # Monte Casa Branca · estudo visual inicial · 17/10/2026
 
-Estado: **duas propostas para o primeiro go/no-go; nenhuma aprovada.**
+Estado atualizado: **Janela e Índice apreciadas como insuficientes; nenhuma direção aprovada.**
+
+## Feedback posterior do Diogo · cerca das 19h15–19h20
+
+A mensagem «Cada um ao seu ritmo» e a ideia dos três espaços agradam, mas a página branca com três fotos, legendas e 1/2/3 foi criticada como básica. A foto grande na entrada agrada; a mensagem da Janela e o mobile foram criticados. Não afinar automaticamente uma das duas como escolhida.
+
+Os três anexos devolvidos servem para mostrar que o ChatGPT consegue um nível de acabamento melhor; **não são modelos a copiar**. Fica corrigida a recomendação anterior do ChatGPT de os usar como referências de execução no Lovable. A discussão de conectores não escolheu plataforma nem criou projeto.
+
+Design apelativo é a prioridade principal; o utilizador reconhece avanços na mensagem mas não no desenho. Nova ordem: preparar demo testável com implementação incremental pelo Claude. Ver [handoff](../decisoes/2026-10-17_demo_incremental_handoff_claude.md). A primeira apreciação ocorreu; S27 não foi executado. As secções abaixo documentam a entrega e expectativa inicial, sem a converter em aprovada.
 
 ## Ponto de partida
 
@@ -36,6 +44,6 @@ O widget do tempo está representado nas vistas desktop, com temperaturas marcad
 
 Sem alterações à produção, src/, app, CLAUDE.md, workflows, logo original, DNS ou alojamento. Sem publicação.
 
-## Próximo passo
+## Próximo passo atualizado
 
-Aguardar que o Diogo veja as composições e dê o primeiro go/no-go: 01, 02 ou nenhum. Não alterar as propostas durante a apreciação. **Só depois aplicar S27**, e só depois desenvolver a direção apreciada. S25/S26 continuam rejeitadas. Não há novas sugestões S nesta entrega.
+Resolver o design após a apreciação negativa; não desenvolver automaticamente Janela ou Índice. Claude prepara a base da demo e integra os avanços designados pelo ChatGPT, com versão e teste, segundo o handoff. A execução técnica não equivale a aprovação estética. S27 continua por executar; S25/S26 continuam rejeitadas. Não há novas sugestões S nesta entrega.
