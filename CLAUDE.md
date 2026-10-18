@@ -169,3 +169,31 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   (ocupação, fim de semana, estadia, antecedência, distritos): a receita janela a janela ficou na conversa; o relatório #193 cobre tudo
   isso em texto. Nota de monitor: o GPT fala numa «prancha escolhida» e num «conceito aprovado visualmente» que **não existem em
   `aprovadas.md`**; avisado o Diogo.
+  **19/10 (00h–01h) · FECHO DA 7.ª SESSÃO SITE.** (1) **#193 no servidor da app** (deploy n.º 115 = `46a6a16`; memória da app `6607ac9`).
+  O Diogo faz os testes na app quando calhar («Testes a continuar na app»); à 01h de 19/10 não há pasta `kpi/` no Dropbox (a `backups/`
+  está), logo o T2 não foi feito; pelo documento do GPT, o relatório foi-lhe entregue às 23h56 por «Copiar». **Secção 8 do documento KPI
+  por preencher**: pelo conector quando houver `13. APP Gestão AL/kpi/kpi_relatorio_*.md`, ou se o Diogo colar o relatório na conversa.
+  (2) **Documento de fecho do ChatGPT de 19/10 gravado pelo Claude a pedido do Diogo** (a gravação do GPT foi bloqueada do lado dele) em
+  `docs/decisoes/2026-10-19_fecho_chatgpt_design_kpi.md`, tal e qual, com nota de proveniência (commit `c812cab`; exceção pontual, a
+  pasta continua do GPT). O que lá está: «primeira prancha editorial, reconstruída com fotografias reais» **aprovada em termos de design**;
+  mensagem, textos e narrativa **não aprovados** (quatro caminhos em análise: «Cada um ao seu ritmo» · «Por dentro. Por fora. Sem pressa.» ·
+  «Há dias em que não é preciso mais nada.» · «Um lugar onde as coisas simples podem ser extraordinariamente boas.»); evitar destacar
+  «Reguengo» e «270 m²»; capturas de Booking/Airbnb recebidas (avaliações no site: ideia bem recebida, sem desenho); KPI do #193 recebidos
+  e confidenciais (2026: 20 vendidas, 88 noites, 78 % direto em noites, 40 % repetentes, antecedência mediana 107 dias, jul 74 %/ago 94 %,
+  faixa 35–44 a mais representada, Lisboa 68 % dos CP portugueses); secção 6 com papéis diferentes do acordo; próxima sessão deles:
+  retomar a prancha, mensagem, públicos, menus. (3) **Três observações de monitor**, escritas ao GPT em `RECADOS_PARA_O_CHATGPT.md`
+  (commit `14cde5b`): **a)** a prancha aprovada **não está em `design/` nem no `aprovadas.md`** (que continua «Nenhuma direção escolhida»);
+  pedido ao GPT: nome do ficheiro, gravar em `design/`, linha no `aprovadas.md` com data e âmbito; **até lá a demo fica na r1 e nada da
+  prancha se implementa** · **b)** a secção 6 («Claude: responsável pelos textos»; GPT «parceiro criativo») **diverge do acordo v1.2**
+  (textos PT do GPT; Claude EN, ficheiro final e código); se for decisão do Diogo é uma v1.3 com diferenças listadas; **até lá segue-se a
+  v1.2; o Diogo ainda não respondeu** · **c)** nota técnica: «não destacar 270 m²»/localidade é compatível com o brief (números exatos para
+  os LLM) desde que o número e a morada existam em texto corrido/FAQ, no `VacationRental` e no `address`. (4) **S31–S33 propostas e SEM
+  RESPOSTA** («Verificamos as sugestões depois», Diogo, 19/10): **S31** prova dos perfis do brief contra os números do #193 numa secção 8b
+  (confirmada · parcial · contrariada) · **S32** `docs/integracao-app/numeros_publicos.json` com os agregados que podem ir ao site, cada um
+  com ✓ do Diogo e data, lido pelo gerador para PT, EN, `FAQPage` e `llms.txt` · **S33** teste de factos no `testes.mjs` da demo (cada
+  número das páginas contra o `FACTOS.md` com ✓ e o ficheiro da S32; `[?]` ou desconhecido falha). **Próxima sugestão: S34.**
+  **ABRIR A PRÓXIMA SESSÃO SITE POR:** «Lê o CLAUDE.md e diz-me em cinco linhas onde estamos» + respostas às S31–S33 + «a secção 6 do GPT é
+  decisão tua?» + ver se o GPT pôs a prancha em `design/` e a linha no `aprovadas.md` (só então r2 da demo, rascunho, com capturas e
+  `REGISTO.md`) + T2 do #193 → secção 8 do documento KPI. Em aberto, como antes: olho do Diogo à r1 · autorização pública das fotos no
+  `creditos.md` · `novo.montecasabranca.pt` · S27 · 3,2 vs 3,6 ha · rede do ambiente (Dropbox, Zenfolio) · trabalho privado fora do
+  repositório por ordem do Diogo, não registar até ordem.
