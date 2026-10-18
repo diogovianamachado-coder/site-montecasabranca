@@ -163,8 +163,8 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   Diogo fora do repositório, por instrução dele («fica no registo desta mensagem só»): não registar aqui até ordem. Rede do ambiente:
   Dropbox, Zenfolio e montecasabranca.pt continuam bloqueados (confirmado a 17/10).
   **18/10 (noite) · SITE → APP, com autorização escrita do Diogo («Autorizo … uma sessão APP em que eu produzo um relatório agregado
-  anual sem dados pessoais»):** feito na app o **#193 «Relatório KPI»** (… → Dados técnicos; commit `46a6a16` da app, ensaio de deploy
-  lançado, deploy real à espera do «Lança»). Depois de instalado: o Diogo toca «Guardar no Dropbox», o Claude lê o `.md` em
+  anual sem dados pessoais»):** feito na app o **#193 «Relatório KPI»** (… → Dados técnicos; commit `46a6a16` da app; **no servidor desde o
+  deploy n.º 115 da app (real; 114 = ensaio), 18/10 às 23h55, rsync igual ao ensaio, healthcheck 200**). Instalado; falta: o Diogo toca «Guardar no Dropbox», o Claude lê o `.md` em
   `13. APP Gestão AL/kpi/` pelo conector e preenche a secção 8 do documento KPI. O GPT pediu entretanto capturas das janelas
   (ocupação, fim de semana, estadia, antecedência, distritos): a receita janela a janela ficou na conversa; o relatório #193 cobre tudo
   isso em texto. Nota de monitor: o GPT fala numa «prancha escolhida» e num «conceito aprovado visualmente» que **não existem em
