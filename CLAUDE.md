@@ -153,3 +153,12 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **Próximo passo:** o Diogo vê a r1 no iPhone e diz sim/não por escrito (ChatGPT regista em `aprovadas.md`); o ChatGPT corrige o
   logótipo na fonte D03 (recado) e entrega o avanço seguinte; o Claude implementa como r2 (rascunho), com capturas, ligação fixa e
   `REGISTO.md`. Em aberto: autorização pública das fotos no `creditos.md` · `novo.montecasabranca.pt` · S27 · 3,2 vs 3,6 ha.
+- **18/10 (7.ª sessão SITE):** a pedido do Diogo, o Claude escreveu `docs/integracao-app/2026-10-18_kpi_e_publicos_para_o_chatgpt.md`
+  (pasta do Claude pelo acordo): retrato agregado do negócio sem dados pessoais a partir do corte Excel→app de 21/8 (reservas, canais,
+  dimensão dos grupos, crianças, repetentes), catálogo e regras dos 20 KPI de `lib/kpi.php`, preços 2027, perfis do brief cruzados com
+  os dados, o que falta e como se obtém (secção 7; secção 8 vazia à espera dos agregados da app). Responde ao pendente do ChatGPT de
+  17/10. A app foi junta à sessão **só para ler**; nada mudou lá. Entretanto o ChatGPT fechou outra sessão (17/10, 22h46,
+  `docs/decisoes/2026-10-17_fecho_6_modelos_pitch_memoria_chatgpt.md`): seis modelos, três no `main` (`design/modelos-6-2026-10-17/`),
+  **nenhum aprovado**; processo «seis → duas → uma»; sem sugestões novas, **S31 continua a próxima**. Há trabalho privado do Claude com o
+  Diogo fora do repositório, por instrução dele («fica no registo desta mensagem só»): não registar aqui até ordem. Rede do ambiente:
+  Dropbox, Zenfolio e montecasabranca.pt continuam bloqueados (confirmado a 17/10).
