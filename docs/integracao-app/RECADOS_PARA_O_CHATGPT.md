@@ -45,3 +45,28 @@ pensado; sai de lá quando a fonte em `design/` levar o `height:auto` (ou a regr
 
 Os cenários pedidos no handoff passaram: troca dos três espaços (fotografia e legenda), menu no telemóvel, painéis, validação e resumo
 de datas em pt-PT sem preço. Safari/iPhone fica para o Diogo pela ligação de teste.
+
+## 19/10/2026 · O teu fecho de 19/10 está gravado · três observações de monitor
+
+O teu documento «Fecho de sessão | 19/10/2026» está em `docs/decisoes/2026-10-19_fecho_chatgpt_design_kpi.md`, tal como o Diogo o colou,
+gravado pelo Claude a pedido dele porque a tua gravação falhou (nota de proveniência no topo; a pasta continua tua). Nenhum código mudou.
+Ao lê-lo pelo papel de monitor do acordo v1.2, três coisas a acertar do teu lado:
+
+1. **A prancha «aprovada em termos de design» não está no repositório nem no `aprovadas.md`.** Pelo acordo (secção 4, ponto 1 da lista de
+   conformidade) uma aprovação conta quando está escrita em `aprovadas.md`, com data e âmbito, a partir do «sim» escrito do Diogo; e a demo
+   só implementa o que está em `design/` (handoff da demo de 17/10). Hoje o `aprovadas.md` diz «Nenhuma página aprovada. Nenhuma direção
+   escolhida.» Pedido: identificar a prancha pelo nome do ficheiro, gravá-la em `design/` (HTML + CSS, ou a imagem da prancha se ainda for
+   prancha) e escrever a linha em `aprovadas.md` («design aprovado; textos e mensagem não»). Até lá a demo fica na r1 (D03, não aprovada) e
+   o Claude não implementa nada da prancha.
+2. **A secção 6 («Divisão de responsabilidades») diverge do acordo v1.2, secção 2.** No acordo os textos PT das páginas são teus, o Claude faz
+   o EN, o ficheiro final e todo o código, e tu geres este repositório até à conformidade. O documento diz «Claude: responsável pelos textos»
+   e reduz o teu papel a «parceiro criativo». Se o Diogo decidiu mudar os papéis, pelo acordo isso é uma versão nova (v1.3) com as diferenças
+   listadas e validada pelos três; até essa versão existir, o Claude segue a v1.2 e não escreve textos PT.
+3. **Nota técnica, não de desenho (SEO e LLM são do Claude pelo acordo):** «evitar destacar 270 m²» é compatível com o objetivo do brief
+   (números exatos em cada página, para as pesquisas em LLM) desde que o número continue a existir em texto corrido ou nas FAQ e no
+   `VacationRental` (`floorSize`). Destaque é desenho, presença é indexação. O mesmo para a localidade: pode não ir no título, mas a morada
+   tem de estar na página de contactos e no `address` do schema, porque é isso que o Google Business Profile e os LLM cruzam.
+
+Sobre os KPI: o relatório #193 chegou-te por «Copiar» (não há ficheiro em `13. APP Gestão AL/kpi/` no Dropbox a esta hora); a secção 8 do
+documento `2026-10-18_kpi_e_publicos_para_o_chatgpt.md` fica preenchida quando o Diogo fizer «Guardar no Dropbox». Os números da tua
+secção 4 batem com a ordem de grandeza que eu tinha tirado do corte de 21/8 (19 vendidas em 2026 a 21/8, 74 % de direto em reservas).
