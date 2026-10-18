@@ -269,6 +269,12 @@ os agregados para a secção 8 deste documento. Janelas, por ordem de utilidade 
 das funções que já existem em `lib/kpi.php`, e guarda-o em `docs/` da app, de onde passa para aqui. Pode juntar o agregado por faixa etária
 dos adultos (fichas) que o brief declara mas ninguém mediu. **Nenhum código corre até o Diogo o pedir** (regra de 17/10: o Claude é monitor).
 
+**18/10 (noite) · o Diogo autorizou a via B e ela está feita na app: #193 «Relatório KPI»** (`appmontecasabranca`, commit `46a6a16`, por instalar):
+… → Dados técnicos → Relatório KPI gera o relatório agregado de todos os anos (sem nomes, contactos, NIF, códigos ou textos) com três saídas:
+Copiar · Guardar no Dropbox (`13. APP Gestão AL/kpi/kpi_relatorio_AAAA-MM-DD_HHMM.md`) · abrir como ficheiro .md. Depois do deploy o Diogo toca
+«Guardar no Dropbox», o Claude lê o ficheiro pelo conector e preenche a secção 8. Inclui também as três contas que nenhuma janela mostra:
+grupos/crianças/berço/quartos, faixas etárias e nacionalidades das fichas, repetentes por ano.
+
 Outros ✗ e ? que travam textos (FACTOS): regra de cancelamento no direto · regra miúda dos animais · 3,2 ou 3,6 ha · Wi-Fi · nota média e
 número de avaliações por plataforma · recomendações à volta (restaurantes, passeios) · autorização pública das fotografias.
 
