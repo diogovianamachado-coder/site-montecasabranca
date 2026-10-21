@@ -197,3 +197,12 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `REGISTO.md`) + T2 do #193 → secção 8 do documento KPI. Em aberto, como antes: olho do Diogo à r1 · autorização pública das fotos no
   `creditos.md` · `novo.montecasabranca.pt` · S27 · 3,2 vs 3,6 ha · rede do ambiente (Dropbox, Zenfolio) · trabalho privado fora do
   repositório por ordem do Diogo, não registar até ordem.
+  **21/10 · A PRANCHA APROVADA ENTROU NO REPOSITÓRIO.** O Diogo enviou a imagem ao Claude («Esta é a versão aprovada», PNG 1536 × 1024);
+  gravada em `design/prancha-aprovada-2026-10-19/prancha-editorial-fotos-reais.png` com LEIA-ME de proveniência e âmbito (só design;
+  mensagem/textos não), e a linha de aprovação escrita no `aprovadas.md` com as palavras do Diogo e a data (pasta do GPT; exceção pontual,
+  como o fecho). A versão curta do fecho do GPT ficou anexada ao ficheiro de 19/10 (`26622db`). **Leitura do monitor contra o
+  `FACTOS.md`:** telefone errado na prancha («962 800 626»; o certo é 962 802 626) · «3,6 ha» por confirmar (3,2 no brief) · widget do
+  tempo e simulador ausentes, a prever nas páginas · logótipo a confirmar; tudo o resto bate. Recado ao GPT com os quatro acertos.
+  Ficheiro devolvido ao Diogo para abrir no PC. **A demo fica na r1** até o GPT entregar páginas HTML + CSS em `design/` a partir da prancha;
+  cada entrega vira uma revisão (r2, r3…). Em aberto: resposta do Diogo à secção 6 do fecho do GPT (papéis) · S31–S33 · T2 do #193 → secção 8.
+  Próxima sugestão: **S34**.

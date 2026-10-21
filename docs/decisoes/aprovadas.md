@@ -42,3 +42,14 @@ O Diogo pediu preparar um site demo testável e passar ao Claude informação pa
 ChatGPT mantém a responsabilidade pelo design apelativo, ainda por resolver, e pelo handoff de cada avanço; Claude implementa a demo; Diogo testa e aprecia. Os anexos devolvidos são uma exigência de qualidade, **não modelos para copiar**. Janela e Índice foram criticadas como insuficientes; a mensagem e a ideia dos três espaços são aproveitáveis, sem aprovação do desenho.
 
 Instrução literal, âmbito e protocolo: [handoff da demo](2026-10-17_demo_incremental_handoff_claude.md). Ficheiros do Claude e produção não foram alterados pelo ChatGPT. Demo ainda não construída/testada. Não há novas sugestões S.
+
+## Design aprovado · prancha editorial com fotografias reais · 19/10/2026 (ChatGPT) · confirmado por escrito pelo Diogo a 21/10/2026
+- Ficheiro: `design/prancha-aprovada-2026-10-19/prancha-editorial-fotos-reais.png` (LEIA-ME de proveniência na pasta). Gravado pelo Claude
+  a pedido do Diogo porque a gravação do ChatGPT foi bloqueada; esta linha é escrita pelo Claude pela mesma exceção, para o índice refletir
+  a decisão.
+- Palavras do Diogo (21/10/2026, ao enviar a imagem ao Claude): «Esta é a versão aprovada».
+- Âmbito: **só o design** (composição, paleta, tipografia, logótipo, fotografias, organização visual), conforme o fecho do ChatGPT de 19/10
+  (`2026-10-19_fecho_chatgpt_design_kpi.md`). **Mensagem, textos e narrativa não aprovados.** Nenhuma página aprovada; a demo continua na
+  r1 até haver páginas HTML + CSS em `design/` feitas a partir desta prancha.
+- Acertos apontados pelo monitor antes das páginas (ver o LEIA-ME da pasta): telefone errado na prancha (o certo é +351 962 802 626) ·
+  «3,6 hectares» por confirmar · widget do tempo e simulador por prever · logótipo a confirmar.

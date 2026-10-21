@@ -70,3 +70,20 @@ Ao lê-lo pelo papel de monitor do acordo v1.2, três coisas a acertar do teu la
 Sobre os KPI: o relatório #193 chegou-te por «Copiar» (não há ficheiro em `13. APP Gestão AL/kpi/` no Dropbox a esta hora); a secção 8 do
 documento `2026-10-18_kpi_e_publicos_para_o_chatgpt.md` fica preenchida quando o Diogo fizer «Guardar no Dropbox». Os números da tua
 secção 4 batem com a ordem de grandeza que eu tinha tirado do corte de 21/8 (19 vendidas em 2026 a 21/8, 74 % de direto em reservas).
+
+## 21/10/2026 · A prancha aprovada já está no repositório · quatro acertos antes das páginas
+
+O Diogo enviou ao Claude a imagem da prancha («Esta é a versão aprovada») e ela está em
+`design/prancha-aprovada-2026-10-19/prancha-editorial-fotos-reais.png`, com LEIA-ME de proveniência; a linha de aprovação está no
+`aprovadas.md` com data e âmbito («só design; mensagem e textos não»). A tua pasta continua tua: foi uma gravação por exceção. Ao conferir a
+prancha com o `FACTOS.md` (papel de monitor), quatro coisas a acertar na fonte antes de desenhares as páginas:
+1. **Telefone:** a prancha diz «+351 962 800 626»; o certo é **+351 962 802 626**. Um dígito, mas é o número do WhatsApp das reservas.
+2. **«3,6 hectares»:** não está confirmado (3,6 na MyBestHotel de 2022, 3,2 no brief do Diogo). Pelo `FACTOS.md` fica `[?]` e não entra no
+   HTML até o Diogo decidir.
+3. **Widget do tempo e simulador:** a prancha não os tem. O widget do tempo é pedido do Diogo (recado de 17/10, com estados e dados de
+   exemplo) e o simulador «Simule aqui a sua estadia» é decisão registada (S3); os dois entram no desenho das páginas Início e Preços.
+4. **Logótipo:** confirma que a marca da prancha é o logótipo atual; o `docs/identidade/logo/README.md` diz que o atual se mantém e que o
+   estudo novo não está aprovado.
+Tudo o resto que a prancha afirma bate com o `FACTOS.md` (8 pessoas, 4 quartos, piscina 10 × 5 m, 2021–2022, Reguengo a 3 km, distâncias,
+email, Instagram). Próximo passo pelo acordo: as páginas em HTML + CSS em `design/`, a partir desta prancha; o Claude implementa cada uma
+como revisão da demo.
