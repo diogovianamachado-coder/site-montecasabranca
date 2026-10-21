@@ -1,0 +1,16 @@
+{
+  "fonte": "docs/conteudos/fontes/FACTOS.md (só linhas com ✓); o kit lê daqui os contactos e as coordenadas",
+  "nome": "Monte Casa Branca",
+  "localidade": "Reguengo, Montemor-o-Novo",
+  "whatsapp": "351962802626",
+  "telefone_mostrar": "+351 962 802 626",
+  "email": "geral@montecasabranca.pt",
+  "instagram": "@monte_casa_branca",
+  "instagram_url": "https://www.instagram.com/monte_casa_branca/",
+  "coordenadas": { "lat": 38.6142917, "lon": -8.211253 },
+  "maps": "https://www.google.com/maps?q=38.6142917,-8.211253",
+  "capacidade": 8,
+  "quartos": 4,
+  "piscina": "10 × 5 m",
+  "registo_al": "126450/AL"
+}

@@ -1,13 +1,14 @@
-# Capturas da demo (S30, aceite pelo Diogo a 17/10/2026): em cada push que toque em demo/,
-# corre os testes da demo e as capturas a 390 e 1280 px. Só demo/; sem deploy, sem
-# publicação, sem segredos. O workflow de deploy do site continua por criar (acordo v1.2,
-# secção 9: só com a raiz da Amen confirmada e o «Lança» do Diogo).
+# Capturas da demo (S30, aceite pelo Diogo a 17/10/2026): em cada push que toque em demo/ ou em
+# design/site/ (as páginas do ChatGPT, desde 21/10), corre os testes da demo, o contrato do design
+# e as capturas a 390 e 1280 px. Sem deploy, sem publicação, sem segredos. O workflow de deploy do
+# site continua por criar (acordo v1.2, secção 9: só com a raiz da Amen confirmada e o «Lança» do Diogo).
 name: Capturas
 
 on:
   push:
     paths:
       - "demo/**"
+      - "design/site/**"
       - ".github/workflows/capturas.yml"
   workflow_dispatch:
 
@@ -17,7 +18,7 @@ permissions:
 jobs:
   capturas:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -31,6 +32,14 @@ jobs:
 
       - name: Testes da demo
         run: python3 demo/ferramentas/demo.py testar
+
+      - name: Contrato do design (páginas do ChatGPT em design/site)
+        run: |
+          if ls design/site/*.html > /dev/null 2>&1; then
+            python3 demo/ferramentas/demo.py testar --design
+          else
+            echo "design/site sem páginas: nada a verificar (ver demo/base/CONTRATO.md)"
+          fi
 
       - name: Instalar Playwright e Chromium
         run: |
@@ -46,10 +55,31 @@ jobs:
       - name: Capturas 390 e 1280 px
         run: node demo/ferramentas/captura.cjs --base http://127.0.0.1:8787 --saida demo/_saida/capturas
 
+      - name: Ensaio das páginas do design (montar sem tocar na demo, servir, capturar)
+        if: always()
+        run: |
+          if ls design/site/*.html > /dev/null 2>&1; then
+            python3 demo/ferramentas/demo.py montar --para demo/_saida/ensaio | tee montar.log
+            PAGINAS=$(grep '^PAGINAS=' montar.log | cut -d= -f2)
+            python3 demo/ferramentas/demo.py servir 8788 --pasta demo/_saida/ensaio > servir-ensaio.log 2>&1 &
+            for i in $(seq 1 20); do curl -sf http://127.0.0.1:8788/ > /dev/null && break; sleep 0.5; done
+            node demo/ferramentas/captura.cjs --base http://127.0.0.1:8788 --saida demo/_saida/capturas-ensaio --paginas "$PAGINAS"
+          else
+            echo "design/site sem páginas: sem ensaio"
+          fi
+
       - name: Guardar capturas
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: capturas-demo-${{ github.sha }}
           path: demo/_saida/capturas
+          if-no-files-found: ignore
+
+      - name: Guardar capturas do ensaio do design
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ensaio-design-${{ github.sha }}
+          path: demo/_saida/capturas-ensaio
           if-no-files-found: ignore

@@ -45,3 +45,19 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
 - **Validação:** ver tabela; capturas em `demo/capturas/r1/` (páginas inteiras a 390 e 1280 px e estados: espaço «Por dentro», menu,
   painel «A casa», datas preenchidas). Limitações: Chromium apenas; Safari/iPhone fica para o Diogo pela ligação.
 - **Ligações:** principal (mais recente) https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S · fixa r1: https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP
+
+## Base técnica v2 · 2026-10-21 · sem revisão nova (a r1 mantém-se)
+
+- **Pedido do Diogo (21/10):** uma demo técnica onde o ChatGPT carrega os designs (página principal, subpáginas, ligações, widgets,
+  calendário, preços) e cada mudança se vê como será real, no telemóvel e em desktop, para ele decidir sobre o que é real.
+- **O que entrou:** `demo/base/CONTRATO.md` (onde o ChatGPT põe os ficheiros: `design/site/`; regras das páginas; os cinco encaixes
+  `data-base`) · `demo/base/kit/` (`base.js`: tempo Open-Meteo com semana de exemplo sem rede, calendário de ocupação, simulador com a
+  tarifa 2026/2027 e as regras da app, pedido de datas com WhatsApp/email e o JSON do contrato #191, antes/depois, pôr do sol calculado no
+  browser; `base.css` só estrutural) · `demo/base/dados/` (ocupação inventada na forma da porta #189, tarifas, médias de clima de exemplo,
+  semana de tempo de exemplo, factos ✓) · `demo.py montar` (design/site + kit → demo/site, revisão, registo, imagens), `testar --design`
+  (contrato), verificação da base sincronizada, `servir --pasta` · `demo/site/componentes.html` (os encaixes a funcionar, sem desenho) ·
+  `demo/site/desktop.html` (qualquer página a 390/768/1024/1280) · workflow «Capturas» também em `design/site/**` com o ensaio das páginas
+  do ChatGPT (testar --design, montar --para, capturas).
+- **Sem desenho:** nada disto propõe aspeto; o CSS do kit não tem cores nem tipos. A D03 (r1) continua na entrada até à primeira montagem
+  do `design/site` do ChatGPT (`montar --limpar --rev r2`).
+

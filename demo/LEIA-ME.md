@@ -14,12 +14,18 @@ no Linktree, nos workflows ou na app.
 | `site/versao.js` | Gerado por `demo.py` a partir de `versao.json`; não se edita à mão. |
 | `versao.json` | Identificação da revisão atual: número (`r0`, `r1`…), estado, entrega de design implementada e commit dela, páginas e estado de cada uma. |
 | `REGISTO.md` | Histórico de revisões: rascunho, aprovado ou rejeitado, com commit e endereço, para se poder voltar atrás. |
-| `ferramentas/demo.py` | Python 3, biblioteca padrão: `testar`, `construir`, `servir`, `empacotar`, `artefacto`. |
+| `ferramentas/demo.py` | Python 3, biblioteca padrão: `testar` (e `testar --design`), `montar`, `construir`, `servir`, `empacotar`, `artefacto`. |
 | `ferramentas/captura.cjs` | Capturas a 390 e 1280 px com Playwright/Chromium, opcional. Se existir `ferramentas/cenarios/<revisão>.cjs`, corre também esses cenários de interação em `index.html` e grava os estados. |
 | `site/correcoes-demo.css` | Correções técnicas provisórias, uma regra por falha, com data, motivo e recado ao ChatGPT; nunca desenho. |
 | `capturas/rN/` | **S28:** capturas versionadas de cada revisão, para comparar lado a lado sem abrir o commit antigo. |
 | `imagens.json` | Origem de cada imagem em `site/` (ficheiro no repositório, original, autor, autorização). O teste falha sem entrada. |
 | `site/revisoes.html` | **S29:** lista de todas as revisões com a ligação fixa de cada uma. |
+| `base/CONTRATO.md` | **Base técnica (21/10):** o contrato para o ChatGPT: onde põe os ficheiros (`design/site/`), regras das páginas e os encaixes `data-base`. |
+| `base/kit/` | O kit: `base.js` (tempo, calendário de ocupação, simulador, pedido de datas, antes/depois, pôr do sol) e `base.css` (só estrutural). Copiado para `site/base/` pela ferramenta. |
+| `base/dados/` | Dados de exemplo com a forma das portas da app (#189 ocupação, #190 tarifa, #191 pedido): `ocupacao.json` (inventada), `tarifas.json`, `clima-medias.json`, `tempo-exemplo.json`, `factos.json`. |
+| `site/base/` | **Gerado** a partir de `base/` (kit + dados + `dados.js`); versionado; o teste falha se estiver dessincronizado. |
+| `site/componentes.html` | Os encaixes a funcionar com os dados de exemplo e sem desenho: a referência do que o ChatGPT veste. |
+| `site/desktop.html` | Visualizador: qualquer página da demo a 390 · 768 · 1024 · 1280 px (para iPad/computador). |
 | `../.github/workflows/capturas.yml` | **S30:** workflow «Capturas», só para `demo/`: testes e capturas em cada push; sem deploy. |
 | `_saida/`, `_pacotes/` | Gerados; ignorados pelo git. |
 
@@ -82,10 +88,28 @@ Aprovado, rejeitado e rascunho ficam separados no registo. Nunca se presume apro
 - Sem área do terreno enquanto 3,2 / 3,6 ha não estiver harmonizado.
 - PT primeiro; EN entra na publicação.
 
+## A base técnica para o ChatGPT (21/10/2026)
+
+Pedido do Diogo: uma demo onde o ChatGPT carrega os designs e cada mudança se vê como será real, no telemóvel e em desktop, para
+ele decidir sobre o real. O contrato está em `base/CONTRATO.md`. Em resumo:
+
+1. O ChatGPT escreve as páginas em **`design/site/`** (`index.html` + subpáginas, o CSS dele, `imagens/` com `imagens.json` de origens).
+   Onde entra tempo, calendário, simulador, pedido de datas ou antes/depois, escreve um **encaixe** `data-base="…"` com um exemplo
+   estático desenhado por ele; a página abre do ficheiro inteira (conformidade) e na demo o kit substitui o exemplo pelo componente real.
+2. Em cada push a `design/site/` o workflow corre `demo.py testar --design` (contrato: estrutura, ligações, imagens, factos proibidos,
+   encaixes) e captura as páginas dele a 390/1280 (artefacto «ensaio-design»), sem tocar na demo.
+3. O Claude corre `demo.py montar --rev rN --titulo "…"` (`--limpar` na primeira vez): copia, injeta o kit, regista a revisão como
+   rascunho, corre `testar`, faz as capturas e publica a ligação principal e a fixa. O Diogo vê no iPhone e, em desktop, no Safari de um
+   computador ou em `desktop.html`.
+4. Os dados do kit têm a forma das portas da app; quando as portas existirem, `MCB_BASE_CONFIG` troca o ficheiro pelo endereço.
+
+Nada disto desenha: o CSS do kit não tem cores nem tipos. A D03 (r1) continua na entrada até à primeira montagem do `design/site`.
+
 ## Estado atual
 
 - **Revisão:** r1 · **rascunho** · 2026-10-17 · D03 «Casa ao sol» (ChatGPT, `design/estudo-d03-2026-10-17/index.html`, commit e066def),
   sem aprovação estética. Correção técnica provisória do logótipo em `site/correcoes-demo.css` (ver `REGISTO.md`).
+- **Base técnica v2 (21/10):** `base/` (contrato, kit, dados), `site/componentes.html`, `site/desktop.html`, `montar`, `testar --design`, workflow também em `design/site/**`. Sem revisão nova; a r2 nasce do `design/site` do ChatGPT.
 - **Ligação principal (mais recente):** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; abre no iPhone com a conta do Diogo).
 - **Ligação fixa r0:** https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV (página neutra, preparação técnica)
 - **Ligação fixa r1:** https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP (D03, rascunho)

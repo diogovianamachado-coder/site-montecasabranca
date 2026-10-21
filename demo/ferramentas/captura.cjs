@@ -1,5 +1,5 @@
 /* Capturas da demo a 390 px (telemóvel) e 1280 px (desktop) com Playwright/Chromium.
-   Uso: node demo/ferramentas/captura.cjs [--base http://127.0.0.1:8787] [--saida pasta]
+   Uso: node demo/ferramentas/captura.cjs [--base http://127.0.0.1:8787] [--saida pasta] [--paginas a.html,b.html]
    Exige: demo.py servir a correr noutro terminal e o pacote playwright
    instalado (global, com NODE_PATH=$(npm root -g), ou local).
    Por omissão grava em demo/capturas/<revisão>/ (S28: capturas versionadas por
@@ -18,7 +18,7 @@ function opcao(nome, valor) { const i = args.indexOf(nome); return i >= 0 && arg
 const versao = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "versao.json"), "utf8"));
 const base = opcao("--base", args.find(a => /^https?:/.test(a)) || "http://127.0.0.1:8787");
 const pasta = path.resolve(opcao("--saida", path.join(__dirname, "..", "capturas", versao.revisao)));
-const paginas = Object.keys(versao.paginas || { "index.html": "" });
+const paginas = opcao("--paginas", "") ? opcao("--paginas", "").split(",").filter(Boolean) : Object.keys(versao.paginas || { "index.html": "" });
 const larguras = [{ nome: "telemovel", w: 390, h: 844 }, { nome: "desktop", w: 1280, h: 800 }];
 let cenario = null;
 try { cenario = require(path.join(__dirname, "cenarios", versao.revisao + ".cjs")); } catch (e) { cenario = null; }

@@ -1,0 +1,18 @@
+{
+  "exemplo": true,
+  "nota": "Médias mensais APROXIMADAS (normais de Évora), só para a demo mostrar o estado «média histórica» nas datas a mais de 16 dias. Antes da produção substituem-se pelo cálculo real a partir do arquivo do Open-Meteo (últimos 10 anos, coordenadas da casa). Nunca se apresentam como previsão.",
+  "meses": [
+    { "mes": 1, "codigo": 3, "max": 14, "min": 6 },
+    { "mes": 2, "codigo": 2, "max": 15, "min": 6 },
+    { "mes": 3, "codigo": 2, "max": 18, "min": 8 },
+    { "mes": 4, "codigo": 1, "max": 20, "min": 9 },
+    { "mes": 5, "codigo": 0, "max": 24, "min": 12 },
+    { "mes": 6, "codigo": 0, "max": 29, "min": 15 },
+    { "mes": 7, "codigo": 0, "max": 33, "min": 17 },
+    { "mes": 8, "codigo": 0, "max": 33, "min": 17 },
+    { "mes": 9, "codigo": 0, "max": 29, "min": 15 },
+    { "mes": 10, "codigo": 1, "max": 23, "min": 12 },
+    { "mes": 11, "codigo": 2, "max": 18, "min": 9 },
+    { "mes": 12, "codigo": 3, "max": 14, "min": 6 }
+  ]
+}

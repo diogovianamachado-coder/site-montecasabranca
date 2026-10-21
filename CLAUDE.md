@@ -206,3 +206,24 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   Ficheiro devolvido ao Diogo para abrir no PC. **A demo fica na r1** até o GPT entregar páginas HTML + CSS em `design/` a partir da prancha;
   cada entrega vira uma revisão (r2, r3…). Em aberto: resposta do Diogo à secção 6 do fecho do GPT (papéis) · S31–S33 · T2 do #193 → secção 8.
   Próxima sugestão: **S34**.
+  **21/10 (noite) · BASE TÉCNICA DA DEMO (v2), pedido do Diogo:** «uma demo técnica onde o GPT possa carregar os designs do site (página
+  principal, subpáginas, ligações, widgets, calendário, preços) … em cada mudança do design dele eu poder tomar a decisão olhando para o que
+  será real … mobile direto; desktop no Safari ou aqui em modo desktop … a base para que o GPT consiga trabalhar dentro e não avariar».
+  Feito em `demo/` (código do Claude, dentro do mandato da demo de 17/10): **`demo/base/CONTRATO.md`** (o GPT entrega em `design/site/`:
+  `index.html` + subpáginas, CSS, `imagens/` + `imagens.json`; regras das páginas; nomes reservados; os cinco encaixes `data-base` com o
+  DOM `b-…` que o kit produz; o ciclo entrega → workflow → `montar` → revisão → ligações) · **`demo/base/kit/base.js`** (tempo Open-Meteo
+  com semana de exemplo quando `navigator.webdriver` ou sem rede; calendário de ocupação na forma da porta #189; simulador com a tarifa
+  2026/2027 do FACTOS §4, limpeza do ano, mínimo 2, verão sáb→sáb 7 noites, mensal 4 000/28 nov–mar, aviso de noites ocupadas, tempo da
+  estadia com «média histórica» além de 16 dias, pôr do sol calculado no browser (S23); pedido de datas = formulário + WhatsApp + email (S2),
+  JSON do contrato #191, nada enviado; antes/depois) e **`base.css`** só estrutural · **`demo/base/dados/`** (`ocupacao.json` INVENTADA,
+  `tarifas.json`, `clima-medias.json` aproximado e marcado exemplo, `tempo-exemplo.json`, `factos.json` só ✓) · **`demo.py`**: `montar
+  [--rev rN --titulo … --limpar --para pasta]` (design/site + kit → demo/site, injeta `noindex`/kit, atualiza `versao.json`, `imagens.json`,
+  `REGISTO.md`), `testar --design` (contrato: estrutura, ligações, imagens, encaixes, telefone errado e hectares fazem falhar), verificação de
+  `demo/site/base` sincronizado, `servir --pasta` · **`demo/site/componentes.html`** (os encaixes a funcionar, sem desenho) e
+  **`demo/site/desktop.html`** (qualquer página a 390/768/1024/1280) · `captura.cjs --paginas` · workflow «Capturas» também em `design/site/**`
+  com o ensaio das páginas do GPT (artefacto «ensaio-design»). **Verificado:** `testar` OK (5 páginas); capturas 390/1280 OK; cenário do kit
+  em Chromium (tempo 7 dias, calendário 2 meses com ocupadas, simulador 1 170 €, recusa de noites ocupadas, regra do verão, pedido com
+  WhatsApp e JSON, antes/depois, sem erros JS nem rolagem horizontal); motor testado em node (9 casos + pôr do sol). Capturas em
+  `demo/capturas/r1/` (componentes-*, desktop-*). **Sem revisão nova:** a r1 (D03) fica na entrada até `montar --limpar --rev r2` com o
+  `design/site` do GPT. Recado ao GPT com o resumo e a ligação. **Regras mantidas:** zero desenho (CSS estrutural), zero portas na app (dados
+  de exemplo na forma das portas; trocar por endereço em `MCB_BASE_CONFIG`), nada em `public/`/`src/`, nada publicado no domínio.

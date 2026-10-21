@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Monte Casa Branca · demo · ver em desktop</title>
+<link rel="stylesheet" href="estilos.css">
+<style>.pagina > *{min-width:0}.moldura-envolvente{max-width:100%;overflow:auto;border:1px solid #d8d2c8;border-radius:.4rem;background:#e9e4dc;padding:.5rem}#moldura{display:block;width:1280px;height:800px;border:0;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.15)}.controlos{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:1rem 0}.controlos select{font:inherit;padding:.4rem}</style>
+</head>
+<body>
+<main class="pagina">
+  <header class="cabecalho">
+    <a class="marca" href="index.html">Monte Casa Branca</a>
+    <span class="rotulo">Ver em desktop · <span class="chip" data-versao="revisao">r?</span></span>
+  </header>
+  <section>
+    <p class="rotulo">Zona de revisão</p>
+    <h1>Ver qualquer página da demo em largura de desktop</h1>
+    <p>Escolhe a página e a largura: a página abre dentro de uma moldura com essa largura, tal como ficaria num ecrã assim. Num iPhone
+      fica pequena de propósito (serve para espreitar a composição); para julgar o desktop, usa um iPad ou um computador, ou abre a
+      ligação principal da demo diretamente no Safari de um computador.</p>
+  </section>
+  <section>
+    <div class="controlos">
+      <label>Página <select id="pagina" aria-label="Página a mostrar"></select></label>
+      <div class="botoes" id="larguras" aria-label="Largura">
+        <button class="botao" type="button" data-l="390">390</button>
+        <button class="botao" type="button" data-l="768">768</button>
+        <button class="botao" type="button" data-l="1024">1024</button>
+        <button class="botao principal" type="button" data-l="1280">1280</button>
+      </div>
+    </div>
+    <div class="moldura-envolvente"><iframe id="moldura" title="Página da demo" src="index.html"></iframe></div>
+    <p class="suave">As capturas automáticas de cada revisão a 390 e 1 280 px ficam em <code>demo/capturas/rN/</code>.</p>
+  </section>
+  <nav class="botoes" aria-label="Navegação da demo">
+    <a class="botao" href="componentes.html">Componentes técnicos</a>
+    <a class="botao" href="revisao.html">Zona de revisão</a>
+    <a class="botao" href="index.html">Entrada da demo</a>
+  </nav>
+  <footer class="rodape"><span>Zona de revisão da demo · não indexada · não é conteúdo do site</span></footer>
+</main>
+<script src="versao.js"></script>
+<script src="demo.js"></script>
+<script>
+(function () {
+  var v = window.DEMO_VERSAO || {}, sel = document.getElementById("pagina"), iframe = document.getElementById("moldura");
+  var tecnicas = { "revisao.html": 1, "revisoes.html": 1, "componentes.html": 1, "desktop.html": 1 };
+  var paginas = Object.keys(v.paginas || { "index.html": "" }).filter(function (p) { return !tecnicas[p]; });
+  if (!paginas.length) paginas = ["index.html"];
+  paginas.push("componentes.html");
+  var pedida = (location.search.match(/[?&]p=([^&]+)/) || [])[1];
+  paginas.forEach(function (p) { var o = document.createElement("option"); o.value = p; o.textContent = p; if (decodeURIComponent(pedida || "") === p) o.selected = true; sel.appendChild(o); });
+  function mostrar() { iframe.src = sel.value; }
+  sel.addEventListener("change", mostrar);
+  if (pedida) mostrar();
+  var botoes = document.querySelectorAll("#larguras button");
+  Array.prototype.forEach.call(botoes, function (b) {
+    b.addEventListener("click", function () {
+      iframe.style.width = b.getAttribute("data-l") + "px";
+      iframe.style.height = (b.getAttribute("data-l") === "390" ? 844 : 800) + "px";
+      Array.prototype.forEach.call(botoes, function (x) { x.classList.toggle("principal", x === b); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

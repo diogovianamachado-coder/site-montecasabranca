@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "exemplo": true,
+  "nota": "Ocupação INVENTADA para a demo (nunca reservas reais). Forma igual à resposta da porta #189 site_ocupacao.php: intervalos com saída exclusiva (a noite de 7 → 8 ocupa só o dia 7). Na produção troca-se este ficheiro pelo endereço da porta em MCB_BASE_CONFIG.ocupacao.",
+  "de": "2026-10-01",
+  "ate": "2027-10-01",
+  "ocupado": [
+    {
+      "de": "2026-10-30",
+      "ate": "2026-11-02"
+    },
+    {
+      "de": "2026-12-04",
+      "ate": "2026-12-06"
+    },
+    {
+      "de": "2026-12-23",
+      "ate": "2026-12-28"
+    },
+    {
+      "de": "2026-12-30",
+      "ate": "2027-01-02"
+    },
+    {
+      "de": "2027-02-12",
+      "ate": "2027-02-15"
+    },
+    {
+      "de": "2027-03-26",
+      "ate": "2027-03-29"
+    },
+    {
+      "de": "2027-04-02",
+      "ate": "2027-04-06"
+    },
+    {
+      "de": "2027-05-07",
+      "ate": "2027-05-10"
+    },
+    {
+      "de": "2027-06-11",
+      "ate": "2027-06-14"
+    },
+    {
+      "de": "2027-07-03",
+      "ate": "2027-07-10"
+    },
+    {
+      "de": "2027-07-24",
+      "ate": "2027-08-14"
+    },
+    {
+      "de": "2027-08-21",
+      "ate": "2027-08-28"
+    },
+    {
+      "de": "2027-09-10",
+      "ate": "2027-09-13"
+    }
+  ],
+  "gerado_em": "2026-10-21T22:00:00+01:00"
+}

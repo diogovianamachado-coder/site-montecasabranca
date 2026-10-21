@@ -1,0 +1,22 @@
+{
+  "exemplo": true,
+  "nota": "Semana de exemplo para quando não há rede (capturas automáticas, ficheiro aberto sem ligação). Os dias contam a partir de hoje. Inclui um dia de chuva para se ver o estado.",
+  "dias": [
+    { "codigo": 0, "max": 22, "min": 11, "chuva": 0 },
+    { "codigo": 1, "max": 21, "min": 10, "chuva": 5 },
+    { "codigo": 2, "max": 20, "min": 11, "chuva": 20 },
+    { "codigo": 61, "max": 17, "min": 10, "chuva": 80 },
+    { "codigo": 80, "max": 18, "min": 9, "chuva": 55 },
+    { "codigo": 1, "max": 20, "min": 8, "chuva": 10 },
+    { "codigo": 0, "max": 22, "min": 9, "chuva": 0 },
+    { "codigo": 0, "max": 23, "min": 10, "chuva": 0 },
+    { "codigo": 2, "max": 21, "min": 11, "chuva": 15 },
+    { "codigo": 3, "max": 19, "min": 11, "chuva": 30 },
+    { "codigo": 61, "max": 17, "min": 10, "chuva": 70 },
+    { "codigo": 1, "max": 19, "min": 9, "chuva": 10 },
+    { "codigo": 0, "max": 21, "min": 8, "chuva": 0 },
+    { "codigo": 0, "max": 22, "min": 9, "chuva": 0 },
+    { "codigo": 1, "max": 21, "min": 10, "chuva": 5 },
+    { "codigo": 2, "max": 20, "min": 10, "chuva": 20 }
+  ]
+}

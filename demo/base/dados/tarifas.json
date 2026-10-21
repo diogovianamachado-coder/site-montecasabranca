@@ -1,0 +1,36 @@
+{
+  "exemplo": true,
+  "fonte": "docs/conteudos/fontes/FACTOS.md §4 (tarifa privada = a do site) e Tarifas da app; forma da resposta da porta #190 (contrato_portas_v1.md)",
+  "nota": "A conta do site é uma pré-visualização; na produção a app confirma o total no pedido (#191 recalcula). As datas das épocas de 2026 presumem-se iguais às de 2027.",
+  "pax_max": 8,
+  "regras": ["Entrada a partir das 16h", "Saída até às 11h"],
+  "mensal": { "valor": 4000, "noites": 28, "meses": [11, 12, 1, 2, 3], "nota": "4 000 € por 28 noites + limpeza, de novembro a março («Considera os 4 000 € e avança», 4/10)" },
+  "anos": {
+    "2026": {
+      "limpeza": 170,
+      "epocas": [
+        { "nome": "Inverno", "mes_ini": 1, "dia_ini": 1, "mes_fim": 2, "dia_fim": 29, "noite": 250, "min_noites": 2 },
+        { "nome": "Primavera", "mes_ini": 3, "dia_ini": 1, "mes_fim": 5, "dia_fim": 1, "noite": 280, "min_noites": 2 },
+        { "nome": "Maio", "mes_ini": 5, "dia_ini": 2, "mes_fim": 5, "dia_fim": 31, "noite": 330, "min_noites": 2 },
+        { "nome": "Início do verão", "mes_ini": 6, "dia_ini": 1, "mes_fim": 7, "dia_fim": 17, "noite": 380, "min_noites": 2 },
+        { "nome": "Verão", "mes_ini": 7, "dia_ini": 18, "mes_fim": 8, "dia_fim": 31, "noite": 405, "min_noites": 7, "sabado_a_sabado": true },
+        { "nome": "Setembro", "mes_ini": 9, "dia_ini": 1, "mes_fim": 9, "dia_fim": 30, "noite": 330, "min_noites": 2 },
+        { "nome": "Outono", "mes_ini": 10, "dia_ini": 1, "mes_fim": 11, "dia_fim": 30, "noite": 250, "min_noites": 2 },
+        { "nome": "Dezembro", "mes_ini": 12, "dia_ini": 1, "mes_fim": 12, "dia_fim": 31, "noite": 330, "min_noites": 2 }
+      ]
+    },
+    "2027": {
+      "limpeza": 180,
+      "epocas": [
+        { "nome": "Inverno", "mes_ini": 1, "dia_ini": 1, "mes_fim": 2, "dia_fim": 29, "noite": 250, "min_noites": 2 },
+        { "nome": "Primavera", "mes_ini": 3, "dia_ini": 1, "mes_fim": 5, "dia_fim": 1, "noite": 280, "min_noites": 2 },
+        { "nome": "Maio", "mes_ini": 5, "dia_ini": 2, "mes_fim": 5, "dia_fim": 31, "noite": 330, "min_noites": 2 },
+        { "nome": "Início do verão", "mes_ini": 6, "dia_ini": 1, "mes_fim": 7, "dia_fim": 17, "noite": 390, "min_noites": 2 },
+        { "nome": "Verão", "mes_ini": 7, "dia_ini": 18, "mes_fim": 8, "dia_fim": 31, "noite": 410, "min_noites": 7, "sabado_a_sabado": true },
+        { "nome": "Setembro", "mes_ini": 9, "dia_ini": 1, "mes_fim": 9, "dia_fim": 30, "noite": 340, "min_noites": 2 },
+        { "nome": "Outono", "mes_ini": 10, "dia_ini": 1, "mes_fim": 11, "dia_fim": 30, "noite": 250, "min_noites": 2 },
+        { "nome": "Dezembro", "mes_ini": 12, "dia_ini": 1, "mes_fim": 12, "dia_fim": 31, "noite": 330, "min_noites": 2 }
+      ]
+    }
+  }
+}

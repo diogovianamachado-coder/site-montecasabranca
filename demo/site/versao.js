@@ -12,7 +12,9 @@ window.DEMO_VERSAO = {
   "paginas": {
     "index.html": "rascunho",
     "revisao.html": "preparacao-tecnica",
-    "revisoes.html": "preparacao-tecnica"
+    "revisoes.html": "preparacao-tecnica",
+    "componentes.html": "preparacao-tecnica",
+    "desktop.html": "preparacao-tecnica"
   },
   "endereco_teste": "https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S",
   "historico": [
@@ -35,7 +37,14 @@ window.DEMO_VERSAO = {
       "endereco": "https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP"
     }
   ],
-  "notas": "Rascunho para apreciação, não aprovado. Tempo e resumo de datas são exemplos no ecrã; sem preço, disponibilidade, pré-reserva ou envio. Não indexar.",
+  "notas": "Rascunho para apreciação, não aprovado. Tempo e resumo de datas são exemplos no ecrã; sem preço, disponibilidade, pré-reserva ou envio. Não indexar. Desde 21/10 a demo tem a base técnica (demo/base): componentes a funcionar com dados de exemplo em componentes.html e o visualizador desktop.html; a próxima revisão (r2) nasce do design/site do ChatGPT por «demo.py montar».",
+  "base": {
+    "data": "2026-10-21",
+    "contrato": "demo/base/CONTRATO.md",
+    "kit": "demo/base/kit (base.js, base.css) → demo/site/base/",
+    "dados": "demo/base/dados (exemplo; forma das portas #189–#191)",
+    "montar": "demo.py montar --rev rN --titulo «…» [--limpar]"
+  },
   "ligacao_fixa": false,
   "site_commit": null,
   "site_sujo": false,

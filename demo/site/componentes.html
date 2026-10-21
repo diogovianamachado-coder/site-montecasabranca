@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Monte Casa Branca · demo · componentes técnicos</title>
+<link rel="stylesheet" href="estilos.css">
+<link rel="stylesheet" href="base/base.css">
+<style>.pagina > *{min-width:0}pre.codigo{max-width:100%;overflow-wrap:anywhere}.encaixe{border:1px dashed #b5b5b5;padding:1rem;margin:1rem 0}.encaixe:before{content:"encaixe montado pelo kit";display:block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin-bottom:.5rem}pre.codigo{white-space:pre-wrap;font-size:.8rem;background:#f4f1ec;padding:.75rem;border-radius:.4rem;overflow:auto}</style>
+</head>
+<body>
+<main class="pagina">
+  <header class="cabecalho">
+    <a class="marca" href="index.html">Monte Casa Branca</a>
+    <span class="rotulo">Componentes técnicos · <span class="chip" data-versao="revisao">r?</span></span>
+  </header>
+
+  <section>
+    <p class="rotulo">Base técnica · sem desenho</p>
+    <h1>Os componentes que o design encaixa nas páginas</h1>
+    <p>Cada bloco abaixo é um encaixe do kit (<code>data-base="…"</code>) montado com dados de exemplo e só com o CSS estrutural: sem cores,
+      sem tipos, sem espaços de desenho. É isto que o ChatGPT veste com o CSS do site. O contrato completo está em
+      <code>demo/base/CONTRATO.md</code>; os dados têm a forma exata das portas da app (<code>contrato_portas_v1.md</code>), por isso
+      trocar o exemplo pela app é trocar um endereço.</p>
+    <div class="aviso"><p>Tudo o que aqui aparece é exemplo identificado: a ocupação é inventada, a conta é a tarifa do <code>FACTOS.md</code>,
+      o tempo é o Open-Meteo ao vivo (ou uma semana de exemplo sem rede) e o pedido não é enviado a lado nenhum.</p></div>
+  </section>
+
+  <section>
+    <h2>1 · Tempo em Montemor-o-Novo · <code>data-base="tempo"</code></h2>
+    <pre class="codigo">&lt;aside data-base="tempo" data-dias="7" data-titulo="Os próximos dias no Monte"&gt;
+  …exemplo estático com ul.b-tempo-dias &gt; li.b-tempo-dia…
+  &lt;p class="b-fonte"&gt;Dados: Open-Meteo&lt;/p&gt;
+&lt;/aside&gt;</pre>
+    <div class="encaixe">
+      <aside data-base="tempo" data-dias="7" data-titulo="Os próximos dias no Monte">
+        <p class="b-tempo-titulo">Os próximos dias no Monte</p>
+        <ul class="b-tempo-dias">
+          <li class="b-tempo-dia"><span class="b-tempo-nome">exemplo</span><span class="b-tempo-icone b-tempo-c-sol">☀</span><span class="b-tempo-max">22°</span><span class="b-tempo-min">11°</span><span class="b-tempo-chuva">0 %</span></li>
+          <li class="b-tempo-dia"><span class="b-tempo-nome">exemplo</span><span class="b-tempo-icone b-tempo-c-chuva">🌧</span><span class="b-tempo-max">17°</span><span class="b-tempo-min">10°</span><span class="b-tempo-chuva">80 %</span></li>
+        </ul>
+        <p class="b-fonte">Dados: Open-Meteo</p>
+      </aside>
+    </div>
+    <p class="suave">Estados: com dados · sem dados (o encaixe desaparece sem deixar buraco). Ao vivo lê o Open-Meteo com as coordenadas da casa; nas capturas automáticas usa a semana de exemplo.</p>
+  </section>
+
+  <section>
+    <h2>2 · Calendário de ocupação · <code>data-base="calendario"</code></h2>
+    <pre class="codigo">&lt;section id="calendario" data-base="calendario" data-meses="2"&gt;…exemplo estático…&lt;/section&gt;</pre>
+    <div class="encaixe">
+      <section id="calendario" data-base="calendario" data-meses="2">
+        <p>Exemplo estático do calendário (substituído pelo kit).</p>
+      </section>
+    </div>
+    <p class="suave">Toque no dia de entrada e depois no de saída; noites ocupadas (riscadas) não se escolhem nem se atravessam. Forma dos dados: porta #189. Escolher datas aqui preenche o simulador abaixo.</p>
+  </section>
+
+  <section>
+    <h2>3 · Simulador «Simule aqui a sua estadia» · <code>data-base="simulador"</code></h2>
+    <pre class="codigo">&lt;section id="simulador" data-base="simulador" data-titulo="Simule aqui a sua estadia" data-entrada="2027-05-14" data-saida="2027-05-17"&gt;…&lt;/section&gt;</pre>
+    <div class="encaixe">
+      <section id="simulador" data-base="simulador" data-titulo="Simule aqui a sua estadia" data-entrada="2027-05-14" data-saida="2027-05-17">
+        <p>Exemplo estático do simulador (substituído pelo kit).</p>
+      </section>
+    </div>
+    <p class="suave">A conta é a da app: tarifa privada 2026/2027, limpeza do ano uma por estadia, mínimo 2 noites, verão de sábado a sábado (7 noites), mensal de novembro a março, pôr do sol ao domingo calculado no browser. Experimentem 24/07/2027 → 31/07/2027 (verão) e 05/01/2027 → 02/02/2027 (mensal).</p>
+  </section>
+
+  <section>
+    <h2>4 · Pedido de datas · <code>data-base="pedido"</code></h2>
+    <pre class="codigo">&lt;section id="pedido" data-base="pedido" data-titulo="Pedir estas datas" data-origem="precos"&gt;…&lt;/section&gt;</pre>
+    <div class="encaixe">
+      <section id="pedido" data-base="pedido" data-titulo="Pedir estas datas" data-origem="componentes">
+        <p>Exemplo estático do pedido (substituído pelo kit).</p>
+      </section>
+    </div>
+    <p class="suave">Formulário + WhatsApp + email lado a lado (decisão S2). Na demo prepara a mensagem e mostra o que a produção enviaria à app (contrato #191); nada é enviado nem gravado.</p>
+  </section>
+
+  <section>
+    <h2>5 · Antes e depois · <code>data-base="antes-depois"</code></h2>
+    <pre class="codigo">&lt;figure data-base="antes-depois" data-antes="imagens/antes.jpg" data-depois="imagens/depois.jpg" data-legenda-antes="2021" data-legenda-depois="Hoje"&gt;&lt;/figure&gt;</pre>
+    <div class="encaixe">
+      <figure data-base="antes-depois" data-antes="imagens/piscina-dia.jpg" data-depois="imagens/portas-abertas.jpg" data-legenda-antes="Exemplo A" data-legenda-depois="Exemplo B"></figure>
+    </div>
+    <p class="suave">Exemplo técnico com duas fotografias já na demo; não é um antes/depois real. As fotografias do antes/depois reais entram com origem declarada em <code>design/site/imagens.json</code>.</p>
+  </section>
+
+  <section>
+    <h2>Ligações fixas (sem encaixe)</h2>
+    <ul>
+      <li>WhatsApp: <a href="https://wa.me/351962802626">wa.me/351962802626</a> · telefone a mostrar «+351 962 802 626»</li>
+      <li>Email: <a href="mailto:geral@montecasabranca.pt">geral@montecasabranca.pt</a></li>
+      <li>Instagram: <a href="https://www.instagram.com/monte_casa_branca/">@monte_casa_branca</a></li>
+      <li>Mapa: <a href="https://www.google.com/maps?q=38.6142917,-8.211253">abrir no Google Maps</a> (ligação, não mapa embutido)</li>
+    </ul>
+    <p class="suave">Valores de <code>base/dados/factos.json</code>, só linhas ✓ do <code>FACTOS.md</code>.</p>
+  </section>
+
+  <nav class="botoes" aria-label="Navegação da demo">
+    <a class="botao" href="desktop.html">Ver em desktop</a>
+    <a class="botao" href="revisao.html">Zona de revisão</a>
+    <a class="botao" href="index.html">Entrada da demo</a>
+  </nav>
+
+  <footer class="rodape">
+    <span>Componentes técnicos da demo · não indexados · não são conteúdo do site</span>
+  </footer>
+</main>
+<script src="versao.js"></script>
+<script src="demo.js"></script>
+<script src="base/dados.js"></script>
+<script src="base/base.js" defer></script>
+</body>
+</html>
