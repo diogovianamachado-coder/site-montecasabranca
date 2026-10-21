@@ -86,3 +86,26 @@ A PRIMEIRA PRANCHA ESTÁ APROVADA EM TERMOS DE DESIGN.
 A MENSAGEM AINDA ESTÁ EM CONSTRUÇÃO E NÃO ESTÁ APROVADA.
 OS KPI OFICIAIS FORAM RECEBIDOS E SÃO CONFIDENCIAIS.
 NÃO ALTERAR O DESIGN NEM IMPLEMENTAR TEXTOS SEM NOVA VALIDAÇÃO.
+
+---
+
+> **Anexo (Claude, 21/10/2026).** Versão curta do mesmo fecho, enviada pelo ChatGPT ao Diogo e colada por ele a 21/10. Gravada tal e qual,
+> pela mesma exceção. Não traz a prancha aprovada: continua a não existir em `design/` nem no `aprovadas.md` nenhum ficheiro dela.
+
+# Monte Casa Branca — Fecho de sessão | 19/10/2026 (versão curta)
+
+DESIGN APROVADO: A primeira prancha editorial com fotografias reais do Monte Casa Branca está aprovada exclusivamente em termos de design. Manter composição, cores, tipografia, logótipo, fotografias e organização visual. Não alterar sem aprovação.
+
+MENSAGEM NÃO APROVADA: A narrativa e os textos continuam em construção. Em análise: «Cada um ao seu ritmo», «Por dentro. Por fora. Sem pressa», «Há dias em que não é preciso mais nada» e «Um lugar onde as coisas simples podem ser extraordinariamente boas». Não substituir os textos sem validação.
+
+PLATAFORMAS: Foram fornecidos conteúdos e capturas do Booking e Airbnb para análise da apresentação da casa, da experiência e da hospitalidade. A ideia de integrar avaliações foi acolhida, mas será desenvolvida posteriormente.
+
+KPI OFICIAIS: Relatório agregado da app #193 recebido em 18/10/2026, com dados até essa data. Já não está pendente. Em 2026: 20 reservas, 88 noites vendidas, 78% das noites por canal direto, 40% das reservas de repetentes, 48% das noites de repetentes e antecedência mediana de 107 dias. Público típico de grupos de 7–8 pessoas, frequentemente famílias. Forte procura no verão e oportunidade de melhorar a atratividade noutras épocas.
+
+CONFIDENCIALIDADE: Os KPI são estritamente internos e não podem ser publicados em pranchas, HTML ou site. Só utilizar publicamente factos validados no FACTOS.md. A origem atribuída ao Instagram não é uma medição real.
+
+RESPONSABILIDADES: ChatGPT é parceiro criativo e revisor crítico independente; Claude é responsável pelos textos e integração técnica, segundo o acordo de colaboração.
+
+PRÓXIMA SESSÃO: Desenvolver a mensagem sobre a prancha visual aprovada; aprofundar conteúdo, fotografias, menus e submenus. Mais tarde, preços, calendário e avaliações.
+
+INSTRUÇÃO AO CLAUDE: A PRANCHA ESTÁ APROVADA EM TERMOS DE DESIGN. A MENSAGEM AINDA NÃO ESTÁ APROVADA. NÃO ALTERAR O DESIGN OU IMPLEMENTAR NOVOS TEXTOS SEM VALIDAÇÃO.
