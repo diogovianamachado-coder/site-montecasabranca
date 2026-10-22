@@ -53,3 +53,7 @@ Instrução literal, âmbito e protocolo: [handoff da demo](2026-10-17_demo_incr
   r1 até haver páginas HTML + CSS em `design/` feitas a partir desta prancha.
 - Acertos apontados pelo monitor antes das páginas (ver o LEIA-ME da pasta): telefone errado na prancha (o certo é +351 962 802 626) ·
   «3,6 hectares» por confirmar · widget do tempo e simulador por prever · logótipo a confirmar.
+
+## Prioridade de trabalho · 22/10/2026 · instrução do Diogo
+
+Desenhar a homepage, secundárias, widgets, galeria e mapa de preços em mobile e PC **antes da mensagem final**. Nos primeiros takes, usar os textos atuais como default. Preservar o design aprovado. Esta ordem substitui a sequência antiga de esperar pela mensagem antes de desenhar as páginas. Planta e pormenores ainda são propostas: [registo de 22/10](2026-10-22_design_antes_da_mensagem.md).
