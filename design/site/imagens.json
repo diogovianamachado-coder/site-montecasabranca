@@ -28,5 +28,30 @@
     "original": "public/marca/logo.png",
     "autor": "Marca atual do projeto",
     "estado": "Ativo oficial já no repositório; não é novo logótipo"
+  },
+  "antes_casao_a14.jpg": {
+    "original": "design/estudo-imagens/antes_casao_a14.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "estado": "Protótipo privado; pares antes/depois recuperados do gerador v3 anterior"
+  },
+  "depois_casao_interior_a3.jpg": {
+    "original": "design/estudo-imagens/depois_casao_interior_a3.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "estado": "Protótipo privado; pares antes/depois recuperados do gerador v3 anterior"
+  },
+  "antes_quarto_a15.jpg": {
+    "original": "design/estudo-imagens/antes_quarto_a15.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "estado": "Protótipo privado; pares antes/depois recuperados do gerador v3 anterior"
+  },
+  "quarto_4413.jpg": {
+    "original": "design/estudo-imagens/quarto_4413.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "estado": "Protótipo privado; pares antes/depois recuperados do gerador v3 anterior"
+  },
+  "montemor_rua_4694.jpg": {
+    "original": "design/estudo-imagens/montemor_rua_4694.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "estado": "Protótipo privado; pares antes/depois recuperados do gerador v3 anterior"
   }
 }

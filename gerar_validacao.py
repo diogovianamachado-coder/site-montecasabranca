@@ -3,7 +3,7 @@ from pathlib import Path
 import base64,re,zipfile,shutil
 root=Path(__file__).resolve().parent
 source=root/'design/site'
-output=root/'validacao-v1-1';output.mkdir(exist_ok=True)
+output=root/'validacao-v1-2';output.mkdir(exist_ok=True)
 pages=[('index','Inicio'),('a-casa','A-casa'),('fotografias','Fotografias'),('precos','Precos-e-datas'),('localizacao','Localizacao'),('perguntas','Perguntas'),('contactos','Contactos')]
 filenames={key+'.html':f'MCB-{i:02}-{label}.html' for i,(key,label) in enumerate(pages,1)}
 css=(source/'estilos-site.css').read_text()
@@ -27,12 +27,15 @@ for key,label in pages:
         html=re.sub(r'<button class="open-photo"[^>]*>(.*?)</button>',r'<div class="open-photo">\1</div>',html,flags=re.S)
         html=html.replace('<span class="photo-expand" aria-hidden="true">↗</span>','')
         html=re.sub(r'<dialog.*?</dialog>','',html,flags=re.S)
+        html=re.sub(r'<span class="photo-expand"[^>]*>.*?</span>','',html)
+        for zone in ['piscina','sala','alpendre','quartos']:
+            html=re.sub(r'(<figure[^>]*data-zone="'+zone+r'")',r'\1 id="'+zone+'"',html,count=1)
     # O visitante está a validar o desenho: nenhum botão finge executar uma reserva.
     html=html.replace('type="submit"','type="button"')
     html=html.replace('Calcular estadia <span aria-hidden="true">→</span>','Exemplo de cálculo')
     html=html.replace('Enviar pedido <span aria-hidden="true">→</span>','Formulário de exemplo')
     html=html.replace('Pedir estas datas</button>','Pedido de exemplo</button>')
-    html=html.replace('Estudo de design V1 ·','Estudo de design V1.1 ·')
+    html=html.replace('Estudo de design V1 ·','Estudo de design V1.2 ·')
     path=output/filenames[key+'.html'];path.write_text(html)
     standalone.append((key,label,html))
 
@@ -48,11 +51,11 @@ for i,(key,label,html) in enumerate(standalone,1):
         body=body.replace('id="'+ident+'"','id="'+key+'-'+ident+'"').replace('href="#'+ident+'"','href="#'+key+'-'+ident+'"').replace('aria-controls="'+ident+'"','aria-controls="'+key+'-'+ident+'"')
     for old,new in filenames.items():
         target=old[:-5]
-        body=re.sub(r'href="'+re.escape(new)+r'(?:#[^"]*)?"','href="#validacao-'+target+'"',body)
+        body=re.sub(r'href="'+re.escape(new)+r'(?:#([^"]*))?"',lambda m:'href="#'+(target+'-'+m.group(1) if m.group(1) and ('id="'+m.group(1)+'"') in (source/old).read_text() else 'validacao-'+target)+'"',body)
     parts.append(f'<article id="validacao-{key}" class="validation-article"><div class="validation-divider"><strong>{i:02} · {label.replace("-"," ")}</strong><a href="#validacao-indice">Voltar ao índice ↑</a></div>{body}</article>')
 caderno='''<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monte Casa Branca · sete páginas para validação</title><style>'''+css+extra+'''.validation-cover{padding:35px 25px;background:#f7f4ed}.validation-cover h1{font-size:32px}.validation-cover p{font-size:14px;max-width:750px;color:#7b7267}.validation-index{display:flex;flex-wrap:wrap;gap:10px 25px;padding:15px 0}.validation-index a{color:#a75532;border-bottom:1px solid #cebca9;padding:10px 0;font-size:14px}.validation-divider{padding:20px 25px;display:flex;justify-content:space-between;gap:20px;background:#e6d6c4;color:#49362e;font:14px Arial,sans-serif}.validation-divider a{text-decoration:underline;font-size:12px}.validation-article{border-top:4px solid #a75532;scroll-margin-top:0}.validation-article .skip-link{display:none}</style></head><body><section class="validation-cover" id="validacao-indice"><h1>Monte Casa Branca</h1><p>Sete páginas para validar o design. Escolhe uma página no índice ou percorre o documento. A largura adapta-se ao teu ecrã. Textos provisórios; preços, calendário e formulários apresentados como exemplos.</p>'''+toc+'</section>'+''.join(parts)+'</body></html>'
 (output/'MCB-Todas-as-paginas.html').write_text(caderno)
-with zipfile.ZipFile(root/'Monte-Casa-Branca-Validacao-V1-1.zip','w',zipfile.ZIP_DEFLATED) as z:
+with zipfile.ZipFile(root/'Monte-Casa-Branca-Validacao-V1-2.zip','w',zipfile.ZIP_DEFLATED) as z:
     for p in sorted(output.glob('*.html')):z.write(p,p.name)
 for p in output.glob('*.html'):
     text=p.read_text();assert '<iframe' not in text and 'srcdoc=' not in text and '<script' not in text

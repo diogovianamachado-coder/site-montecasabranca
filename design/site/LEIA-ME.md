@@ -36,3 +36,6 @@ Foram verificados os sete documentos, ligações locais, imagens, h1 único, IDs
 2. Montar os ficheiros como nova revisão de rascunho, com o procedimento e a ligação privada habituais; este commit não é ordem de publicação no domínio.
 3. Preservar o CSS e a composição; avisar de incompatibilidades concretas antes de reinterpretar o desenho.
 4. A apreciação do Diogo às páginas e o texto final vêm a seguir.
+
+## Revisão V1.2 · 24/10/2026
+A fonte atual é esta pasta. Consultar `docs/design/2026-10-24_revisao_v1-2.md` para decisões e limites. Regenerar apenas os ficheiros de validação com `python gerar_validacao.py`, a partir da raiz. Os geradores históricos `build_design.py` / `build_review.py` não incluem esta revisão e não devem sobrescrever estas páginas.

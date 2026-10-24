@@ -16,3 +16,9 @@
 @media(min-width:701px) and (max-width:1050px){.stay-simulator .b-sim-form{grid-template-columns:1fr 1fr .7fr 1fr}}
 @media(max-width:700px){.stay-simulator .b-sim-form,.home-stay .stay-simulator .b-sim-form{grid-template-columns:1fr 1fr;gap:16px}.request .b-pedido-form{grid-template-columns:1fr;gap:22px}.availability .b-cal-meses{grid-template-columns:1fr}.availability .b-cal-dia{min-height:44px;font-size:13px}.weather .b-tempo-dias{justify-content:flex-start;gap:6px}.weather .b-tempo-dia{min-width:42px}.stay-simulator .b-sim-linhas{gap:12px 14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+/* Revisão V1.2: prancha editorial mantida; trio, história e território. */
+.photo-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.photo-trio img{height:340px;object-fit:cover}.photo-trio figcaption{color:var(--ink)}
+.transformation,.history-link,.explore-town{padding-block:80px}.transformation-pair{margin-top:40px}.transformation-pair h3{font-size:25px}.before-after-photos{display:grid;grid-template-columns:1fr 1fr;gap:20px}.before-after-photos img{aspect-ratio:4/3;object-fit:contain;background:var(--pale)}
+.explore-layout{display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:55px;margin-top:35px}.explore-layout img{aspect-ratio:4/3;object-fit:cover}.n2-story{padding-block:70px}.n2-story p{max-width:700px}.external-note{font-size:12px;color:var(--muted);margin-top:12px}.n2-story .eyebrow{max-width:none}
+@media(max-width:700px){.photo-trio{grid-template-columns:1fr 1fr;gap:12px}.photo-trio figure:last-child{grid-column:1/-1}.photo-trio img{height:215px}.photo-trio figure:last-child img{height:230px}.transformation,.history-link,.explore-town{padding-block:48px}.before-after-photos{gap:12px}.before-after-photos img{aspect-ratio:3/4}.explore-layout{grid-template-columns:1fr;gap:26px}.n2-story{padding-block:48px}}
