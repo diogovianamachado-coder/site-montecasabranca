@@ -1,0 +1,5 @@
+--- a/demo/ferramentas/demo.py
++++ b/demo/ferramentas/demo.py
+@@ -48 +48 @@
+-RESERVADOS = {"revisao.html", "revisoes.html", "componentes.html", "desktop.html", "estilos.css", "demo.js", "versao.js", "base", "imagens.json"}
++RESERVADOS = {"revisao.html", "revisoes.html", "componentes.html", "desktop.html", "estilos.css", "demo.js", "versao.js", "base"}

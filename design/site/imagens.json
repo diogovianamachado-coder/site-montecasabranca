@@ -1,0 +1,32 @@
+{
+  "piscina-dia.jpg": {
+    "original": "V2_verão/5.JPG; Rodrigo/1/DSC_4078.JPG",
+    "autor": "Rodrigo",
+    "estado": "Seleção R1 preservada; autorização pública por confirmar"
+  },
+  "sala-portas.jpg": {
+    "original": "V2_verão/13.JPG; DSC_4444.JPG",
+    "autor": "Rodrigo",
+    "estado": "Seleção R1 preservada; autorização pública por confirmar"
+  },
+  "sala.jpg": {
+    "original": "V3_inverno/7.JPG; DSC_4446.JPG",
+    "autor": "Rodrigo",
+    "estado": "Seleção R1 preservada; autorização pública por confirmar"
+  },
+  "alpendre.jpg": {
+    "original": "V2_verão/8.JPG; DSC_4161.JPG",
+    "autor": "Rodrigo",
+    "estado": "Seleção R1 preservada; autorização pública por confirmar"
+  },
+  "quarto.jpg": {
+    "original": "Interior/quarto 3/IMG_0322.JPG",
+    "autor": "Por confirmar",
+    "estado": "Seleção R1 preservada; autoria/autorização pública por confirmar"
+  },
+  "logotipo.png": {
+    "original": "public/marca/logo.png",
+    "autor": "Marca atual do projeto",
+    "estado": "Ativo oficial já no repositório; não é novo logótipo"
+  }
+}
