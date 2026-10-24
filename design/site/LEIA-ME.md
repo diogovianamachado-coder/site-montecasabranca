@@ -39,3 +39,6 @@ Foram verificados os sete documentos, ligações locais, imagens, h1 único, IDs
 
 ## Revisão V1.2 · 24/10/2026
 A fonte atual é esta pasta. Consultar `docs/design/2026-10-24_revisao_v1-2.md` para decisões e limites. Regenerar apenas os ficheiros de validação com `python gerar_validacao.py`, a partir da raiz. Os geradores históricos `build_design.py` / `build_review.py` não incluem esta revisão e não devem sobrescrever estas páginas.
+
+## Revisão V1.3 · 24/10/2026
+Prevalece a nota `docs/design/2026-10-24_revisao_v1-3.md`: estrutura preservada, CTA duplicados removidos, acesso permanente mobile e roteiro Montemor/Évora para duas noites. O mesmo código é responsive em mobile e PC. O exportador requer `python -m pip install -r requirements-design.txt`; depois `python gerar_validacao.py`. Ícones inline com biblioteca SVG reutilizável em `icones.svg`.
