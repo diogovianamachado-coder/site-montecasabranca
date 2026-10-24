@@ -1,0 +1,54 @@
+/* Base técnica da demo · CSS ESTRUTURAL do kit (Claude, 21/10/2026).
+   Só o que faz os componentes funcionarem: grelhas, estados escondidos, posições do antes/depois.
+   Sem cores, sem tipos, sem espaços de desenho: isso é do ChatGPT, no CSS do site, pelas classes «b-…»
+   documentadas em demo/base/CONTRATO.md. Tudo herda a fonte e a cor do sítio onde está. */
+[data-base][hidden], .b-sim-resultado[hidden], .b-sim-tempo[hidden], .b-pedido-resultado[hidden], .b-pedido[hidden] { display: none !important; }
+.b-visualmente-escondido { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; margin: -1px; }
+.b-fonte { font-size: .75em; opacity: .7; }
+
+/* tempo */
+.b-tempo-dias { display: flex; gap: .5em; list-style: none; margin: 0; padding: 0; overflow-x: auto; }
+.b-tempo-dia { position: relative; display: grid; justify-items: center; min-width: 3.6em; text-align: center; }
+.b-tempo-icone { font-size: 1.4em; line-height: 1.2; }
+.b-tempo-dia--media { opacity: .75; }
+
+/* calendário */
+.b-cal-nav { display: flex; justify-content: space-between; gap: .5em; }
+.b-cal-nav button { font: inherit; cursor: pointer; }
+.b-cal-meses { display: grid; gap: 1em; grid-template-columns: repeat(auto-fit, minmax(16em, 1fr)); }
+.b-cal-semana, .b-cal-grelha { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+.b-cal-dia-semana { font-size: .75em; opacity: .7; }
+.b-cal-dia { font: inherit; border: 0; background: none; padding: .35em 0; cursor: pointer; border-radius: .25em; min-height: 2.2em; }
+.b-cal-dia--passado { opacity: .35; cursor: default; }
+.b-cal-dia--ocupado { text-decoration: line-through; opacity: .45; cursor: not-allowed; }
+.b-cal-dia--hoje { font-weight: bold; }
+.b-cal-dia--entre { background: rgba(0, 0, 0, .06); }
+.b-cal-dia--escolhido { outline: 2px solid currentColor; outline-offset: -2px; }
+.b-cal-legenda { display: flex; gap: 1em; font-size: .75em; }
+.b-cal-leg--ocupado { text-decoration: line-through; opacity: .5; }
+.b-cal-leg--escolhido { outline: 1px solid currentColor; padding: 0 .3em; }
+
+/* simulador e pedido */
+.b-sim-form, .b-pedido-form { display: grid; gap: .6em; grid-template-columns: repeat(auto-fit, minmax(9em, 1fr)); align-items: end; }
+.b-sim-campo, .b-pedido-campo { display: grid; gap: .25em; }
+.b-sim-campo input, .b-sim-campo select, .b-pedido-campo input, .b-pedido-campo textarea { font: inherit; width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
+.b-pedido-campo:has(textarea) { grid-column: 1 / -1; }
+.b-sim-linhas { display: grid; grid-template-columns: 1fr auto; gap: .25em 1em; margin: 0; }
+.b-sim-linhas dd { margin: 0; text-align: right; }
+.b-sim-acoes, .b-pedido-acoes { display: flex; flex-wrap: wrap; gap: .5em; }
+.b-sim-acoes button, .b-pedido-enviar, .b-sim-calcular { font: inherit; cursor: pointer; }
+.b-sim-avisos { padding-left: 1.2em; }
+.b-pedido-json pre { white-space: pre-wrap; font-size: .75em; }
+
+/* antes e depois */
+.b-ad { position: relative; overflow: hidden; }
+.b-ad img { display: block; width: 100%; height: auto; }
+.b-ad-depois { position: absolute; inset: 0 auto 0 0; width: 50%; overflow: hidden; }
+.b-ad-depois img { max-width: none; height: 100%; object-fit: cover; }
+.b-ad-rotulo { position: absolute; top: .5em; font-size: .75em; padding: .1em .5em; background: rgba(0, 0, 0, .45); color: #fff; }
+.b-ad-rotulo--antes { right: .5em; }
+.b-ad-rotulo--depois { left: .5em; }
+.b-ad-cursor { position: absolute; left: 0; right: 0; bottom: .5em; width: 100%; margin: 0; }
+
+/* rodapé discreto da demo (ligação à zona de revisão) */
+.b-demo { font-size: .75em; text-align: center; opacity: .6; padding: 1em; }

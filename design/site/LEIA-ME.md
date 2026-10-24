@@ -1,44 +1,39 @@
-# Monte Casa Branca · design das sete páginas · V1 · 24/10/2026
+# Monte Casa Branca · design em trabalho V1.3.1
 
-Entrega de design HTML/CSS para apreciação do Diogo e montagem pelo Claude, a partir da prancha editorial aprovada. Não declara aprovação das páginas nem dos textos.
+A prancha editorial com fotografias reais é a referência permanente. A estrutura de sete páginas está aceite como base; os detalhes e a mensagem continuam em afinação.
 
-## Abrir
-Abrir `index.html`, mantendo esta árvore de ficheiros. Páginas autónomas, sem framework ou build; só Google Fonts como recurso externo. A apresentação `Monte-Casa-Branca-Design-V1.html`, entregue separadamente, reúne as mesmas páginas, fotografias e o kit num único ficheiro com vistas de 390/1280 px.
+## Prioridade da página principal
+1. Grande imagem com as características da casa imediatamente acessíveis.
+2. Mensagem e apresentação da casa: dentro, fora e piscina.
+3. Acesso à galeria, logo após a sequência de fotografias.
+4. Exploração das restantes páginas e consulta de disponibilidade.
 
-## Páginas entregues
-- `index.html`: capa com piscina real, composição R1, entradas na casa/galeria, tempo, simulador e localização.
-- `a-casa.html`: espaços, quartos, factos confirmados, exterior e chegada/saída.
-- `fotografias.html`: seleção real R1 organizada por zonas, filtros e ampliação acessível, navegação dentro da zona.
-- `precos.html`: mapa de épocas 2027, calendário, simulação, resumo e pedido.
-- `localizacao.html`: fotografia, ligação direta ao mapa, distâncias e chegada.
-- `perguntas.html`: grupos de perguntas, acordeões e ligações contextuais.
-- `contactos.html`: contacto com o Diogo, pedido e ligação à localização.
+A página principal em scroll é o foco. O menu inferior é uma hipótese de apoio em mobile, ainda em apreciação. Não substituir a descoberta da casa por um índice ou pelo calendário.
 
-## Sistema visual
-Playfair Display 400/500 e Source Sans 3 400/500/600; Georgia/Arial como alternativas. Cal #F7F4ED, terracota #A75532, terra #D1B69E, areia #E6D6C4, oliveira #555A48, cinza #9D9186, texto #49362E. Margens mobile 25 px; grelhas editoriais e cabeçalho em linha no PC; coluna, menu e CTAs empilhados no mobile. Referência: 390/1280 px. O PNG da prancha permanece intacto.
+## Galeria
+- `index.html` tem entradas visuais por fotografia: sala, piscina e alpendre, e uma ligação geral “Explorar a galeria”.
+- As ligações levam à galeria interna e às zonas existentes, com os filtros do protótipo. Não introduzir links inventados para álbuns externos.
+- `galeria.json` regista os acessos e o estado da inspeção do Zenfolio. A organização no Zenfolio não foi observada porque o Cloudflare bloqueou o navegador de QA.
+- `https://mobile.zenfolio.com/photos` foi fornecido para inspeção, não é um destino público confirmado para os visitantes.
+- Os dois pares antes/depois foram herdados de uma versão anterior, mas a correspondência espacial e o alinhamento não estão confirmados. Não apresentar como um slider alinhado ou como match verificado. Fotografias, ficheiros e estrutura são preservados para a revisão.
 
-As cinco fotografias escolhidas no R1 mantêm-se, em 1600 px. O logótipo usado é o ativo oficial já existente `public/marca/logo.png`, sem redesenho; a aplicação é mostrada para apreciação. `imagens.json` contém origens e estados de autorização. Não se inferem licenças públicas da aprovação privada do design.
+## Fonte, revisão e histórico
+A fonte editável é esta pasta. Abrir `index.html` com os ficheiros adjacentes; desenho responsive em mobile e PC. Manter a paleta, tipografia e composição da prancha.
 
-## Widgets
-Os encaixes `data-base="tempo"`, `calendario`, `simulador` e `pedido` usam a marcação/classe `b-` do contrato. O CSS veste o kit; `apresentacao.js` trata só de menu, galeria e abertura visual do pedido. Não há motores novos de preços, meteorologia, calendário ou reservas.
+- Histórico e versões congeladas: `design/HISTORICO-VERSOES.md`.
+- Decisões mais recentes: `docs/design/2026-10-24_home_galeria_historico.md`.
+- Revisões anteriores: notas V1.2 e V1.3 em `docs/design/`.
+- `icones.svg`: biblioteca de ícones de traço fino; as versões utilizadas estão inline no HTML.
+- `imagens.json`: proveniência das imagens.
 
-Os HTML têm exemplos estáticos completos. Ao montar, o kit substitui-os pelos componentes. Calendário e meteorologia estão assinalados como exemplos. O preço ilustrativo 14–17/mai/2027 corresponde a 3 × 330 € + 180 € = 1170 €, com os valores públicos do FACTOS. O pedido não envia dados neste estudo. Os estados de resultado, erro, pedido e falta de dados têm estilos próprios.
+## Exportar
+`python -m pip install -r requirements-design.txt`
 
-Não foram acrescentados testemunhos, médias ou KPI. O antes/depois aguarda pares históricos confirmados. A galeria mostra a seleção R1, não todo o arquivo. O mapa usa a ligação externa prevista no contrato.
+`python gerar_validacao.py`
 
-## QA e compatibilidade
-Foram verificados os sete documentos, ligações locais, imagens, h1 único, IDs e JavaScript. No navegador, as sete páginas foram exercitadas nas vistas 390/1280: sem overflow horizontal ou imagens quebradas.
+O exportador gera sete páginas autónomas e a apresentação combinada em `validacao-v1-3-1/`, com imagens incorporadas e conteúdo direto, sem iframe ou JavaScript. Os geradores V1 `build_design.py` / `build_review.py` são históricos: não executar para sobrescrever a fonte atual.
 
-**Inconsistência no teste existente:** `demo/base/CONTRATO.md` pede `design/site/imagens.json`, mas `demo/ferramentas/demo.py` inclui esse nome em RESERVADOS e recusa-o tanto em `testar --design` como em `montar`. O teste original devolve uma falha exclusivamente por esse motivo. No ensaio local retirou-se apenas esse nome do conjunto, em memória, sem editar o ficheiro do Claude: as sete páginas passam e montam com o kit. Há um patch de uma linha no handoff para o Claude rever/aplicar. Não afirmar que o workflow original está verde antes desse acerto.
+## Integração pelo Claude
+Os encaixes `data-base` e classes `b-` são preservados para o kit. Calendário, preço, tempo e pedido do HTML de validação são exemplos. Não existe novo motor nem envio de reservas nesta entrega. A inconsistência anterior de `imagens.json` no teste de `demo/ferramentas/demo.py` está documentada na entrega V1; não foi corrigida neste trabalho de acessos.
 
-## Para o Claude
-1. Ler o handoff `docs/design/2026-10-24_entrega_design_v1.md` e resolver o conflito do manifesto na ferramenta que mantém.
-2. Montar os ficheiros como nova revisão de rascunho, com o procedimento e a ligação privada habituais; este commit não é ordem de publicação no domínio.
-3. Preservar o CSS e a composição; avisar de incompatibilidades concretas antes de reinterpretar o desenho.
-4. A apreciação do Diogo às páginas e o texto final vêm a seguir.
-
-## Revisão V1.2 · 24/10/2026
-A fonte atual é esta pasta. Consultar `docs/design/2026-10-24_revisao_v1-2.md` para decisões e limites. Regenerar apenas os ficheiros de validação com `python gerar_validacao.py`, a partir da raiz. Os geradores históricos `build_design.py` / `build_review.py` não incluem esta revisão e não devem sobrescrever estas páginas.
-
-## Revisão V1.3 · 24/10/2026
-Prevalece a nota `docs/design/2026-10-24_revisao_v1-3.md`: estrutura preservada, CTA duplicados removidos, acesso permanente mobile e roteiro Montemor/Évora para duas noites. O mesmo código é responsive em mobile e PC. O exportador requer `python -m pip install -r requirements-design.txt`; depois `python gerar_validacao.py`. Ícones inline com biblioteca SVG reutilizável em `icones.svg`.
+KPI oficiais continuam confidenciais e fora das páginas. Sem publicação ou alteração de domínio. O texto e a proposta de dois dias em Montemor/Évora aguardam validação final.

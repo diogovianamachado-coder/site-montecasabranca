@@ -3,7 +3,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup as B
 import base64,re,zipfile,shutil
 root=Path(__file__).resolve().parent
-source=root/'design/site'; output=root/'validacao-v1-3';output.mkdir(exist_ok=True)
+source=root/'design/site'; output=root/'validacao-v1-3-1';output.mkdir(exist_ok=True)
 pages=[('index','Início'),('a-casa','A casa'),('fotografias','Fotografias'),('precos','Datas e estadia'),('localizacao','Montemor e N2'),('perguntas','Perguntas'),('contactos','Contactos')]
 slugs=['Inicio','A-casa','Fotografias','Datas-e-estadia','Montemor-e-N2','Perguntas','Contactos']
 filenames={key+'.html':f'MCB-{i:02}-{slugs[i-1]}.html' for i,(key,label) in enumerate(pages,1)}
@@ -48,7 +48,7 @@ for key,label,html in standalone:
     for old,new in filenames.items():
         target=old[:-5]
         body=re.sub(r'href="'+re.escape(new)+r'(?:#([^"]*))?"',lambda m:'href="#'+(target+'-'+m.group(1) if m.group(1) in page_ids[target] else 'validacao-'+target)+'"',body)
-    parts.append(f'<article id="validacao-{key}" class="validation-article" aria-label="{label}"><div class="validation-divider"><span>{label} · design V1.3</span><a href="#validacao-indice">Escolher página</a></div>{body}</article>')
+    parts.append(f'<article id="validacao-{key}" class="validation-article" aria-label="{label}"><div class="validation-divider"><span>{label} · design V1.3.1</span><a href="#validacao-indice">Escolher página</a></div>{body}</article>')
 # Um único acesso permanente, fora das páginas. O menu abre o índice por âncora.
 idx=B((source/'index.html').read_text(),'html.parser');dock=idx.select_one('.mobile-dock')
 menu=dock.select_one('details');summary=menu.select_one('summary');a=idx.new_tag('a',href='#validacao-indice');a.extend(list(summary.contents));menu.replace_with(a)
@@ -59,9 +59,9 @@ viewer='''.validation-cover{padding:12px 25px;background:#eee6db}.validation-cov
 @media(max-width:700px){.validation-cover{padding:30px 25px}.validation-cover h1{font-size:30px}.validation-index{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:25px}.validation-index a{font-size:16px;padding:16px 0}.validation-cover p{margin-top:25px;font-size:12px}.validation-cover{display:none}body:has(#validacao-indice:target) .validation-cover{display:block}.validation-divider{padding:6px 25px;font-size:10px}}
 @media print{.mobile-dock,.reading-progress{display:none!important}.validation-cover,.validation-article,#validacao-index{display:block!important}.validation-article{break-before:page}body{padding-bottom:0}}
 '''
-caderno='<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Monte Casa Branca · páginas V1.3</title><style>'+css+extra+viewer+'</style></head><body><section class="validation-cover" id="validacao-indice"><h1>Monte Casa Branca</h1>'+toc+'<p>Escolhe uma página. O desenho adapta-se ao ecrã. Textos provisórios; calendário, preços e formulários de exemplo.</p></section>'+''.join(parts)+str(dock)+'<div class="reading-progress" aria-hidden="true"></div></body></html>'
+caderno='<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Monte Casa Branca · páginas V1.3.1</title><style>'+css+extra+viewer+'</style></head><body><section class="validation-cover" id="validacao-indice"><h1>Monte Casa Branca</h1>'+toc+'<p>Escolhe uma página. O desenho adapta-se ao ecrã. Textos provisórios; calendário, preços e formulários de exemplo.</p></section>'+''.join(parts)+str(dock)+'<div class="reading-progress" aria-hidden="true"></div></body></html>'
 (output/'MCB-Todas-as-paginas.html').write_text(caderno)
-with zipfile.ZipFile(root/'Monte-Casa-Branca-Validacao-V1-3.zip','w',zipfile.ZIP_DEFLATED) as z:
+with zipfile.ZipFile(root/'Monte-Casa-Branca-Validacao-V1-3-1.zip','w',zipfile.ZIP_DEFLATED) as z:
     for p in sorted(output.glob('*.html')):z.write(p,p.name)
 for p in output.glob('*.html'):
     text=p.read_text();assert '<iframe' not in text and 'srcdoc=' not in text and '<script' not in text
