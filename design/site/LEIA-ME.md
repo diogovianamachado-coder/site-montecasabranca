@@ -13,9 +13,9 @@ A página principal em scroll é o foco. O menu inferior é uma hipótese de apo
 ## Galeria
 - `index.html` tem entradas visuais por fotografia: sala, piscina e alpendre, e uma ligação geral “Explorar a galeria”.
 - As ligações levam à galeria interna e às zonas existentes, com os filtros do protótipo. Não introduzir links inventados para álbuns externos.
-- `galeria.json` regista os acessos e o estado da inspeção do Zenfolio. A organização no Zenfolio não foi observada porque o Cloudflare bloqueou o navegador de QA.
+- `galeria.json` regista os acessos e o estado da inspeção do Zenfolio. A organização foi agora observada nas capturas IMG_4594–4615 fornecidas pelo utilizador. O acesso direto continua bloqueado pelo Cloudflare; os URLs de álbuns individuais e originais não foram recuperados.
 - `https://mobile.zenfolio.com/photos` foi fornecido para inspeção, não é um destino público confirmado para os visitantes.
-- Os dois pares antes/depois foram herdados de uma versão anterior, mas a correspondência espacial e o alinhamento não estão confirmados. Não apresentar como um slider alinhado ou como match verificado. Fotografias, ficheiros e estrutura são preservados para a revisão.
+- As capturas revelam erros nos dois pares herdados: o antes da pérgula foi associado ao interior do casão, e o quarto atual usado não corresponde ao pareamento mostrado no álbum. Corrigir com os originais identificados na análise antes de montar. Não apresentar como um slider alinhado ou como match verificado. Fotografias, ficheiros e estrutura são preservados para a revisão.
 
 ## Fonte, revisão e histórico
 A fonte editável é esta pasta. Abrir `index.html` com os ficheiros adjacentes; desenho responsive em mobile e PC. Manter a paleta, tipografia e composição da prancha.
@@ -37,3 +37,6 @@ O exportador gera sete páginas autónomas e a apresentação combinada em `vali
 Os encaixes `data-base` e classes `b-` são preservados para o kit. Calendário, preço, tempo e pedido do HTML de validação são exemplos. Não existe novo motor nem envio de reservas nesta entrega. A inconsistência anterior de `imagens.json` no teste de `demo/ferramentas/demo.py` está documentada na entrega V1; não foi corrigida neste trabalho de acessos.
 
 KPI oficiais continuam confidenciais e fora das páginas. Sem publicação ou alteração de domínio. O texto e a proposta de dois dias em Montemor/Évora aguardam validação final.
+
+## Análise de galeria e menu · 24/10/2026
+Ler `docs/design/2026-10-24_analise_galeria_menu.md`: organização observada por capturas, correção dos pares e proposta de Menu + Verificar disponibilidade flutuantes. Esta proposta não altera ainda o desenho implementado nem equivale a aprovação.
