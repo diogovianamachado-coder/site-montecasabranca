@@ -382,3 +382,14 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   mete estas peças, liga o painel «Verificar disponibilidade» ao motor e ao tempo real, e escreve os pedidos ao agente do Lovable secção a
   secção (capa com a segunda fotografia; mensagem; a casa com a galeria completa; avaliações e as dez perguntas; datas reais; Montemor e N2;
   contactos). Fotografias: entrega do GPT (recado 5.ª parte) ou rede aberta ao Dropbox. **Próxima sugestão: S37.**
+- **25/10 (9.ª parte, noite) · «Não estou a perceber nada… Eu preciso ver e ter o detalhe do site geral e explodido página a página,
+  antes de desenhar a parte técnica. Se vamos usar a parte criativa do Lovable temos de acertar primeiro no design.»** Duas correções ao
+  Claude: (1) a mensagem sobre créditos foi contraditória (às 18h «não gasta mais créditos» quando o Lovable era só referência; às 18h30
+  «precisa do plano pago» quando passou a ser a base): a regra certa, dita de uma vez, é «rever e decidir não gasta; cada mudança feita pelo
+  agente do Lovable gasta (1–5 créditos); o plano gratuito dá 5 por dia; o pago faz tudo em um ou dois dias»; (2) **ordem: primeiro o design
+  fechado secção a secção, depois a parte técnica**; as peças portadas (8.ª parte) ficam à espera e não custam nada. Feito:
+  `docs/integracao-app/2026-10-25_explodido_site_lovable.md`: o site geral e as sete secções da versão do Lovable (lidas do código), com o
+  que está, o que falta face aos sete pontos do Diogo e as decisões numeradas (0.1 página de fotografias · 1.1–1.3 capa · 2.1–2.2 mensagem ·
+  3.1–3.3 a casa · 4.1–4.3 avaliações e perguntas · 5.1–5.3 Montemor e N2 · 6.1–6.2 contactos · 7.1–7.3 barra e painel), e o método por
+  lotes (decisões → pedido ao agente por lote → olho do Diogo → repetir → só depois a técnica). **Próximo passo:** respostas do Diogo às
+  decisões numeradas; as secções 1, 3 e 5 dependem das fotografias (GPT/rede). **Próxima sugestão: S37.**
