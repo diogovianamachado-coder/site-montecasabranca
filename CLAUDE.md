@@ -304,3 +304,14 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   Diogo ao LEIA-ME único no Dropbox · olho do Diogo à r2 · S31–S33 · secção 6 do fecho do GPT de 19/10 · 3,2 vs 3,6 ha · logótipo ·
   `creditos.md`/autorização das fotos (22 linhas dos pares incluídas) · `novo.montecasabranca.pt` · T2 do #193 · resposta do GPT à proposta
   da pausa no design. **Próxima sugestão: S37.**
+- **25/10 (4.ª parte, 16h38 UTC) · «Sim» do Diogo ao LEIA-ME único: FEITO.** Apagado o LEIA-ME original de 13h18 UTC (em «Ficheiros
+  eliminados» do Dropbox, recuperável) e o ficheiro do GPT renomeado para `LEIA-ME_zenfolio_e_pares_2026-10-25.md`; na pasta
+  `13. APP Gestão AL/site/zenfolio/` fica um só LEIA-ME (versão do GPT: secções 1–4 de 13h18 + secção 5 com a identificação; as tabelas
+  preenchidas estão no documento do repositório). Ferramenta: o primeiro `move` ficou «em curso» mais de dois minutos; repetido, concluiu em
+  segundos. **Nota de monitor:** apareceu `zenfolio/v2/` (16h29–16h33 UTC, não é do Claude; pelo padrão dos nomes é do GPT): os cinco álbuns
+  do Zenfolio reconstruídos a partir dos originais de `7. Fotos/` (`01-o-monte/` 47 · `02-os-quartos/` 12, com `02_a16.HEIC` · `03-a-quinta/`
+  17 · `04-antes-e-depois/` = cópia dos 22 · `05-montemor-o-novo/` 14; 112 ficheiros); as contagens de A Quinta e Montemor ficam abaixo das
+  capturas («cerca de 24» e «cerca de 25»), a confirmar pelo GPT no fecho dele; o Claude não conferiu as imagens nem mexe na pasta; a
+  referência dos pares continua `zenfolio/antes-e-depois/`. Registado na secção 5 do documento dos pares. **Em aberto:** olho do Diogo à r2 ·
+  fecho do GPT sobre a `v2/` e a proposta da pausa no design · S31–S33 · secção 6 do fecho do GPT de 19/10 · 3,2 vs 3,6 ha · logótipo ·
+  `creditos.md`/autorização das fotos · `novo.montecasabranca.pt` · T2 do #193. **Próxima sugestão: S37.**

@@ -115,7 +115,18 @@ tudo o resto foi exportado do iPhone a 12/10/2023, por isso a data não distingu
 - **O que o Claude não conferiu:** o conteúdo das imagens (qual fotografia é cada ficheiro e se o lado está certo), por não as conseguir
   abrir. A favor: a numeração segue a ordem do álbum com o quarto invertido como na grelha, e as três sobras são quartos, o que bate com a
   leitura das capturas. O olho do Diogo na página «Antes e depois» da demo, quando o ChatGPT a entregar, fecha isto.
-- **LEIA-ME no Dropbox:** o ChatGPT não pôde substituir o ficheiro existente e gravou `LEIA-ME_zenfolio_e_pares_2026-10-25_com_identificacao.md`
-  (o texto original mais a secção 5 com a tabela). O original de 13h18 UTC está ultrapassado; ficar um só ficheiro (apagar o original, que vai
-  para «Ficheiros eliminados», e renomear o novo) espera o «sim» do Diogo, porque o conector do Claude também não substitui nem apaga sem ordem.
+- **LEIA-ME no Dropbox: um só ficheiro, desde as 16h38 UTC de 25/10.** O ChatGPT não pôde substituir o ficheiro existente e gravou
+  `LEIA-ME_zenfolio_e_pares_2026-10-25_com_identificacao.md` (o texto original mais a secção 5 com a tabela). Com o «sim» do Diogo, o Claude
+  apagou o original de 13h18 UTC (está em «Ficheiros eliminados» do Dropbox, recuperável) e renomeou o ficheiro do ChatGPT para
+  `LEIA-ME_zenfolio_e_pares_2026-10-25.md`. É a versão do ChatGPT (secções 1–4 de 13h18 tal e qual, com os «por identificar», mais a
+  secção 5 que os resolve); a versão com as tabelas preenchidas é este documento. Nota de ferramenta: o primeiro pedido de renomear ficou
+  «em curso» mais de dois minutos sem acabar; o segundo pedido, igual, concluiu em segundos.
 - **Correção ao Claude:** a instrução ao ChatGPT dizia «os 21 que faltam»; eram 18 (22 do álbum menos 4 já copiados), como o ChatGPT apontou.
+- **Pasta `zenfolio/v2/`, aparecida a 25/10 entre as 16h29 e as 16h33 UTC (não é do Claude; pelo padrão dos nomes é do ChatGPT, com
+  acesso ao Dropbox):** os cinco álbuns do Zenfolio reconstruídos a partir dos originais de `7. Fotos/`, cada ficheiro com o número de
+  ordem no álbum e o nome original: `01-o-monte/` (47 ficheiros, `01_IMG_0264.JPG` … `47_53.JPG`) · `02-os-quartos/` (12; o 2.º é
+  `02_a16.HEIC`, o «depois» do ad08, como esta leitura previa) · `03-a-quinta/` (17) · `04-antes-e-depois/` (os mesmos 22 ficheiros de
+  `antes-e-depois/`, cópia igual byte a byte) · `05-montemor-o-novo/` (14). Total 112 ficheiros; datas de captura 2020–2023. Contagens
+  pelas capturas do Claude: O Monte «cerca de 40», Os Quartos 12, A Quinta «cerca de 24», Montemor «cerca de 25»; as de A Quinta e Montemor
+  ficam abaixo, a confirmar pelo ChatGPT no fecho dele. O Claude não conferiu as imagens nem mexe nesta pasta. Até o ChatGPT dizer o
+  contrário, a pasta de referência dos pares para este documento continua a ser `zenfolio/antes-e-depois/`.
