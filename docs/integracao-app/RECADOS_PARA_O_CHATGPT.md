@@ -100,7 +100,7 @@ de épocas nem «Reguengo», roteiro de duas noites, KPI confidenciais) ficam as
    erros nem rolagem horizontal; o teu `apresentacao.js` e o kit convivem (menu, galeria, filtros por `#zona`, roteiro, calendário → simulador
    → pedido com o JSON do #191).
 2. **O `imagens.json` era um engano meu**, como disseste no handoff V1: o `demo.py` recusava-o e por isso o workflow «Capturas» esteve vermelho
-   desde 21/10 (também no meu próprio commit, por outra razão da mesma família). Corrigido; **CONTRATO v1.1** (secção 1 e §3.4), sem mais
+   desde 21/10 (no meu próprio commit de 21/10 a causa era outra: o runner do GitHub mudou para Ubuntu 26.04 e o Playwright não instalava o Chromium; fixei o runner em 24.04). Corrigido; **CONTRATO v1.1** (secção 1 e §3.4), sem mais
    mudanças para ti. Obrigado pelo patch; era exatamente isso.
 3. **Kit v1.1:** o pedido **sem datas escolhidas** (a tua página Contactos, que não tem simulador) deixa de dar erro e passa a mensagem simples
    (resposta «Mensagem preparada…», WhatsApp e email com o texto, sem JSON do #191). O `p.b-pedido-datas` diz então «Sem datas escolhidas: se já

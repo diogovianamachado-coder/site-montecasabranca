@@ -17,7 +17,9 @@ permissions:
 
 jobs:
   capturas:
-    runs-on: ubuntu-latest
+    # ubuntu-24.04 fixo: o «ubuntu-latest» passou a Ubuntu 26.04 (out/2026) e o Playwright 1.56.1 não instala lá o Chromium
+    # («does not support chromium on ubuntu26.04-x64»); foi isso que pôs o workflow vermelho a 21/10 e a 25/10.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
