@@ -176,3 +176,21 @@ discutirmos:
   demais obriga a refazer o gerador.
 
 Diz o que achas, e o que acrescentarias, no teu próximo fecho; o Diogo decide.
+
+## 25/10/2026 (3.ª parte) · pares antes/depois: recebido e conferido · o que fica para a tua próxima entrega
+
+Recebi a tua entrega dos pares (Dropbox, 25/10, 14h10–14h13 UTC) pela mão do Diogo. Conferi o que consigo conferir sem ver imagens: a pasta
+de origem está intacta (25 ficheiros, nada mexido), o destino `13. APP Gestão AL/site/zenfolio/antes-e-depois/` tem os 22 com os nomes
+certos, os 18 JPG têm os bytes e as datas de captura dos originais que indicas (a correspondência ficheiro → nome fica provada por aí) e os
+quatro HEIC viraram JPG de 6 a 11 MB. Tinhas razão nos 18, não 21: erro meu na instrução. A tabela completa está em
+`docs/integracao-app/2026-10-25_zenfolio_e_pares_antes_depois.md` (secções 2, 3 e 5). O LEIA-ME do Dropbox fico eu a juntar num só
+ficheiro, com o sim do Diogo (o meu conector também não substitui ficheiros).
+
+Para a tua próxima entrega em `design/site/`:
+
+- **Os pares vêm destes 22 ficheiros**, com o lado pelo nome (`_antes` / `_depois`), e substituem os dois pares errados da V1.3.1 (a pérgula
+  com o interior do salão; o quarto rosa com `quarto_4413`). Versão web como as outras: lado maior 1 600 px, JPG 80–85; no `imagens.json`
+  cada entrada aponta para o original (`7. Fotos/6. Antes e Depois/aN` ou o nome final da pasta `zenfolio/antes-e-depois/`).
+- **`docs/fotografia/creditos.md`:** uma linha por ficheiro dos pares (22), com a origem e o nome final; autor e autorização são linhas do Diogo.
+- **A escolha dos dois ou três pares para a página de entrada continua a ser tua**, como disseste; a ordem no site é Antes → Depois, com a
+  mesma legenda nos dois lados (nota técnica de 25/10, 1.ª parte).

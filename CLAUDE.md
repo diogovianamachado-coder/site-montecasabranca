@@ -287,3 +287,20 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   S31–S33 · secção 6 do fecho do GPT de 19/10 · 3,2 vs 3,6 ha · logótipo · `creditos.md`/autorização das fotos · `novo.montecasabranca.pt` ·
   T2 do #193. **Próxima sugestão: S37.**
 
+- **25/10 (3.ª parte) · PARES ANTES/DEPOIS FECHADOS PELO GPT.** A pedido do Diogo («escreve aqui uma instrução para passar ao gpt»), o Claude
+  escreveu a instrução (pastas de origem e destino, os 11 pares descritos, os 4 já identificados, nomes finais, o que não fazer) e o GPT
+  executou-a: abriu os 25 originais de `7. Fotos/6. Antes e Depois/` e identificou os 22 dos 11 pares, **a1–a22 pela ordem do álbum, ímpar =
+  depois, par = antes, exceto o quarto (a15 antes, a16 depois)**; a22 = ad11 antes (não ad01/ad03, como o Claude supunha pela data); os três
+  que sobram (`8 …`, `9 …`, `IMG_1105 …HEIC`) são quartos fora do álbum e não foram copiados. Copiou 14 JPG tal e qual e converteu os 4 HEIC
+  (a2, a9, a10, a16) a JPG q100 para `13. APP Gestão AL/site/zenfolio/antes-e-depois/` (**22 ficheiros**, `adNN_<espaco>_antes|depois.jpg`);
+  origem intacta (25 ficheiros, última modificação 27/3/2024). **Conferido pelo Claude:** nomes, datas de captura e bytes (os 18 JPG iguais
+  aos originais que o GPT indica, logo a correspondência está provada; os HEIC convertidos têm 6,3–10,7 MB); o conteúdo das imagens não,
+  por não as conseguir abrir. Erro do Claude na instrução: «21 que faltam» eram 18. O GPT não pôde substituir o LEIA-ME do Dropbox e gravou
+  `LEIA-ME_zenfolio_e_pares_2026-10-25_com_identificacao.md` (original + secção 5 com a tabela); **ficar um só ficheiro (apagar o original,
+  que vai para «Ficheiros eliminados», e renomear o novo) espera o «sim» do Diogo**, porque o conector não substitui nem apaga sem ordem.
+  Registado em `docs/integracao-app/2026-10-25_zenfolio_e_pares_antes_depois.md` (secções 2, 3 e 5, tabela dos 25 com bytes) e recado ao
+  GPT (3.ª parte: os 22 na próxima entrega de `design/site/`, `imagens.json` a apontar ao original, 22 linhas no `creditos.md`). **A demo r2
+  fica com os dois pares errados da V1.3.1 até à próxima entrega do GPT** (regra: não afinar o design por iniciativa). **Em aberto:** sim do
+  Diogo ao LEIA-ME único no Dropbox · olho do Diogo à r2 · S31–S33 · secção 6 do fecho do GPT de 19/10 · 3,2 vs 3,6 ha · logótipo ·
+  `creditos.md`/autorização das fotos (22 linhas dos pares incluídas) · `novo.montecasabranca.pt` · T2 do #193 · resposta do GPT à proposta
+  da pausa no design. **Próxima sugestão: S37.**
