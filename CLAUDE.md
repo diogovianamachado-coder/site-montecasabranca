@@ -243,7 +243,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   ferramenta (não desenho):** `imagens.json` deixou de ser nome reservado no `demo.py` (engano meu apontado pelo GPT) → **CONTRATO v1.1**; o workflow «Capturas»
   esteve vermelho desde 21/10 por duas causas: esse nome reservado nas entregas do GPT e, no meu commit de 21/10 e no de 25/10, o runner
   `ubuntu-latest` que passou a Ubuntu 26.04, onde o Playwright 1.56.1 não instala o Chromium → runner fixado em `ubuntu-24.04` (commit
-  seguinte ao 223e9a5); kit: pedido sem datas = mensagem simples (Contactos); `artefacto` tolera `<body data-page>`;
+  16178f0; **corrida n.º 11 verde**, 25/10 11h17, a primeira verde desde 17/10); kit: pedido sem datas = mensagem simples (Contactos); `artefacto` tolera `<body data-page>`;
   `componentes.html`; `captura.cjs --formato jpg`; a linha no `creditos.md` passa a aviso na demo; workflow: ensaio só com o Playwright instalado.
   **Monitor:** factos batem com o `FACTOS.md` (telefone, sem hectares/Reguengo/KPI, distâncias, casa, regras); **a conferir pelo Diogo:** links das
   plataformas nas Perguntas diferentes dos do FACTOS §8 e sem Vrbo; morada completa para o schema.org (nota c de 19/10). **Antes/depois:** os dois
