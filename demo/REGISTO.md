@@ -10,6 +10,7 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
 | r0 | 2026-10-17 | preparação técnica | Página neutra «Demo em preparação» + zona de revisão `revisao.html`; ferramenta `demo.py`; capturas | nenhuma (sem desenho indicado para implementação) | 0b59571 (base) e o commit «SITE · demo · S28–S30» (capturas, ligação fixa, workflow) | https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV | `demo.py testar` OK · capturas 390/1280 sem rolagem horizontal nem erros de consola |
 | r1 | 2026-10-17 | **rascunho** | D03 «Casa ao sol», abertura do ChatGPT: fotografia grande, campo terracota «Cada um ao seu ritmo», três espaços, painéis (casa, por aqui, os vossos dias, menu), tempo e datas como exemplo | `design/estudo-d03-2026-10-17/index.html` (e066def) · handoff `docs/design/2026-10-17_d03_casa_ao_sol_handoff.md` | commit «SITE · demo r1 · D03» | https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP | `testar` OK · capturas 390/1280 + cenários (três espaços, menu, painéis, datas) |
 | r2 | 2026-10-25 | **rascunho** | V1.3.1 do ChatGPT (24/10): sete páginas, Início em scroll (grande fotografia, características, casa, trio com acessos à galeria, tempo, simulador, Montemor), A casa, Fotografias (filtros, ampliação, antes/depois), Preços e datas (calendário de 2 meses, simulador, pedido), Localização e Montemor (roteiro de dois dias), Perguntas, Contactos; barra inferior mobile (proposta) · kit a funcionar nos 7 encaixes | `design/site/` V1.3.1 (d08e628) · fecho `docs/decisoes/2026-10-24_fecho_chatgpt.md` · histórico `design/HISTORICO-VERSOES.md` | commit «SITE · demo r2» | https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9 | `testar` OK · `testar --design` OK (7 páginas) · cenário Chromium 84 verificações OK · capturas 390/1280 (jpg) + 7 estados em `demo/capturas/r2/` |
+| r3 | 2026-10-25 | **rascunho** | r3 · a ordem do Diogo em sete pontos (capa, mensagem, a casa, avaliações e perguntas, datas, Montemor e N2, contactos), construída pelo Claude a partir da prancha | demo/r3/ () | commit «SITE · demo r3» | por publicar | `testar` e capturas por correr |
 
 ## r0 · 2026-10-17 · preparação técnica
 
@@ -102,3 +103,10 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
   `index-pedido-390`, `precos-calendario-1280`, `fotografias-ampliacao-390`, `localizacao-roteiro-390`. Limitações: Chromium apenas; Safari e
   iPhone ficam para o Diogo pelas ligações; o tempo real (Open-Meteo) só aparece com rede no browser do Diogo.
 - **Ligações:** principal (mais recente) https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S · fixa r2: https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9
+
+
+## r3 · 2026-10-25 · rascunho · demo/r3 do Claude
+
+- **Origem:** demo/r3/ (commit ), montado por `demo.py montar`.
+- **Páginas:** fotografias.html, index.html.
+- **Validação:** por correr.

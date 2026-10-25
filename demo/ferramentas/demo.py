@@ -3,7 +3,7 @@
 
     python3 demo/ferramentas/demo.py testar            verifica demo/site, demo/versao.json e a base sincronizada
     python3 demo/ferramentas/demo.py testar --design   verifica as páginas do ChatGPT em design/site contra o contrato (demo/base/CONTRATO.md)
-    python3 demo/ferramentas/demo.py montar [--rev rN] [--titulo "…"] [--limpar] [--para pasta]
+    python3 demo/ferramentas/demo.py montar [--rev rN] [--titulo "…"] [--limpar] [--para pasta] [--de pasta]
                                                         junta design/site + kit (demo/base) em demo/site (ou em «pasta», ensaio sem tocar na demo)
     python3 demo/ferramentas/demo.py revisao rN [--titulo "…"] [--porta 8789]
                                                         S35: montar --limpar --rev rN, testar, capturas jpg, artefacto e artefacto --fixa, num só comando
@@ -442,10 +442,11 @@ def testar(verboso=True):
     return not falhas
 
 
-def paginas_design():
-    if not os.path.isdir(DESIGN_SITE):
+def paginas_design(pasta=None):
+    pasta = pasta or DESIGN_SITE
+    if not os.path.isdir(pasta):
         return []
-    return sorted(f for f in os.listdir(DESIGN_SITE) if f.endswith(".html"))
+    return sorted(f for f in os.listdir(pasta) if f.endswith(".html"))
 
 
 def testar_design(verboso=True):
@@ -516,7 +517,7 @@ def injetar(texto):
 
 
 def montar(argv):
-    rev = titulo = para = None
+    rev = titulo = para = de = None
     limpar = False
     i = 0
     while i < len(argv):
@@ -527,6 +528,8 @@ def montar(argv):
             titulo = argv[i + 1]; i += 1
         elif a == "--para" and i + 1 < len(argv):
             para = os.path.abspath(argv[i + 1]); i += 1
+        elif a == "--de" and i + 1 < len(argv):
+            de = os.path.abspath(argv[i + 1]); i += 1
         elif a == "--limpar":
             limpar = True
         else:
@@ -534,12 +537,16 @@ def montar(argv):
         i += 1
     if rev and not re.fullmatch(r"r\d+", rev):
         print("--rev devia ser r2, r3, …"); return 2
-    pags = paginas_design()
+    # a fonte das páginas: design/site (ChatGPT) por omissão; --de pasta para outra origem (por exemplo demo/r3, do Claude)
+    fonte = de or DESIGN_SITE
+    rel_fonte = os.path.relpath(fonte, RAIZ).replace(os.sep, "/")
+    autor = "ChatGPT" if fonte == DESIGN_SITE else "Claude"
+    pags = paginas_design(fonte)
     if not pags:
-        print("design/site sem páginas .html: nada a montar (ver demo/base/CONTRATO.md)"); return 1
-    for f in os.listdir(DESIGN_SITE):
+        print(f"{rel_fonte} sem páginas .html: nada a montar (ver demo/base/CONTRATO.md)"); return 1
+    for f in os.listdir(fonte):
         if f in RESERVADOS:
-            print(f"FALHA: design/site/{f} usa um nome reservado à demo; não monto."); return 1
+            print(f"FALHA: {rel_fonte}/{f} usa um nome reservado à demo; não monto."); return 1
     destino = para or SITE
     ensaio = bool(para)
     if ensaio:
@@ -550,11 +557,11 @@ def montar(argv):
             if os.path.exists(os.path.join(SITE, f)):
                 shutil.copy2(os.path.join(SITE, f), os.path.join(destino, f))
     copiados, injetadas = [], []
-    for pasta, pastas, ficheiros in os.walk(DESIGN_SITE):
+    for pasta, pastas, ficheiros in os.walk(fonte):
         pastas[:] = [d for d in pastas if d != "base"]
         for f in ficheiros:
             origem = os.path.join(pasta, f)
-            rel = os.path.relpath(origem, DESIGN_SITE).replace(os.sep, "/")
+            rel = os.path.relpath(origem, fonte).replace(os.sep, "/")
             ext = os.path.splitext(f)[1].lower()
             if ext not in EXTENSOES_DESIGN or rel in ("imagens.json", "LEIA-ME.md", "README.md"):
                 continue
@@ -568,7 +575,7 @@ def montar(argv):
             copiados.append(rel)
     # imagens do design: origem em design/site/imagens.json (opcional), entrada em demo/imagens.json
     mapa_design = {}
-    mj = os.path.join(DESIGN_SITE, "imagens.json")
+    mj = os.path.join(fonte, "imagens.json")
     if os.path.exists(mj):
         try:
             mapa_design = json.load(open(mj, encoding="utf-8"))
@@ -580,13 +587,13 @@ def montar(argv):
             if rel.lower().endswith(IMAGENS_EXT):
                 info = mapa_design.get(rel) or mapa_design.get(os.path.basename(rel)) or {}
                 existente = mapa.get(rel) or {}
-                if existente.get("ficheiro_repo") != "design/site/" + rel or info:
+                if existente.get("ficheiro_repo") != rel_fonte + "/" + rel or info:
                     mapa[rel] = {
-                        "ficheiro_repo": "design/site/" + rel,
+                        "ficheiro_repo": rel_fonte + "/" + rel,
                         "original": info.get("original", existente.get("original", "")),
                         "autor": info.get("autor", existente.get("autor", "")),
                         "autorizacao_publica": bool(info.get("autorizacao_publica", existente.get("autorizacao_publica", False))),
-                        "nota": "copiada de design/site pelo demo.py montar",
+                        "nota": f"copiada de {rel_fonte} pelo demo.py montar",
                     }
         removidos = []
         if limpar:
@@ -607,10 +614,10 @@ def montar(argv):
             json.dump(mapa, f, ensure_ascii=False, indent=2); f.write("\n")
         # versao.json
         v = ler_versao()
-        sha = git("log", "-1", "--format=%H", "--", "design/site") or None
+        sha = git("log", "-1", "--format=%H", "--", rel_fonte) or None
         d = v.get("design") or {}
         v["design"] = {
-            "entrega": f"design/site/ (ChatGPT) · {len(pags)} página(s) · commit {sha[:7] if sha else 'por fazer'}",
+            "entrega": f"{rel_fonte}/ ({autor}) · {len(pags)} página(s) · commit {sha[:7] if sha else 'por fazer'}",
             "commit": sha,
             "estado": d.get("estado") or "rascunho, nenhuma aprovação estética",
             "ficheiros": copiados,
@@ -618,7 +625,7 @@ def montar(argv):
         hoje = date.today().isoformat()
         if rev:
             v["revisao"] = rev; v["data"] = hoje; v["estado"] = "rascunho"
-            v["titulo"] = titulo or f"design/site do ChatGPT ({len(pags)} páginas), rascunho para apreciação"
+            v["titulo"] = titulo or f"{rel_fonte} do {autor} ({len(pags)} páginas), rascunho para apreciação"
             hist = v.setdefault("historico", [])
             if rev not in [h.get("revisao") for h in hist]:
                 hist.append({"revisao": rev, "data": hoje, "estado": "rascunho", "titulo": v["titulo"],
@@ -626,10 +633,10 @@ def montar(argv):
             if os.path.exists(REGISTO) and f"| {rev} |" not in ler(REGISTO):
                 linhas = ler(REGISTO).split("\n")
                 idx = max(i for i, l in enumerate(linhas) if re.match(r"^\| r\d+ \|", l))
-                linha = (f"| {rev} | {hoje} | **rascunho** | {v['titulo']} | design/site/ ({(sha or '')[:7]}) | "
+                linha = (f"| {rev} | {hoje} | **rascunho** | {v['titulo']} | {rel_fonte}/ ({(sha or '')[:7]}) | "
                          f"commit «SITE · demo {rev}» | por publicar | `testar` e capturas por correr |")
                 linhas.insert(idx + 1, linha)
-                linhas.append(f"\n## {rev} · {hoje} · rascunho · design/site do ChatGPT\n\n- **Origem:** design/site/ (commit {(sha or '')[:7]}), montado por `demo.py montar`.\n- **Páginas:** {', '.join(pags)}.\n- **Validação:** por correr.\n")
+                linhas.append(f"\n## {rev} · {hoje} · rascunho · {rel_fonte} do {autor}\n\n- **Origem:** {rel_fonte}/ (commit {(sha or '')[:7]}), montado por `demo.py montar`.\n- **Páginas:** {', '.join(pags)}.\n- **Validação:** por correr.\n")
                 escrever(REGISTO, "\n".join(linhas))
         pagina_estados = {p: "rascunho" for p in pags}
         pagina_estados.update(TECNICAS)
@@ -707,18 +714,20 @@ def revisao(argv):
     """montar --limpar --rev rN → testar → capturas (Chromium, jpg) → artefacto + artefacto --fixa; imprime os passos que ficam à mão."""
     rev = argv[0] if argv and re.fullmatch(r"r\d+", argv[0]) else None
     if not rev:
-        print('uso: demo.py revisao rN [--titulo "…"] [--porta 8789]'); return 2
-    titulo, porta, i = None, 8789, 1
+        print('uso: demo.py revisao rN [--titulo "…"] [--porta 8789] [--de pasta]'); return 2
+    titulo, porta, de, i = None, 8789, None, 1
     while i < len(argv):
         if argv[i] == "--titulo" and i + 1 < len(argv):
             titulo = argv[i + 1]; i += 2; continue
         if argv[i] == "--porta" and i + 1 < len(argv):
             porta = int(argv[i + 1]); i += 2; continue
+        if argv[i] == "--de" and i + 1 < len(argv):
+            de = argv[i + 1]; i += 2; continue
         print("opção desconhecida em revisao:", argv[i]); return 2
     v = ler_versao()
     if not titulo and v.get("revisao") == rev:
         titulo = v.get("titulo")  # repetir a mesma revisão não lhe apaga o título
-    args = ["--limpar", "--rev", rev] + (["--titulo", titulo] if titulo else [])
+    args = ["--limpar", "--rev", rev] + (["--titulo", titulo] if titulo else []) + (["--de", de] if de else [])
     print("[1/5] montar", " ".join(args))
     rc = montar(args)
     if rc:

@@ -1,0 +1,16 @@
+{
+  "piscina-dia.jpg": {"original": "V2_verão/5.JPG; Rodrigo/1/DSC_4078.JPG", "autor": "Rodrigo", "estado": "seleção do ChatGPT (R1) reutilizada; autorização pública por confirmar"},
+  "piscina-dia-movel.jpg": {"original": "recorte de piscina-dia.jpg (lado esquerdo, para o telemóvel)", "autor": "Rodrigo", "estado": "derivada na demo r3"},
+  "piscina-espreguicadeira.jpg": {"original": "recorte de piscina-dia.jpg (espreguiçadeiras e chapéu de sol)", "autor": "Rodrigo", "estado": "derivada na demo r3"},
+  "sala-portas.jpg": {"original": "V2_verão/13.JPG; DSC_4444.JPG", "autor": "Rodrigo", "estado": "seleção do ChatGPT (R1) reutilizada; autorização pública por confirmar"},
+  "sala-portas-m.jpg": {"original": "sala-portas.jpg reduzida a 1000 px", "autor": "Rodrigo", "estado": "derivada na demo r3"},
+  "sala.jpg": {"original": "V3_inverno/7.JPG; DSC_4446.JPG", "autor": "Rodrigo", "estado": "seleção do ChatGPT (R1) reutilizada; autorização pública por confirmar"},
+  "sala-m.jpg": {"original": "sala.jpg reduzida a 1000 px", "autor": "Rodrigo", "estado": "derivada na demo r3"},
+  "alpendre.jpg": {"original": "V2_verão/8.JPG; DSC_4161.JPG", "autor": "Rodrigo", "estado": "seleção do ChatGPT (R1) reutilizada; autorização pública por confirmar"},
+  "alpendre-m.jpg": {"original": "alpendre.jpg reduzida a 1000 px", "autor": "Rodrigo", "estado": "derivada na demo r3"},
+  "quarto.jpg": {"original": "Interior/quarto 3/IMG_0322.JPG", "autor": "por confirmar", "estado": "seleção do ChatGPT (R1) reutilizada; autoria e autorização por confirmar"},
+  "quarto-m.jpg": {"original": "quarto.jpg reduzida a 1000 px", "autor": "por confirmar", "estado": "derivada na demo r3"},
+  "antes_quarto_a15.jpg": {"original": "7. Fotos/6. Antes e Depois/a15.JPG (= ad08 antes)", "autor": "acervo do projeto", "estado": "versão pequena do estudo do ChatGPT; o original está em zenfolio/antes-e-depois/ad08_quarto_antes.jpg"},
+  "montemor_rua_4694.jpg": {"original": "design/estudo-imagens/montemor_rua_4694.jpg", "autor": "acervo do projeto; autoria por confirmar", "estado": "versão pequena (600 px) do estudo do ChatGPT"},
+  "logotipo.png": {"original": "public/marca/logo.png", "autor": "marca atual do projeto", "estado": "ativo oficial do repositório"}
+}

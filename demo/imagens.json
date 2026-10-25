@@ -1,80 +1,101 @@
 {
   "_nota": "Uma entrada por imagem em demo/site/. «ficheiro_repo» é a cópia já no repositório de onde a demo copia sem retocar; «original» é o nome no Dropbox/creditos.md; «autorizacao_publica» fica vazio até o Diogo a escrever em docs/fotografia/creditos.md. A demo é privada; a publicação exige a linha preenchida.",
   "imagens/piscina-dia.jpg": {
-    "ficheiro_repo": "design/site/imagens/piscina-dia.jpg",
+    "ficheiro_repo": "demo/r3/imagens/piscina-dia.jpg",
     "original": "V2_verão/5.JPG; Rodrigo/1/DSC_4078.JPG",
     "autor": "Rodrigo",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/logotipo.png": {
-    "ficheiro_repo": "design/site/imagens/logotipo.png",
+    "ficheiro_repo": "demo/r3/imagens/logotipo.png",
     "original": "public/marca/logo.png",
-    "autor": "Marca atual do projeto",
+    "autor": "marca atual do projeto",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/antes_quarto_a15.jpg": {
-    "ficheiro_repo": "design/site/imagens/antes_quarto_a15.jpg",
-    "original": "design/estudo-imagens/antes_quarto_a15.jpg",
-    "autor": "Acervo do projeto; autoria por confirmar",
+    "ficheiro_repo": "demo/r3/imagens/antes_quarto_a15.jpg",
+    "original": "7. Fotos/6. Antes e Depois/a15.JPG (= ad08 antes)",
+    "autor": "acervo do projeto",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/quarto.jpg": {
-    "ficheiro_repo": "design/site/imagens/quarto.jpg",
+    "ficheiro_repo": "demo/r3/imagens/quarto.jpg",
     "original": "Interior/quarto 3/IMG_0322.JPG",
-    "autor": "Por confirmar",
+    "autor": "por confirmar",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
-  },
-  "imagens/antes_casao_a14.jpg": {
-    "ficheiro_repo": "design/site/imagens/antes_casao_a14.jpg",
-    "original": "design/estudo-imagens/antes_casao_a14.jpg",
-    "autor": "Acervo do projeto; autoria por confirmar",
-    "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/alpendre.jpg": {
-    "ficheiro_repo": "design/site/imagens/alpendre.jpg",
+    "ficheiro_repo": "demo/r3/imagens/alpendre.jpg",
     "original": "V2_verão/8.JPG; DSC_4161.JPG",
     "autor": "Rodrigo",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/sala-portas.jpg": {
-    "ficheiro_repo": "design/site/imagens/sala-portas.jpg",
+    "ficheiro_repo": "demo/r3/imagens/sala-portas.jpg",
     "original": "V2_verão/13.JPG; DSC_4444.JPG",
     "autor": "Rodrigo",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
-  },
-  "imagens/quarto_4413.jpg": {
-    "ficheiro_repo": "design/site/imagens/quarto_4413.jpg",
-    "original": "design/estudo-imagens/quarto_4413.jpg",
-    "autor": "Acervo do projeto; autoria por confirmar",
-    "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
-  },
-  "imagens/depois_casao_interior_a3.jpg": {
-    "ficheiro_repo": "design/site/imagens/depois_casao_interior_a3.jpg",
-    "original": "design/estudo-imagens/depois_casao_interior_a3.jpg",
-    "autor": "Acervo do projeto; autoria por confirmar",
-    "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/sala.jpg": {
-    "ficheiro_repo": "design/site/imagens/sala.jpg",
+    "ficheiro_repo": "demo/r3/imagens/sala.jpg",
     "original": "V3_inverno/7.JPG; DSC_4446.JPG",
     "autor": "Rodrigo",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   },
   "imagens/montemor_rua_4694.jpg": {
-    "ficheiro_repo": "design/site/imagens/montemor_rua_4694.jpg",
+    "ficheiro_repo": "demo/r3/imagens/montemor_rua_4694.jpg",
     "original": "design/estudo-imagens/montemor_rua_4694.jpg",
-    "autor": "Acervo do projeto; autoria por confirmar",
+    "autor": "acervo do projeto; autoria por confirmar",
     "autorizacao_publica": false,
-    "nota": "copiada de design/site pelo demo.py montar"
+    "nota": "copiada de demo/r3 pelo demo.py montar"
+  },
+  "imagens/sala-m.jpg": {
+    "ficheiro_repo": "demo/r3/imagens/sala-m.jpg",
+    "original": "sala.jpg reduzida a 1000 px",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de demo/r3 pelo demo.py montar"
+  },
+  "imagens/quarto-m.jpg": {
+    "ficheiro_repo": "demo/r3/imagens/quarto-m.jpg",
+    "original": "quarto.jpg reduzida a 1000 px",
+    "autor": "por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de demo/r3 pelo demo.py montar"
+  },
+  "imagens/sala-portas-m.jpg": {
+    "ficheiro_repo": "demo/r3/imagens/sala-portas-m.jpg",
+    "original": "sala-portas.jpg reduzida a 1000 px",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de demo/r3 pelo demo.py montar"
+  },
+  "imagens/piscina-espreguicadeira.jpg": {
+    "ficheiro_repo": "demo/r3/imagens/piscina-espreguicadeira.jpg",
+    "original": "recorte de piscina-dia.jpg (espreguiçadeiras e chapéu de sol)",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de demo/r3 pelo demo.py montar"
+  },
+  "imagens/alpendre-m.jpg": {
+    "ficheiro_repo": "demo/r3/imagens/alpendre-m.jpg",
+    "original": "alpendre.jpg reduzida a 1000 px",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de demo/r3 pelo demo.py montar"
+  },
+  "imagens/piscina-dia-movel.jpg": {
+    "ficheiro_repo": "demo/r3/imagens/piscina-dia-movel.jpg",
+    "original": "recorte de piscina-dia.jpg (lado esquerdo, para o telemóvel)",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de demo/r3 pelo demo.py montar"
   }
 }
