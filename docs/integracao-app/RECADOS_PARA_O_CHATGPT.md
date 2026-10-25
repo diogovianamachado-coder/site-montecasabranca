@@ -248,3 +248,10 @@ têm de estar no site**; a seleção por zonas é para a página de entrada e pa
 
 O Claude faz a **r4** com isto: a galeria completa por álbuns, as zonas da entrada, e as duas capas em alternância para o Diogo comparar no iPhone.
 Sem fotografias de banco, sem geradas, sem imagens com pessoas identificáveis além das que já estão públicas no Zenfolio.
+
+## 25/10/2026 (6.ª parte) · decisão do Diogo: o site segue pela versão do Lovable; as fotografias continuam a ser a tua entrega
+
+O Diogo viu a r3 do Claude e a versão do Lovable e decidiu: «queria seguir pelo dele e adaptar com coisas tuas». A base do site passa a ser o
+projeto do Lovable (React/TanStack Start), onde o Claude mete as integrações, o SEO/LLM e os testes pelo GitHub. Registo em
+`docs/integracao-app/2026-10-25_decisao_site_no_lovable.md`. **Para ti nada muda no pedido das fotografias (5.ª parte):** `design/fotos/` neste
+repositório, com a galeria completa e a seleção por zonas; o Claude leva-as para o projeto do Lovable. Os textos PT continuam teus.

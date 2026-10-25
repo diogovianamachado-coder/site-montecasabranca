@@ -357,3 +357,16 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `www.dropbox.com`, `previews.dropbox.com`): com isso o Claude descarrega, vê e escolhe as fotografias ele próprio e faz a r4 no dia.
   **Próximo passo:** r4 = galeria completa por álbuns + zonas + as duas capas em alternância, assim que as fotografias entrarem por A ou B.
   **Em aberto:** olho do Diogo à r3 · fotografias (A/B) · resto como antes. **Próxima sugestão: S37.**
+- **25/10 (7.ª parte, noite) · DECISÃO DO DIOGO: O SITE SEGUE PELA VERSÃO DO LOVABLE, «adaptada com coisas tuas».** («na verdade o site dele
+  ficou muito melhor do que o teu… queria seguir pelo dele e adaptar com coisas tuas».) Registado em
+  `docs/integracao-app/2026-10-25_decisao_site_no_lovable.md`: a base é o projeto do Lovable (TanStack Start, React 19 com renderização no
+  servidor, Tailwind 4, shadcn/ui; uma rota em `src/routes/index.tsx`, `src/lib/stay.ts`); as peças do Claude entram lá (portas #189–#192,
+  motor de tarifas do kit, Open-Meteo, pôr do sol, pré-reserva pelo servidor do site, schema.org, `llms.txt`, `robots.txt`, `sitemap.xml`, EN,
+  galeria completa, testes); **é uma alteração ao acordo v1.2 (stack e hospedagem) → v1.3 a escrever**; a demo estática `demo/` (r0–r3) fica
+  como registo e não continua. **Método:** código do Claude pelo GitHub (o Diogo liga o projeto do Lovable ao GitHub no editor; o Lovable cria
+  um repositório na conta dele; o Claude junta-o à sessão e faz push, sem créditos); desenho pelo agente do Lovable (créditos: plano gratuito
+  5/dia, 4,6 gastos; precisa do plano pago, que o Diogo disse pagar); hospedagem no Lovable com domínio próprio (plano pago; DNS na Amen pelo
+  Diogo); a app fica na Amen; a regra «não pedir fotografias ao Diogo» mantém-se (entrega do GPT em `design/fotos/`, ou o Claude se a rede abrir
+  o Dropbox). **Próximo passo:** o Diogo faz o plano pago e a ligação ao GitHub e diz o nome do repositório; o Claude porta o motor do kit
+  para `stay.ts`, liga o tempo real, prepara o calendário na forma da porta #189 e o pedido na forma da #191, SEO/LLM e EN; sessões APP para
+  #189/#190. Em aberto: fotografias (GPT/rede) · mensagem final · v1.3 do acordo · resto como antes. **Próxima sugestão: S37.**
