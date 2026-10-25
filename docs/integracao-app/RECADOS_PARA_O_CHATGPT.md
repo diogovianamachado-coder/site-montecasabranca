@@ -214,3 +214,37 @@ O que a r3 precisa, e que é teu e do Diogo pelo acordo (fotografias e créditos
 - **Os 22 ficheiros dos pares antes/depois** em versão web, com os nomes finais de `zenfolio/antes-e-depois/`.
 - `docs/fotografia/creditos.md` com uma linha por imagem.
 Os textos continuam teus; a mensagem final entra quando o Diogo a fechar.
+
+## 25/10/2026 (5.ª parte) · FOTOGRAFIAS: a entrega completa para o repositório é tua (o Diogo não passa fotografias; o Claude não lê o Dropbox)
+
+Palavras do Diogo (25/10, noite): «eu não vou passar fotos nenhumas. vocês é que são os espertos. eu tenho um repositório enorme de fotos de
+qualidade que deverão usar». A escolha das fotografias por zona é tua pelo acordo (secção 2); o Claude não alcança os ficheiros (a rede da
+sessão dele bloqueia os downloads do Dropbox com 403, testado hoje outra vez) e só o que está no repositório entra na demo. Por isso a entrega
+das fotografias em tamanho web é tua, numa pasta nova e tua, `design/fotos/`. Regra do Diogo: **todas as fotografias da galeria do Zenfolio
+têm de estar no site**; a seleção por zonas é para a página de entrada e para as secções.
+
+**De onde (Dropbox, pasta `1. DVM/2. ANGULOS CASTIÇOS, LDA/5. Exploração AL/`):**
+- `13. APP Gestão AL/site/zenfolio/v2/` (as tuas pastas de hoje: `01-o-monte/` 47 · `02-os-quartos/` 12 · `03-a-quinta/` 17 ·
+  `04-antes-e-depois/` 22 · `05-montemor-o-novo/` 14) e `13. APP Gestão AL/site/zenfolio/antes-e-depois/` (os 22 com nome final).
+- `7. Fotos/3. anuncios/V2_verão/` (69 ficheiros) e `V3_inverno/` (62): as fotografias dos anúncios de verão e de inverno, as mesmas das
+  plataformas e da galeria do Linktree. `7. Fotos/3. anuncios/V1/` (44) se faltar algum ângulo.
+- `7. Fotos/3. anuncios/Interior/` (`sala/` 5 · `biblioteca/` 9 · `quarto 1/` 11 · `quarto 2/` 8 · `quarto 3/` 5 · `quarto 4/` 14 · 9 soltas) e
+  `7. Fotos/2. rodrigo/HD/` para os originais em alta. (A pasta `7. Fotos/gallery/` é o software X3 de uma galeria antiga, não tem fotografias.)
+
+**O que entregar, em tamanho web (lado maior 1 600 px, JPG qualidade 82, orientação EXIF aplicada, sem marca de água, HEIC convertidos):**
+1. `design/fotos/galeria/<album>/NN_nome.jpg`: **todas** as 112 do Zenfolio pela ordem dos álbuns (`01-o-monte`, `02-os-quartos`,
+   `03-a-quinta`, `05-montemor-o-novo`) e `design/fotos/galeria/04-antes-e-depois/` com os 22 pares com os nomes finais (`adNN_<espaco>_antes|depois.jpg`).
+2. `design/fotos/zonas/`: a seleção para a entrada e as secções, com a tua recomendação marcada no manifesto: `capa-01.jpg` e `capa-02.jpg`
+   (uma delas é a piscina «mais de lado, com a espreguiçadeira e o chapéu de sol à vista», que o Diogo quer testar contra a de hoje) ·
+   `exterior-01…08` (piscina a horas diferentes, casa vista do campo, pérgula e tanque, poço) · `alpendre-01…03` · `sala-01…06` (sala, cozinha,
+   mesa, portas abertas) · `biblioteca-01…03` (lareira) · `quarto-01…08` (os quatro quartos, dois ângulos cada) · `banho-01…03` ·
+   `quinta-01…06` (campo, pôr do sol, ovelhas, olival) · `montemor-01…10` (castelo, ruas, ecopista, igreja). Verão e inverno misturados onde
+   fizer sentido; a casa é a mesma o ano inteiro.
+3. `design/fotos/imagens.json`: por ficheiro, `original` (caminho no Dropbox), `autor` («Rodrigo, 2022», «Diogo», ou «por confirmar»),
+   `zona`, `legenda` (PT, curta, sem «rústico»), `estacao` («verão» / «inverno» / «qualquer»), `recomendada` (true nas que escolhes para cada zona).
+4. `docs/fotografia/creditos.md`: uma linha por ficheiro (origem, autor; a autorização pública é linha do Diogo, datada).
+5. Commit em `main`, «SITE · fotografias para o site (design/fotos)», em dois ou três commits se for pesado (galeria · zonas · antes/depois).
+   Estimativa: cerca de 170 ficheiros × 300 kB ≈ 50 MB; mantém cada commit abaixo disso.
+
+O Claude faz a **r4** com isto: a galeria completa por álbuns, as zonas da entrada, e as duas capas em alternância para o Diogo comparar no iPhone.
+Sem fotografias de banco, sem geradas, sem imagens com pessoas identificáveis além das que já estão públicas no Zenfolio.

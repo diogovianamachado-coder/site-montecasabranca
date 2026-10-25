@@ -341,3 +341,19 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **Em aberto:** olho do Diogo à r3 (iPhone pela ligação fixa) e à versão do Lovable · fotografias para a r4 · a mensagem final · o
   resto como antes (S31–S33, secção 6 de 19/10, 3,2 vs 3,6 ha, logótipo, `creditos.md`, `novo.montecasabranca.pt`, T2 do #193, fecho
   do GPT sobre a `v2/` e a pausa). **Próxima sugestão: S37.**
+- **25/10 (6.ª parte, noite) · DUAS CORREÇÕES DO DIOGO.** (1) «O Lovable pode funcionar em todas as páginas» **não era uma ordem**: «não
+  quer dizer que tenha de funcionar; para isso preciso de ti; analisa e vê a melhor opção». A minha mensagem anterior cruzou-se com a dele.
+  **Decisão do Claude (a pedido):** o site é construído pelo Claude em HTML/CSS/JS estáticos (acordo, Amen, `prereserva.php`, kit, texto no
+  HTML para os LLM, custo zero); o Lovable fica como referência de look and feel e não gasta mais créditos sem pedido. Nota técnica: o
+  projeto do Lovable é TanStack Start (React com renderização no servidor), logo a objeção «texto fora do HTML» é menor do que escrevi às
+  17h; o que pesa é a hospedagem (precisa de Node, a Amen não serve; ficaria no Lovable com custo mensal) e refazer a ligação à app em
+  TypeScript. Projeto não tocado desde a primeira versão (4,6 créditos). (2) **Fotografias: nunca mais pedir ao Diogo** («eu não vou passar
+  fotos nenhumas. vocês é que são os espertos… se não consegues trabalhar fotos não me digas que consegues fazer o site»). Regra registada.
+  O material existe e está organizado: `7. Fotos/3. anuncios/V2_verão/` 69 · `V3_inverno/` 62 · `V1/` 44 · `Interior/` por divisão (sala 5,
+  biblioteca 9, quartos 1–4: 11/8/5/14) · `2. rodrigo/HD` · `zenfolio/v2/` 112 · `antes-e-depois/` 22 (`7. Fotos/gallery/` é o software X3,
+  sem fotografias). **Dois caminhos, lançados os dois:** **A)** o GPT entrega `design/fotos/` (galeria completa de 112 + 22 e a seleção por
+  zonas com duas capas, 1 600 px, `imagens.json`, `creditos.md`): recado 5.ª parte com os caminhos, as contagens e os nomes; **B)** o
+  Diogo destranca o Dropbox à sessão do Claude na política de rede do ambiente (Allowed domains: `dl.dropboxusercontent.com`,
+  `www.dropbox.com`, `previews.dropbox.com`): com isso o Claude descarrega, vê e escolhe as fotografias ele próprio e faz a r4 no dia.
+  **Próximo passo:** r4 = galeria completa por álbuns + zonas + as duas capas em alternância, assim que as fotografias entrarem por A ou B.
+  **Em aberto:** olho do Diogo à r3 · fotografias (A/B) · resto como antes. **Próxima sugestão: S37.**
