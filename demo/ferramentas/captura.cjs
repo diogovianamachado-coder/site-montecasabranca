@@ -39,6 +39,13 @@ try { cenario = require(path.join(__dirname, "cenarios", versao.revisao + ".cjs"
       page.on("requestfailed", r => problemas.push("pedido falhado: " + r.url()));
       page.on("response", r => { if (r.status() >= 400) problemas.push(`HTTP ${r.status()}: ${r.url()}`); });
       await page.goto(`${base}/${p}`, { waitUntil: "networkidle" });
+      // rolar a página inteira antes da fotografia, para as imagens «lazy» e os blocos revelados ao rolar aparecerem (r3, 25/10)
+      await page.evaluate(async () => {
+        const passo = Math.max(300, window.innerHeight * 0.7);
+        for (let y = 0; y < document.documentElement.scrollHeight; y += passo) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 90)); }
+        window.scrollTo(0, 0);
+      });
+      await page.waitForTimeout(600);
       const largo = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
       if (largo) problemas.push("rolagem horizontal");
       const rev = await page.evaluate(() => (document.querySelector("[data-versao=revisao]") || {}).textContent);

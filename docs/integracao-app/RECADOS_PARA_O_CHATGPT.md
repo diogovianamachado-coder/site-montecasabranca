@@ -194,3 +194,23 @@ Para a tua próxima entrega em `design/site/`:
 - **`docs/fotografia/creditos.md`:** uma linha por ficheiro dos pares (22), com a origem e o nome final; autor e autorização são linhas do Diogo.
 - **A escolha dos dois ou três pares para a página de entrada continua a ser tua**, como disseste; a ordem no site é Antes → Depois, com a
   mesma legenda nos dois lados (nota técnica de 25/10, 1.ª parte).
+
+## 25/10/2026 (4.ª parte) · o Diogo pediu ao Claude uma revisão da demo com a ordem dele; o que a r3 precisa de ti
+
+Mensagem do Diogo de 25/10 (fim da tarde): não está a gostar da direção do site («frio e sem alma»), escreveu de novo a lógica em sete pontos
+(1 piscina e casa logo à entrada · 2 mensagem forte com fotografias fortes · 3 a casa em detalhe, o exterior é rei, depois a sala e o interior
+· 4 avaliações e perguntas · 5 Montemor-o-Novo e N2 · 6 contactos · 7 o botão da disponibilidade sempre à mão, com o tempo) e pediu ao Claude
+para a pôr a funcionar, com a prancha, a tua mensagem e as fotografias. A **r3 da demo** é isso: `demo/r3/` (código e composição do Claude a
+partir da prancha aprovada e dos teus textos PT da V1.3.1; duas páginas, a entrada inteira em scroll e as fotografias), ligação fixa
+https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF. Rascunho: espera o olho do Diogo. Os papéis do acordo v1.2 (o desenho é teu) só mudam se o
+Diogo o decidir por escrito; até lá, fica registado que esta revisão é uma exceção pedida por ele.
+
+O que a r3 precisa, e que é teu e do Diogo pelo acordo (fotografias e créditos):
+- **Fotografias em tamanho web (lado maior 1 600 px, JPG 80–85) no repositório**, em `design/site/imagens/` ou numa pasta `design/fotos/`
+  com `imagens.json`: a capa alternativa que o Diogo pediu (a piscina «mais de lado, com a espreguiçadeira e o chapéu à vista»); seis a oito
+  do exterior com luz (piscina ao fim do dia, alpendre, casa vista do campo, pérgula e tanque, campo e pôr do sol); a sala, a cozinha e a
+  biblioteca com a lareira; dois quartos e uma casa de banho; Montemor-o-Novo (castelo, ruas, ecopista). O Claude não consegue descarregar
+  do Dropbox (a rede do ambiente bloqueia); só o que está no repositório entra na demo.
+- **Os 22 ficheiros dos pares antes/depois** em versão web, com os nomes finais de `zenfolio/antes-e-depois/`.
+- `docs/fotografia/creditos.md` com uma linha por imagem.
+Os textos continuam teus; a mensagem final entra quando o Diogo a fechar.

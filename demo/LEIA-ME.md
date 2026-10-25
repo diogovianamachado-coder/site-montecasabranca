@@ -107,6 +107,9 @@ Nada disto desenha: o CSS do kit não tem cores nem tipos. A r2 (25/10) foi a pr
 
 ## Estado atual
 
+- **Revisão:** r3 · **rascunho** · 2026-10-25 · a ordem do Diogo em sete pontos, construída pelo Claude a partir da prancha
+  (`demo/r3/`, duas páginas: entrada em scroll e fotografias; montada por `demo.py revisao r3 --de demo/r3`). À espera do olho do Diogo.
+  Só as onze fotografias que estão no repositório; as outras entram quando chegarem (ver `REGISTO.md`, secção r3).
 - **Revisão:** r2 · **rascunho** · 2026-10-25 · V1.3.1 do ChatGPT (`design/site/`, 24/10): sete páginas com o kit a funcionar nos sete
   encaixes; sem aprovação estética; textos provisórios; os dois pares antes/depois estão marcados pelo próprio ChatGPT como incorretos (ver `REGISTO.md`).
 - **Base técnica v2 (21/10) · contrato v1.1 (25/10):** `base/` (contrato, kit, dados), `site/componentes.html`, `site/desktop.html`, `montar`,
@@ -114,5 +117,6 @@ Nada disto desenha: o CSS do kit não tem cores nem tipos. A r2 (25/10) foi a pr
 - **Ligação principal (mais recente):** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; abre no iPhone com a conta do Diogo).
 - **Ligação fixa r0:** https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV (página neutra, preparação técnica)
 - **Ligação fixa r1:** https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP (D03, rascunho)
+- **Ligação fixa r3:** https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF (a ordem do Diogo em sete pontos, Claude, rascunho)
 - **Ligação fixa r2:** https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9 (V1.3.1 do ChatGPT, rascunho)
 - **Commit do site:** carimbado em `versao.js` por `demo.py construir`; ver `REGISTO.md`.

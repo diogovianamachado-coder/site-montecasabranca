@@ -83,7 +83,8 @@ body.menu-aberto .menu-botao span:first-child::after{top:0;transform:rotate(-45d
 .capa::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(25,33,40,.34) 0%,rgba(25,33,40,0) 30%,rgba(25,33,40,0) 50%,rgba(26,30,33,.76) 100%)}
 .capa__conteudo{width:100%;max-width:var(--larg);margin-inline:auto;padding:120px var(--gut) clamp(96px,16vh,150px)}
 .capa__olho{font:500 13px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.92;margin:0 0 18px}
-.capa h1{font-size:clamp(42px,7.4vw,92px);line-height:1.02;margin:0 0 22px;max-width:14ch;text-shadow:0 2px 24px rgba(0,0,0,.18)}
+.capa h1{font-size:clamp(40px,7.2vw,92px);line-height:1.04;margin:0 0 22px;max-width:28ch;text-shadow:0 2px 24px rgba(0,0,0,.18)}
+.junto{white-space:nowrap}
 .capa__sub{font-size:clamp(17px,1.5vw,20px);max-width:48ch;opacity:.95;margin:0 0 26px}
 .fichas{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0;margin:0 0 30px;font-size:15px}
 .fichas li{display:inline-flex;align-items:center;gap:9px}
@@ -163,12 +164,13 @@ body.menu-aberto .menu-botao span:first-child::after{top:0;transform:rotate(-45d
 .datas__cabeca{max-width:70ch}
 .datas__grelha{display:grid;gap:28px;margin-top:40px}
 @media (min-width:1000px){.datas__grelha{grid-template-columns:1.1fr .9fr;align-items:start}}
-.coluna{display:grid;gap:28px}
+.coluna{display:grid;gap:28px;min-width:0}
+.datas__grelha>*,.cartao{min-width:0}
 .cartao{background:#fff;border:1px solid var(--line);border-radius:var(--raio);padding:clamp(20px,2.6vw,32px);box-shadow:0 10px 40px -28px rgba(73,54,46,.35);transition:box-shadow .6s}
 .datas--foco .cartao{box-shadow:0 0 0 3px var(--terra)}
 .tempo .b-tempo-titulo{font:400 22px/1.2 var(--serif);margin:0 0 14px}
-.b-tempo-dias{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;list-style:none;padding:0;margin:0}
-.b-tempo-dia{display:grid;justify-items:center;gap:3px;padding:10px 2px;border-radius:var(--raio);background:var(--pale);font-size:13px;text-align:center}
+.b-tempo-dias{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;list-style:none;padding:0;margin:0}
+.b-tempo-dia{display:grid;justify-items:center;gap:3px;padding:10px 0;border-radius:var(--raio);background:var(--pale);font-size:12px;text-align:center;min-width:0;overflow:hidden}
 .b-tempo-nome{font-weight:600;text-transform:lowercase;font-size:12px}
 .b-tempo-icone{font-size:20px;line-height:1.1}
 .b-tempo-max{font-weight:600}
@@ -180,7 +182,7 @@ body.menu-aberto .menu-botao span:first-child::after{top:0;transform:rotate(-45d
 .b-cal-meses{display:grid;gap:24px}
 @media (min-width:620px){.b-cal-meses{grid-template-columns:1fr 1fr}}
 .b-cal-titulo{font:400 20px/1.2 var(--serif);margin:0 0 10px;text-transform:capitalize}
-.b-cal-semana,.b-cal-grelha{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.b-cal-semana,.b-cal-grelha{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
 .b-cal-dia-semana{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:center;padding-bottom:6px}
 .b-cal-dia{appearance:none;border:0;background:var(--pale);aspect-ratio:1;border-radius:4px;font:500 14px var(--sans);color:var(--ink);cursor:pointer;transition:background .15s}
 .b-cal-dia:hover{background:var(--areia)}

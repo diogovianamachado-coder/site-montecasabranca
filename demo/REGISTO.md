@@ -10,7 +10,7 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
 | r0 | 2026-10-17 | preparação técnica | Página neutra «Demo em preparação» + zona de revisão `revisao.html`; ferramenta `demo.py`; capturas | nenhuma (sem desenho indicado para implementação) | 0b59571 (base) e o commit «SITE · demo · S28–S30» (capturas, ligação fixa, workflow) | https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV | `demo.py testar` OK · capturas 390/1280 sem rolagem horizontal nem erros de consola |
 | r1 | 2026-10-17 | **rascunho** | D03 «Casa ao sol», abertura do ChatGPT: fotografia grande, campo terracota «Cada um ao seu ritmo», três espaços, painéis (casa, por aqui, os vossos dias, menu), tempo e datas como exemplo | `design/estudo-d03-2026-10-17/index.html` (e066def) · handoff `docs/design/2026-10-17_d03_casa_ao_sol_handoff.md` | commit «SITE · demo r1 · D03» | https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP | `testar` OK · capturas 390/1280 + cenários (três espaços, menu, painéis, datas) |
 | r2 | 2026-10-25 | **rascunho** | V1.3.1 do ChatGPT (24/10): sete páginas, Início em scroll (grande fotografia, características, casa, trio com acessos à galeria, tempo, simulador, Montemor), A casa, Fotografias (filtros, ampliação, antes/depois), Preços e datas (calendário de 2 meses, simulador, pedido), Localização e Montemor (roteiro de dois dias), Perguntas, Contactos; barra inferior mobile (proposta) · kit a funcionar nos 7 encaixes | `design/site/` V1.3.1 (d08e628) · fecho `docs/decisoes/2026-10-24_fecho_chatgpt.md` · histórico `design/HISTORICO-VERSOES.md` | commit «SITE · demo r2» | https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9 | `testar` OK · `testar --design` OK (7 páginas) · cenário Chromium 84 verificações OK · capturas 390/1280 (jpg) + 7 estados em `demo/capturas/r2/` |
-| r3 | 2026-10-25 | **rascunho** | r3 · a ordem do Diogo em sete pontos (capa, mensagem, a casa, avaliações e perguntas, datas, Montemor e N2, contactos), construída pelo Claude a partir da prancha | demo/r3/ () | commit «SITE · demo r3» | por publicar | `testar` e capturas por correr |
+| r3 | 2026-10-25 | **rascunho** | r3 · a ordem do Diogo em sete pontos (capa, mensagem, a casa, avaliações e perguntas, datas, Montemor e N2, contactos), construída pelo Claude a partir da prancha | demo/r3/ () | commit «SITE · demo r3» | [ligação fixa r3](https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF) · principal https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S | `testar` OK · capturas 390/1280 OK (sem rolagem horizontal) |
 
 ## r0 · 2026-10-17 · preparação técnica
 
@@ -105,8 +105,31 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
 - **Ligações:** principal (mais recente) https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S · fixa r2: https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9
 
 
-## r3 · 2026-10-25 · rascunho · demo/r3 do Claude
+## r3 · 2026-10-25 · rascunho · a ordem do Diogo em sete pontos, construída pelo Claude
 
-- **Origem:** demo/r3/ (commit ), montado por `demo.py montar`.
-- **Páginas:** fotografias.html, index.html.
-- **Validação:** por correr.
+- **Porquê:** mensagem do Diogo de 25/10 («Não estou a gostar da direção que o site está a tomar… Consegues por isto a funcionar?»), com a
+  lógica do site em sete pontos: 1 piscina e casa logo à entrada · 2 mensagem forte com fotografias fortes · 3 a casa em detalhe, o exterior
+  é rei, depois a sala e o interior · 4 avaliações e perguntas frequentes · 5 localização, Montemor-o-Novo e N2 · 6 contactos · 7 o botão
+  de verificar a disponibilidade sempre à mão, com o tempo a ajudar. Esta ordem é a experiência de quem visita o site.
+- **Origem:** `demo/r3/` (código e composição do Claude, a partir da prancha aprovada de 19/10 e dos textos PT da V1.3.1 do ChatGPT),
+  montado por `demo.py revisao r3 --de demo/r3`. Duas páginas: `index.html` (a experiência inteira em scroll, com as secções
+  `#mensagem`, `#a-casa`, `#perguntas`, `#datas`, `#montemor`, `#contactos`) e `fotografias.html`.
+- **O que tem:** capa a ecrã inteiro com a piscina e a casa (no telemóvel, o recorte com o chapéu de sol e a casa da chaminé); mensagem
+  «Por dentro. Por fora. Sem pressa.» com a sala pelas portas abertas e a banda «Há dias em que não é preciso mais nada.» sobre o alpendre;
+  a casa em detalhe (exterior primeiro, sala e cozinha, quartos, números, um par antes/depois honesto); a avaliação real do Airbnb de 2023
+  e dez perguntas; datas com o tempo, o calendário, o simulador e o pedido (kit da demo, dados de exemplo); Montemor-o-Novo, distâncias,
+  Nacional 2 em dois dias, Google Maps; contactos; barra «Ver datas e disponibilidade» + WhatsApp no telemóvel e botão flutuante no desktop,
+  que se escondem quando as datas já estão à vista; cabeçalho transparente sobre a fotografia e sólido depois; revelar ao rolar e paralaxe
+  suave, desligados com `prefers-reduced-motion`.
+- **Factos:** só os ✓ do `FACTOS.md` (telefone, horas, mínimo, verão, limpeza, distâncias, 8/4/2, piscina 10 × 5 m, morada completa só no rodapé).
+  Sem hectares, sem KPI, sem preços por época. Ligações das plataformas por `data-liga` (S34).
+- **Validação:** `testar` OK (6 páginas) · capturas 390/1280 OK, sem rolagem horizontal (a primeira volta tinha o cartão do tempo a
+  estourar 51 px no telemóvel: grelha com `minmax(0,1fr)`) · kit a funcionar nas duas páginas (tempo, calendário, simulador, pedido).
+- **Limites desta revisão:** só as onze fotografias que estão no repositório (seis delas em tamanho web); a fotografia «de lado, com a
+  espreguiçadeira e o chapéu» que o Diogo pediu para a capa não está no repositório e a rede não deixa o Claude descarregar do Dropbox;
+  os outros dez pares antes/depois, a galeria completa e mais avaliações entram quando as fotografias e os textos chegarem.
+- **Ligações:** fixa r3 https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF · principal https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S.
+- **Referência paralela (pedido do Diogo):** versão da página de entrada feita pelo Lovable com o mesmo brief, as mesmas fotografias e a
+  prancha: https://lovable.dev/projects/96fa8399-2585-4338-bf69-b63411871178 (editor; pré-visualização
+  https://id-preview--96fa8399-2585-4338-bf69-b63411871178.lovable.app). Não é a demo nem entra no repositório: é React, fora da stack do
+  acordo; serve de comparação de «alma».

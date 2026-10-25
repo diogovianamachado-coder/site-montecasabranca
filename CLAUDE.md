@@ -315,3 +315,29 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   referência dos pares continua `zenfolio/antes-e-depois/`. Registado na secção 5 do documento dos pares. **Em aberto:** olho do Diogo à r2 ·
   fecho do GPT sobre a `v2/` e a proposta da pausa no design · S31–S33 · secção 6 do fecho do GPT de 19/10 · 3,2 vs 3,6 ha · logótipo ·
   `creditos.md`/autorização das fotos · `novo.montecasabranca.pt` · T2 do #193. **Próxima sugestão: S37.**
+- **25/10 (5.ª parte, fim da tarde) · «Consegues por isto a funcionar ou tenho de procurar outra opção?» · A r3 DA DEMO, CONSTRUÍDA PELO
+  CLAUDE.** Mensagem do Diogo: não gosta da direção («completamente frio e sem qualquer alma»; «já estamos nisto há 2 semanas»); escreveu a
+  lógica do site em sete pontos (1 piscina e casa logo à entrada, «testa a primeira página com esta foto e com a outra mais de lado com a
+  espreguiçadeira e chapéu» · 2 mensagem forte com fotografias fortes · 3 a casa em detalhe, «o exterior é rei», depois a sala e o interior
+  · 4 avaliações e perguntas frequentes · 5 localização, Montemor-o-Novo e N2 · 6 contactos · 7 o botão da disponibilidade sempre à mão,
+  com o tempo a ajudar e a hipótese de contacto); «Coloca o lovable contigo a construir isto»; «Já temos a prancha… a mensagem que o gpt
+  criou… as fotos, tu tens a base e fazes o código». **Resposta do Claude: sim.** Feito nesta parte: **(1) r3** em `demo/r3/` (código e
+  composição do Claude a partir da prancha de 19/10 e dos textos PT da V1.3.1; `index.html` = a experiência inteira em scroll pelas sete
+  secções, `fotografias.html`; folha própria `estilos-r3.css` com os tokens do GPT; `r3.js` para cabeçalho, menu, revelar ao rolar, barra
+  «Ver datas» + WhatsApp no telemóvel e botão flutuante no desktop, paralaxe suave; os cinco encaixes do kit nas datas; só factos ✓;
+  morada completa só no rodapé; a avaliação real do Airbnb de 2023), montada com `demo.py revisao r3 --de demo/r3` (**opção `--de pasta`
+  nova em `montar`/`revisao`**; `captura.cjs` passa a rolar a página antes da fotografia); `testar` OK, capturas 390/1280 OK (corrigida a
+  grelha do tempo que estourava 51 px no telemóvel); **ligação principal** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S e **fixa r3**
+  https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF; `REGISTO.md` (secção r3), `versao.json`, `LEIA-ME.md`. **(2) Lovable**, a pedido: projeto
+  «Monte Casa Branca» no workspace «MONTE's Lovable» (plano free; 4,6 créditos gastos) com o mesmo brief em sete pontos, a prancha, as
+  quatro fotografias e o logótipo; editor https://lovable.dev/projects/96fa8399-2585-4338-bf69-b63411871178, pré-visualização
+  https://id-preview--96fa8399-2585-4338-bf69-b63411871178.lovable.app (a rede do ambiente não a abre; o Diogo vê-a no browser). É React +
+  Tailwind, fora da stack do acordo (HTML/CSS/JS estáticos gerados, PHP único) e pior para o objetivo LLM/SEO se ficar como app de
+  cliente: serve de referência de «alma», não de produção; o que lá ficar melhor passa à demo em CSS. **(3) Limite real: fotografias.**
+  Só há onze no repositório (seis em tamanho web); a fotografia «de lado com a espreguiçadeira e o chapéu» não chegou na mensagem; o
+  Dropbox continua bloqueado à sessão (403 no download, testado outra vez) → as fotografias têm de entrar pela conversa (o Claude
+  guarda-as em `demo/r3/imagens/`) ou pelo repositório (GPT/Diogo). Recado ao GPT (4.ª parte) com a lista. **Papéis:** esta revisão é
+  desenho feito pelo Claude a pedido escrito do Diogo; o acordo v1.2 (desenho do GPT) só muda por decisão dele registada (v1.3).
+  **Em aberto:** olho do Diogo à r3 (iPhone pela ligação fixa) e à versão do Lovable · fotografias para a r4 · a mensagem final · o
+  resto como antes (S31–S33, secção 6 de 19/10, 3,2 vs 3,6 ha, logótipo, `creditos.md`, `novo.montecasabranca.pt`, T2 do #193, fecho
+  do GPT sobre a `v2/` e a pausa). **Próxima sugestão: S37.**

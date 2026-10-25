@@ -5,8 +5,8 @@ window.DEMO_VERSAO = {
   "data": "2026-10-25",
   "titulo": "r3 · a ordem do Diogo em sete pontos (capa, mensagem, a casa, avaliações e perguntas, datas, Montemor e N2, contactos), construída pelo Claude a partir da prancha",
   "design": {
-    "entrega": "demo/r3/ (Claude) · 2 página(s) · commit por fazer",
-    "commit": null,
+    "entrega": "demo/r3/ (Claude) · 2 página(s) · commit 1948535",
+    "commit": "1948535dc720b12306c09cbf1c7f778941b17a67",
     "estado": "rascunho, nenhuma aprovação estética",
     "ficheiros": [
       "fotografias.html",
@@ -63,7 +63,7 @@ window.DEMO_VERSAO = {
       "estado": "rascunho",
       "titulo": "V1.3.1 do ChatGPT: sete páginas (Início em scroll, A casa, Fotografias, Preços e datas, Localização e Montemor, Perguntas, Contactos) com o kit a funcionar; rascunho para apreciação",
       "design_commit": "d08e6282d4b9e2d3a5f911efbc91ab8378db3767",
-      "site_commit": null,
+      "site_commit": "223e9a5b9e099351dca77fbf9c83003523b97a59",
       "endereco": "https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9"
     },
     {
@@ -73,7 +73,7 @@ window.DEMO_VERSAO = {
       "titulo": "r3 · a ordem do Diogo em sete pontos (capa, mensagem, a casa, avaliações e perguntas, datas, Montemor e N2, contactos), construída pelo Claude a partir da prancha",
       "design_commit": null,
       "site_commit": null,
-      "endereco": null
+      "endereco": "https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF"
     }
   ],
   "notas": "Rascunho para apreciação, não aprovado: é a V1.3.1 do ChatGPT (design/site, 24/10) montada tal qual com o kit da base técnica. Tempo, calendário (ocupação INVENTADA), simulador (tarifa real 2026/2027) e pedido (nada enviado; JSON do contrato #191) funcionam; textos provisórios; os dois pares antes/depois estão marcados pelo próprio ChatGPT como incorretos (galeria.json). Não indexar.",

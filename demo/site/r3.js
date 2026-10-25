@@ -63,7 +63,8 @@
 
   // revelar ao rolar
   var itens = Array.prototype.slice.call(d.querySelectorAll('.reveal'));
-  if (reduz || !('IntersectionObserver' in window)) {
+  // nas capturas automáticas (navigator.webdriver) tudo aparece de imediato, para a fotografia da página ficar inteira
+  if (reduz || navigator.webdriver || !('IntersectionObserver' in window)) {
     itens.forEach(function (e) { e.classList.add('visto'); });
   } else {
     var io = new IntersectionObserver(function (entradas) {
