@@ -370,3 +370,15 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   o Dropbox). **Próximo passo:** o Diogo faz o plano pago e a ligação ao GitHub e diz o nome do repositório; o Claude porta o motor do kit
   para `stay.ts`, liga o tempo real, prepara o calendário na forma da porta #189 e o pedido na forma da #191, SEO/LLM e EN; sessões APP para
   #189/#190. Em aberto: fotografias (GPT/rede) · mensagem final · v1.3 do acordo · resto como antes. **Próxima sugestão: S37.**
+- **25/10 (8.ª parte, noite) · AS PEÇAS DO CLAUDE PORTADAS PARA O PROJETO DO LOVABLE, à espera do repositório.** O Diogo confirmou o método
+  («então temos de ir página a página com a dele e a tua como referência para afinar. é isso?» → sim; «se for preciso ter crédito lovable
+  temporários pagamos»). Feito, sem créditos: `lovable/src/lib/` com `datas.ts`, `tarifas.ts` (tarifa 2026/2027, regras, `orcamento()` na
+  forma da porta #190, `porDoSol()`), `tempo.ts` (Open-Meteo, WMO, média histórica, semana de exemplo), `ocupacao.ts` (porta #189, saída
+  exclusiva, `intervaloLivre()`), `pedido.ts` (porta #191, textos WhatsApp/email, `enviarPrereserva()` só no servidor com `X-Site-Chave`),
+  `factos.ts` (só ✓), `seo.ts` (JSON-LD `VacationRental`/`LodgingBusiness` e `FAQPage`, `robots.txt` com os robôs dos LLM, `llms.txt`);
+  `src/test/tarifas.test.ts` (vitest) e `lovable/verificar.mjs` (`node --experimental-strip-types`: **20 verificações certas**, pôr do sol
+  21/jun/2027 = 21h01; `tsc --strict` limpo); `lovable/LEIA-ME.md` diz onde cada peça entra (substitui `stay.ts`, o painel de datas, o
+  head). **Próximo passo:** quando o Diogo ligar o projeto do Lovable ao GitHub e disser o nome do repositório, o Claude junta-o à sessão,
+  mete estas peças, liga o painel «Verificar disponibilidade» ao motor e ao tempo real, e escreve os pedidos ao agente do Lovable secção a
+  secção (capa com a segunda fotografia; mensagem; a casa com a galeria completa; avaliações e as dez perguntas; datas reais; Montemor e N2;
+  contactos). Fotografias: entrega do GPT (recado 5.ª parte) ou rede aberta ao Dropbox. **Próxima sugestão: S37.**
