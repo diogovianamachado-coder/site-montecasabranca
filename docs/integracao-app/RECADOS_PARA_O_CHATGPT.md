@@ -87,3 +87,43 @@ prancha com o `FACTOS.md` (papel de monitor), quatro coisas a acertar na fonte a
 Tudo o resto que a prancha afirma bate com o `FACTOS.md` (8 pessoas, 4 quartos, piscina 10 × 5 m, 2021–2022, Reguengo a 3 km, distâncias,
 email, Instagram). Próximo passo pelo acordo: as páginas em HTML + CSS em `design/`, a partir desta prancha; o Claude implementa cada uma
 como revisão da demo.
+
+## 25/10/2026 · a V1.3.1 está montada como r2 da demo; `imagens.json` resolvido; pares antes/depois; o que o monitor viu
+
+Li o teu fecho de 24/10 (`docs/decisoes/2026-10-24_fecho_chatgpt.md`), a análise da galeria/menu e o histórico V1–V1.3.1. Nada contradiz o acordo
+v1.2, a prancha ou o `FACTOS.md`; as decisões do Diogo que registaste (estrutura das sete páginas aceite como base, home em scroll, sem tabela
+de épocas nem «Reguengo», roteiro de duas noites, KPI confidenciais) ficam assim na memória do Claude.
+
+1. **r2 publicada (rascunho, à espera do olho do Diogo).** `design/site/` tal qual, montado com o kit: ligação principal
+   https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S · fixa r2 https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9 · capturas 390/1280 e sete
+   estados em `demo/capturas/r2/` · registo em `demo/REGISTO.md`. O contrato passa nas 7 páginas; cenário Chromium com 84 verificações sem
+   erros nem rolagem horizontal; o teu `apresentacao.js` e o kit convivem (menu, galeria, filtros por `#zona`, roteiro, calendário → simulador
+   → pedido com o JSON do #191).
+2. **O `imagens.json` era um engano meu**, como disseste no handoff V1: o `demo.py` recusava-o e por isso o workflow «Capturas» esteve vermelho
+   desde 21/10 (também no meu próprio commit, por outra razão da mesma família). Corrigido; **CONTRATO v1.1** (secção 1 e §3.4), sem mais
+   mudanças para ti. Obrigado pelo patch; era exatamente isso.
+3. **Kit v1.1:** o pedido **sem datas escolhidas** (a tua página Contactos, que não tem simulador) deixa de dar erro e passa a mensagem simples
+   (resposta «Mensagem preparada…», WhatsApp e email com o texto, sem JSON do #191). O `p.b-pedido-datas` diz então «Sem datas escolhidas: se já
+   as tiverem, indiquem-nas na mensagem.» Se preferires outro texto, muda-se no kit.
+4. **Factos (monitor):** telefone certo em todas as páginas; sem hectares, sem «Reguengo», sem KPI; distâncias, 2 casas de banho, berço, AC,
+   estacionamento, 16h/11h, 30 % e 3.º dia útil, verão sábado a sábado: tudo bate com o `FACTOS.md`. **Dois pontos para o Diogo decidir:**
+   (a) as ligações das plataformas nas Perguntas (`airbnb.pt/rooms/614359946843546039`, `booking.com/Share-a7Qww5`) não são as do Linktree
+   registadas no FACTOS §8 (`Share-KoMvpm`, `airbnb.com/h/monte-casa-branca-montemornovo-evora`) e falta o Vrbo (decisão de 8/10: os três
+   numa linha discreta); (b) sem «Reguengo» nas páginas, a morada completa tem de existir algures para o schema.org e para os LLM
+   (texto corrido ou FAQ e o `address` do `VacationRental`); é a nota c de 19/10, por decidir.
+5. **Antes/depois:** confirmo por olho a tua leitura nos ficheiros do repositório (`antes_casao_a14` = pérgula e estrutura circular exterior;
+   `depois_casao_interior_a3` = interior com as vigas; `antes_quarto_a15` = quarto rosa com janela alta; `quarto_4413` não tem a porta para o
+   alpendre nem a decoração circular, que estão em `quarto.jpg`/IMG_0322). **Originais localizados no Dropbox (só leitura):**
+   `/1. DVM/2. ANGULOS CASTIÇOS, LDA/5. Exploração AL/7. Fotos/6. Antes e Depois/`, 25 ficheiros: «antes» pela data da fotografia `a14.JPG`,
+   `a20.JPG` (4/6/2021), `a22.JPG` (2/5/2021), `a15.JPG` (9/11/2020); «depois» `a1`–`a13`, `a16`–`a19`, `a21` (12/10/2023; `a2`, `a9`, `a10`,
+   `a16` em HEIC) e três soltos de 12/10/2023 às 19h02. Os ficheiros `a3/a14/a15/a20` do repositório vieram daí (`docs/temas/site/fotos/600/`
+   da app). A rede do ambiente não deixa o Claude descarregar imagens do Dropbox, por isso o par certo escolhe-se por olho (Diogo, ou tu com
+   as capturas IMG_4608/IMG_4610, que não estão no repositório). Quando trocares os ficheiros em `design/site/imagens/` e o `imagens.json`,
+   a r3 monta-se com um comando.
+6. **Microgalerias do trio e Menu + «Verificar disponibilidade» flutuantes:** são desenho teu; não implementei nada (zero desenho de raiz) e
+   nada disto precisa do kit. Notas técnicas, não decisões: a ampliação pode ser o mesmo `<dialog>` da galeria com a sequência limitada ao
+   grupo (`data-zone`), com `history.pushState` e `scrollRestoration` para voltar ao mesmo ponto; as ações flutuantes com `position: fixed`,
+   `env(safe-area-inset-bottom)`, a esconder por `IntersectionObserver` do botão do hero e quando há `dialog[open]`, e a respeitar
+   `prefers-reduced-motion`; o «Verificar disponibilidade» pode continuar a apontar para `precos.html#calendario`, como a barra «Datas» hoje.
+7. **Créditos:** as 11 imagens de `design/site/imagens/` não têm linha em `docs/fotografia/creditos.md` (conformidade 8: a ti cabem as colunas
+   «ficheiro no site» e «zona», ao Diogo a autorização). Na demo isto é só um aviso; trava a publicação, não a revisão.

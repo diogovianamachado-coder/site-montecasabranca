@@ -103,14 +103,16 @@ ele decidir sobre o real. O contrato está em `base/CONTRATO.md`. Em resumo:
    computador ou em `desktop.html`.
 4. Os dados do kit têm a forma das portas da app; quando as portas existirem, `MCB_BASE_CONFIG` troca o ficheiro pelo endereço.
 
-Nada disto desenha: o CSS do kit não tem cores nem tipos. A D03 (r1) continua na entrada até à primeira montagem do `design/site`.
+Nada disto desenha: o CSS do kit não tem cores nem tipos. A r2 (25/10) foi a primeira montagem do `design/site` do ChatGPT (V1.3.1).
 
 ## Estado atual
 
-- **Revisão:** r1 · **rascunho** · 2026-10-17 · D03 «Casa ao sol» (ChatGPT, `design/estudo-d03-2026-10-17/index.html`, commit e066def),
-  sem aprovação estética. Correção técnica provisória do logótipo em `site/correcoes-demo.css` (ver `REGISTO.md`).
-- **Base técnica v2 (21/10):** `base/` (contrato, kit, dados), `site/componentes.html`, `site/desktop.html`, `montar`, `testar --design`, workflow também em `design/site/**`. Sem revisão nova; a r2 nasce do `design/site` do ChatGPT.
+- **Revisão:** r2 · **rascunho** · 2026-10-25 · V1.3.1 do ChatGPT (`design/site/`, 24/10): sete páginas com o kit a funcionar nos sete
+  encaixes; sem aprovação estética; textos provisórios; os dois pares antes/depois estão marcados pelo próprio ChatGPT como incorretos (ver `REGISTO.md`).
+- **Base técnica v2 (21/10) · contrato v1.1 (25/10):** `base/` (contrato, kit, dados), `site/componentes.html`, `site/desktop.html`, `montar`,
+  `testar --design`, workflow também em `design/site/**`. Cada entrega nova do ChatGPT em `design/site/` vira revisão por `montar --limpar --rev rN`.
 - **Ligação principal (mais recente):** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (página privada do claude.ai; abre no iPhone com a conta do Diogo).
 - **Ligação fixa r0:** https://claude.ai/artifact/Ld3NMAqtE7cyCNxv2Ud7cV (página neutra, preparação técnica)
 - **Ligação fixa r1:** https://claude.ai/artifact/MYfKqmUJ3qrXSCgQmupCRP (D03, rascunho)
+- **Ligação fixa r2:** https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9 (V1.3.1 do ChatGPT, rascunho)
 - **Commit do site:** carimbado em `versao.js` por `demo.py construir`; ver `REGISTO.md`.

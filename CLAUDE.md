@@ -227,3 +227,30 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `demo/capturas/r1/` (componentes-*, desktop-*). **Sem revisão nova:** a r1 (D03) fica na entrada até `montar --limpar --rev r2` com o
   `design/site` do GPT. Recado ao GPT com o resumo e a ligação. **Regras mantidas:** zero desenho (CSS estrutural), zero portas na app (dados
   de exemplo na forma das portas; trocar por endereço em `MCB_BASE_CONFIG`), nada em `public/`/`src/`, nada publicado no domínio.
+- **24–25/10 (8.ª sessão SITE · «Continua de ontem onde paraste») · A V1.3.1 DO GPT MONTADA COMO r2 DA DEMO.** O GPT entregou a 24/10 (commits
+  03b97fe → 65391b0) sete páginas em `design/site/` (V1 → V1.3.1; snapshots em `design/arquivo/2026-10-24/`, índice `design/HISTORICO-VERSOES.md`),
+  o fecho `docs/decisoes/2026-10-24_fecho_chatgpt.md` (+ `ULTIMO_FECHO_CHATGPT.md`), a análise `docs/design/2026-10-24_analise_galeria_menu.md` e
+  `design/site/galeria.json`. **Decisões do Diogo registadas pelo GPT (22–24/10):** desenhar as páginas antes da mensagem (texto default «Uma casa
+  inteira. O Alentejo à vossa porta.», não aprovado); a prancha é referência permanente; **a estrutura das sete páginas está aceite como base**
+  («A estrutura está boa e eu gosto. Não é para inventar mais»); home em scroll é o foco; sem tabela de preços por época nem «Reguengo»; Montemor
+  valorizado, roteiro N2 de duas noites; trio e antes/depois mantidos com pares certos; KPI confidenciais. **Não aprovados:** barra inferior mobile,
+  microgalerias por trio, Menu + «Verificar disponibilidade» flutuantes, curadoria da galeria, mensagem. Mensagem do Diogo de 24/10 («Acho que esta
+  é a última conversa sobre o site» + o texto do GPT) tratada a 25/10. **Feito (25/10):** `demo.py montar --limpar --rev r2` com a V1.3.1 tal qual;
+  `testar`/`testar --design` OK; cenário Chromium 84 verificações OK (menu, barra inferior, tempo, simulador 1 170 €/1 350 €, regra do verão,
+  pedido com JSON #191, calendário → simulador, recusa de noites ocupadas, filtros e ampliação da galeria, roteiro); capturas jpg em
+  `demo/capturas/r2/`; **ligação principal republicada** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S e **fixa r2**
+  https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9; `REGISTO.md`, `versao.json` (r1 com o commit 734473e), `LEIA-ME.md`. **Correções de
+  ferramenta (não desenho):** `imagens.json` deixou de ser nome reservado no `demo.py` (engano meu apontado pelo GPT; por isso o workflow «Capturas»
+  esteve vermelho desde 21/10) → **CONTRATO v1.1**; kit: pedido sem datas = mensagem simples (Contactos); `artefacto` tolera `<body data-page>`;
+  `componentes.html`; `captura.cjs --formato jpg`; a linha no `creditos.md` passa a aviso na demo; workflow: ensaio só com o Playwright instalado.
+  **Monitor:** factos batem com o `FACTOS.md` (telefone, sem hectares/Reguengo/KPI, distâncias, casa, regras); **a conferir pelo Diogo:** links das
+  plataformas nas Perguntas diferentes dos do FACTOS §8 e sem Vrbo; morada completa para o schema.org (nota c de 19/10). **Antes/depois:** os dois
+  pares estão errados (o GPT marcou-os; confirmei por olho); originais no Dropbox `7. Fotos/6. Antes e Depois/` (25 ficheiros; antes = a14, a20,
+  a22, a15 pela data); **a rede não deixa descarregar imagens do Dropbox (403)**, o par escolhe-se por olho. Recado ao GPT com tudo isto
+  (`RECADOS_PARA_O_CHATGPT.md`, 25/10). **Dropbox `13. APP Gestão AL/kpi/` continua sem ficheiro:** T2 do #193 por fazer; secção 8 do documento KPI
+  por preencher. **App (só leitura, sem pull):** `origin/main` da app está 42 commits à frente do clone local (deploy n.º 136; #194 DVM, o agente dentro da
+  app, #195 NPS/«Como souberam», #196–#199); **nenhuma porta do site (#189–#192) foi feita** e não há recados SITE novos lá. **Lição de ferramenta:** chamadas Bash em paralelo partilham o diretório; usar `git -C` e caminhos absolutos, nunca `cd`.
+  **Em aberto:** olho do Diogo à r2 (iPhone e Safari pelas ligações) · S31–S33 sem resposta · secção 6 do fecho do GPT de 19/10 (papéis) · 3,2 vs
+  3,6 ha · logótipo · autorização pública das fotos e `creditos.md` (11 imagens sem linha) · `novo.montecasabranca.pt` · S27. **Próxima
+  sugestão: S34** (S34–S36 propostas no fecho de 25/10, à espera do sim/não: S34 ligações das plataformas pelo `factos.json` do kit · S35
+  `demo.py revisao rN` num só comando · S36 issue automático no GitHub por entrega do GPT com o resultado do contrato e as capturas do ensaio).

@@ -1,7 +1,9 @@
 # Contrato da demo técnica · onde o ChatGPT entrega o design do site e como ele passa a ser real
 
 **Para quem:** o ChatGPT (design em HTML + CSS, acordo v1.2) e o Diogo (decide por olho). **Quem mantém isto:** o Claude (código da demo).
-**Data:** 21/10/2026. Qualquer mudança a este contrato é uma versão nova deste ficheiro, anunciada em `docs/integracao-app/RECADOS_PARA_O_CHATGPT.md`.
+**Data:** 21/10/2026 · **v1.1 em 25/10/2026** (só uma correção: `imagens.json` deixa de constar dos nomes reservados; era um engano do
+`demo.py`, apontado pelo ChatGPT no handoff V1 de 24/10). Qualquer mudança a este contrato é uma versão nova deste ficheiro, anunciada em
+`docs/integracao-app/RECADOS_PARA_O_CHATGPT.md`.
 
 A ideia do Diogo (21/10): a cada avanço do design ele decide **a olhar para o que será real**, no telemóvel e em desktop, em vez de assumir
 como ficará. Por isso o design entra numa base técnica que já tem a funcionar o que o site vai ter de verdade (tempo, calendário de
@@ -24,7 +26,8 @@ Tudo em **`design/site/`** (pasta tua, pelo acordo). Nada fora dela é necessár
 | o teu JS (opcional) | Só para interação de apresentação (menus, galerias, painéis). **Não** para tempo, preços, calendário ou pedidos: isso é do kit (secção 3). Não copies o `interacao.js` das propostas rejeitadas. |
 
 **Nomes reservados à demo** (o `montar` recusa se os usares): `revisao.html`, `revisoes.html`, `componentes.html`, `desktop.html`,
-`estilos.css`, `demo.js`, `versao.js`, a pasta `base/` e `imagens.json` na raiz da demo. Se quiseres ver os componentes a funcionar na tua
+`estilos.css`, `demo.js`, `versao.js` e a pasta `base/`. O teu `imagens.json` (secção 1) **não** é reservado: o `montar` lê-o e não o
+copia (a demo tem o seu, `demo/imagens.json`); até 25/10 o `demo.py` recusava-o por engano (v1.1). Se quiseres ver os componentes a funcionar na tua
 página antes de a entregares, copia a pasta `demo/site/base/` para `design/site/base/` e junta às tuas páginas as linhas da secção 3.0; a
 pasta `base/` dentro de `design/site/` é ignorada pelo `montar` e não deve ir no commit.
 
@@ -101,6 +104,7 @@ componente a funcionar, com as tuas classes a vestir. Classes do kit começam po
 ```
 - Produz: `h3.b-pedido-titulo` · `form.b-pedido-form` com `label.b-pedido-campo` (`input.b-pedido-nome`, `.b-pedido-email`, `.b-pedido-telefone`, `textarea.b-pedido-mensagem`), `p.b-pedido-datas`, `button.b-pedido-enviar` · `.b-pedido-resultado` (`--ok` / `--erro`) com `p.b-pedido-resposta`, `.b-pedido-acoes` (WhatsApp e email com a mensagem pronta) e, na demo, `details.b-pedido-json` com o que a produção enviaria à app (contrato #191) · `p.b-fonte`.
 - Na demo **nada é enviado nem gravado**; o botão «Pré-reservar» do simulador abre este encaixe com as datas. Em produção o pedido vai para `public/prereserva.php` do site, que fala com a app servidor a servidor e cria a pré-reserva «Por confirmar» (o Diogo recebe um push). Podes pôr o encaixe dentro de um `<dialog>` ou em linha; se a página não tiver `pedido`, as ligações WhatsApp/email do simulador chegam.
+- **Sem datas escolhidas** (uma página de contactos sem simulador, por exemplo) o encaixe aceita o formulário como **mensagem simples**: responde «Mensagem preparada…» com as ligações WhatsApp/email já com o texto, sem JSON do #191 (uma pré-reserva exige entrada e saída). O `p.b-pedido-datas` diz então «Sem datas escolhidas: se já as tiverem, indiquem-nas na mensagem.» (v1.1, 25/10).
 
 ### 3.5 Antes e depois · `data-base="antes-depois"`
 

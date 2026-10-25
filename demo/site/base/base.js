@@ -389,16 +389,23 @@
     if (extra && extra.mensagem) t += " " + extra.mensagem;
     return t;
   }
+  // mensagem sem datas escolhidas (página de contactos, por exemplo): não é pré-reserva, é uma mensagem simples
+  function textoMensagem(extra) {
+    var t = "Olá!"; if (extra && extra.nome) t += " Sou " + extra.nome + ".";
+    t += " " + ((extra && extra.mensagem) || "Gostávamos de saber mais sobre o Monte Casa Branca.");
+    return t;
+  }
   function ligacaoWhatsApp(R, extra) {
     var a = el("a", "b-ligacao b-ligacao--whatsapp", "WhatsApp");
     var tel = (factos && factos.whatsapp) || "351962802626";
-    a.href = "https://wa.me/" + tel + "?text=" + encodeURIComponent(textoPedido(R, extra)); a.target = "_blank"; a.rel = "noopener";
+    a.href = "https://wa.me/" + tel + "?text=" + encodeURIComponent(R ? textoPedido(R, extra) : textoMensagem(extra)); a.target = "_blank"; a.rel = "noopener";
     return a;
   }
   function ligacaoEmail(R, extra) {
     var a = el("a", "b-ligacao b-ligacao--email", "Email");
     var mail = (factos && factos.email) || "geral@montecasabranca.pt";
-    a.href = "mailto:" + mail + "?subject=" + encodeURIComponent("Pedido de datas · " + fmtIntervalo(R.entrada, R.saida)) + "&body=" + encodeURIComponent(textoPedido(R, extra));
+    var assunto = R ? "Pedido de datas · " + fmtIntervalo(R.entrada, R.saida) : "Mensagem pelo site";
+    a.href = "mailto:" + mail + "?subject=" + encodeURIComponent(assunto) + "&body=" + encodeURIComponent(R ? textoPedido(R, extra) : textoMensagem(extra));
     return a;
   }
 
@@ -409,7 +416,8 @@
     slot.appendChild(el("h3", "b-pedido-titulo", slot.getAttribute("data-titulo") || "Pedir estas datas"));
     var f = el("form", "b-pedido-form"); f.noValidate = true;
     f.appendChild(campoP("Nome", "text", "nome", true)); f.appendChild(campoP("Email", "email", "email", true)); f.appendChild(campoP("Telemóvel", "tel", "telefone", false));
-    var datas = el("p", "b-pedido-datas", "Escolham primeiro as datas no simulador."); f.appendChild(datas);
+    var temSimulador = !!(DOC && DOC.querySelector('[data-base="simulador"]'));
+    var datas = el("p", "b-pedido-datas", temSimulador ? "Escolham primeiro as datas no simulador." : "Sem datas escolhidas: se já as tiverem, indiquem-nas na mensagem."); f.appendChild(datas);
     var lm = el("label", "b-pedido-campo"); lm.appendChild(el("span", "b-pedido-rotulo", "Perguntas ou pedidos (ex.: podemos levar o cão?)")); var ta = el("textarea", "b-pedido-mensagem"); ta.name = "mensagem"; ta.rows = 3; lm.appendChild(ta); f.appendChild(lm);
     var arm = el("input"); arm.type = "text"; arm.name = "armadilha"; arm.tabIndex = -1; arm.autocomplete = "off"; arm.className = "b-visualmente-escondido"; arm.setAttribute("aria-hidden", "true"); f.appendChild(arm);
     var bt = el("button", "b-pedido-enviar", "Enviar pedido"); bt.type = "submit"; f.appendChild(bt);
@@ -426,8 +434,13 @@
     f.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var nome = f.nome.value.trim(), email = f.email.value.trim();
-      if (!atual) { mostrar("Escolham primeiro as datas no simulador.", true); return; }
       if (!nome || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { mostrar("Precisamos do nome e de um email válido para responder.", true); return; }
+      if (!atual) {
+        // sem datas não há pré-reserva (o contrato #191 exige entrada e saída): fica uma mensagem simples, por WhatsApp ou email
+        var msg = { nome: nome, email: email, telefone: f.telefone.value.trim(), mensagem: ta.value.trim(), origem: slot.getAttribute("data-origem") || "contactos", armadilha: arm.value };
+        mostrar("Mensagem preparada (demo: nada foi enviado). Sem datas escolhidas não é uma pré-reserva: na produção seguiria por email para o Diogo. Para já, enviem pelo WhatsApp ou email:", false, msg);
+        return;
+      }
       var pedido = { pedido_id: uuid(), nome: nome, email: email, telefone: f.telefone.value.trim(), entrada: atual.entrada, saida: atual.saida, pax: atual.pax, mensagem: ta.value.trim(), preco_mostrado: atual.total, lingua: CFG.lingua, origem: slot.getAttribute("data-origem") || "precos", segundos_a_preencher: Math.round((Date.now() - pedidoAberto) / 1000), armadilha: arm.value };
       if (CFG.prereserva) {
         fetch(CFG.prereserva, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pedido) }).then(function (r) { return r.json(); }).then(function (j) { mostrar(j.mensagem || (j.ok ? "Pedido recebido." : "Não foi possível registar o pedido; falem connosco pelo WhatsApp ou email."), !j.ok, pedido); }).catch(function () { mostrar("Não foi possível registar o pedido; falem connosco pelo WhatsApp ou email.", true, pedido); });
@@ -438,9 +451,9 @@
     function mostrar(msg, erro, pedido) {
       saida.hidden = false; saida.className = "b-pedido-resultado " + (erro ? "b-pedido-resultado--erro" : "b-pedido-resultado--ok"); saida.innerHTML = "";
       saida.appendChild(el("p", "b-pedido-resposta", msg));
-      if (pedido && atual) {
+      if (pedido) {
         var ac = el("div", "b-pedido-acoes"); ac.appendChild(ligacaoWhatsApp(atual, pedido)); ac.appendChild(ligacaoEmail(atual, pedido)); saida.appendChild(ac);
-        if (!CFG.prereserva) { var det = el("details", "b-pedido-json"); det.appendChild(el("summary", null, "O que a produção enviaria à app (contrato #191)")); var pre = el("pre", null, JSON.stringify(pedido, null, 2)); det.appendChild(pre); saida.appendChild(det); }
+        if (atual && !CFG.prereserva) { var det = el("details", "b-pedido-json"); det.appendChild(el("summary", null, "O que a produção enviaria à app (contrato #191)")); var pre = el("pre", null, JSON.stringify(pedido, null, 2)); det.appendChild(pre); saida.appendChild(det); }
       }
     }
   }

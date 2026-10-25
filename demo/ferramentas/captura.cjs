@@ -1,5 +1,5 @@
 /* Capturas da demo a 390 px (telemóvel) e 1280 px (desktop) com Playwright/Chromium.
-   Uso: node demo/ferramentas/captura.cjs [--base http://127.0.0.1:8787] [--saida pasta] [--paginas a.html,b.html]
+   Uso: node demo/ferramentas/captura.cjs [--base http://127.0.0.1:8787] [--saida pasta] [--paginas a.html,b.html] [--formato png|jpg]
    Exige: demo.py servir a correr noutro terminal e o pacote playwright
    instalado (global, com NODE_PATH=$(npm root -g), ou local).
    Por omissão grava em demo/capturas/<revisão>/ (S28: capturas versionadas por
@@ -18,6 +18,8 @@ function opcao(nome, valor) { const i = args.indexOf(nome); return i >= 0 && arg
 const versao = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "versao.json"), "utf8"));
 const base = opcao("--base", args.find(a => /^https?:/.test(a)) || "http://127.0.0.1:8787");
 const pasta = path.resolve(opcao("--saida", path.join(__dirname, "..", "capturas", versao.revisao)));
+const formato = opcao("--formato", "png") === "jpg" ? "jpg" : "png";   // jpg (qualidade 82) para as capturas versionadas; png por defeito
+const tipoImagem = formato === "jpg" ? { type: "jpeg", quality: 82 } : {};
 const paginas = opcao("--paginas", "") ? opcao("--paginas", "").split(",").filter(Boolean) : Object.keys(versao.paginas || { "index.html": "" });
 const larguras = [{ nome: "telemovel", w: 390, h: 844 }, { nome: "desktop", w: 1280, h: 800 }];
 let cenario = null;
@@ -40,12 +42,12 @@ try { cenario = require(path.join(__dirname, "cenarios", versao.revisao + ".cjs"
       const largo = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
       if (largo) problemas.push("rolagem horizontal");
       const rev = await page.evaluate(() => (document.querySelector("[data-versao=revisao]") || {}).textContent);
-      const ficheiro = path.join(pasta, `${p.replace(/\.html$/, "").replace(/\//g, "-")}-${l.nome}.png`);
-      await page.screenshot({ path: ficheiro, fullPage: true });
+      const ficheiro = path.join(pasta, `${p.replace(/\.html$/, "").replace(/\//g, "-")}-${l.nome}.${formato}`);
+      await page.screenshot({ path: ficheiro, fullPage: true, ...tipoImagem });
       if (cenario && p === "index.html") {
         try {
           const extra = await cenario(page, l, async nome => {
-            await page.screenshot({ path: path.join(pasta, `index-${nome}-${l.nome}.png`), fullPage: false });
+            await page.screenshot({ path: path.join(pasta, `index-${nome}-${l.nome}.${formato}`), fullPage: false, ...tipoImagem });
           });
           for (const pr of extra) problemas.push("cenário: " + pr);
         } catch (e) { problemas.push("cenário rebentou: " + e.message); }

@@ -1,31 +1,80 @@
 {
   "_nota": "Uma entrada por imagem em demo/site/. «ficheiro_repo» é a cópia já no repositório de onde a demo copia sem retocar; «original» é o nome no Dropbox/creditos.md; «autorizacao_publica» fica vazio até o Diogo a escrever em docs/fotografia/creditos.md. A demo é privada; a publicação exige a linha preenchida.",
   "imagens/piscina-dia.jpg": {
-    "ficheiro_repo": "design/retoma-v2/imagens/piscina-dia.jpg",
-    "original": "DSC_4078",
-    "origem": "V2_verão/5.JPG ↔ Rodrigo/1/DSC_4078.JPG",
-    "autor": "Rodrigo (reportagem 2022)",
-    "autorizacao_publica": ""
+    "ficheiro_repo": "design/site/imagens/piscina-dia.jpg",
+    "original": "V2_verão/5.JPG; Rodrigo/1/DSC_4078.JPG",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
   },
-  "imagens/portas-abertas.jpg": {
-    "ficheiro_repo": "design/retoma-v2/imagens/portas-abertas.jpg",
-    "original": "DSC_4444",
-    "origem": "V2_verão/13.JPG ↔ Rodrigo/3/DSC_4444.JPG",
-    "autor": "Rodrigo (reportagem 2022)",
-    "autorizacao_publica": ""
+  "imagens/logotipo.png": {
+    "ficheiro_repo": "design/site/imagens/logotipo.png",
+    "original": "public/marca/logo.png",
+    "autor": "Marca atual do projeto",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
   },
-  "imagens/alpendre-copos.jpg": {
-    "ficheiro_repo": "design/retoma-v2/imagens/alpendre-copos.jpg",
-    "original": "DSC_4161",
-    "origem": "V2_verão/8.JPG ↔ Rodrigo/1/DSC_4161.JPG",
-    "autor": "Rodrigo (reportagem 2022)",
-    "autorizacao_publica": ""
+  "imagens/antes_quarto_a15.jpg": {
+    "ficheiro_repo": "design/site/imagens/antes_quarto_a15.jpg",
+    "original": "design/estudo-imagens/antes_quarto_a15.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
   },
-  "imagens/logo.png": {
-    "ficheiro_repo": "public/marca/logo.png",
-    "original": "",
-    "origem": "logótipo atual, public/marca/logo.png",
-    "autor": "Monte Casa Branca",
-    "autorizacao_publica": "logótipo atual, preservado (acordo, secção 10)"
+  "imagens/quarto.jpg": {
+    "ficheiro_repo": "design/site/imagens/quarto.jpg",
+    "original": "Interior/quarto 3/IMG_0322.JPG",
+    "autor": "Por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/antes_casao_a14.jpg": {
+    "ficheiro_repo": "design/site/imagens/antes_casao_a14.jpg",
+    "original": "design/estudo-imagens/antes_casao_a14.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/alpendre.jpg": {
+    "ficheiro_repo": "design/site/imagens/alpendre.jpg",
+    "original": "V2_verão/8.JPG; DSC_4161.JPG",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/sala-portas.jpg": {
+    "ficheiro_repo": "design/site/imagens/sala-portas.jpg",
+    "original": "V2_verão/13.JPG; DSC_4444.JPG",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/quarto_4413.jpg": {
+    "ficheiro_repo": "design/site/imagens/quarto_4413.jpg",
+    "original": "design/estudo-imagens/quarto_4413.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/depois_casao_interior_a3.jpg": {
+    "ficheiro_repo": "design/site/imagens/depois_casao_interior_a3.jpg",
+    "original": "design/estudo-imagens/depois_casao_interior_a3.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/sala.jpg": {
+    "ficheiro_repo": "design/site/imagens/sala.jpg",
+    "original": "V3_inverno/7.JPG; DSC_4446.JPG",
+    "autor": "Rodrigo",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
+  },
+  "imagens/montemor_rua_4694.jpg": {
+    "ficheiro_repo": "design/site/imagens/montemor_rua_4694.jpg",
+    "original": "design/estudo-imagens/montemor_rua_4694.jpg",
+    "autor": "Acervo do projeto; autoria por confirmar",
+    "autorizacao_publica": false,
+    "nota": "copiada de design/site pelo demo.py montar"
   }
 }

@@ -45,7 +45,10 @@ ESTADOS = {"preparacao-tecnica", "rascunho", "aprovado", "rejeitado"}
 HOSTS_EXTERNOS_PERMITIDOS = {"fonts.googleapis.com", "fonts.gstatic.com"}
 VAZIOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 # nomes que pertencem à demo (Claude); o ChatGPT não os usa em design/site
-RESERVADOS = {"revisao.html", "revisoes.html", "componentes.html", "desktop.html", "estilos.css", "demo.js", "versao.js", "base", "imagens.json"}
+RESERVADOS = {"revisao.html", "revisoes.html", "componentes.html", "desktop.html", "estilos.css", "demo.js", "versao.js", "base"}
+# «imagens.json» NÃO é reservado em design/site: é o manifesto de origem que o contrato pede ao ChatGPT (secção 1); o montar
+# lê-o e não o copia para demo/site (a demo tem o seu em demo/imagens.json). Até 25/10 estava nesta lista por engano e fazia
+# o testar --design e o montar recusar uma entrega conforme (apontado pelo ChatGPT no handoff V1 de 24/10).
 TECNICAS = {"revisao.html": "preparacao-tecnica", "revisoes.html": "preparacao-tecnica",
             "componentes.html": "preparacao-tecnica", "desktop.html": "preparacao-tecnica"}
 ENCAIXES = {"tempo", "calendario", "simulador", "pedido", "antes-depois"}
@@ -392,7 +395,9 @@ def testar(verboso=True):
                 if not original:
                     avisos.append(f"imagem {rel}: sem origem declarada (o ChatGPT indica-a em design/site/imagens.json)")
                 elif original not in texto_creditos:
-                    falhas.append(f"imagem {rel}: original {original} sem linha em docs/fotografia/creditos.md")
+                    # a demo é privada: a linha no creditos.md é a conformidade 8 (ChatGPT: ficheiro e zona; Diogo: autorização)
+                    # e só trava a publicação em public/ (testes.mjs), não a revisão da demo. Até 25/10 era falha aqui por engano.
+                    avisos.append(f"imagem {rel}: original «{original}» sem linha em docs/fotografia/creditos.md (conformidade 8; não trava a demo)")
                 if not entrada.get("autorizacao_publica"):
                     avisos.append(f"imagem {rel}: sem autorização pública registada (serve só na demo privada)")
     verificar_js(SITE, falhas, avisos)
@@ -698,10 +703,21 @@ def artefacto(fixa=False):
     titulo = re.search(r"<title>(.*?)</title>", texto, re.S).group(1)
     if fixa:
         titulo = "Monte Casa Branca · demo " + v["revisao"]
-    cabeca = re.search(r"<head>(.*?)</head>", texto, re.S).group(1)
-    corpo = re.search(r"<body>(.*?)</body>", texto, re.S).group(1)
-    links = "\n".join(l for l in cabeca.splitlines() if "<link" in l or 'name="robots"' in l)
-    fragmento = (f"<title>{titulo}</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n{links}\n{corpo}")
+    # <head> e <body> podem trazer atributos e vir numa só linha (é o caso das páginas do ChatGPT desde 24/10)
+    m_cab = re.search(r"<head[^>]*>(.*?)</head>", texto, re.S | re.I)
+    m_corpo = re.search(r"<body([^>]*)>(.*?)</body>", texto, re.S | re.I)
+    if not m_cab or not m_corpo:
+        raise SystemExit("artefacto: a página de entrada não tem <head>…</head> e <body>…</body> reconhecíveis")
+    cabeca, atributos_corpo, corpo = m_cab.group(1), m_corpo.group(1).strip(), m_corpo.group(2)
+    # do <head> passam folhas, o robots e os scripts (a apresentação do ChatGPT vem no <head> com defer)
+    etiquetas = re.findall(r"<link\b[^>]*>|<meta\s+name=\"robots\"[^>]*>|<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>", cabeca, re.S | re.I)
+    links = "\n".join(etiquetas)
+    # os atributos do <body> (ex.: data-page) não sobrevivem ao esqueleto do claude.ai: repõem-se por script
+    repor = ""
+    pares = re.findall(r"([a-zA-Z][\w-]*)=\"([^\"]*)\"", atributos_corpo)
+    if pares:
+        repor = "<script>(function(){var b=document.body;" + "".join(f"b.setAttribute({json.dumps(k)},{json.dumps(v)});" for k, v in pares) + "})();</script>\n"
+    fragmento = (f"<title>{titulo}</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n{links}\n{repor}{corpo}")
     escrever(entrada, fragmento)
     print(f"Variante para artefacto em {os.path.relpath(destino, RAIZ)}/ (index.html como fragmento{', ligação fixa ' + v['revisao'] if fixa else ''})")
 
