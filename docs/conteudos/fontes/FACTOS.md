@@ -27,6 +27,11 @@ Nada com **?** ou **✗** entra no site sem a resposta. Os textos finais escreve
   - «Fazenda Casa Branca, **c**aminho 3, Reguengo, 7050-352 Montemor-o-Novo» (mensagem de boas-vindas T6, `lib/textos.php`).
   - Proposta: a primeira (é a que está nos documentos). Confirmar também que é a morada do registo AL e do Google.
 - ✓ Localidade: **Reguengo, Montemor-o-Novo** (distrito de Évora, Alentejo).
+- ✓ **Decisão do Diogo (25/10/2026) sobre «Reguengo»:** é a localidade da morada postal e **só aí entra** (morada completa no
+  `PostalAddress` do schema.org e, em letra pequena, nos contactos ou no rodapé, igual à do registo AL e do Google); **nunca em títulos,
+  textos, URLs, legendas ou `alt`**: ninguém pesquisa por «Reguengo», e «Reguengos» é outra terra (Reguengos de Monsaraz).
+  **Palavras estratégicas da zona:** Évora, Alentejo, Montemor-o-Novo, Alqueva (e «a 1 h de Lisboa»): são estas que entram nos títulos,
+  nos textos, nas FAQ, no `llms.txt` e nos `alt` das fotografias.
 - ✓ Domínio: **montecasabranca.pt** (com `www.` e HTTP → HTTPS, decisão de 6/10). A app fica em `app.montecasabranca.pt`.
 - ✓ Email: **geral@montecasabranca.pt** (o dos emails da app).
 - ✓ Telefone / WhatsApp: **+351 962 802 626** (Diogo Machado; é o que vai no T6 e no T1).
@@ -132,7 +137,7 @@ Por noite, casa inteira (8 pessoas), limpeza de 180 € à parte, uma por estadi
 
 ## 5. Onde fica e o que fazer à volta (página «Localização»)
 
-- ✓ Reguengo, Montemor-o-Novo, Alentejo. Portal do município: `visitmontemornovo.com` (Início → Ficar → Monte Casa Branca) já aponta para o domínio.
+- ✓ Reguengo, Montemor-o-Novo, Alentejo (ver a decisão de 25/10 na secção 1: «Reguengo» só na morada postal; as palavras da zona são Évora, Alentejo, Montemor-o-Novo e Alqueva). Portal do município: `visitmontemornovo.com` (Início → Ficar → Monte Casa Branca) já aponta para o domínio.
 - ✓ Distâncias (texto do Diogo de 2022, MyBestHotel): **centro de Montemor-o-Novo 3 km · Évora 25 min · Lisboa 1 h · Comporta 50 min ·
   Alqueva 1 h · Badajoz 1 h 20**. Na EN2. **?** aeroporto de Lisboa (≈ 1 h 15?).
 - ✓ Matéria para a página «Onde fica», já escrita em 2022 e reaproveitável: Évora e as ruelas dentro das muralhas · um dia de praia na Comporta ·
@@ -239,6 +244,10 @@ o Linktree existe (sem datas: o plano grátis não as dá), mas a proporção di
 8. **BOOKING.COM** — **5 800 cliques** — `https://www.booking.com/Share-KoMvpm`.
 9. **AIRBNB** — **2 030 cliques** — `https://www.airbnb.com/h/monte-casa-branca-montemornovo-evora`.
 10. **VRBO** — **45 cliques** — `https://www.vrbo.com/pt-pt/arrendamento-ferias/p11082917?uni_id=6114185`.
+    ✓ **Decisão do Diogo (25/10/2026): estas três ligações, as do Linktree em uso, são as oficiais do site.** Vivem em
+    `demo/base/dados/factos.json` (chave `ligacoes`), de onde o kit da demo e o gerador do site as põem nas páginas (S34, aceite a 25/10).
+    As que o ChatGPT escreveu na V1.3.1 (`airbnb.pt/rooms/614359946843546039`, `booking.com/Share-a7Qww5`) não têm origem registada e
+    **não se usam** até o Diogo as confirmar; o Vrbo entra sempre (decisão de 8/10: os três links numa linha discreta das «Perguntas frequentes»).
 11. RESERVAS DIRETAS (escondido, 0 cliques) — `mybesthotel.eu/turismo-…` — um motor de reservas antigo (MyBestHotel), desligado.
     ✓ **Diogo (8/10): não paga nada; é para retirar o botão e desligar o Monte da página deles.** Endereço (Diogo, 9/10):
     `https://www.mybesthotel.eu/turismo-rural/monte-casa-branca`. O Claude não consegue abri-lo (domínio bloqueado na rede do ambiente).

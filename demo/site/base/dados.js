@@ -85,9 +85,19 @@ window.MCB_DADOS = {
    "lon": -8.211253
   },
   "email": "geral@montecasabranca.pt",
-  "fonte": "docs/conteudos/fontes/FACTOS.md (só linhas com ✓); o kit lê daqui os contactos e as coordenadas",
+  "fonte": "docs/conteudos/fontes/FACTOS.md (só linhas com ✓); o kit lê daqui os contactos, as coordenadas e as ligações oficiais (S34, 25/10)",
   "instagram": "@monte_casa_branca",
   "instagram_url": "https://www.instagram.com/monte_casa_branca/",
+  "ligacoes": {
+   "_nota": "FACTOS §8 (Linktree em uso, capturas de 8/10) + decisão do Diogo de 25/10: as das plataformas vêm daqui, nunca escritas à mão (data-liga)",
+   "airbnb": "https://www.airbnb.com/h/monte-casa-branca-montemornovo-evora",
+   "booking": "https://www.booking.com/Share-KoMvpm",
+   "email": "mailto:geral@montecasabranca.pt",
+   "instagram": "https://www.instagram.com/monte_casa_branca/",
+   "maps": "https://www.google.com/maps?q=38.6142917,-8.211253",
+   "vrbo": "https://www.vrbo.com/pt-pt/arrendamento-ferias/p11082917?uni_id=6114185",
+   "whatsapp": "https://wa.me/351962802626"
+  },
   "localidade": "Reguengo, Montemor-o-Novo",
   "maps": "https://www.google.com/maps?q=38.6142917,-8.211253",
   "nome": "Monte Casa Branca",

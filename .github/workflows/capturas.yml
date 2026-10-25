@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  issues: write   # S36 (25/10): um issue por entrega do ChatGPT em design/site
 
 jobs:
   capturas:
@@ -23,6 +24,23 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+
+      - name: Mudou design/site nesta entrega? (S36)
+        id: mudou
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ANTES="${{ github.event.before }}"
+          if [ -z "$ANTES" ] || [ "$ANTES" = "0000000000000000000000000000000000000000" ]; then
+            if ls design/site/*.html > /dev/null 2>&1; then echo "design=true" >> "$GITHUB_OUTPUT"; else echo "design=false" >> "$GITHUB_OUTPUT"; fi
+            exit 0
+          fi
+          if gh api "repos/${{ github.repository }}/compare/${ANTES}...${{ github.sha }}" --jq '.files[].filename' 2>/dev/null | grep -q '^design/site/'; then
+            echo "design=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "design=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - uses: actions/setup-python@v5
         with:
@@ -36,11 +54,13 @@ jobs:
         run: python3 demo/ferramentas/demo.py testar
 
       - name: Contrato do design (páginas do ChatGPT em design/site)
+        id: contrato
         run: |
           if ls design/site/*.html > /dev/null 2>&1; then
-            python3 demo/ferramentas/demo.py testar --design
+            python3 demo/ferramentas/demo.py testar --design 2>&1 | tee contrato.log
+            exit "${PIPESTATUS[0]}"
           else
-            echo "design/site sem páginas: nada a verificar (ver demo/base/CONTRATO.md)"
+            echo "design/site sem páginas: nada a verificar (ver demo/base/CONTRATO.md)" | tee contrato.log
           fi
 
       - name: Instalar Playwright e Chromium
@@ -59,6 +79,7 @@ jobs:
         run: node demo/ferramentas/captura.cjs --base http://127.0.0.1:8787 --saida demo/_saida/capturas
 
       - name: Ensaio das páginas do design (montar sem tocar na demo, servir, capturar)
+        id: ensaio
         if: ${{ !cancelled() && steps.playwright.outcome == 'success' }}
         run: |
           if ls design/site/*.html > /dev/null 2>&1; then
@@ -86,3 +107,31 @@ jobs:
           name: ensaio-design-${{ github.sha }}
           path: demo/_saida/capturas-ensaio
           if-no-files-found: ignore
+
+      - name: Issue com o resultado da entrega do design (S36)
+        if: ${{ always() && github.event_name == 'push' && steps.mudou.outputs.design == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CONTRATO="${{ steps.contrato.outcome }}"; ENSAIO="${{ steps.ensaio.outcome }}"
+          if [ "$CONTRATO" = "success" ]; then ESTADO="contrato OK"; else ESTADO="contrato FALHA"; fi
+          CURTO="${GITHUB_SHA::7}"
+          ASSUNTO="$(git log -1 --pretty=%s)"
+          CORRIDA="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          {
+            echo "Entrega em \`design/site/\` no commit ${CURTO}: **${ASSUNTO}**"
+            echo
+            echo "- Contrato (\`demo.py testar --design\`): **${CONTRATO}**"
+            echo "- Ensaio das páginas com o kit (capturas 390/1280): **${ENSAIO}**"
+            echo "- Corrida, com os artefactos \`ensaio-design-…\` e \`capturas-demo-…\`: ${CORRIDA}"
+            echo
+            echo '```'
+            tail -n 40 contrato.log 2>/dev/null || echo "(sem registo do contrato)"
+            echo '```'
+            echo
+            echo "Próximo passo: o Claude monta esta entrega como revisão da demo (\`demo.py revisao rN\`) e publica as ligações; o Diogo decide por olho. Regras em \`demo/base/CONTRATO.md\`."
+            echo
+            echo "---"
+            echo "_Issue aberto pelo workflow «Capturas» (S36, aceite pelo Diogo a 25/10/2026)._"
+          } > issue.md
+          gh issue create --title "Entrega do design ${CURTO}: ${ESTADO}" --body-file issue.md

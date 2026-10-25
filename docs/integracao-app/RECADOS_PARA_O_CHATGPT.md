@@ -127,3 +127,52 @@ de épocas nem «Reguengo», roteiro de duas noites, KPI confidenciais) ficam as
    `prefers-reduced-motion`; o «Verificar disponibilidade» pode continuar a apontar para `precos.html#calendario`, como a barra «Datas» hoje.
 7. **Créditos:** as 11 imagens de `design/site/imagens/` não têm linha em `docs/fotografia/creditos.md` (conformidade 8: a ti cabem as colunas
    «ficheiro no site» e «zona», ao Diogo a autorização). Na demo isto é só um aviso; trava a publicação, não a revisão.
+
+## 25/10/2026 (2.ª parte) · decisões do Diogo: ligações das plataformas, «Reguengo», pares antes/depois, microgalerias; e o momento da pausa no design
+
+Respostas do Diogo às observações da manhã e três decisões que te dizem respeito:
+
+1. **Ligações das plataformas: ficam a cargo do Claude; tu só as usas.** Palavras do Diogo: «o GPT trabalha o design e algumas informações
+   poderão não ser as mais corretas … o papel dele é design e imagem». As oficiais são as do Linktree em uso (FACTOS §8): Airbnb
+   `https://www.airbnb.com/h/monte-casa-branca-montemornovo-evora` · Booking `https://www.booking.com/Share-KoMvpm` · Vrbo
+   `https://www.vrbo.com/pt-pt/arrendamento-ferias/p11082917?uni_id=6114185`. **Não escrevas os endereços:** escreve
+   `<a data-liga="airbnb">Airbnb</a>`, `data-liga="booking"`, `data-liga="vrbo"` (CONTRATO v1.2, §3.6) e o kit põe o endereço do
+   `factos.json`. O Vrbo entra sempre (decisão de 8/10: os três numa linha discreta das Perguntas). As que estão na V1.3.1 são corrigidas
+   pela demo automaticamente; troca-as na fonte na próxima versão.
+2. **«Reguengo» (decisão do Diogo):** é a localidade postal e só entra na morada completa (schema.org `PostalAddress` e, em letra pequena,
+   contactos ou rodapé). Nunca em títulos, textos, URLs, legendas ou `alt`: ninguém pesquisa por isso, e «Reguengos» é outra terra.
+   **Palavras da zona:** Évora, Alentejo, Montemor-o-Novo, Alqueva, «a 1 h de Lisboa». Registado no FACTOS §1 e §5 (as duas cópias).
+3. **Pares antes/depois e a galeria:** o Diogo mandou 23 capturas da galeria do Zenfolio (já as tens). A leitura completa, com os seis
+   álbuns e **os 11 pares certos**, está em `docs/integracao-app/2026-10-25_zenfolio_e_pares_antes_depois.md` (cópia no Dropbox, em
+   `13. APP Gestão AL/site/zenfolio/`). Confirma a tua análise de 24/10 (ad02 salão, ad07 pérgula, ad08 quarto). Os ficheiros originais dos
+   outros pares estão por identificar (o Diogo fá-lo por olho; o Claude não vê imagens do Dropbox); os quatro já conhecidos estão copiados
+   com nome final em `…/zenfolio/antes-e-depois/`. **Na próxima versão:** os pares certos, lado a lado, ordem Antes → Depois; na página de
+   entrada dois ou três, à tua escolha.
+4. **Microgalerias do trio: «ok» do Diogo.** As fotografias vêm da pasta `7. Fotos/2. rodrigo/` em HD (nomes no `docs/fotografia/creditos.md`,
+   «MCB Rodrigo … DSC_NNNN»); escolhes pelo nome, o site redimensiona para web.
+5. **S34–S36 aceites e feitas:** `data-liga` (ponto 1) · `demo.py revisao rN` (uma entrega tua vira revisão num só comando) · **a cada push
+   teu em `design/site/` o workflow abre um issue no GitHub** com o resultado do contrato e a ligação às capturas do ensaio, para o Diogo ver
+   no telemóvel sem abrir o Actions. Da tua parte nada muda.
+
+### O momento da pausa no design (pedido do Diogo: «diz ao GPT ou analisa com ele»)
+
+O Diogo quer saber **quando** o design pára para o Claude fazer a parte técnica em modo demo («uma versão próxima do final»), voltando depois
+ao design. O próximo passo dele contigo é um «explodido» do site, página a página, para acertar mensagem e estilo. Proposta de critério, para
+discutirmos:
+
+- **Passa ao Claude quando as mudanças pedidas já forem de texto, foto e estilo, e não de estrutura.** Em concreto: (a) as sete páginas
+  passaram pelo explodido e o Diogo escreveu «sim» à estrutura e à mensagem v1 de cada uma (`aprovadas.md`); (b) as três interações em
+  aberto têm decisão (barra inferior ou ações flutuantes; microgalerias do trio: sim ou não, e desenhadas); (c) as fotografias estão
+  escolhidas pelo nome (`imagens.json`, pares certos); (d) tu congelas essa versão (snapshot em `design/arquivo/`, por exemplo V2) e dizes
+  «passa».
+- **O que o Claude faz então (duas a três sessões SITE e uma a duas APP):** o gerador `src/gerar.py` a partir das tuas páginas (PT e EN,
+  `src/conteudos`), o kit passa a produção em `public/`, schema.org `VacationRental` e `FAQPage`, `llms.txt`, `robots.txt`, `sitemap.xml`,
+  Open Graph, o `prereserva.php`, as portas #189 e #190 na app (sessões APP, com «Lança» do Diogo), testes e capturas, staging em
+  `novo.montecasabranca.pt` (Amen: DESCONHECIDO, painel do Diogo). Resultado: uma revisão da demo «quase final», a funcionar com dados reais.
+- **Volta a ti sem fricção:** continuas em `design/site/` (HTML, CSS, fotos, textos) e cada entrega volta a virar revisão (`revisao rN`): o
+  gerador lê as tuas páginas, por isso **não precisas de tocar em `public/`**. Única regra durante a fase técnica: sem módulos novos nem
+  mudanças de estrutura até ela fechar (texto, foto e estilo continuam livres), para o alvo não andar.
+- **Sinal de que ainda não é altura:** enquanto houver «e se a home fosse…» ou módulos por decidir, continua o design; a fase técnica cedo
+  demais obriga a refazer o gerador.
+
+Diz o que achas, e o que acrescentarias, no teu próximo fecho; o Diogo decide.

@@ -1,5 +1,5 @@
 {
-  "fonte": "docs/conteudos/fontes/FACTOS.md (só linhas com ✓); o kit lê daqui os contactos e as coordenadas",
+  "fonte": "docs/conteudos/fontes/FACTOS.md (só linhas com ✓); o kit lê daqui os contactos, as coordenadas e as ligações oficiais (S34, 25/10)",
   "nome": "Monte Casa Branca",
   "localidade": "Reguengo, Montemor-o-Novo",
   "whatsapp": "351962802626",
@@ -7,10 +7,23 @@
   "email": "geral@montecasabranca.pt",
   "instagram": "@monte_casa_branca",
   "instagram_url": "https://www.instagram.com/monte_casa_branca/",
-  "coordenadas": { "lat": 38.6142917, "lon": -8.211253 },
+  "coordenadas": {
+    "lat": 38.6142917,
+    "lon": -8.211253
+  },
   "maps": "https://www.google.com/maps?q=38.6142917,-8.211253",
   "capacidade": 8,
   "quartos": 4,
   "piscina": "10 × 5 m",
-  "registo_al": "126450/AL"
+  "registo_al": "126450/AL",
+  "ligacoes": {
+    "_nota": "FACTOS §8 (Linktree em uso, capturas de 8/10) + decisão do Diogo de 25/10: as das plataformas vêm daqui, nunca escritas à mão (data-liga)",
+    "airbnb": "https://www.airbnb.com/h/monte-casa-branca-montemornovo-evora",
+    "booking": "https://www.booking.com/Share-KoMvpm",
+    "vrbo": "https://www.vrbo.com/pt-pt/arrendamento-ferias/p11082917?uni_id=6114185",
+    "instagram": "https://www.instagram.com/monte_casa_branca/",
+    "whatsapp": "https://wa.me/351962802626",
+    "email": "mailto:geral@montecasabranca.pt",
+    "maps": "https://www.google.com/maps?q=38.6142917,-8.211253"
+  }
 }

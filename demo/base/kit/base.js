@@ -381,7 +381,26 @@
   // ---------- mensagens prontas (S2: WhatsApp e email lado a lado) ----------
   var factos = null;
   carregarFactos();
-  function carregarFactos() { carregar("factos").then(function (f) { factos = f; }).catch(function () { factos = null; }); }
+  function carregarFactos() { carregar("factos").then(function (f) { factos = f; aplicarLigacoes(); }).catch(function () { factos = null; }); }
+  // ---------- ligações das plataformas (S34, 25/10): vêm do factos.json, nunca escritas à mão ----------
+  // <a data-liga="airbnb|booking|vrbo|instagram|whatsapp|email|maps"> recebe o href oficial; uma ligação escrita à mão para
+  // airbnb/booking/vrbo/instagram é corrigida pelo domínio e fica marcada com data-liga-corrigida="1" (o teste e o ChatGPT veem-no).
+  var DOMINIOS_LIGA = { airbnb: /(^|\.)airbnb\./i, booking: /(^|\.)booking\.com$/i, vrbo: /(^|\.)vrbo\./i, instagram: /(^|\.)instagram\.com$/i };
+  function aplicarLigacoes(raizEl) {
+    if (!DOC || !factos || !factos.ligacoes) return;
+    var as = (raizEl || DOC).querySelectorAll("a[data-liga], a[href]");
+    for (var i = 0; i < as.length; i++) {
+      var a = as[i], chave = a.getAttribute("data-liga"), href = a.getAttribute("href") || "";
+      if (!chave && /^https?:/i.test(href)) {
+        try { var anf = new URL(href).hostname; for (var c in DOMINIOS_LIGA) { if (DOMINIOS_LIGA[c].test(anf)) { chave = c; break; } } } catch (e) { /* href inválido: fica como está */ }
+      }
+      var oficial = chave && factos.ligacoes[chave];
+      if (!oficial) continue;
+      if (href !== oficial) { a.setAttribute("href", oficial); a.setAttribute("data-liga-corrigida", "1"); }
+      if (/^https?:/i.test(oficial)) { a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
+    }
+  }
+  B.aplicarLigacoes = aplicarLigacoes;
   function textoPedido(R, extra) {
     var t = "Olá Diogo, gostávamos de ficar no Monte Casa Branca de " + fmtData(deIso(R.entrada)) + " a " + fmtData(deIso(R.saida)) + " (" + R.noites + " noites, " + R.pax + " pessoas).";
     if (R.total) t += " Vi no site o valor de " + euros(R.total) + ".";
@@ -487,6 +506,7 @@
       n.setAttribute("data-base-montado", "1");
       try { MONTADORES[tipo](n); } catch (e) { n.hidden = true; }
     }
+    aplicarLigacoes(raizEl);
     // rodapé discreto da demo: ligação à zona de revisão (o ChatGPT pode esconder ou estilizar .b-demo)
     if (global.DEMO_VERSAO && DOC.body && !DOC.querySelector(".b-demo") && !DOC.querySelector('a[href="revisao.html"]')) {
       var p = el("p", "b-demo"); var a = el("a", null, "demo " + (global.DEMO_VERSAO.revisao || "") + " · zona de revisão"); a.href = "revisao.html"; p.appendChild(a); DOC.body.appendChild(p);

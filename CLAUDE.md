@@ -256,3 +256,34 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   3,6 ha · logótipo · autorização pública das fotos e `creditos.md` (11 imagens sem linha) · `novo.montecasabranca.pt` · S27. **Próxima
   sugestão: S34** (S34–S36 propostas no fecho de 25/10, à espera do sim/não: S34 ligações das plataformas pelo `factos.json` do kit · S35
   `demo.py revisao rN` num só comando · S36 issue automático no GitHub por entrega do GPT com o resultado do contrato e as capturas do ensaio).
+- **25/10 (tarde) · respostas do Diogo e segunda parte da 8.ª sessão.** (1) **As ligações das plataformas ficam a cargo do Claude** («o GPT
+  trabalha o design … algumas informações poderão não ser as mais corretas … o papel dele é design e imagem»): as oficiais são as do Linktree
+  em uso (FACTOS §8); as do GPT na V1.3.1 (`airbnb.pt/rooms/…`, `Share-a7Qww5`) não têm origem registada e não se usam até o Diogo as
+  confirmar. **S34 FEITA:** `demo/base/dados/factos.json` ganhou `ligacoes` (Airbnb, Booking, Vrbo, Instagram, WhatsApp, email, mapa); o kit
+  aplica `data-liga="…"` e corrige por domínio as escritas à mão (`data-liga-corrigida="1"`, `target=_blank`, `rel=noopener`); `testar --design`
+  avisa; **CONTRATO v1.2** (§3.6). Verificado em Chromium na demo construída. (2) **«Reguengo» (decisão do Diogo):** é a localidade postal e só
+  entra na morada completa (schema.org `PostalAddress`; contactos/rodapé em letra pequena); nunca em títulos, textos, URLs, legendas ou `alt`
+  («ninguém pesquisa por Reguengo; Reguengos é outra terra»); **palavras da zona: Évora, Alentejo, Montemor-o-Novo, Alqueva, «a 1 h de Lisboa»**.
+  FACTOS §1, §5 e §8 atualizados nas duas cópias (app `6d40408`, memória do tema SITE; e `docs/conteudos/fontes/FACTOS.md`, cópia idêntica do
+  GPT, sincronizada). (3) **Galeria do Zenfolio lida pelas 23 capturas do Diogo** (All Media · O Monte · Os Quartos · A Quinta · Antes e Depois ·
+  Montemor o Novo; o Claude não abre o Zenfolio nem vê imagens do Dropbox): `docs/integracao-app/2026-10-25_zenfolio_e_pares_antes_depois.md`
+  com a estrutura dos seis álbuns, **os 11 pares certos (ad01–ad11)**, os quatro ficheiros já identificados (a3 = ad02 depois; a14 = ad07 antes;
+  a15 = ad08 antes; a20 = ad10 antes) e a tabela dos 25 ficheiros de `7. Fotos/6. Antes e Depois/` para o Diogo identificar por olho (a data
+  do ficheiro não chega: os «antes» fotografados em 2023 têm data de 2023). **Pasta nova no Dropbox, a pedido do Diogo:** `13. APP Gestão AL/
+  site/zenfolio/` com `LEIA-ME_zenfolio_e_pares_2026-10-25.md` e `antes-e-depois/` com os quatro originais copiados com nome final
+  (`ad02_salao_depois.jpg`, `ad07_pergula-tanque_antes.jpg`, `ad08_quarto_antes.jpg`, `ad10_poco-lado_antes.jpg`); os restantes entram quando
+  o Diogo mandar a lista «aN = adNN lado». As 23 capturas ficam no scratchpad da sessão, não no repositório. (4) **Microgalerias do trio: «ok»**
+  do Diogo; as fotos saem de `7. Fotos/2. rodrigo/` em HD (nomes no `creditos.md`). (5) **S34, S35 e S36 ACEITES («ok» aos três) e FEITAS:**
+  S35 `demo.py revisao rN [--titulo …]` (montar --limpar → testar → capturas jpg em thread com `criar_servidor` → artefacto e artefacto --fixa;
+  repetir a mesma revisão não apaga o título) · S36 workflow «Capturas»: `permissions: issues: write`, passo «Mudou design/site?» (`gh api
+  compare`), `contrato.log`, `id: contrato`/`ensaio`, passo final que abre um issue «Entrega do design <sha7>: contrato OK/FALHA» com os
+  resultados e a ligação à corrida; **o caminho «sim» só se prova no próximo push do GPT em `design/site/`**. (6) **O momento da pausa no
+  design** (pedido do Diogo, «analisa com o GPT»): critério proposto ao GPT no recado de 25/10 (2.ª parte): passa ao Claude quando as mudanças
+  pedidas forem de texto, foto e estilo e não de estrutura (sete páginas com «sim» à estrutura e à mensagem v1 depois do «explodido»; as três
+  interações decididas; fotos pelo nome; snapshot congelado); fase técnica de 2–3 sessões SITE + 1–2 APP (gerador, produção em `public/`,
+  schema.org, `llms.txt`, `prereserva.php`, portas #189/#190, staging); durante ela sem mudanças de estrutura; depois o design continua em
+  `design/site/` e cada entrega volta a virar revisão. O GPT responde no próximo fecho; o Diogo decide. **«De antes»** (o Diogo não percebeu a
+  lista): clarificado na resposta, item a item, com a ação concreta de cada um. **Em aberto:** olho do Diogo à r2 · lista «aN = adNN lado» ·
+  S31–S33 · secção 6 do fecho do GPT de 19/10 · 3,2 vs 3,6 ha · logótipo · `creditos.md`/autorização das fotos · `novo.montecasabranca.pt` ·
+  T2 do #193. **Próxima sugestão: S37.**
+

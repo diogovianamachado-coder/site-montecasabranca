@@ -2,7 +2,8 @@
 
 **Para quem:** o ChatGPT (design em HTML + CSS, acordo v1.2) e o Diogo (decide por olho). **Quem mantém isto:** o Claude (código da demo).
 **Data:** 21/10/2026 · **v1.1 em 25/10/2026** (só uma correção: `imagens.json` deixa de constar dos nomes reservados; era um engano do
-`demo.py`, apontado pelo ChatGPT no handoff V1 de 24/10). Qualquer mudança a este contrato é uma versão nova deste ficheiro, anunciada em
+`demo.py`, apontado pelo ChatGPT no handoff V1 de 24/10) · **v1.2 em 25/10/2026** (S34: as ligações das plataformas vêm do `factos.json`
+por `data-liga`; secção 3.6). Qualquer mudança a este contrato é uma versão nova deste ficheiro, anunciada em
 `docs/integracao-app/RECADOS_PARA_O_CHATGPT.md`.
 
 A ideia do Diogo (21/10): a cada avanço do design ele decide **a olhar para o que será real**, no telemóvel e em desktop, em vez de assumir
@@ -113,11 +114,17 @@ componente a funcionar, com as tuas classes a vestir. Classes do kit começam po
 ```
 - Produz: `img.b-ad-antes-img`, `.b-ad-depois > img.b-ad-depois-img`, `span.b-ad-rotulo--antes/--depois`, `input[type=range].b-ad-cursor`. Sem as duas imagens o encaixe desaparece. As imagens seguem as regras de origem da secção 1.
 
-### 3.6 Ligações fixas (sem encaixe; escreves tu, com estes valores)
+### 3.6 Ligações fixas (sem encaixe; escreves tu, com estes valores) · v1.2: as das plataformas por `data-liga`
 
 WhatsApp `https://wa.me/351962802626` · email `geral@montecasabranca.pt` · Instagram `https://www.instagram.com/monte_casa_branca/` ·
 mapa `https://www.google.com/maps?q=38.6142917,-8.211253` (ligação, não mapa embutido: mapas embutidos são serviço externo) · telefone a
 mostrar «+351 962 802 626». Estão em `base/dados/factos.json` (só ✓ do `FACTOS.md`).
+
+**Airbnb, Booking e Vrbo (S34, decisão do Diogo de 25/10): não escrevas os endereços à mão.** Escreve `<a data-liga="airbnb">Airbnb</a>`,
+`data-liga="booking"`, `data-liga="vrbo"` (também aceites: `instagram`, `whatsapp`, `email`, `maps`); o kit põe o `href` oficial de
+`base/dados/factos.json` (chave `ligacoes`: as três ligações do Linktree em uso, FACTOS §8) com `target="_blank"` e `rel="noopener"`.
+Uma ligação escrita à mão para esses domínios é substituída pela oficial e fica marcada com `data-liga-corrigida="1"`; o `testar --design`
+avisa. Os três vão numa linha discreta das «Perguntas frequentes» (decisão de 8/10), nunca em botões.
 
 ## 4. O que acontece depois da tua entrega
 

@@ -5,6 +5,8 @@
     python3 demo/ferramentas/demo.py testar --design   verifica as páginas do ChatGPT em design/site contra o contrato (demo/base/CONTRATO.md)
     python3 demo/ferramentas/demo.py montar [--rev rN] [--titulo "…"] [--limpar] [--para pasta]
                                                         junta design/site + kit (demo/base) em demo/site (ou em «pasta», ensaio sem tocar na demo)
+    python3 demo/ferramentas/demo.py revisao rN [--titulo "…"] [--porta 8789]
+                                                        S35: montar --limpar --rev rN, testar, capturas jpg, artefacto e artefacto --fixa, num só comando
     python3 demo/ferramentas/demo.py construir         gera demo/_saida/ com o commit carimbado (e sincroniza demo/site/base)
     python3 demo/ferramentas/demo.py servir [porta] [--pasta p]   constrói e serve em http://127.0.0.1:8787 (ou serve «p» tal como está)
     python3 demo/ferramentas/demo.py empacotar         constrói e cria demo/_pacotes/demo-<rev>-<commit>.zip
@@ -22,6 +24,7 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 import urllib.parse
 import zipfile
 from datetime import date, datetime, timezone
@@ -43,6 +46,15 @@ DESIGN_SITE = os.path.join(RAIZ, "design", "site")
 
 ESTADOS = {"preparacao-tecnica", "rascunho", "aprovado", "rejeitado"}
 HOSTS_EXTERNOS_PERMITIDOS = {"fonts.googleapis.com", "fonts.gstatic.com"}
+# S34 (25/10): as ligações das plataformas vêm de demo/base/dados/factos.json («ligacoes»); na página escreve-se data-liga="…"
+DOMINIOS_LIGA = {"airbnb": r"(^|\.)airbnb\.", "booking": r"(^|\.)booking\.com$", "vrbo": r"(^|\.)vrbo\.", "instagram": r"(^|\.)instagram\.com$"}
+
+
+def ligacoes_oficiais():
+    try:
+        return json.load(open(os.path.join(DADOS, "factos.json"), encoding="utf-8")).get("ligacoes") or {}
+    except (OSError, ValueError):
+        return {}
 VAZIOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 # nomes que pertencem à demo (Claude); o ChatGPT não os usa em design/site
 RESERVADOS = {"revisao.html", "revisoes.html", "componentes.html", "desktop.html", "estilos.css", "demo.js", "versao.js", "base"}
@@ -185,6 +197,7 @@ class Analisador(html.parser.HTMLParser):
         self.ids = []
         self.em_titulo = False
         self.titulo_texto = ""
+        self.ligas = []         # (href, data-liga, linha) de cada <a>
         self.encaixes = []      # (tipo, linha, profundidade ao abrir)
         self._abertos = []      # encaixes ainda abertos: [tipo, linha, profundidade, tem_conteudo]
         self.texto = []
@@ -205,6 +218,8 @@ class Analisador(html.parser.HTMLParser):
         for chave in ("href", "src"):
             if a.get(chave):
                 self.refs.append((tag, a[chave], self.getpos()[0]))
+        if tag == "a" and (a.get("href") or a.get("data-liga") is not None):
+            self.ligas.append((a.get("href") or "", a.get("data-liga"), self.getpos()[0]))
         for ab in self._abertos:
             ab[3] = True
         if a.get("data-base") is not None:
@@ -287,6 +302,22 @@ def verificar_pagina(caminho, raiz_paginas, falhas, avisos, exigir_noindex=True)
         if u.fragment and alvo.endswith(".html") and os.path.exists(alvo):
             if f'id="{u.fragment}"' not in ler(alvo):
                 falhas.append(f"{nome} linha {linha}: âncora #{u.fragment} não existe em {u.path}")
+    # ligações das plataformas (S34): oficiais em factos.json; na página usa-se data-liga="…" (CONTRATO §3.6)
+    oficiais = ligacoes_oficiais()
+    for href, liga, linha in p.ligas:
+        chave = liga
+        if not chave and href.startswith(("http://", "https://")):
+            anf = urllib.parse.urlsplit(href).netloc.lower()
+            chave = next((c for c, padrao in DOMINIOS_LIGA.items() if re.search(padrao, anf)), None)
+            if chave:
+                avisos.append(f"{nome} linha {linha}: ligação de {chave} escrita à mão ({href}); usa data-liga=\"{chave}\" (CONTRATO §3.6); na demo o kit põe a oficial")
+            continue
+        if chave:
+            oficial = oficiais.get(chave)
+            if not oficial:
+                avisos.append(f"{nome} linha {linha}: data-liga=\"{chave}\" não existe em factos.json (há {sorted(oficiais)})")
+            elif href and href != oficial:
+                avisos.append(f"{nome} linha {linha}: data-liga=\"{chave}\" com href diferente do oficial; o kit substitui por {oficial}")
     # contrato dos encaixes (demo/base/CONTRATO.md)
     for tipo, linha, conteudo in p.encaixes:
         if tipo not in ENCAIXES:
@@ -641,11 +672,7 @@ def construir():
 
 # ---------- servir ----------
 
-def servir(porta, pasta=None):
-    if pasta is None:
-        construir()
-        pasta = SAIDA
-
+def criar_servidor(porta, pasta, silencioso=False):
     class Servidor(SimpleHTTPRequestHandler):
         def __init__(self, *a, **k):
             super().__init__(*a, directory=pasta, **k)
@@ -656,14 +683,73 @@ def servir(porta, pasta=None):
             super().end_headers()
 
         def log_message(self, fmt, *args):
-            sys.stderr.write("%s %s\n" % (self.address_string(), fmt % args))
+            if not silencioso:
+                sys.stderr.write("%s %s\n" % (self.address_string(), fmt % args))
 
-    with ThreadingHTTPServer(("127.0.0.1", porta), Servidor) as s:
+    return ThreadingHTTPServer(("127.0.0.1", porta), Servidor)
+
+
+def servir(porta, pasta=None):
+    if pasta is None:
+        construir()
+        pasta = SAIDA
+    with criar_servidor(porta, pasta) as s:
         print(f"A servir {os.path.relpath(pasta, RAIZ)}/ em http://127.0.0.1:{porta}/  (Ctrl-C para parar)")
         try:
             s.serve_forever()
         except KeyboardInterrupt:
             pass
+
+
+# ---------- revisao (S35, 25/10): uma entrega do ChatGPT vira revisão num só comando ----------
+
+def revisao(argv):
+    """montar --limpar --rev rN → testar → capturas (Chromium, jpg) → artefacto + artefacto --fixa; imprime os passos que ficam à mão."""
+    rev = argv[0] if argv and re.fullmatch(r"r\d+", argv[0]) else None
+    if not rev:
+        print('uso: demo.py revisao rN [--titulo "…"] [--porta 8789]'); return 2
+    titulo, porta, i = None, 8789, 1
+    while i < len(argv):
+        if argv[i] == "--titulo" and i + 1 < len(argv):
+            titulo = argv[i + 1]; i += 2; continue
+        if argv[i] == "--porta" and i + 1 < len(argv):
+            porta = int(argv[i + 1]); i += 2; continue
+        print("opção desconhecida em revisao:", argv[i]); return 2
+    v = ler_versao()
+    if not titulo and v.get("revisao") == rev:
+        titulo = v.get("titulo")  # repetir a mesma revisão não lhe apaga o título
+    args = ["--limpar", "--rev", rev] + (["--titulo", titulo] if titulo else [])
+    print("[1/5] montar", " ".join(args))
+    rc = montar(args)
+    if rc:
+        return rc
+    print("[2/5] testar")
+    if not testar():
+        print("revisao: o testar falhou; corrige e repete"); return 1
+    print(f"[3/5] capturas em demo/capturas/{rev}/ (Chromium, jpg)")
+    construir()
+    servidor = criar_servidor(porta, SAIDA, silencioso=True)
+    threading.Thread(target=servidor.serve_forever, daemon=True).start()
+    try:
+        env = dict(os.environ)
+        if "NODE_PATH" not in env:
+            try:
+                env["NODE_PATH"] = subprocess.run(["npm", "root", "-g"], capture_output=True, text=True, check=True).stdout.strip()
+            except (OSError, subprocess.CalledProcessError):
+                pass
+        rc = subprocess.call(["node", os.path.join(DEMO, "ferramentas", "captura.cjs"), "--base", f"http://127.0.0.1:{porta}", "--formato", "jpg"], env=env)
+    except OSError as e:
+        print("revisao: não consegui correr o node com captura.cjs:", e); rc = 1
+    finally:
+        servidor.shutdown(); servidor.server_close()
+    if rc:
+        print("revisao: capturas com problemas (ver acima); os artefactos geram-se na mesma")
+    print("[4/5] artefacto (ligação principal) e artefacto --fixa")
+    artefacto(False); artefacto(True)
+    print(f"[5/5] fica à mão: 1) publicar demo/_saida/artefacto-{rev}/ como ligação fixa (página nova); 2) escrever o endereço em versao.json "
+          f"(historico → {rev} → endereco) e na linha de {rev} do REGISTO.md; 3) correr outra vez «artefacto» e «artefacto --fixa» e publicar os dois "
+          f"(principal: https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S); 4) validação e notas no REGISTO.md; 5) commit «SITE · demo {rev} · …».")
+    return 1 if rc else 0
 
 
 # ---------- empacotar ----------
@@ -735,6 +821,8 @@ def principal(argv):
         return 0 if testar() else 1
     if cmd == "montar":
         return montar(argv[2:])
+    if cmd == "revisao":
+        return revisao(argv[2:])
     if cmd == "construir":
         construir(); return 0
     if cmd == "servir":
