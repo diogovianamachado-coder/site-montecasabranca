@@ -393,3 +393,21 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   3.1–3.3 a casa · 4.1–4.3 avaliações e perguntas · 5.1–5.3 Montemor e N2 · 6.1–6.2 contactos · 7.1–7.3 barra e painel), e o método por
   lotes (decisões → pedido ao agente por lote → olho do Diogo → repetir → só depois a técnica). **Próximo passo:** respostas do Diogo às
   decisões numeradas; as secções 1, 3 e 5 dependem das fotografias (GPT/rede). **Próxima sugestão: S37.**
+- **1/11 (10.ª parte) · PERGUNTAS DO DIOGO: AMEN OU LOVABLE? O CRACHÁ? A CAPA 2? · A EXPORTAÇÃO ESTÁTICA PROVADA.** Perguntas: «se o
+  site for desenvolvido pelo Lovable fica em amen.pt? temos acesso a gerir os conteúdos ou é o concorrente da Amen? já pago a Amen» ·
+  «na versão free o logo do Lovable fica na página: onde aparece, incomoda?» · «o estilo do Lovable é mais agradável, a dinâmica de
+  movimento é muito agradável; só não consigo ver a capa 2». **Feito, sem créditos:** o projeto do Lovable foi copiado pela API (só
+  leitura: 15 ficheiros de código, as imagens pelas nossas cópias de `demo/r3/imagens/`), construído na sessão com `bun install` + `vite
+  build` e **uma linha de `prerender`** no `vite.config.ts` → **`.output/public/` com 12 ficheiros, 1,9 MB, todo o texto no HTML, zero
+  referências ao Lovable**; servido e fotografado em Chromium a 390/1280: sem erros JS, sem rolagem horizontal, painel e simulador a
+  funcionar (1 170 €). Receita, `vite.config.ts`, `package.minimo.json` e tabela Lovable-vs-Amen em **`lovable/exportacao-estatica/`**;
+  capturas em **`lovable/capturas/2026-11-01/`** (`00-site-geral` com as faixas numeradas · `01`–`06` por secção · `07-acompanhamento`
+  barra/painel/menu · `cru-*`). **Conclusão (resposta ao Diogo):** o site pode ficar na Amen (já paga) com o Lovable só como ferramenta
+  de desenho; o crachá «Made with Lovable» é posto pelo alojamento do Lovable no plano gratuito (canto inferior direito), não existe no
+  código nem na Amen; a capa 2 está desligada porque a fotografia da piscina de lado com a espreguiçadeira e o chapéu **não existe em
+  lado nenhum a que o Claude chegue** (repositório sem `design/fotos/` do GPT a 1/11; Dropbox e `docs.lovable.dev` continuam
+  bloqueados à sessão); a única coisa parecida é o recorte `piscina-espreguicadeira.jpg` da própria capa 1 (r3). **Ferramenta:** o `npm
+  install` 10.9 rebenta com o `overrides` do rolldown («Cannot read properties of null (reading edgesOut)»); `bun install` funciona;
+  servidor estático em segundo plano só com `run_in_background` (um `&` dentro da chamada normal matou a chamada, exit 144).
+  **Em aberto:** respostas do Diogo às decisões do explodido (9.ª parte) · fotografias (GPT/rede) · método Lovable → GitHub → Amen a
+  confirmar pelo Diogo · resto como antes. **Próxima sugestão: S37.**
