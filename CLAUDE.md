@@ -411,3 +411,18 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   servidor estático em segundo plano só com `run_in_background` (um `&` dentro da chamada normal matou a chamada, exit 144).
   **Em aberto:** respostas do Diogo às decisões do explodido (9.ª parte) · fotografias (GPT/rede) · método Lovable → GitHub → Amen a
   confirmar pelo Diogo · resto como antes. **Próxima sugestão: S37.**
+- **1/11 (11.ª parte) · «AMEN.» · ligação ao GitHub explicada · fotografias: o que há no GitHub · HANDOVER AO GPT.** Decisão do Diogo:
+  **o alojamento é a Amen** (adenda em `docs/integracao-app/2026-10-25_decisao_site_no_lovable.md`); o Lovable só para desenhar. Duas
+  críticas: «não gostei das tuas fotos» (as cinco da r3/Lovable são a seleção do GPT de 17 e 24/10, as únicas em tamanho web no
+  repositório; o Claude não escolheu nenhuma) e «não consegues aceder ao Dropbox? deve estar tudo já no GitHub» (não está:
+  **`docs/fotografia/2026-11-01_inventario_github.md` + `.jpg`**: 33 distintas = 7 originais em tamanho web + 2 recortes do Claude + 24
+  miniaturas do estudo do GPT; o Dropbox tem 112 + 22 + ≈175; a entrega `design/fotos/` pedida a 25/10 não aconteceu; a rede bloqueia
+  também `previews.dropboxusercontent.com`, o anfitrião das miniaturas do conector, testado a 1/11, CONNECT 403). **Handover ao GPT**
+  escrito em `RECADOS_PARA_O_CHATGPT.md` (1/11): v1.3 com o GPT dono do design, fotografias por zona e textos PT; o Lovable é a tela;
+  passo 1 = `design/fotos/` (galeria 112 + 22 e zonas com `capa-01`/`capa-02`, as 24 do estudo em tamanho web, `imagens.json`,
+  `creditos.md`); passo 2 = alinhamento secção a secção pelas decisões numeradas do explodido (mensagem, galeria, dez perguntas, roteiro
+  N2, página de fotografias) em `docs/design/`; regras mantidas. **Ligação do Lovable ao GitHub (explicada ao Diogo, de memória, a
+  documentação do Lovable está bloqueada à sessão):** editor → GitHub → Connect → autorizar a app do Lovable na conta
+  `diogovianamachado-coder` → criar o repositório (novo, privado, `main`) → sincronia nos dois sentidos; depois o Diogo diz o nome e o
+  Claude junta-o à sessão (a app «Claude» do GitHub tem «All repositories» desde 13/10). **Em aberto:** nome do repositório · entrega
+  `design/fotos/` do GPT · respostas às decisões do explodido · v1.3 do acordo a escrever · resto como antes. **Próxima sugestão: S37.**

@@ -255,3 +255,62 @@ O Diogo viu a r3 do Claude e a versão do Lovable e decidiu: «queria seguir pel
 projeto do Lovable (React/TanStack Start), onde o Claude mete as integrações, o SEO/LLM e os testes pelo GitHub. Registo em
 `docs/integracao-app/2026-10-25_decisao_site_no_lovable.md`. **Para ti nada muda no pedido das fotografias (5.ª parte):** `design/fotos/` neste
 repositório, com a galeria completa e a seleção por zonas; o Claude leva-as para o projeto do Lovable. Os textos PT continuam teus.
+
+---
+
+## 1/11/2026 · HANDOVER do Claude ao ChatGPT: o site segue pela versão do Lovable, alojado na Amen; precisamos de alinhar design e fotografias
+
+**Decisões do Diogo (25/10 e 1/11):** a base do site é a versão feita no Lovable (página única em scroll pelos sete pontos dele:
+capa · mensagem · a casa espaço a espaço · avaliações e perguntas · Montemor-o-Novo e N2 · contactos · barra fixa com «Verificar
+disponibilidade»); **o alojamento é a Amen** (o Claude provou a 1/11 que o projeto do Lovable compila para ficheiros estáticos,
+`lovable/exportacao-estatica/LEIA-ME.md`); o Lovable fica só como ferramenta de desenho. É uma alteração ao acordo v1.2 → v1.3, a
+escrever com os três: **o ChatGPT continua dono do design, das fotografias por zona e dos textos PT**; o Lovable é a tela onde o
+desenho se afina (o Claude envia ao agente do Lovable os pedidos por secção, com os teus textos e as tuas fotografias pelo nome);
+o Claude faz o código, a construção, a Amen e as portas da app.
+
+**O que tens de ver antes de responder:** `lovable/capturas/2026-11-01/` (o site geral com as faixas numeradas e as sete secções,
+fotografadas no iPhone) e `docs/integracao-app/2026-10-25_explodido_site_lovable.md` (o que está em cada secção, o que falta face
+aos sete pontos do Diogo, e as decisões numeradas 0.1–7.3).
+
+### 1. Fotografias (primeiro, porque trava tudo o resto)
+
+O Diogo não gostou das fotografias que estão na versão do Lovable e na r3 da demo. **São as cinco que estavam em tamanho web no
+repositório, da tua seleção de 17/10 e de 24/10** (`piscina-dia`, `alpendre`, `sala-portas`, `sala`, `quarto`); o Claude não
+escolheu nenhuma e não consegue ver nem descarregar as do Dropbox (a rede da sessão bloqueia `www.dropbox.com`,
+`dl.dropboxusercontent.com` e `previews.dropboxusercontent.com`, testado a 1/11). Inventário do que está no GitHub:
+`docs/fotografia/2026-11-01_inventario_github.md` (+ `.jpg`): 7 em tamanho web e 24 miniaturas do teu estudo. **A entrega
+`design/fotos/` pedida a 25/10 (5.ª parte) continua por fazer e é o passo 1 do handover:**
+
+- `design/fotos/galeria/` · a galeria completa: os 112 da `13. APP Gestão AL/site/zenfolio/v2/` (cinco álbuns) e os 22 pares de
+  `zenfolio/antes-e-depois/`, lado maior 1 600 px, JPG qualidade 82, nomes limpos (`01-o-monte-07.jpg`, `ad02_salao_depois.jpg`…).
+- `design/fotos/zonas/` · a seleção por zona, pelo nome, na ordem das secções: **`capa-01`** (a piscina de frente, V2_verão/5.JPG =
+  DSC_4078) e **`capa-02`** (a piscina **de lado, com a espreguiçadeira e o chapéu de sol à vista**, que o Diogo pediu a 25/10:
+  procurar em `3. anuncios/V2_verão/` e em `01-o-monte/`); `exterior-01…08` (piscina, pérgula, jardim, campo, árvores, pôr do sol,
+  hora azul, noite); `alpendre-01…03`; `sala-01…04` (de frente, cozinha, mesa posta, zona de estar); `biblioteca-01…02` (lareira);
+  `quarto-01…08` (os quatro quartos, dois ângulos); `banho-01…02`; `quinta-01…04`; `montemor-01…10` (castelo, ruas, ecopista,
+  património, mesa). Os teus 24 nomes de `design/estudo-imagens/` já identificam boas candidatas (DSC_4201, 4262, 4182, 4532, 4476,
+  4213, 4643, 4456, 4224, 4614, 4286, 4316, 4513, 4413, 4434; IMG_0233, 0334, 0241, 0243): entregá-las em tamanho web.
+- `design/fotos/imagens.json` · por ficheiro: `original` (caminho no Dropbox), `autor`, `zona`, `legenda` PT (uma frase, sem
+  «Reguengo», sem hectares), `estacao`, `recomendada` (true nas que propões para a página).
+- `docs/fotografia/creditos.md` · uma linha por imagem (origem, autor, autorização pública pelo Diogo com data).
+- Commits de menos de 50 MB cada (vários, por álbum). Nada de imagens de banco nem geradas; nada de retoque além de recorte e tamanho.
+
+### 2. Design: alinhar a versão do Lovable, secção a secção
+
+Pelo explodido, para cada secção: **(a)** a fotografia ou fotografias pelo nome da entrega acima; **(b)** o texto PT final (título,
+frase, parágrafo), curto e com os números exatos do `FACTOS.md` quando couberem; **(c)** o que muda face ao que lá está. Em particular:
+- **Mensagem (2.1):** das quatro frases em análise desde 19/10 («Cada um ao seu ritmo» · «Por dentro. Por fora. Sem pressa.» · «Há dias
+  em que não é preciso mais nada.» · «Um lugar onde as coisas simples podem ser extraordinariamente boas.»), uma proposta fechada
+  para a secção 2, com a fotografia ao lado.
+- **A casa (3.1–3.3):** quantas fotografias por espaço na galeria em sobreposição; onde entram os onze pares antes/depois.
+- **Perguntas (4.1):** as dez perguntas (as sete do Lovable mais cozinha equipada, berço e estacionamento), com as respostas PT.
+- **Montemor e N2 (5.1–5.2):** o roteiro das duas noites por extenso, como na V1.3.1, e a fotografia de Montemor para a banda.
+- **Fotografias (0.1):** se a galeria completa é página própria ou fica nas sobreposições.
+Entrega: um documento em `docs/design/2026-11-xx_alinhamento_lovable.md` com as respostas por número de decisão, e o fecho em
+`docs/decisoes/`. O Diogo decide por olho; o Claude envia ao agente do Lovable um lote por secção.
+
+### 3. Regras que se mantêm
+
+Factos só do `FACTOS.md` com ✓ · «Reguengo» só na morada do rodapé · sem KPI · ligações das plataformas são do Claude (S34) · não
+tocar em `lovable/`, `demo/` nem `docs/integracao-app/` (pasta do Claude; responde em `docs/decisoes/` ou `docs/design/`) ·
+telefone +351 962 802 626 · sem pedir fotografias ao Diogo: estão todas no Dropbox, nas pastas listadas no recado de 25/10 (5.ª parte).

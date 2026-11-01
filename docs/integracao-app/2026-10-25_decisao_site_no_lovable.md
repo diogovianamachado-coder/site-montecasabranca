@@ -47,3 +47,16 @@ Source Sans 3; `src/lib/stay.ts` com a conta e testes.
    `llms.txt`, `robots.txt`, `sitemap.xml`; EN; testes.
 3. ChatGPT: fotografias para o repositório (todas as da galeria + zonas + duas capas) e os textos; a mensagem final quando o Diogo a fechar.
 4. Diogo: olho a cada versão no iPhone pela pré-visualização do Lovable; «Lança» quando quiser publicar com o domínio.
+
+---
+
+## Adenda de 1/11/2026 · «Amen» (decisão do Diogo)
+
+O alojamento do site é a **Amen**, já paga, e não o Lovable. Prova e receita em `lovable/exportacao-estatica/LEIA-ME.md`: o projeto do
+Lovable compila para ficheiros estáticos (12 ficheiros, 1,9 MB, texto todo no HTML, zero referências ao Lovable) que o workflow envia
+para a raiz de `montecasabranca.pt` por rsync, como na app. O Lovable fica só como ferramenta de desenho: gratuito e lento (um lote
+de alterações por dia) ou pago só nos meses do desenho. O crachá «Made with Lovable» não existe fora do alojamento do Lovable.
+Consequências: a hospedagem do acordo v1.2 mantém-se (Amen, `prereserva.php` no mesmo servidor, DNS como está); o que muda para a
+v1.3 é a ferramenta de desenho (Lovable em vez de HTML/CSS à mão) e a tecnologia das páginas (React pré-renderizado em vez do
+gerador Python). Método: o Diogo liga o projeto do Lovable ao GitHub (um repositório novo na conta dele); o Claude junta-o à sessão,
+constrói e envia para a Amen; o desenho continua no Lovable e no GitHub em sincronia nos dois sentidos.
