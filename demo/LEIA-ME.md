@@ -120,3 +120,11 @@ Nada disto desenha: o CSS do kit não tem cores nem tipos. A r2 (25/10) foi a pr
 - **Ligação fixa r3:** https://claude.ai/artifact/DCCRdLyWL9UmSkRk2oCQdF (a ordem do Diogo em sete pontos, Claude, rascunho)
 - **Ligação fixa r2:** https://claude.ai/artifact/UZMG6AvToxcNK83odg7rs9 (V1.3.1 do ChatGPT, rascunho)
 - **Commit do site:** carimbado em `versao.js` por `demo.py construir`; ver `REGISTO.md`.
+
+## r4 (7/11/2026) · o site em PHP
+
+A partir da r4 a demo deixa de vir de `demo/site/` e passa a ser a **rendição estática de `site/`** (o site em PHP): a página é rendida pelo
+PHP, copiam-se `assets/` e `fotos/`, e `demo/portas-demo.js` imita as cinco portas no browser (tarifa pelo motor `lovable/src/lib/tarifas.ts`,
+ocupação e tempo de exemplo, pedido simulado). Ligação principal https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S · fixa r4
+https://claude.ai/artifact/53xz7FmTzRVpLE95v5YMA9. Os testes do site em cada push estão em `demo/ferramentas/site/` (`testar-site.sh`, job «site»
+do workflow «Capturas»); o envio para a Amen é o `.github/workflows/deploy-site.yml`, manual e só com o «Lança».

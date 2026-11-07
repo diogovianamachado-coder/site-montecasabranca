@@ -464,3 +464,24 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `revisao-site-php-2026-11-07/v2/`. **Veredito: pronto para o ensaio em `novo.montecasabranca.pt`.** Em aberto: decisão do Diogo
   (seguir por aqui; `site/` ou `public/`; K; mensagem) · EN · testes no workflow · `creditos.md` · portas na app · chave · `design/fotos/`
   continua ausente do GitHub (as fotos em tamanho web só existem no zip). **Próxima sugestão: S37.**
+- **7/11 (15.ª parte, noite) · «O SITE É SEMPRE POR AQUI QUE ENTRA, NÃO HÁ DÚVIDA» · DEMO r4 · O SITE NO REPOSITÓRIO · DEPLOY E TESTES.**
+  Decisão do Diogo: o site segue pelo site em PHP; «faz uma demo com o que está para eu começar a trabalhar alterações e sugestões»; «vão
+  aparecer mais fotos quando o GPT as conseguir lá colocar, mas até lá podemos começar a lançar a estrutura»; pergunta: «consegui com este
+  bypass que o site tivesse a dinâmica do Lovable?» (resposta: sim, as mesmas interações estão lá, e mais algumas; verificadas em Chromium).
+  **Feito:** (1) **`site/` no repositório** = a v2 do zip, sem a NOTA (171 ficheiros, 24 MB; `config.php` e `cache/*` fora pelo `.gitignore`);
+  a pasta chama-se `site/` como no LEIA-ME do autor (o acordo dizia `public/`; a diferença vai para a v1.3). (2) **Demo r4:** rendição estática
+  de `site/` + `demo/portas-demo.js` (bundle `bun build --format iife` de um shim TS que imita as cinco portas no browser: tarifa pelo motor
+  `lovable/src/lib/tarifas.ts`, ocupação e tempo de exemplo, avaliações vazias, pedido simulado «DEMO · não foi enviado»), `noindex`, 144
+  ficheiros; **ligação principal** https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (versões 10–11; os 33 ficheiros da r3 removidos com `null`)
+  e **fixa r4** https://claude.ai/artifact/53xz7FmTzRVpLE95v5YMA9 (pasta copiada, porque o mesmo caminho republica sempre o mesmo artefacto);
+  testada sem servidor em Chromium (conta, tempo, pedido simulado, zero pedidos reais, zero erros). `demo/REGISTO.md` r4 e `demo/LEIA-ME.md`.
+  (3) **Testes do site em cada push:** `demo/ferramentas/site/` (`app-ensaio.php` pelo contrato, `captura-site.cjs` com veredito, `config.ensaio.php`,
+  `testar-site.sh`) e o job **«site»** no `capturas.yml` (paths `site/**`); provado localmente: 21 PHP OK, tarifa via app e de recurso, capturas
+  390/1280 com e sem app sem erros, sem avisos PHP; **corrida «Capturas» n.º 15 (commit `2b53b60`) verde no GitHub, jobs «site» (2 min 07 s) e
+  «capturas»**. (4) **`deploy-site.yml`** (manual; `destino` novo|raiz, `dry_run` por omissão true,
+  `reescrever_config`, `sem_capturas`; travão #176; rsync de `site/` sem `config.php`/`cache/`/LEIA-ME; **escreve o `config.php` no servidor a
+  partir de variáveis e secrets** se faltar; travões: pasta existe e nunca é a da app; healthcheck da página e das portas). **Para o ensaio em
+  `novo.montecasabranca.pt` falta do Diogo:** criar o subdomínio no painel da Amen apontado a uma pasta e dizer o caminho → variável
+  `SITE_PATH_NOVO`; secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` no repositório do site (os mesmos da app); depois «Lança» (ensaio
+  com `dry_run` e depois real). **Em aberto:** fotografias do GPT (antes/depois e Montemor em tamanho web; `design/fotos/` ausente) · K · mensagem ·
+  EN · `creditos.md` · portas #189–#192 na app e `SITE_CHAVE` · v1.3 do acordo · repositório público (KPI). **Próxima sugestão: S37.**

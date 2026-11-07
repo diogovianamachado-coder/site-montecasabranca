@@ -143,5 +143,5 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
   ficheiro `demo/portas-demo.js` que imita as cinco portas no browser (tarifa pelo motor `lovable/src/lib/tarifas.ts`, ocupação e tempo de
   exemplo, avaliações vazias, pedido simulado com a mensagem «DEMO · o pedido não foi enviado a lado nenhum»). `noindex`. Nada disto existe
   no site real: na Amen as portas são os `api/*.php`.
-- **Ligações:** principal https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (substitui a r3) · fixa r4: ver `versao.json`/`LEIA-ME.md` depois da publicação.
+- **Ligações:** principal https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (substitui a r3) · **fixa r4** https://claude.ai/artifact/53xz7FmTzRVpLE95v5YMA9.
 - **Limites da demo:** pedidos não são enviados; o calendário é de exemplo; o tempo é de exemplo; sem EN.
