@@ -179,8 +179,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   mensagem, textos e narrativa **não aprovados** (quatro caminhos em análise: «Cada um ao seu ritmo» · «Por dentro. Por fora. Sem pressa.» ·
   «Há dias em que não é preciso mais nada.» · «Um lugar onde as coisas simples podem ser extraordinariamente boas.»); evitar destacar
   «Reguengo» e «270 m²»; capturas de Booking/Airbnb recebidas (avaliações no site: ideia bem recebida, sem desenho); KPI do #193 recebidos
-  e confidenciais (2026: 20 vendidas, 88 noites, 78 % direto em noites, 40 % repetentes, antecedência mediana 107 dias, jul 74 %/ago 94 %,
-  faixa 35–44 a mais representada, Lisboa 68 % dos CP portugueses); secção 6 com papéis diferentes do acordo; próxima sessão deles:
+  e confidenciais (os números estão no relatório #193 da app; retirados deste ficheiro a 7/11, quando o repositório passou a público); secção 6 com papéis diferentes do acordo; próxima sessão deles:
   retomar a prancha, mensagem, públicos, menus. (3) **Três observações de monitor**, escritas ao GPT em `RECADOS_PARA_O_CHATGPT.md`
   (commit `14cde5b`): **a)** a prancha aprovada **não está em `design/` nem no `aprovadas.md`** (que continua «Nenhuma direção escolhida»);
   pedido ao GPT: nome do ficheiro, gravar em `design/`, linha no `aprovadas.md` com data e âmbito; **até lá a demo fica na r1 e nada da
@@ -426,3 +425,16 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `diogovianamachado-coder` → criar o repositório (novo, privado, `main`) → sincronia nos dois sentidos; depois o Diogo diz o nome e o
   Claude junta-o à sessão (a app «Claude» do GitHub tem «All repositories» desde 13/10). **Em aberto:** nome do repositório · entrega
   `design/fotos/` do GPT · respostas às decisões do explodido · v1.3 do acordo a escrever · resto como antes. **Próxima sugestão: S37.**
+- **7/11 (12.ª parte) · REPOSITÓRIO PÚBLICO · FOTOGRAFIAS AINDA SEM CHEGAR · HANDOVER PARA OUTRO ASSISTENTE.** O Diogo: «já tens o
+  repositório público para veres as fotos» e «se eu quiser passar a outro LLM o que temos feito e que instruções lhe queres dar… como
+  seria a informação?». Verificado: `site-montecasabranca` **passou a público** (entre 2 e 7/11), mas **sem commits novos desde 82a2298
+  (1/11), sem ramos, sem `design/fotos/`**; a conta do GitHub só tem os dois repositórios de sempre (o do Lovable não existe, a ligação
+  não se concluiu); Dropbox `13. APP Gestão AL/site/` só com `zenfolio/`. **Alerta de monitor ao Diogo:** público não dá ao GPT
+  autorização para escrever (só leitura a toda a gente) e expõe os KPI confidenciais (`docs/decisoes/2026-10-19_fecho_chatgpt_design_kpi.md`,
+  o retrato agregado `docs/integracao-app/2026-10-18_kpi_e_publicos_para_o_chatgpt.md` e o histórico deste ficheiro); os números foram
+  retirados do texto atual do `CLAUDE.md` (o histórico do git guarda-os; nunca `--force`); recomendado voltar a privado e resolver a
+  escrita do GPT com token «fine-grained» só deste repositório ou pela entrega no Dropbox. **Handover escrito:**
+  `docs/integracao-app/2026-11-07_handover_para_outro_assistente.md` (projeto em dez linhas · mapa de onde está cada coisa · onze
+  decisões fechadas · estado a 7/11 · regras para qualquer assistente · método técnico do desenho ao domínio · alertas · mensagem para
+  o Diogo colar ao novo assistente). **Em aberto:** repositório privado outra vez · ligação Lovable → GitHub no computador · entrega
+  `design/fotos/` do GPT (token ou Dropbox) · respostas ao explodido · v1.3 · resto como antes. **Próxima sugestão: S37.**
