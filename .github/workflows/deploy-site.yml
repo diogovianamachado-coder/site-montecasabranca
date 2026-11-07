@@ -1,0 +1,170 @@
+name: Deploy do site (Amen)
+
+# ---------------------------------------------------------------------------
+# Envia a pasta site/ (o site em PHP) para o alojamento da Amen por SSH/rsync, como o deploy.yml da app.
+# NUNCA corre sozinho num push. Só à mão (Actions → «Deploy do site (Amen)» → Run workflow) ou pela API, e só com o «Lança» do Diogo.
+#
+# Destinos:
+#   novo  → o ensaio em novo.montecasabranca.pt (pasta SITE_PATH_NOVO)        ← por omissão
+#   raiz  → o site a sério em montecasabranca.pt (pasta SITE_PATH_RAIZ)        ← só no dia do go/no-go do Linktree
+#
+# Secrets (Settings → Secrets and variables → Actions → Secrets): os mesmos da app
+#   DEPLOY_HOST · DEPLOY_USER · DEPLOY_SSH_KEY · (opcionais) DEPLOY_PORT · DEPLOY_KNOWN_HOSTS
+#   SITE_CHAVE  (opcional até a porta #191 existir na app; a mesma que fica em config.php → site_chave da app)
+# Variáveis (… → Variables):
+#   SITE_PATH_NOVO  pasta do subdomínio novo.montecasabranca.pt no servidor (ex.: /data/sites/web/montecasabrancapt/subsites/novo.montecasabranca.pt)
+#   SITE_PATH_RAIZ  pasta da raiz de montecasabranca.pt (só para o dia do «Lança» final)
+#   (opcionais) APP_URL (https://app.montecasabranca.pt) · SITE_OCUPACAO_EXEMPLO (true no ensaio, false na raiz)
+#
+# O que vai: tudo o que está em site/, menos config.php, cache/, LEIA-ME.md e .gitignore. rsync --delete só dentro da pasta de destino.
+# config.php: escrito no servidor pelo workflow a partir das variáveis e dos secrets, só se ainda não existir (ou com reescrever_config = true).
+# Travões: o teste de fumo «Capturas» deste commit tem de estar verde (#176); a pasta de destino tem de existir; a raiz nunca pode ser a pasta da app.
+# ---------------------------------------------------------------------------
+
+on:
+  workflow_dispatch:
+    inputs:
+      destino:
+        description: Para onde (novo = ensaio em novo.montecasabranca.pt · raiz = montecasabranca.pt)
+        type: choice
+        options: [novo, raiz]
+        default: novo
+      dry_run:
+        description: Só mostrar o que mudaria, sem enviar nada
+        type: boolean
+        default: true
+      reescrever_config:
+        description: Voltar a escrever o config.php no servidor a partir das variáveis e dos secrets
+        type: boolean
+        default: false
+      sem_capturas:
+        description: "Emergência: enviar mesmo com o teste de fumo «Capturas» vermelho ou por correr"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Enviar site/ para ${{ inputs.destino }}
+    runs-on: ubuntu-24.04
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+      DESTINO: ${{ inputs.destino }}
+      SITE_PATH: ${{ inputs.destino == 'raiz' && vars.SITE_PATH_RAIZ || vars.SITE_PATH_NOVO }}
+      SITE_URL: ${{ inputs.destino == 'raiz' && 'https://montecasabranca.pt' || 'https://novo.montecasabranca.pt' }}
+      APP_URL: ${{ vars.APP_URL || 'https://app.montecasabranca.pt' }}
+      OCUPACAO_EXEMPLO: ${{ vars.SITE_OCUPACAO_EXEMPLO || (inputs.destino == 'raiz' && 'false' || 'true') }}
+      DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+      REESCREVER_CONFIG: ${{ inputs.reescrever_config && '1' || '0' }}
+      SEM_CAPTURAS: ${{ inputs.sem_capturas && '1' || '0' }}
+
+    steps:
+      - name: Obter o código
+        uses: actions/checkout@v4
+
+      - name: Confirmar o teste de fumo «Capturas» deste commit (#176)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ "$SEM_CAPTURAS" = "1" ]; then echo "::warning::travão saltado a pedido (sem_capturas = true, por $GITHUB_ACTOR)"; exit 0; fi
+          API="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/capturas.yml/runs?head_sha=$GITHUB_SHA&per_page=10"
+          for i in $(seq 1 20); do
+            J=$(curl -sS -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "$API")
+            N=$(jq -r '.workflow_runs | length' <<<"$J" 2>/dev/null || echo 0)
+            if [ "$N" = "0" ]; then
+              if [ "$i" -ge 4 ]; then echo "::error::não há corrida do «Capturas» para ${GITHUB_SHA:0:7}; corre-a à mão (Actions → Capturas → Run workflow) e volta a lançar"; exit 1; fi
+              echo "tentativa $i: ainda sem corrida do «Capturas»; espera 15 s"; sleep 15; continue
+            fi
+            STATUS=$(jq -r '.workflow_runs[0].status' <<<"$J"); CONC=$(jq -r '.workflow_runs[0].conclusion // ""' <<<"$J"); URL=$(jq -r '.workflow_runs[0].html_url' <<<"$J")
+            if [ "$STATUS" != "completed" ]; then echo "tentativa $i: «Capturas» a correr ($STATUS) — $URL; espera 15 s"; sleep 15; continue; fi
+            if [ "$CONC" = "success" ]; then echo "teste de fumo VERDE para ${GITHUB_SHA:0:7}: $URL"; exit 0; fi
+            echo "::error::o «Capturas» deste commit está VERMELHO ($CONC): $URL — nada é enviado"; exit 1
+          done
+          echo "::error::o «Capturas» ainda corria ao fim de 5 min — nada é enviado"; exit 1
+
+      - name: Verificar sintaxe PHP e variáveis
+        run: |
+          set -euo pipefail
+          php --version | head -1
+          find site -name '*.php' -print0 | xargs -0 -n1 php -l > /tmp/lint.log
+          grep -c 'No syntax errors' /tmp/lint.log | sed 's/^/ficheiros PHP verificados: /'
+          if [ -z "${SITE_PATH:-}" ]; then echo "::error::falta a variável SITE_PATH_${DESTINO^^} (Settings → Secrets and variables → Actions → Variables)"; exit 1; fi
+          echo "destino: $DESTINO → $SITE_PATH · $SITE_URL · app $APP_URL · ocupação de exemplo: $OCUPACAO_EXEMPLO · ensaio: $DRY_RUN"
+
+      - name: Preparar a chave SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          for v in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY; do if [ -z "${!v:-}" ]; then echo "::error::falta o secret $v"; exit 1; fi; done
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key; chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null || { echo "::error::DEPLOY_SSH_KEY não é uma chave privada válida"; exit 1; }
+          if [ -n "${DEPLOY_KNOWN_HOSTS:-}" ]; then printf '%s\n' "$DEPLOY_KNOWN_HOSTS" >> ~/.ssh/known_hosts; else ssh-keyscan -p "$DEPLOY_PORT" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null; fi
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Travões no servidor (pasta existe; a raiz nunca é a pasta da app)
+        run: |
+          set -euo pipefail
+          SSH="ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o BatchMode=yes $DEPLOY_USER@$DEPLOY_HOST"
+          $SSH "test -d '$SITE_PATH'" || { echo "::error::a pasta $SITE_PATH não existe no servidor; cria o subdomínio no painel da Amen e confirma o caminho na variável"; exit 1; }
+          if $SSH "test -f '$SITE_PATH/lib/db.php'"; then echo "::error::$SITE_PATH é a pasta da APP (tem lib/db.php); o site nunca vai para aí"; exit 1; fi
+          echo "lista da pasta de destino (primeiras linhas):"; $SSH "ls -la '$SITE_PATH' | head -20"
+
+      - name: Enviar ficheiros (rsync)
+        run: |
+          set -euo pipefail
+          FLAGS=(-rlptvz --delete --itemize-changes)
+          [ "$DRY_RUN" = "1" ] && FLAGS+=(--dry-run) && echo "== ENSAIO: nada é enviado =="
+          rsync "${FLAGS[@]}" \
+            --exclude='config.php' --exclude='cache/' --exclude='LEIA-ME.md' --exclude='.gitignore' --exclude='NOTA_PARA_O_CLAUDE*.md' \
+            --exclude='.DS_Store' --exclude='Thumbs.db' \
+            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o BatchMode=yes" \
+            site/ "$DEPLOY_USER@$DEPLOY_HOST:$SITE_PATH/"
+
+      - name: Escrever config.php no servidor (só se faltar, ou com reescrever_config)
+        if: ${{ env.DRY_RUN == '0' }}
+        env:
+          SITE_CHAVE: ${{ secrets.SITE_CHAVE }}
+        run: |
+          set -euo pipefail
+          SSH="ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o BatchMode=yes $DEPLOY_USER@$DEPLOY_HOST"
+          if [ "$REESCREVER_CONFIG" != "1" ] && $SSH "test -f '$SITE_PATH/config.php'"; then echo "config.php já existe no servidor; fica como está"; exit 0; fi
+          EX=$([ "$OCUPACAO_EXEMPLO" = "true" ] && echo true || echo false)
+          CONF=$(printf '%s\n' '<?php' 'declare(strict_types=1);' '// Escrito pelo workflow «Deploy do site» a partir das variáveis e dos secrets do GitHub. Não vai para o GitHub.' 'return [' \
+            "    'SITE_URL' => '$SITE_URL'," "    'APP_URL' => '$APP_URL'," "    'SITE_CHAVE' => '${SITE_CHAVE:-}'," "    'OCUPACAO_EXEMPLO' => $EX," \
+            "    'CACHE_DIR' => __DIR__ . '/cache'," "    'LINGUA' => 'pt'," '];')
+          printf '%s\n' "$CONF" | $SSH "cat > '$SITE_PATH/config.php' && chmod 640 '$SITE_PATH/config.php' && mkdir -p '$SITE_PATH/cache' && chmod 775 '$SITE_PATH/cache' && php -l '$SITE_PATH/config.php'"
+          echo "config.php escrito em $SITE_PATH (SITE_URL=$SITE_URL · chave: $([ -n "${SITE_CHAVE:-}" ] && echo definida || echo vazia))"
+
+      - name: Verificar que o site responde
+        if: ${{ env.DRY_RUN == '0' }}
+        run: |
+          set -u
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /tmp/pagina.html --max-time 20 -w '%{http_code}' "$SITE_URL/" || echo "000 (curl $?)")
+            echo "tentativa $i -> HTTP $code"
+            if [ "$code" = "200" ] && grep -q 'Monte Casa Branca' /tmp/pagina.html; then
+              T=$(curl -s --max-time 20 "$SITE_URL/api/tempo.php" | head -c 120); echo "api/tempo.php → $T"
+              C=$(curl -s --max-time 20 "$SITE_URL/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | head -c 160); echo "api/tarifa.php → $C"
+              grep -q '"ok":true' <<<"$C" || { echo "::warning::a conta não respondeu com ok:true (a app pode não ter a porta #190 ainda; o site devia cair para o recurso)"; }
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::o site não respondeu em $SITE_URL"; exit 1
+
+      - name: Apagar a chave
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

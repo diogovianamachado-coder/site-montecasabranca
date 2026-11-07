@@ -1,7 +1,8 @@
 # Capturas da demo (S30, aceite pelo Diogo a 17/10/2026): em cada push que toque em demo/ ou em
 # design/site/ (as páginas do ChatGPT, desde 21/10), corre os testes da demo, o contrato do design
 # e as capturas a 390 e 1280 px. Sem deploy, sem publicação, sem segredos. O workflow de deploy do
-# site continua por criar (acordo v1.2, secção 9: só com a raiz da Amen confirmada e o «Lança» do Diogo).
+# site é o deploy-site.yml (7/11/2026), manual e só com o «Lança» do Diogo. Desde 7/11 há um segundo job, «site», que testa
+# a pasta site/ (o site em PHP): sintaxe, arranque com uma app de ensaio pelo contrato das portas, capturas 390/1280 com e sem app.
 name: Capturas
 
 on:
@@ -9,6 +10,7 @@ on:
     paths:
       - "demo/**"
       - "design/site/**"
+      - "site/**"
       - ".github/workflows/capturas.yml"
   workflow_dispatch:
 
@@ -135,3 +137,30 @@ jobs:
             echo "_Issue aberto pelo workflow «Capturas» (S36, aceite pelo Diogo a 25/10/2026)._"
           } > issue.md
           gh issue create --title "Entrega do design ${CURTO}: ${ESTADO}" --body-file issue.md
+
+  site:
+    # 7/11/2026 · o site em PHP (site/): php -l, node --check, servidor PHP embutido + app de ensaio (demo/ferramentas/site/app-ensaio.php),
+    # capturas e cenário a 390/1280 com a app e sem a app (demo/ferramentas/site/captura-site.cjs). Falha com erro JS, rolagem horizontal
+    # ou aviso PHP. O deploy-site.yml só envia com este workflow verde.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Versões
+        run: php --version | head -1 && node --version
+      - name: Instalar Playwright e Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Testar o site (sintaxe · portas · capturas 390/1280 com e sem app)
+        run: bash demo/ferramentas/site/testar-site.sh demo/_saida/capturas-site
+      - name: Guardar capturas do site
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-site-${{ github.sha }}
+          path: demo/_saida/capturas-site
+          if-no-files-found: ignore
