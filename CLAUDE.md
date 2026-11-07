@@ -489,3 +489,10 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `falta a variável SITE_PATH_NOVO`; `DEPLOY_HOST` e `DEPLOY_USER` também vazios no registo (os três secrets ainda não existem no repositório
   do site). O travão #176 passou (Capturas n.º 16 verde para `e6f96a6`) e os 21 PHP passaram no `php -l`. Nada foi enviado. À espera dos
   três passos de painel do Diogo (variável `SITE_PATH_NOVO` + secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY`); depois relançar o ensaio.**
+  **23h53–23h57 · «Feito» do Diogo → ensaios n.º 2 (`94f21ea`) e n.º 3 (`3b50575`), os dois parados, nada enviado.** O n.º 2 parou no travão
+  #176: o «Capturas» tinha filtro `paths` e não correu para um commit só de memória. **Correções (commit `3b50575`):** o «Capturas» corre em
+  todos os pushes a `main` (como na app) e o `deploy-site.yml` ganhou um passo de **pré-voo** que lista de uma vez o que falta. O n.º 3 parou
+  no pré-voo com **os quatro em falta** (variável `SITE_PATH_NOVO`; secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY`), apesar do «Feito»:
+  hipóteses, repositório errado (o da app já tinha os `DEPLOY_*`), «Environment» em vez de «Repository», ou nomes diferentes. Pedidas ao Diogo
+  capturas das duas páginas Settings do repositório do site. Lição de ferramenta: Python em linha no Bash com aspas escapadas rebenta; guiões
+  em ficheiro no scratchpad (`estado_run.py`, `esperar_run.py`, `capturas_sha.py`).**
