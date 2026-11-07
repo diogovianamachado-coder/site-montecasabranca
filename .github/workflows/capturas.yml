@@ -1,17 +1,13 @@
-# Capturas da demo (S30, aceite pelo Diogo a 17/10/2026): em cada push que toque em demo/ ou em
-# design/site/ (as páginas do ChatGPT, desde 21/10), corre os testes da demo, o contrato do design
+# Capturas da demo (S30, aceite pelo Diogo a 17/10/2026): em cada push (desde 7/11 em todos; antes só nos que tocavam
+# demo/, design/site/ ou site/), corre os testes da demo, o contrato do design
 # e as capturas a 390 e 1280 px. Sem deploy, sem publicação, sem segredos. O workflow de deploy do
 # site é o deploy-site.yml (7/11/2026), manual e só com o «Lança» do Diogo. Desde 7/11 há um segundo job, «site», que testa
 # a pasta site/ (o site em PHP): sintaxe, arranque com uma app de ensaio pelo contrato das portas, capturas 390/1280 com e sem app.
 name: Capturas
 
 on:
-  push:
-    paths:
-      - "demo/**"
-      - "design/site/**"
-      - "site/**"
-      - ".github/workflows/capturas.yml"
+  push:            # em TODOS os pushes (7/11, noite): o travão #176 do deploy-site.yml exige uma corrida verde do commit exato,
+                   # e um commit só de memória (CLAUDE.md) ficava sem corrida → o ensaio n.º 2 do deploy parou por isso.
   workflow_dispatch:
 
 permissions:

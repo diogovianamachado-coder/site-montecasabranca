@@ -71,6 +71,22 @@ jobs:
       - name: Obter o código
         uses: actions/checkout@v4
 
+      - name: Pré-voo · a variável e os três secrets existem neste repositório?
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          set -uo pipefail
+          FALTAM=()
+          if [ -n "${SITE_PATH:-}" ]; then echo "variável SITE_PATH_${DESTINO^^}: definida → $SITE_PATH"; else FALTAM+=("variável SITE_PATH_${DESTINO^^} (separador Variables → Repository variables)"); fi
+          for v in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY; do
+            if [ -n "${!v:-}" ]; then echo "secret $v: definido"; else FALTAM+=("secret $v (separador Secrets → Repository secrets)"); fi
+          done
+          if [ "${#FALTAM[@]}" -gt 0 ]; then
+            echo "::error::em falta no repositório $GITHUB_REPOSITORY (Settings → Secrets and variables → Actions; têm de ser «Repository», não «Environment», e os nomes são sensíveis a maiúsculas): ${FALTAM[*]}"
+            exit 1
+          fi
+          echo "pré-voo OK: variável e secrets presentes"
+
       - name: Confirmar o teste de fumo «Capturas» deste commit (#176)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -98,7 +114,6 @@ jobs:
           php --version | head -1
           find site -name '*.php' -print0 | xargs -0 -n1 php -l > /tmp/lint.log
           grep -c 'No syntax errors' /tmp/lint.log | sed 's/^/ficheiros PHP verificados: /'
-          if [ -z "${SITE_PATH:-}" ]; then echo "::error::falta a variável SITE_PATH_${DESTINO^^} (Settings → Secrets and variables → Actions → Variables)"; exit 1; fi
           echo "destino: $DESTINO → $SITE_PATH · $SITE_URL · app $APP_URL · ocupação de exemplo: $OCUPACAO_EXEMPLO · ensaio: $DRY_RUN"
 
       - name: Preparar a chave SSH
