@@ -1,0 +1,42 @@
+--- site/assets/js/site.js	2026-11-07 19:30:52.000000000 +0000
++++ site/assets/js/site.js	2026-11-07 19:59:15.481740375 +0000
+@@ -6,6 +6,7 @@
+   var $ = function (s, r) { return (r || document).querySelector(s); };
+   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+   var reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++  var abertas = []; // camadas abertas (menu, painel, galeria); tem de existir antes do bloco do botão «descer»
+ 
+   /* ---- Revelar ao rolar ---- */
+   var reveals = $$('.reveal');
+@@ -76,7 +77,7 @@
+   }
+ 
+   /* ---- Camadas (menu, painel, galeria): abrir/fechar, Escape, scroll bloqueado ---- */
+-  var abertas = [];
++  // (declarado no topo)
+   function abrir(id) { var el = $('#' + id); if (!el) return; el.hidden = false; abertas.push(id); document.body.classList.add('sem-scroll'); var f = $('button, a, input', el); if (f && id !== 'galeria') setTimeout(function () { f.focus(); }, 50); }
+   function fechar(id) { var el = $('#' + id); if (!el) return; el.hidden = true; abertas = abertas.filter(function (x) { return x !== id; }); if (!abertas.length) document.body.classList.remove('sem-scroll'); }
+   $$('[data-fechar]').forEach(function (b) { b.addEventListener('click', function () { fechar(b.getAttribute('data-fechar')); }); });
+--- site/api/avaliacoes.php	2026-11-07 19:06:10.000000000 +0000
++++ site/api/avaliacoes.php	2026-11-07 20:01:19.329403283 +0000
+@@ -4,7 +4,8 @@
+ require_once __DIR__ . '/../inc/util.php';
+ 
+ $cfg = mcb_config();
+-$lingua = in_array($_GET['lingua'] ?? 'pt', ['pt', 'en'], true) ? $_GET['lingua'] : 'pt';
++$lingua = (string)($_GET['lingua'] ?? 'pt');
++if (!in_array($lingua, ['pt', 'en'], true)) $lingua = 'pt';
+ $n = max(1, min(12, (int)($_GET['n'] ?? 6)));
+ $chave = "avaliacoes_{$lingua}_{$n}";
+ 
+--- site/api/prereserva.php	2026-11-07 19:05:33.000000000 +0000
++++ site/api/prereserva.php	2026-11-07 20:01:19.329735285 +0000
+@@ -31,7 +31,7 @@
+     'pedido_id' => $in['pedido_id'] ?? sprintf('%08x-%04x-4%03x-%04x-%012x', mt_rand(0, 0xffffffff), mt_rand(0, 0xffff), mt_rand(0, 0xfff), mt_rand(0x8000, 0xbfff), mt_rand(0, 0xffffffffffff)),
+     'nome' => $nome, 'email' => $email, 'telefone' => $telefone ?: null, 'entrada' => $entrada, 'saida' => $saida, 'pax' => $pax,
+     'mensagem' => $mensagem ?: null, 'preco_mostrado' => isset($in['preco_mostrado']) ? round((float)$in['preco_mostrado'], 2) : null,
+-    'lingua' => in_array($in['lingua'] ?? 'pt', ['pt', 'en'], true) ? $in['lingua'] : 'pt',
++    'lingua' => in_array($in['lingua'] ?? 'pt', ['pt', 'en'], true) ? ($in['lingua'] ?? 'pt') : 'pt',
+     'origem' => preg_replace('/[^a-z_-]/', '', (string)($in['origem'] ?? 'site')) ?: 'site',
+     'ip' => $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '', 'segundos_a_preencher' => $segundos, 'armadilha' => '',
+ ];

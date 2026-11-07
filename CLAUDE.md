@@ -438,3 +438,20 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   decisões fechadas · estado a 7/11 · regras para qualquer assistente · método técnico do desenho ao domínio · alertas · mensagem para
   o Diogo colar ao novo assistente). **Em aberto:** repositório privado outra vez · ligação Lovable → GitHub no computador · entrega
   `design/fotos/` do GPT (token ou Dropbox) · respostas ao explodido · v1.3 · resto como antes. **Próxima sugestão: S37.**
+- **7/11 (13.ª parte) · O SITE EM PHP, FEITO POR OUTRO ASSISTENTE, VERIFICADO.** O Diogo entregou `site-php_2026-11-07.zip` + `NOTA_PARA_O_CLAUDE.md`
+  («esta pasta é o site final, em PHP puro, pronto a subir para a Amen»; página única com as secções do Lovable em `index.php` + `partes/`,
+  `assets/css/site.css`, `assets/js/site.js`; portas `api/ocupacao|tarifa|prereserva|avaliacoes|tempo.php`; `conteudo.php`; `inc/factos.php`,
+  `inc/tarifas.php` portado do meu `tarifas.ts`; SEO; `.htaccess`) e pediu «verifica tudo». **Verificação completa em
+  `docs/integracao-app/2026-11-07_revisao_site_php.md`** (+ pasta `revisao-site-php-2026-11-07/` com patch e capturas): sintaxe limpa;
+  tarifas PHP = TS em 16 casos; corrido em PHP 8.3 com uma app de ensaio pelas formas do contrato e sem app; Chromium 390/1280.
+  **Achados:** A) **bloqueante no telemóvel**: `site.js` usa `abertas` (l. 48) antes de a declarar (l. 79) → no iPhone o painel, o menu, a
+  galeria e os álbuns não respondem (296 erros); corrigido com uma linha e retestado (tudo a funcionar) · B) aviso PHP «Undefined array key
+  lingua» em `avaliacoes.php` e `prereserva.php` e a língua a chegar vazia à app; corrigido e retestado · C) sem botão para confirmar o
+  preço quando a app responde 409 `preco` · D) com a app em baixo o calendário parece todo livre sem aviso · E) IP por `X-Forwarded-For`
+  (falsificável) · F) dados pessoais em `cache/pedidos.log` dentro da raiz web e ninguém avisado · G) `pedido_id` do cliente sem validar ·
+  H) JSON-LD sem `JSON_HEX_TAG` · I) texto da conta errado em estadias que mudam de época (total certo) · J) **fotografias = as mesmas 33 do
+  GitHub, 24 miniaturas de 600 px esticadas na galeria; `design/fotos/` continua sem existir** · K) duas secções novas por decisão do autor
+  («A casa, num relance» e «Fotografias» na página) e a mensagem do Lovable, não aprovada · L) factos todos certos; plataformas no rodapé
+  em vez da linha da FAQ (8/10) · M) falta EN, `www`/HTTPS, testes no workflow, `creditos.md`, portas na app, chave. **Leitura:** cumpre
+  «Amen» e fica mais perto do acordo v1.2 do que o Lovable (v1.3: página PHP, pasta `site/` vs `public/`, design vindo do Lovable).
+  **Decisão do Diogo pendente:** seguir por este caminho, quem aplica as correções, `site/` ou `public/` no repositório. **Próxima sugestão: S37.**
