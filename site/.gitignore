@@ -1,0 +1,7 @@
+config.php
+cache/*
+!cache/.htaccess
+!cache/.gitkeep
+.DS_Store
+Thumbs.db
+_lovable_capture/

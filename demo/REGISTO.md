@@ -133,3 +133,15 @@ Uma linha por revisão da demo. A revisão atual está em `versao.json`; cada um
   prancha: https://lovable.dev/projects/96fa8399-2585-4338-bf69-b63411871178 (editor; pré-visualização
   https://id-preview--96fa8399-2585-4338-bf69-b63411871178.lovable.app). Não é a demo nem entra no repositório: é React, fora da stack do
   acordo; serve de comparação de «alma».
+
+## r4 · 7/11/2026 · o site em PHP (v2), rendido para a demo
+
+- **Fonte:** `site/` deste repositório (a v2 do zip de 7/11, feita por outro assistente a partir da versão do Lovable e das peças de
+  `lovable/src/lib/`; revisão do Claude em `docs/integracao-app/2026-11-07_revisao_site_php.md`). Decisão do Diogo (7/11, noite): «o site é
+  sempre por aqui que entra, isso não há dúvida».
+- **Como se fez a demo:** a página foi rendida pelo PHP 8.3 para HTML estático (`index.html`), com `assets/` e `fotos/` tal e qual, mais o
+  ficheiro `demo/portas-demo.js` que imita as cinco portas no browser (tarifa pelo motor `lovable/src/lib/tarifas.ts`, ocupação e tempo de
+  exemplo, avaliações vazias, pedido simulado com a mensagem «DEMO · o pedido não foi enviado a lado nenhum»). `noindex`. Nada disto existe
+  no site real: na Amen as portas são os `api/*.php`.
+- **Ligações:** principal https://claude.ai/artifact/DdiLqNNHdNeJnF61d4cr3S (substitui a r3) · fixa r4: ver `versao.json`/`LEIA-ME.md` depois da publicação.
+- **Limites da demo:** pedidos não são enviados; o calendário é de exemplo; o tempo é de exemplo; sem EN.

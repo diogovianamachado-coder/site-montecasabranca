@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /cache/
+Sitemap: https://montecasabranca.pt/sitemap.xml

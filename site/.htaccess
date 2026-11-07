@@ -1,0 +1,24 @@
+# Monte Casa Branca · Apache (Amen). Protege a configuração e a cache; cabeçalhos básicos.
+AddDefaultCharset UTF-8
+DirectoryIndex index.php
+Options -Indexes
+
+<FilesMatch "^(config\.php|config\.exemplo\.php|conteudo\.php|LEIA-ME\.md|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(cache|inc|partes)(/|$) - [F]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  <FilesMatch "\.(jpe?g|png|webp|svg|css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
