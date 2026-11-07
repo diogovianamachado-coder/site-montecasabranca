@@ -108,3 +108,34 @@ portas são chamadas pelo browser).
 
 Ficheiros: `revisao-site-php-2026-11-07/correcoes-A-B.patch` · capturas `php-390-*.jpg`, `php-1280-*.jpg` ·
 `390-painel-ANTES-da-correcao-A.jpg` (o botão não abria nada) · `NOTA_PARA_O_CLAUDE_recebida.md`.
+
+---
+
+## 6. Segunda versão («site-php_2026-11-07_v2.zip», 21h) · verificada a 7/11, à noite
+
+O autor aplicou a revisão (resposta no fim da `NOTA_PARA_O_CLAUDE.md` v2, cópia em `revisao-site-php-2026-11-07/v2/`). Repeti tudo.
+
+- **Sintaxe:** `php -l` nos 21 PHP e `node --check` no JS, limpos. Mudaram 7 ficheiros de código, mais `cache/.htaccess` e o `.gitignore`.
+- **Fotografias: 138 ficheiros (120 novos, que não estavam no GitHub), 132 com o lado maior ≥ 1 000 px, 65 variantes `-m`.** Álbuns: Monte e
+  exterior 32 · Sala, cozinha e biblioteca 22 · Quartos e banho 13 · Antes e depois 4 · Montemor 1. As 73 fotografias referidas em
+  `conteudo.php` existem; 65 têm variante `-m`. **Ainda pequenas (declaradas na NOTA):** as 4 do antes/depois, `piscina-entardecer` e
+  `montemor-rua`. As 24 miniaturas da v1 saíram dos álbuns. (As fotografias do GPT entraram pela mão do autor; `design/fotos/` continua
+  a não existir no GitHub, por isso hoje as fotografias em tamanho web só existem dentro deste zip.)
+- **A correr (PHP 8.3, app de ensaio pelo contrato e sem app; Chromium 390 e 1 280):** zero erros de JavaScript nos quatro cenários,
+  zero avisos PHP nos registos, sem rolagem horizontal. Correção a correção:
+  - **A** telemóvel: painel, calendário, conta, tempo, pedido, galeria, álbuns e menu a funcionar (antes nada respondia).
+  - **B** `lingua=pt` chega à app nas avaliações e no pedido; sem avisos.
+  - **C** preço diferente: a app de ensaio respondeu 409 `preco` → apareceu «Confirmar 1 170 €» → segundo POST com `confirmo_preco: true`
+    e `preco_mostrado: 1170` → «Recebemos o seu pedido». Visto nos dois tamanhos (captura `app-390-pedido-preco.jpg`).
+  - **D** sem app: «Calendário indisponível de momento · confirmamos as datas no pedido», 55 dias a tracejado e ainda selecionáveis, conta
+    pelo recurso do site, pedido anotado («Anotámos o pedido para 3/12–6/12/2026…»).
+  - **E** o IP enviado à app é o `REMOTE_ADDR`. **F** `cache/.htaccess` com «Require all denied» presente no zip e recriado pelo PHP;
+    `mail()` tentado (sem servidor de correio no ensaio, falha em silêncio como previsto; na Amen envia). **G** `pedido_id` gerado no
+    servidor (UUID). **H** `JSON_HEX_TAG | JSON_HEX_AMP` no JSON-LD. **I** 30/12/2026 → 2/1/2027: «3 noites (910 €, duas épocas) + limpeza
+    170 € = 1 080 €». **L** oitava pergunta «Também estão no Airbnb, Booking ou Vrbo?» com as ligações oficiais.
+- **Fica em aberto, por decisão do Diogo ou para as sessões seguintes:** K (a régua «num relance» e os álbuns na página; tiram-se com um
+  `require` a menos) · a mensagem do Lovable, não aprovada · M (EN, `www`/HTTPS no painel da Amen, testes em cada push, `creditos.md`,
+  portas #189–#192 na app, chave, ensaio em `novo.montecasabranca.pt`).
+
+**Veredito da v2:** pronto para a primeira corrida na Amen, em `novo.montecasabranca.pt`, pelo `LEIA-ME.md` do zip. Não encontrei nada
+que trave esse passo.

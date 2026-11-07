@@ -455,3 +455,12 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   em vez da linha da FAQ (8/10) · M) falta EN, `www`/HTTPS, testes no workflow, `creditos.md`, portas na app, chave. **Leitura:** cumpre
   «Amen» e fica mais perto do acordo v1.2 do que o Lovable (v1.3: página PHP, pasta `site/` vs `public/`, design vindo do Lovable).
   **Decisão do Diogo pendente:** seguir por este caminho, quem aplica as correções, `site/` ou `public/` no repositório. **Próxima sugestão: S37.**
+- **7/11 (14.ª parte, noite) · SITE EM PHP v2 VERIFICADO: tudo o que a revisão pediu está aplicado e a funcionar.** O Diogo entregou
+  `site-php_2026-11-07_v2.zip` + NOTA v2 («v2 em site/, com a tua revisão aplicada; repete o php -l + capturas 390/1280»). Feito: `php -l`
+  (21) e `node --check` limpos; **138 fotografias (120 novas, 132 em tamanho web, 65 `-m`)**, as 24 miniaturas saíram dos álbuns (ficam 6
+  pequenas: antes/depois ×4, piscina-entardecer, montemor-rua); corrida com app de ensaio e sem app, Chromium 390/1280: **zero erros JS,
+  zero avisos PHP**; A–I e L confirmadas uma a uma (fluxo do preço 409 → «Confirmar 1 170 €» → `confirmo_preco` → aceite; sem app: nota
+  «Calendário indisponível», 55 dias a tracejado, pedido anotado, `cache/.htaccess`). Secção 6 do relatório + capturas em
+  `revisao-site-php-2026-11-07/v2/`. **Veredito: pronto para o ensaio em `novo.montecasabranca.pt`.** Em aberto: decisão do Diogo
+  (seguir por aqui; `site/` ou `public/`; K; mensagem) · EN · testes no workflow · `creditos.md` · portas na app · chave · `design/fotos/`
+  continua ausente do GitHub (as fotos em tamanho web só existem no zip). **Próxima sugestão: S37.**
