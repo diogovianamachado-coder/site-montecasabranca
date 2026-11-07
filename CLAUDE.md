@@ -485,3 +485,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `SITE_PATH_NOVO`; secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` no repositório do site (os mesmos da app); depois «Lança» (ensaio
   com `dry_run` e depois real). **Em aberto:** fotografias do GPT (antes/depois e Montemor em tamanho web; `design/fotos/` ausente) · K · mensagem ·
   EN · `creditos.md` · portas #189–#192 na app e `SITE_CHAVE` · v1.3 do acordo · repositório público (KPI). **Próxima sugestão: S37.**
+  **23h01 · «Lança» do Diogo → ensaio n.º 1 do `deploy-site.yml` (dry_run, destino novo, run 42423325992) parou no travão certo:
+  `falta a variável SITE_PATH_NOVO`; `DEPLOY_HOST` e `DEPLOY_USER` também vazios no registo (os três secrets ainda não existem no repositório
+  do site). O travão #176 passou (Capturas n.º 16 verde para `e6f96a6`) e os 21 PHP passaram no `php -l`. Nada foi enviado. À espera dos
+  três passos de painel do Diogo (variável `SITE_PATH_NOVO` + secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY`); depois relançar o ensaio.**
