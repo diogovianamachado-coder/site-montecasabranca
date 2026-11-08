@@ -535,3 +535,12 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   as cores do site (castanho sobre cal) troca-se num minuto. (3) «e não é https?»: é; o Chrome esconde o `https://` e trocou o cadeado pelo
   ícone de ajustes; o healthcheck validou o certificado sem a exceção `-k`. **«Lança» dado → deploy n.º 6 (ensaio) e n.º 7 (real) com a
   proteção do ensaio (noindex) e o favicon.**
+  **8/11 (20h28–20h30 UTC) · deploy-site n.º 6 (ensaio, run 42520058394) e n.º 7 (REAL, run 42520354999), commit `17198b1`, VERDES.** Lista do
+  ensaio exatamente a esperada (`<f.st` só em `.htaccess` e `index.php`; novos `favicon.ico`, `robots-ensaio.txt` e os seis ícones; `*deleting
+  assets/img/favicon.svg`; o resto `<f..t`, só data, porque o checkout do GitHub renova as datas). Real: `config.php` já existia e ficou como
+  estava (`reescrever_config` false); healthcheck HTTP 200, `api/tempo.php` e `api/tarifa.php` ok. **Em `novo.` estão agora o noindex de ensaio e
+  o favicon com o nosso logótipo.** Melhorias de ferramenta anotadas, por fazer na próxima mexida no workflow: `rsync --checksum` (para a lista
+  mostrar só mudanças de conteúdo) e, no healthcheck de `novo`, conferir o `noindex` na página e o `robots.txt` de bloqueio. **Deploys do site:**
+  1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real. **Em aberto:** alterações do Diogo secção a secção · `SITE_CHAVE` e portas #189–#192 na
+  app (sessões APP) · fotografias do GPT · K · mensagem · EN · `creditos.md` · v1.3 (`site/` vs `public/`, PHP, design do Lovable, deploys por
+  subdomínio) · repositório público (KPI). **Próxima sugestão: S37.**
