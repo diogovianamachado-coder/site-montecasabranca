@@ -509,3 +509,6 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   O browser do Diogo chega ao servidor com `NET::ERR_CERT_AUTHORITY_INVALID`: **DNS feito sozinho pelo painel; certificado HTTPS ainda por emitir**.
   O healthcheck do `deploy-site.yml` passou a tolerar isso (curl exit 60 → aviso e continua com `-k`). A sessão não resolve DNS fora da lista
   permitida (nem `dns.google`): o teste do DNS é pelo browser do Diogo. Falta: os três secrets no GitHub → «Feito» → ensaio.**
+  **8/11 (00h40) · «Gerir» do `novo.` na Amen (capturas):** Let's Encrypt «Habilitado» com validade «Não aplicável» (certificado por emitir);
+  HTTPS, HTTP/2 e «Forcing HTTPS» ligados (o HTTP → HTTPS do ponto M fica no painel, por subdomínio); botão «Reemitir certificado» indicado ao
+  Diogo para forçar a emissão agora que o DNS responde. Nada mais a mudar nesta página.**
