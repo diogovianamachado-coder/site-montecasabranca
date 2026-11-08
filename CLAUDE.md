@@ -505,3 +505,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **Caminho do sítio `/www`** → a pasta da raiz para o dia do «Lança» final é `/data/sites/web/montecasabrancapt/www`, a confirmar no servidor) ·
   `www.montecasabranca.pt` (Alias da raiz: o `www` do ponto M já está tratado no painel) · `app.montecasabranca.pt` (Underside = subsite).
   PHP 8.4 na raiz. O subdomínio `novo.` cria-se com «+ Adicionar site» como Underside; orientação dada ao Diogo.**
+  **8/11 (00h30) · `novo.montecasabranca.pt` CRIADO na Amen** (Underside, pasta `/subsites/novo.montecasabranca.pt`, «Habilitado», 3/5 websites).
+  O browser do Diogo chega ao servidor com `NET::ERR_CERT_AUTHORITY_INVALID`: **DNS feito sozinho pelo painel; certificado HTTPS ainda por emitir**.
+  O healthcheck do `deploy-site.yml` passou a tolerar isso (curl exit 60 → aviso e continua com `-k`). A sessão não resolve DNS fora da lista
+  permitida (nem `dns.google`): o teste do DNS é pelo browser do Diogo. Falta: os três secrets no GitHub → «Feito» → ensaio.**

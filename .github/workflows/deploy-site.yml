@@ -171,12 +171,18 @@ jobs:
         if: ${{ env.DRY_RUN == '0' }}
         run: |
           set -u
-          for i in 1 2 3 4 5; do
-            code=$(curl -s -o /tmp/pagina.html --max-time 20 -w '%{http_code}' "$SITE_URL/" || echo "000 (curl $?)")
+          K=""   # passa a "-k" se o certificado HTTPS ainda não tiver sido emitido (subdomínio acabado de criar na Amen)
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s $K -o /tmp/pagina.html --max-time 20 -w '%{http_code}' "$SITE_URL/"); rc=$?
+            if [ "$rc" = "60" ] && [ -z "$K" ]; then
+              echo "::warning::$SITE_URL ainda não tem certificado HTTPS válido (a Amen emite o Let's Encrypt uns minutos depois de criar o subdomínio); a verificação continua sem validar o certificado"
+              K="-k"; continue
+            fi
+            [ "$rc" != "0" ] && code="000 (curl $rc)"
             echo "tentativa $i -> HTTP $code"
             if [ "$code" = "200" ] && grep -q 'Monte Casa Branca' /tmp/pagina.html; then
-              T=$(curl -s --max-time 20 "$SITE_URL/api/tempo.php" | head -c 120); echo "api/tempo.php → $T"
-              C=$(curl -s --max-time 20 "$SITE_URL/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | head -c 160); echo "api/tarifa.php → $C"
+              T=$(curl -s $K --max-time 20 "$SITE_URL/api/tempo.php" | head -c 120); echo "api/tempo.php → $T"
+              C=$(curl -s $K --max-time 20 "$SITE_URL/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | head -c 160); echo "api/tarifa.php → $C"
               grep -q '"ok":true' <<<"$C" || { echo "::warning::a conta não respondeu com ok:true (a app pode não ter a porta #190 ainda; o site devia cair para o recurso)"; }
               exit 0
             fi
