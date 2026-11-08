@@ -501,3 +501,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   da Amen (`/data/sites/web/montecasabrancapt/subsites/novo.montecasabranca.pt`, como a da app); a variável `SITE_PATH_NOVO` ficou opcional
   (só se a pasta for outra) e o travão «pasta existe» protege um palpite errado; a da raiz continua obrigatória. Falta só o que não posso
   fazer: os três secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` no repositório do site, e o subdomínio criado na Amen.**
+  **8/11 (00h20) · captura do painel da Amen (Diogo: «é aqui?»):** bloco «Sites e aliases», 2/5 websites: `montecasabranca.pt` (Hoved = principal,
+  **Caminho do sítio `/www`** → a pasta da raiz para o dia do «Lança» final é `/data/sites/web/montecasabrancapt/www`, a confirmar no servidor) ·
+  `www.montecasabranca.pt` (Alias da raiz: o `www` do ponto M já está tratado no painel) · `app.montecasabranca.pt` (Underside = subsite).
+  PHP 8.4 na raiz. O subdomínio `novo.` cria-se com «+ Adicionar site» como Underside; orientação dada ao Diogo.**
