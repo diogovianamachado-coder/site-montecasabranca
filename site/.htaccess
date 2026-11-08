@@ -9,9 +9,18 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^(cache|inc|partes)(/|$) - [F]
+  # Ensaio (novo.montecasabranca.pt): o robots.txt servido é o que bloqueia tudo; a raiz serve o robots.txt normal.
+  RewriteCond %{HTTP_HOST} ^novo\. [NC]
+  RewriteRule ^robots\.txt$ robots-ensaio.txt [L]
+</IfModule>
+
+# Ensaio: marca o pedido quando o nome é novo.* (usado pelo cabeçalho X-Robots-Tag abaixo).
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Host ^novo\. ENSAIO=1
 </IfModule>
 
 <IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow" env=ENSAIO
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   <FilesMatch "\.(jpe?g|png|webp|svg|css|js)$">

@@ -512,3 +512,17 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **8/11 (00h40) · «Gerir» do `novo.` na Amen (capturas):** Let's Encrypt «Habilitado» com validade «Não aplicável» (certificado por emitir);
   HTTPS, HTTP/2 e «Forcing HTTPS» ligados (o HTTP → HTTPS do ponto M fica no painel, por subdomínio); botão «Reemitir certificado» indicado ao
   Diogo para forçar a emissão agora que o DNS responde. Nada mais a mudar nesta página.**
+- **8/11 (20h10–20h12 UTC) · O SITE ESTÁ EM `novo.montecasabranca.pt` · deploy-site n.º 4 (ensaio) e n.º 5 (REAL), commit `3c73fd9`.**
+  «Feito» do Diogo (os três secrets no repositório do site; chave lida do `montia_rsa` do portátil). **Ensaio n.º 4** (run 42518729309): pré-voo OK,
+  «Capturas» verde, 21 PHP OK, SSH à Amen OK, pasta de destino existente só com o `index.html` do painel, rsync a seco com os 171 ficheiros do
+  site (24,7 MB, todos novos; `config.php`, `cache/`, LEIA-ME de fora). **Real n.º 5** (run 42518850508): rsync igual (o `index.html` do painel
+  apagado), **`config.php` escrito no servidor** pelo workflow (`SITE_URL` novo · `APP_URL` app · `OCUPACAO_EXEMPLO` true · **`SITE_CHAVE` vazia**,
+  até a porta #191 existir), `php -l` OK, `cache/` 775; **healthcheck HTTP 200 à primeira, já com o certificado Let's Encrypt válido** (sem aviso);
+  `api/tempo.php` ok:true com Open-Meteo real a partir do servidor; `api/tarifa.php` ok:true, `fonte: site` (motor de recurso; a #190 não existe).
+  **O que o Diogo vê em novo:** calendário com quatro períodos ocupados INVENTADOS e a nota «Calendário de exemplo»; conta pelo motor do site;
+  pedido de datas anotado em `cache/pedidos.log` + email ao `geral@` (não chega à app). **Lacuna encontrada e fechada em `main` (por enviar, espera
+  «Lança»):** o ensaio era indexável (sem `noindex`, `robots.txt` a permitir tudo, e o Let's Encrypt publica o nome) → `site/.htaccess` serve
+  `robots-ensaio.txt` (Disallow: /) e `X-Robots-Tag: noindex` quando o Host é `novo.*`; `index.php` imprime `<meta name="robots" content="noindex,
+  nofollow">` só nesse Host; `testar-site.sh` verifica os dois casos (bateria local inteira verde). A raiz não muda. **Deploys do site até aqui:**
+  1–3 parados nos travões · 4 ensaio · 5 real. **Em aberto:** «Lança» do n.º 6 (noindex) · olho do Diogo ao site em novo · `SITE_CHAVE` e portas
+  #189–#192 na app · fotografias do GPT · K · mensagem · EN · `creditos.md` · v1.3 · repositório público (KPI). **Próxima sugestão: S37.**

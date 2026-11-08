@@ -18,6 +18,10 @@ trap 'kill $P1 $P2 $P3 2>/dev/null || true' EXIT
 for p in 8791 8792; do curl -sS -o /dev/null --retry 20 --retry-connrefused --retry-delay 1 "http://127.0.0.1:$p/"; done
 echo "== portas"; curl -sS "http://127.0.0.1:8791/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | grep -q '"fonte":"app"' && echo "tarifa via app OK"
 curl -sS "http://127.0.0.1:8792/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | grep -q '"fonte":"site"' && echo "tarifa de recurso OK"
+echo "== ensaio: noindex só quando o Host é novo.*"
+P=$(curl -sS -H 'Host: novo.montecasabranca.pt' http://127.0.0.1:8791/); grep -q 'name="robots" content="noindex' <<<"$P" || { echo "FALHOU: a página não leva noindex com Host novo.montecasabranca.pt"; exit 1; }
+P=$(curl -sS http://127.0.0.1:8791/); if grep -q 'name="robots" content="noindex' <<<"$P"; then echo "FALHOU: noindex fora do ensaio"; exit 1; fi
+echo "noindex no ensaio OK · sem noindex na raiz OK"
 echo "== capturas"; node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8791 "$SAIDA" app
 node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8792 "$SAIDA" semapp
 echo "== avisos PHP nos registos"; if grep -hE 'Warning|Notice|Fatal|Deprecated' /tmp/site-app.log /tmp/site-semapp.log; then echo "FALHOU: avisos PHP"; exit 1; fi; echo "sem avisos PHP"

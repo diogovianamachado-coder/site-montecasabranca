@@ -38,6 +38,9 @@ $jsonld = [
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<?php if (preg_match('/^novo\./i', (string)($_SERVER['HTTP_HOST'] ?? ''))): // ensaio em novo.montecasabranca.pt: fora dos motores de busca ?>
+<meta name="robots" content="noindex, nofollow">
+<?php endif; ?>
 <title><?= e($C['titulo']) ?></title>
 <meta name="description" content="<?= e($C['descricao']) ?>">
 <link rel="canonical" href="<?= e($SITE) ?>/">

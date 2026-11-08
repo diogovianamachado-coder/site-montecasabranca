@@ -1,0 +1,3 @@
+# Ensaio em novo.montecasabranca.pt: nada para indexar (o .htaccess serve este ficheiro como robots.txt quando o nome é novo.*)
+User-agent: *
+Disallow: /
