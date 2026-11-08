@@ -526,3 +526,12 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   nofollow">` só nesse Host; `testar-site.sh` verifica os dois casos (bateria local inteira verde). A raiz não muda. **Deploys do site até aqui:**
   1–3 parados nos travões · 4 ensaio · 5 real. **Em aberto:** «Lança» do n.º 6 (noindex) · olho do Diogo ao site em novo · `SITE_CHAVE` e portas
   #189–#192 na app · fotografias do GPT · K · mensagem · EN · `creditos.md` · v1.3 · repositório público (KPI). **Próxima sugestão: S37.**
+  **8/11 (20h20 UTC) · O DIOGO VIU O SITE EM `novo.` («a funcionar neste site»; «no mobile também aparece ok») e deixou duas notas + «lança».**
+  (1) «O site tem de se chamar www.montecasabranca.pt e não novo.»: **confirmado, `novo.` é só o ensaio**; o definitivo é `montecasabranca.pt`
+  com `www.` como alias (já no painel) e muda no «Lança» final para a raiz (`/www`). (2) «O símbolo no site que seja o nosso símbolo» (a pestana
+  mostrava a casinha genérica do `favicon.svg`): **favicon = o logótipo tal como aprovado para o ícone da app a 4/10** (fundo cal, logótipo
+  a azul, `appmontecasabranca/assets/icone_512.png`) em `site/assets/img/` (`favicon.ico` 16/32/48 + cópia em `site/favicon.ico`, `favicon-16/32.png`,
+  `icone-192.png`, `apple-touch-icon.png` 180, `icone-512.png`), ligados no `index.php` com `?v=2`; `favicon.svg` removido. Se o Diogo preferir
+  as cores do site (castanho sobre cal) troca-se num minuto. (3) «e não é https?»: é; o Chrome esconde o `https://` e trocou o cadeado pelo
+  ícone de ajustes; o healthcheck validou o certificado sem a exceção `-k`. **«Lança» dado → deploy n.º 6 (ensaio) e n.º 7 (real) com a
+  proteção do ensaio (noindex) e o favicon.**
