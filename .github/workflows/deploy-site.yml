@@ -12,7 +12,8 @@ name: Deploy do site (Amen)
 #   DEPLOY_HOST · DEPLOY_USER · DEPLOY_SSH_KEY · (opcionais) DEPLOY_PORT · DEPLOY_KNOWN_HOSTS
 #   SITE_CHAVE  (opcional até a porta #191 existir na app; a mesma que fica em config.php → site_chave da app)
 # Variáveis (… → Variables):
-#   SITE_PATH_NOVO  pasta do subdomínio novo.montecasabranca.pt no servidor (ex.: /data/sites/web/montecasabrancapt/subsites/novo.montecasabranca.pt)
+#   SITE_PATH_NOVO  (opcional) pasta do subdomínio novo.montecasabranca.pt no servidor; por omissão a da convenção da Amen, igual à da app:
+#                   /data/sites/web/montecasabrancapt/subsites/novo.montecasabranca.pt (o travão «pasta existe» protege um palpite errado)
 #   SITE_PATH_RAIZ  pasta da raiz de montecasabranca.pt (só para o dia do «Lança» final)
 #   (opcionais) APP_URL (https://app.montecasabranca.pt) · SITE_OCUPACAO_EXEMPLO (true no ensaio, false na raiz)
 #
@@ -59,7 +60,8 @@ jobs:
       DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
       DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
       DESTINO: ${{ inputs.destino }}
-      SITE_PATH: ${{ inputs.destino == 'raiz' && vars.SITE_PATH_RAIZ || vars.SITE_PATH_NOVO }}
+      SITE_PATH_NOVO: ${{ vars.SITE_PATH_NOVO || '/data/sites/web/montecasabrancapt/subsites/novo.montecasabranca.pt' }}
+      SITE_PATH_RAIZ: ${{ vars.SITE_PATH_RAIZ }}
       SITE_URL: ${{ inputs.destino == 'raiz' && 'https://montecasabranca.pt' || 'https://novo.montecasabranca.pt' }}
       APP_URL: ${{ vars.APP_URL || 'https://app.montecasabranca.pt' }}
       OCUPACAO_EXEMPLO: ${{ vars.SITE_OCUPACAO_EXEMPLO || (inputs.destino == 'raiz' && 'false' || 'true') }}
@@ -77,7 +79,9 @@ jobs:
         run: |
           set -uo pipefail
           FALTAM=()
-          if [ -n "${SITE_PATH:-}" ]; then echo "variável SITE_PATH_${DESTINO^^}: definida → $SITE_PATH"; else FALTAM+=("variável SITE_PATH_${DESTINO^^} (separador Variables → Repository variables)"); fi
+          if [ "$DESTINO" = "raiz" ]; then SITE_PATH="$SITE_PATH_RAIZ"; else SITE_PATH="$SITE_PATH_NOVO"; fi
+          echo "SITE_PATH=$SITE_PATH" >> "$GITHUB_ENV"
+          if [ -n "$SITE_PATH" ]; then echo "pasta de destino ($DESTINO): $SITE_PATH"; else FALTAM+=("variável SITE_PATH_RAIZ (separador Variables → Repository variables)"); fi
           for v in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY; do
             if [ -n "${!v:-}" ]; then echo "secret $v: definido"; else FALTAM+=("secret $v (separador Secrets → Repository secrets)"); fi
           done

@@ -496,3 +496,8 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   hipóteses, repositório errado (o da app já tinha os `DEPLOY_*`), «Environment» em vez de «Repository», ou nomes diferentes. Pedidas ao Diogo
   capturas das duas páginas Settings do repositório do site. Lição de ferramenta: Python em linha no Bash com aspas escapadas rebenta; guiões
   em ficheiro no scratchpad (`estado_run.py`, `esperar_run.py`, `capturas_sha.py`).**
+  **8/11 (00h) · «Não estou a perceber o que precisas de mim.»** Explicação refeita em linguagem simples (é o passo 5 da receita de 14/9 da
+  app, agora no repositório do site). Para tirar um passo ao Diogo, o `deploy-site.yml` passou a assumir a pasta do subdomínio pela convenção
+  da Amen (`/data/sites/web/montecasabrancapt/subsites/novo.montecasabranca.pt`, como a da app); a variável `SITE_PATH_NOVO` ficou opcional
+  (só se a pasta for outra) e o travão «pasta existe» protege um palpite errado; a da raiz continua obrigatória. Falta só o que não posso
+  fazer: os três secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` no repositório do site, e o subdomínio criado na Amen.**
