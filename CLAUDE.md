@@ -642,3 +642,11 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   6 ensaio · 7 real · 8 ensaio. **Em aberto:** «Lança» · olho do Diogo aos três álbuns, às etiquetas e às fotografias com pessoas ·
   autor das de Montemor e `creditos.md` · as cerca de 20 sem original · repositório público (KPI, fotografias, a matrícula no histórico) ·
   o resto como antes (portas #189–#192 e `SITE_CHAVE`, K, mensagem, EN, v1.3, S31–S33). **Próxima sugestão: S37.**
+  **12/11 (noite) · «Estão com a qualidade HR que estão no Dropbox?» → NÃO, e foi dito assim ao Diogo.** As cópias do repositório e do
+  site são em tamanho web (1 600 px no lado maior, JPEG 82; a regra da conformidade 4 e a que o GPT usou nas 59). Pelos registos das nove
+  corridas (leem-se sem autenticação enquanto o repositório for público): dos 53 originais, **20 têm 4 032–5 184 px** (3–12 MB; telemóvel
+  e Canon), **11 têm cerca de 2 000 px**, e **22 já estão no Dropbox a 1 600 px ou menos** (as 14 de Montemor, que são as versões dos
+  anúncios, a 1 600 × 1 066, e 8 das outras); 31 foram reduzidas, 22 só recomprimidas; 175 MB na origem, 20 MB aqui. Os originais ficam
+  intactos no Dropbox. **Proposta feita, à espera da palavra do Diogo:** trazer também uma versão de 2 400 px das que têm original grande,
+  para a fotografia aberta em ecrãs grandes (o telemóvel continua com as leves). Não se faz sem o «sim» dele; vale também para a capa
+  (`piscina-dia.jpg`, 1 600 px, esticada em monitores largos) e para as 59 do GPT.

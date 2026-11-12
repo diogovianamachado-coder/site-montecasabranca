@@ -31,6 +31,10 @@ dimensões por baixo de cada fotografia).
   `ad03_fachada_depois.jpg`, 1 440 × 1 085).
 - **Ficheiro:** JPEG de qualidade 82, progressivo, **sem metadados** (sem EXIF, sem localização GPS); fica só o perfil de cor.
 - **Os originais não se tocam:** continuam no Dropbox, em `7. Fotos/` e em `zenfolio/v2/`. Aqui estão só cópias para a web.
+- **Isto não é a alta resolução.** Dos 53 originais dos álbuns 03 a 05 (175 MB; aqui 20 MB): 20 têm 4 032 a 5 184 px no lado maior
+  (telemóvel e Canon) e 11 têm cerca de 2 000 px, todos reduzidos a 1 600; **22 já estão no Dropbox a 1 600 px ou menos** (as 14 de
+  Montemor-o-Novo, que são as versões preparadas para os anúncios, e 8 das outras) e ficaram com as mesmas dimensões, só recomprimidas.
+  As dimensões de origem de cada uma estão nos registos das corridas do workflow.
 
 ## 3. De onde veio cada fotografia dos álbuns 03 a 05
 
