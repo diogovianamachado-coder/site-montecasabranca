@@ -84,18 +84,24 @@ para `3. anuncios/`, `4. telemovel/` nem `5. dvm canon/`**, de onde vêm os álb
 
 ## 7. O que falta face ao Zenfolio
 
-A coleção v2 tem 112 fotografias; a galeria do Zenfolio mostra cerca de 20 a mais, cujo original o ChatGPT não localizou no Dropbox
-(nota dele de 25/10/2026; a pasta `2. rodrigo/` não lhe estava acessível). Pelas capturas do Zenfolio de 25/10:
+Contado fotografia a fotografia nas 23 capturas do Zenfolio do Diogo (25/10/2026, reenviadas a 12/11): **o Zenfolio tem 135, aqui
+estão 112, faltam 23.** (A nota do ChatGPT de 25/10 dizia «cerca de 20».)
 
-- **A Quinta (7 ou 8):** o alpendre com o sofá de exterior ao entardecer (três) · a casa e a piscina vistas do campo (uma segunda) · o
-  pôr do sol atrás dos pinheiros, com a casa · a piscina iluminada à noite · a piscina com as oliveiras · a lua e a casa iluminada.
-  Algumas podem ser as mesmas que já estão em `01-o-monte/` (o Zenfolio deixa repetir uma fotografia em dois álbuns).
-- **Montemor-o-Novo (cerca de 13):** a estação do Paião sem a bicicleta · a ecopista (ponte, passadiço, túnel de sobreiros sem a
-  bicicleta) · vacas no montado · a torre e a muralha do castelo · o interior da igreja · vistas da vila e do castelo ao longe (várias) ·
-  o miradouro com o banco (duas ou três).
+| Álbum | Zenfolio | Aqui | Faltam |
+|---|---:|---:|---|
+| O Monte | 49 | 47 | As duas fachadas laterais que vêm antes da última fotografia. E duas estão trocadas entre si: no Zenfolio o pôr do sol na piscina vem antes da piscina à noite (aqui `40_img_0255` e `39_40`) |
+| Os Quartos | 12 | 12 | Nenhuma |
+| A Quinta | 25 | 17 | As três do alpendre com o sofá (as primeiras do álbum) · o pôr do sol atrás dos pinheiros, com a casa · a piscina iluminada à noite · a piscina com as oliveiras · a lua e a casa iluminada · a do quadrado azul, que no Zenfolio também não abre |
+| Antes e Depois | 22 | 22 | Nenhuma. No Zenfolio cada par aparece «depois, antes» (só o quarto está ao contrário); aqui os nomes ordenam «antes, depois» |
+| Montemor o Novo | 27 | 14 | A estação do Paião de perto · a bicicleta junto ao tanque · o túnel de árvores sem bicicleta · as vacas no montado · a torre com a muralha · o interior da igreja · três vistas ao longe (a colina com casas, o castelo, o vale com a ponte) · o passadiço · o monte com o castelo · duas do miradouro com o banco |
 
-Para as trazer é preciso primeiro encontrar os originais: nas subpastas `2. rodrigo/1` a `5` e `HD` (cerca de 500 imagens) ou em
-`1. todas/`. Ninguém as procurou lá ainda.
+Pistas para as encontrar (não são certezas, só se confirma vendo-as): as duas fachadas devem ser `3. anuncios/V2_verão/51.JPG` e
+`52.JPG`, os dois números que a coleção v2 saltou entre `50` e `53`; as de Montemor devem estar entre os números 40 e 62 de
+`3. anuncios/V3_inverno/`; as da quinta, em `4. telemovel/` ou `1. todas/`.
+
+**A alta resolução do Rodrigo não está no Dropbox, a não ser uma fotografia** (visto a 12/11/2026, só em leitura): `2. rodrigo/` tem
+499 fotografias nas subpastas `1` a `5`, com 1 a 2 MB cada, e a subpasta `HD` tem uma única, `DSC_4075.JPG`, com 16 MB, que também
+existe na subpasta `1` com 1,3 MB. As 499 são, portanto, versões reduzidas, do peso das cópias de 1 600 píxeis de `3. anuncios/`.
 
 ## 8. Como se traz uma fotografia nova (ou se repete uma)
 

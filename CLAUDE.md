@@ -650,3 +650,23 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   intactos no Dropbox. **Proposta feita, à espera da palavra do Diogo:** trazer também uma versão de 2 400 px das que têm original grande,
   para a fotografia aberta em ecrãs grandes (o telemóvel continua com as leves). Não se faz sem o «sim» dele; vale também para a capa
   (`piscina-dia.jpg`, 1 600 px, esticada em monitores largos) e para as 59 do GPT.
+  **12/11 (noite, fim) · O DIOGO REENVIOU AS 22 CAPTURAS DO ZENFOLIO (são as de 25/10; a sessão tem as 23) E PEDIU: «confirma se estão
+  organizados desta forma e na qualidade que o Rodrigo enviou em HR» · depois: «quando as fotos tiverem todas disponíveis então sim vou
+  começar a selecionar as que saem e onde é que aparecem no site» · «provavelmente o GPT vai deixar de existir; faz o relatório do que
+  está pendurado no GPT e vê se precisamos de o manter; caso contrário fazemos o handover para aqui com o Lovable em suporte» · «quantas
+  fotos estão no repositório e que podem ser usadas?».** Respondido, sem mexer no site: **(1) Organização:** os mesmos cinco álbuns e a
+  mesma sequência, mas **o Zenfolio tem 135 e o repositório 112: faltam 23** (O Monte 47 de 49, as duas fachadas laterais do fim, e o pôr
+  do sol na piscina trocado com a piscina à noite; Os Quartos 12 de 12; A Quinta 17 de 25; Antes e Depois 22 de 22, no Zenfolio «depois,
+  antes» e aqui «antes, depois»; Montemor 14 de 27); o «cerca de 20» de antes estava mal contado. No site a arrumação é outra (O Monte
+  partido em exterior e interior, três fotografias à frente). **(2) Alta resolução do Rodrigo: NÃO, e não está no Dropbox:** `2. rodrigo/`
+  tem 499 fotografias de 1 a 2 MB nas subpastas `1`–`5` e, em `HD`, **uma só**, `DSC_4075.JPG` (16 MB), que também existe em `1/` com
+  1,3 MB; as 57 de máquina profissional da galeria vieram de `3. anuncios/` a 1 600 × 1 066; correção ao que o Claude tinha dito («estarão
+  na pasta dele»). `1. todas/` (2 GB) são fotografias do Diogo de junho de 2022. **(3) Fotografias utilizáveis no repositório: 111**
+  (109 diferentes na galeria, porque três estão em dois álbuns, mais `interior/sala-mesa.jpg` e `quartos/quarto.jpg`), todas já no site;
+  18 miniaturas de 400–600 px do primeiro estudo não servem (os nomes trazem o número DSC do Rodrigo, logo acham-se em `2. rodrigo/` pelo
+  nome). **(4) Relatório `docs/integracao-app/2026-11-12_pendentes_do_gpt_e_passagem.md`:** o GPT não é preciso (última sessão de design
+  24/10, última entrega 7/11; o que era dele passa para Diogo, Claude e Lovable); proposta de papéis para a v1.3 **à espera do «sim» do
+  Diogo**; até lá vale o acordo como está. `design/fotos/LEIA-ME.md` (secção 7) com a contagem exata e as pistas (`V2_verão/51` e `52`;
+  `V3_inverno` 40–62; `4. telemovel` ou `1. todas`). **Regras do Diogo nesta parte:** «não faças nada» enquanto ele envia material; ele
+  escolhe as fotografias e onde aparecem, depois de estarem todas disponíveis. **Em aberto:** «sim» à passagem · procurar as 23 (espera
+  ordem) · onde está a alta resolução do Rodrigo · «Lança» dos álbuns novos · o resto como antes. **Próxima sugestão: S37.**
