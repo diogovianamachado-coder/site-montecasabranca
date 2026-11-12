@@ -544,3 +544,20 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real. **Em aberto:** alterações do Diogo secção a secção · `SITE_CHAVE` e portas #189–#192 na
   app (sessões APP) · fotografias do GPT · K · mensagem · EN · `creditos.md` · v1.3 (`site/` vs `public/`, PHP, design do Lovable, deploys por
   subdomínio) · repositório público (KPI). **Próxima sugestão: S37.**
+- **12/11 · PERGUNTAS DO DIOGO · FOTOGRAFIAS: PROPOSTA DE AMBIENTE RECUSADA, À ESPERA DA DECISÃO DELE.** (1) Depois do deploy n.º 7: «Este site
+  está disponível em pesquisas? Posso passar o link a pessoas para validarem comigo?» → não é indexado (noindex de ensaio; o `robots.txt` de
+  `novo.` responde `Disallow: /`) e o link pode ser partilhado (sem palavra-passe; calendário de exemplo; os pedidos chegam ao `geral@`);
+  oferecida uma palavra-passe simples no ensaio, sem resposta. (2) «Consegues substituir-te ao GPT para colocar as fotos restantes no
+  repositório para poderes carregar depois no site?» → o Claude enviou logo a janela de aprovação de um ambiente novo (pessoal, «Monte Casa
+  Branca (site e app, com Dropbox)», os três anfitriões do Dropbox na lista de rede, a valer já nesta conversa) **sem a explicar primeiro:
+  RECUSADA pelo Diogo**, que interrompeu também a listagem seguinte do Dropbox («Tens de explicar melhor. O que é isto? Temos o GitHub. E
+  sempre usaste o Dropbox.»; «parece estares a falar brasileiro»; «depois logo decido se voltas a propor esta solução»). **Regras que ficam:**
+  nenhuma janela de aprovação (ambiente, credenciais, pasta do computador) sem antes explicar em linguagem simples o que é, o que muda e
+  como se desfaz, e sem o Diogo dizer que a quer ver; não voltar a propor o ambiente até ele decidir; nunca escolher uma via «por omissão»
+  quando ele ainda não percebeu as opções; português de Portugal sempre (o texto das janelas é da aplicação, não do Claude). Explicado ao
+  Diogo: o conector do Dropbox (ver pastas, ler texto, copiar, mover, apagar) é um canal diferente da rede da máquina da sessão (lista de
+  endereços do ambiente «Default», vazia), e por isso as fotografias nunca se descarregaram. Vias para as fotografias, por decidir: (a) o
+  ambiente com o Dropbox aberto · (b) os computadores do GitHub Actions a descarregar por ligações temporárias pedidas ao conector, sem
+  aprovação · (c) GPT ou Diogo a pô-las no repositório. **Facto novo:** o caminho real no Dropbox é `/1. DVM/2. ANGULOS CASTIÇOS, LDA/
+  5. Exploração AL/13. APP Gestão AL/site/zenfolio` (o atalho `/13. APP Gestão AL/…` na raiz não existe). Nada foi descarregado nem alterado.
+  **Em aberto:** a decisão do Diogo sobre a via das fotografias; o resto como antes. **Próxima sugestão: S37.**
