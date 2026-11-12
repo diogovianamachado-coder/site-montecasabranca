@@ -561,3 +561,18 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   aprovação · (c) GPT ou Diogo a pô-las no repositório. **Facto novo:** o caminho real no Dropbox é `/1. DVM/2. ANGULOS CASTIÇOS, LDA/
   5. Exploração AL/13. APP Gestão AL/site/zenfolio` (o atalho `/13. APP Gestão AL/…` na raiz não existe). Nada foi descarregado nem alterado.
   **Em aberto:** a decisão do Diogo sobre a via das fotografias; o resto como antes. **Próxima sugestão: S37.**
+  **12/11 (noite) · «O GitHub tem porta pública aberta. Abri temporariamente. Podes confirmar se está ok para ti?»** Verificado: o ambiente
+  da sessão não mudou («Default», lista vazia; Dropbox, Open-Meteo e os domínios do Monte continuam a dar 403 na proxy); `site-montecasabranca`
+  público, `appmontecasabranca` privado. **CORREÇÃO DE UM ERRO DO CLAUDE: `design/fotos/` EXISTE desde 7/11** (commits `0820f8a` 19h14 «álbum O
+  Monte (47 imagens)» e `79c2c07` 19h18 «álbum Os Quartos (12 imagens)», pela conta do Diogo, entrega do GPT): `design/fotos/galeria/01-o-monte/`
+  47 e `02-os-quartos/` 12, todas a 1 600 px. As entradas de 7/11 (13.ª e 14.ª partes) que dizem «continua ausente» estão erradas: o
+  `git pull --rebase` trouxe os dois commits sem o Claude reparar. Comparação visual feita a 12/11: **as 59 já estão todas no site**
+  (`site/fotos/` tem 73 fotografias base: as 59 da galeria + 14 antigas, das quais 6 pequenas, antes/depois ×4, `piscina-entardecer` e
+  `montemor-rua`, mais `lareira` a 768×1024 e o recorte `piscina-espreguicadeira`). **Faltam os três álbuns que só estão no Dropbox**
+  (`zenfolio/v2/`: `03-a-quinta` 17 · `04-antes-e-depois` 22 · `05-montemor-o-novo` 14 = 53, contagens de 25/10, por reconferir). Resposta ao
+  Diogo: a porta pública do GitHub não é precisa para o Claude, que entra pela app «Claude» do GitHub com o repositório público ou privado;
+  pode fechar-se quando ele quiser e é melhor fechada, pelos KPI. Com o repositório privado, os guiões do scratchpad que leem a API do GitHub
+  sem autenticação (`estado_run.py`, `esperar_run.py`, `capturas_sha.py`) deixam de funcionar: usar as ferramentas do GitHub da sessão.
+  Explicada a via do GitHub para as 53: o conector dá ligações temporárias, um workflow manual descarrega, reduz a 1 600 e 1 000 px, tira os
+  metadados e grava em `design/fotos/galeria/`; depois o Claude vê-as, legenda-as e monta os álbuns e os 11 pares. **À espera do «avança» do
+  Diogo; nada descarregado nem alterado.** **Próxima sugestão: S37.**
