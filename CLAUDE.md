@@ -576,3 +576,34 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   Explicada a via do GitHub para as 53: o conector dá ligações temporárias, um workflow manual descarrega, reduz a 1 600 e 1 000 px, tira os
   metadados e grava em `design/fotos/galeria/`; depois o Claude vê-as, legenda-as e monta os álbuns e os 11 pares. **À espera do «avança» do
   Diogo; nada descarregado nem alterado.** **Próxima sugestão: S37.**
+  **12/11 (23h–23h30 UTC) · «Confirma então se consegues trazer do Dropbox as fotos que faltam, que o GPT ainda não trouxe, para o
+  repositório GitHub na ordem que estava programada» → FEITO: AS 53 ESTÃO NO REPOSITÓRIO; A COLEÇÃO v2 ESTÁ COMPLETA (112 de 112).**
+  `design/fotos/galeria/03-a-quinta/` 17 · `04-antes-e-depois/` 22 (os 11 pares) · `05-montemor-o-novo/` 14, pela ordem dos álbuns, na
+  convenção do GPT (1 600 px no lado maior, nunca aumentadas, JPEG 82 progressivo, sem metadados, perfil de cor). **Via do GitHub (a que
+  funciona sem mexer no ambiente):** o conector do Dropbox dá uma ligação temporária por ficheiro (`download_link`, uso único, 900 s, até
+  25 por pedido); o Claude lança `.github/workflows/fotos-dropbox.yml` (manual; inputs `album`, `posicoes`, `ligacoes`, `rodape`) com elas;
+  o runner descarrega no primeiro passo (lê as ligações do ficheiro do evento e mascara-as; nunca aparecem no registo), confere os bytes
+  com o lote, endireita, reduz, tira os metadados e faz o commit (`demo/ferramentas/fotos/processar.py`; lotes em
+  `demo/ferramentas/fotos/lotes/<álbum>.tsv` com posição · nome na origem · bytes · nome final · original em `7. Fotos/` · retoque).
+  **Corridas n.º 1–9, todas verdes** (1 ensaio com uma fotografia; 2–3 A Quinta; 4–6 Antes e Depois; 7–8 Montemor; 9 retoque), levas de 8
+  no máximo; ids dos 53 ficheiros no Dropbox = `id:6CaWHhRXHt8AAAAAAAO7` + dois caracteres (lista na conversa). **Visto por olho (folhas de
+  contacto e ampliações): são as fotografias certas e os 11 pares batem, lado a lado, com a identificação do GPT de 25/10.**
+  **Privacidade:** em `ad03_fachada_antes.jpg` lia-se a matrícula de uma carrinha → o guião ganhou o retoque pelo lote (6.ª coluna
+  `desfocar=x0,y0,x1,y1`, mosaico irrecuperável) e a fotografia foi trazida outra vez já desfocada (corrida n.º 9; a versão com a matrícula
+  esteve 12 minutos em `main`, commit `e1a9d6a`, e fica no histórico; o original no Dropbox não muda). Pessoas, todas de costas e sem cara:
+  `ad11_nora_antes` (um homem), `05/01_54` (uma senhora num banco), `05/05_57` (alguém num baloiço, ao longe). **Escrito:**
+  `design/fotos/LEIA-ME.md` (álbuns, convenção, origem, pares, privacidade, autoria por fechar, o que falta, como repetir; exceção à pasta
+  do GPT, a pedido do Diogo) e `docs/fotografia/2026-11-12_folhas_de_contacto/` (uma folha por álbum, os cinco;
+  `demo/ferramentas/fotos/folha_contacto.py`). **Notas de monitor:** (a) **créditos:** o `creditos.md` não tem linhas para `3. anuncios/`,
+  `4. telemovel/` nem `5. dvm canon/`, de onde vêm os álbuns 03 e 05; as 14 de Montemor (`3. anuncios/V2_verão` 54–63 e `V3_inverno` 42, 44,
+  50, 54) são de máquina e de uma só mão (a mesma bicicleta vermelha em quatro): autor e autorização por escrever pelo Diogo (há um
+  orçamento de fotografia de junho de 2022 em `7. Fotos/`); (b) **cerca de 20 fotografias do Zenfolio continuam sem original localizado**
+  (7 ou 8 de A Quinta: alpendre com o sofá ×3, pôr do sol atrás dos pinheiros, piscina à noite, piscina com as oliveiras, lua; cerca de 13
+  de Montemor: estação sem bicicleta, ponte e passadiço da ecopista, vacas, torre e muralha, interior da igreja, vistas ao longe, miradouro
+  com o banco); o GPT não chegava a `2. rodrigo/` (subpastas `1`–`5` e `HD`, cerca de 500 imagens) e ninguém as procurou lá; por esta via
+  seria preciso trazer miniaturas de centenas de ficheiros para um repositório público, por isso **não se fez sem ordem do Diogo**.
+  **Lições de ferramenta:** as ligações do Dropbox têm um anfitrião diferente por ligação (`uc<hash>.dl.dropboxusercontent.com`), logo uma
+  lista de anfitriões exatos no ambiente nunca chegaria; o grupo de concorrência do workflow só guarda uma corrida em espera (lançar uma
+  terceira cancela a que espera): uma a correr e uma em espera, no máximo; os commits do workflow (`GITHUB_TOKEN`) não disparam o
+  «Capturas»; `esperar_fotos.py`, `corridas_fotos.py`, `conferir_album.py` no scratchpad (leem a API pública; deixam de funcionar com o
+  repositório privado). **As 53 ainda não estão no site** (`site/fotos/` tem as 59 dos álbuns 01 e 02 e 14 antigas).
