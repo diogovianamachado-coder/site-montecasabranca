@@ -144,7 +144,10 @@ jobs:
       - name: Enviar ficheiros (rsync)
         run: |
           set -euo pipefail
-          FLAGS=(-rlptvz --delete --itemize-changes)
+          # --checksum (12/11/2026): compara o conteúdo e não a data. O checkout do GitHub dá data nova a todos os ficheiros;
+          # sem isto cada deploy reenviava tudo (mais de 50 MB de fotografias) e a lista do ensaio não distinguia o que mudou.
+          # Com isto, o que vem como «<f» mudou mesmo de conteúdo; «.f..t» é só a data a acertar, sem envio.
+          FLAGS=(-rlptvz --checksum --delete --itemize-changes)
           [ "$DRY_RUN" = "1" ] && FLAGS+=(--dry-run) && echo "== ENSAIO: nada é enviado =="
           rsync "${FLAGS[@]}" \
             --exclude='config.php' --exclude='cache/' --exclude='LEIA-ME.md' --exclude='.gitignore' --exclude='NOTA_PARA_O_CLAUDE*.md' \

@@ -1,0 +1,56 @@
+# Da galeria (design/fotos/galeria/) para o site (site/fotos/): que ficheiro da galeria é cada fotografia dos álbuns do site.
+# Álbuns 03, 04 e 05, montados no site a 12/11/2026. Aplica-se com: python3 demo/ferramentas/fotos/para_o_site.py
+# colunas: ficheiro na galeria · ficheiro no site (a variante -m, 1 000 px de largura, é criada ao lado)
+03-a-quinta/01_img_0268.jpg	quinta/casa-pinheiro-terreno.jpg
+03-a-quinta/02_pkbl4474.jpg	quinta/casa-piscina-campo.jpg
+03-a-quinta/03_img_0295.jpg	quinta/piscina-por-do-sol.jpg
+03-a-quinta/04_pdhe2533.jpg	quinta/piscina-alpendre-entardecer.jpg
+03-a-quinta/05_35.jpg	quinta/casa-ervas-altas.jpg
+03-a-quinta/06_36-0.jpg	quinta/ovelhas.jpg
+# 03-a-quinta/07_36-1.jpg já está no site como exterior/campo-verde.jpg (a mesma fotografia); o álbum usa esse ficheiro
+03-a-quinta/08_img_0286.jpg	quinta/pinheiros-alpendre.jpg
+03-a-quinta/09_img_0289.jpg	quinta/pinheiros-sombra.jpg
+03-a-quinta/10_img_0314.jpg	quinta/olival.jpg
+03-a-quinta/11_img_0318.jpg	quinta/pinheiro-casa.jpg
+03-a-quinta/12_img_5927.jpg	quinta/pinheiro-contraluz.jpg
+03-a-quinta/13_img_5934.jpg	quinta/cao-campo.jpg
+03-a-quinta/14_img_5938.jpg	quinta/olival-agua.jpg
+03-a-quinta/15_img_5947.jpg	quinta/olival-encosta.jpg
+03-a-quinta/16_img_5955.jpg	quinta/cao-olival.jpg
+03-a-quinta/17_img_5960.jpg	quinta/oliveiras-vedacao.jpg
+04-antes-e-depois/ad01_casa-piscina_antes.jpg	antes-depois/casa-piscina-antes.jpg
+04-antes-e-depois/ad01_casa-piscina_depois.jpg	antes-depois/casa-piscina-depois.jpg
+04-antes-e-depois/ad02_salao_antes.jpg	antes-depois/salao-antes.jpg
+04-antes-e-depois/ad02_salao_depois.jpg	antes-depois/salao-depois.jpg
+04-antes-e-depois/ad03_fachada_antes.jpg	antes-depois/fachada-antes.jpg
+04-antes-e-depois/ad03_fachada_depois.jpg	antes-depois/fachada-depois.jpg
+04-antes-e-depois/ad04_chamine_antes.jpg	antes-depois/chamine-antes.jpg
+04-antes-e-depois/ad04_chamine_depois.jpg	antes-depois/chamine-depois.jpg
+04-antes-e-depois/ad05_patio_antes.jpg	antes-depois/patio-antes.jpg
+04-antes-e-depois/ad05_patio_depois.jpg	antes-depois/patio-depois.jpg
+04-antes-e-depois/ad06_corredor_antes.jpg	antes-depois/corredor-antes.jpg
+04-antes-e-depois/ad06_corredor_depois.jpg	antes-depois/corredor-depois.jpg
+04-antes-e-depois/ad07_pergula-tanque_antes.jpg	antes-depois/pergula-tanque-antes.jpg
+04-antes-e-depois/ad07_pergula-tanque_depois.jpg	antes-depois/pergula-tanque-depois.jpg
+04-antes-e-depois/ad08_quarto_antes.jpg	antes-depois/quarto-antes.jpg
+04-antes-e-depois/ad08_quarto_depois.jpg	antes-depois/quarto-depois.jpg
+04-antes-e-depois/ad09_poco-frente_antes.jpg	antes-depois/poco-frente-antes.jpg
+04-antes-e-depois/ad09_poco-frente_depois.jpg	antes-depois/poco-frente-depois.jpg
+04-antes-e-depois/ad10_poco-lado_antes.jpg	antes-depois/poco-lado-antes.jpg
+04-antes-e-depois/ad10_poco-lado_depois.jpg	antes-depois/poco-lado-depois.jpg
+04-antes-e-depois/ad11_nora_antes.jpg	antes-depois/nora-antes.jpg
+04-antes-e-depois/ad11_nora_depois.jpg	antes-depois/nora-depois.jpg
+05-montemor-o-novo/01_54.jpg	montemor/banco-vermelho.jpg
+05-montemor-o-novo/02_50.jpg	montemor/estacao-paiao.jpg
+05-montemor-o-novo/03_55.jpg	montemor/caminho-arvores-bicicleta.jpg
+05-montemor-o-novo/04_56.jpg	montemor/montado-bicicleta.jpg
+05-montemor-o-novo/05_57.jpg	montemor/castelo-baloico.jpg
+05-montemor-o-novo/06_58.jpg	montemor/castelo-porta-vista.jpg
+05-montemor-o-novo/07_59.jpg	montemor/castelo-ruinas.jpg
+05-montemor-o-novo/08_60.jpg	montemor/rua-branca-azul.jpg
+05-montemor-o-novo/09_61.jpg	montemor/igreja-rua.jpg
+05-montemor-o-novo/10_62.jpg	montemor/igreja-fachada.jpg
+05-montemor-o-novo/11_63.jpg	montemor/miradouro-candeeiros.jpg
+05-montemor-o-novo/12_42.jpg	montemor/vila-muralha.jpg
+05-montemor-o-novo/13_44.jpg	montemor/janela-flores.jpg
+05-montemor-o-novo/14_54.jpg	montemor/miradouro-banco-bicicleta.jpg

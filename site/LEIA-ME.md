@@ -7,7 +7,7 @@ Página única em PHP + CSS + JavaScript nativo (sem Node, sem build, sem base d
 | Caminho | Quem mexe | O que é |
 |---|---|---|
 | `conteudo.php` | Diogo / Claude / GPT | **Todos os textos** do site: título, menu, secções, FAQ, legendas, álbuns de fotografias, textos do painel. Sem código — só um array PHP com strings. |
-| `fotos/<álbum>/` | Diogo / Claude / GPT | As fotografias, por álbum (`exterior`, `interior`, `quartos`, `antes-depois`, `montemor`). Para cada `x.jpg` pode existir `x-m.jpg` (versão telemóvel, ~900 px); o site usa-a sozinho se existir. |
+| `fotos/<álbum>/` | Diogo / Claude / GPT | As fotografias, por pasta (`exterior`, `interior`, `quartos`, `quinta`, `antes-depois`, `montemor`). Para cada `x.jpg` pode existir `x-m.jpg` (versão telemóvel, 1 000 px de largura); o site usa-a sozinho se existir. As de `quinta`, `antes-depois` e `montemor` vêm da galeria `design/fotos/galeria/` pela tabela `demo/ferramentas/fotos/site-albuns.tsv` (`python3 demo/ferramentas/fotos/para_o_site.py`). |
 | `inc/factos.php` | só com FACTOS.md | Os factos da casa (capacidade, AL, morada, contactos, coordenadas). Espelha `docs/conteudos/fontes/FACTOS.md` do repositório — mudar só quando o FACTOS mudar. |
 | `inc/tarifas.php` | Diogo | Tabela de épocas e regras (porta de `lovable/src/lib/tarifas.ts`). Só serve de **recurso** quando a app não responde; a conta oficial vem da app. |
 | `config.php` | Diogo (no servidor) | Endereços da app, chave `SITE_CHAVE`, pasta de cache. **Não vai para o GitHub.** Copiar de `config.exemplo.php`. |
@@ -20,6 +20,8 @@ Página única em PHP + CSS + JavaScript nativo (sem Node, sem build, sem base d
 1. Textos: abrir `conteudo.php`, mudar a string, guardar. Aspas simples dentro do texto escrevem-se `\'`.
 2. FAQ: cada pergunta é `['Pergunta?', 'Resposta.']` em `'perguntas'`. Acrescentar ou apagar linhas.
 3. Fotografias: copiar o ficheiro para `fotos/<álbum>/` e acrescentar `['src' => 'album/ficheiro.jpg', 'alt' => 'legenda', 'pos' => 'center']` no álbum em `'fotografias' → 'albuns'`. `pos` é o ponto de foco (`center`, `50% 30%`, …). A capa é `'inicio' → 'foto'`.
+   Num álbum de pares (`'pares' => true`, como o «Antes e depois») as fotografias vão sempre duas a duas, antes e depois, cada uma com a sua `'etiqueta'`; no computador o álbum mostra dois pares por linha e no telemóvel um. `'sem_schema' => true` deixa o álbum fora das imagens da casa que os motores de busca recebem.
+   Conferir: `php demo/ferramentas/site/conferir-fotos.php` (todas as fotografias referidas existem, pares completos, nenhuma repetida no mesmo álbum).
 4. Regras: factos só de `FACTOS.md`; «Reguengo» só na morada postal; nada de tabelas de preços ou KPI no site.
 
 ## Pôr no servidor (Amen)

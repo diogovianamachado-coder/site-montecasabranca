@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Teste do site em PHP (site/): sintaxe, arranque com uma app de ensaio e capturas a 390/1280 (com app e sem app).
+# Teste do site em PHP (site/): sintaxe, fotografias (todas as referidas existem, pares completos), arranque com uma app de ensaio
+# e capturas a 390/1280 (com app e sem app).
 # Uso: bash demo/ferramentas/site/testar-site.sh [pasta-saída]   (precisa de php 8.1+, node 22 e playwright instalado)
 set -euo pipefail
 RAIZ="$(cd "$(dirname "$0")/../../.." && pwd)"; SAIDA="${1:-$RAIZ/demo/_saida/capturas-site}"; mkdir -p "$SAIDA"
@@ -7,6 +8,8 @@ cd "$RAIZ"
 echo "== sintaxe"; ERROS=0; while IFS= read -r -d '' f; do php -l "$f" > /dev/null 2>&1 || { php -l "$f"; ERROS=$((ERROS+1)); }; done < <(find site -name '*.php' -print0)
 [ "$ERROS" -eq 0 ] || { echo "FALHOU: $ERROS ficheiro(s) PHP com erros de sintaxe"; exit 1; }
 node --check site/assets/js/site.js && echo "site.js OK · $(find site -name '*.php' | wc -l) PHP OK"
+echo "== fotografias"; php demo/ferramentas/site/conferir-fotos.php
+if python3 -c "import PIL" 2>/dev/null; then python3 demo/ferramentas/fotos/para_o_site.py --conferir; else echo "(sem Pillow nesta máquina: a comparação de site/fotos com a galeria fica para o computador de quem monta)"; fi
 echo "== servidores"; rm -rf /tmp/site-ensaio-app /tmp/site-ensaio-semapp; cp -r site /tmp/site-ensaio-app; cp -r site /tmp/site-ensaio-semapp
 cp demo/ferramentas/site/config.ensaio.php /tmp/site-ensaio-app/config.php
 sed "s|'http://127.0.0.1:8799'|'http://127.0.0.1:8798'|; s|8791|8792|" demo/ferramentas/site/config.ensaio.php > /tmp/site-ensaio-semapp/config.php

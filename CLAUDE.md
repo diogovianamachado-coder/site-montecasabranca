@@ -607,3 +607,27 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   terceira cancela a que espera): uma a correr e uma em espera, no máximo; os commits do workflow (`GITHUB_TOKEN`) não disparam o
   «Capturas»; `esperar_fotos.py`, `corridas_fotos.py`, `conferir_album.py` no scratchpad (leem a API pública; deixam de funcionar com o
   repositório privado). **As 53 ainda não estão no site** (`site/fotos/` tem as 59 dos álbuns 01 e 02 e 14 antigas).
+  **12/11 (23h30–23h50 UTC) · AS 53 MONTADAS NO SITE, EM `main`, POR INSTALAR (espera o «Lança»).** Era o fim declarado do pedido
+  («para poderes carregar depois no site»); nada foi para o servidor. **Pastas:** `site/fotos/quinta/` (16 + variantes `-m`; a 7.ª do
+  álbum é `exterior/campo-verde.jpg`, que o site já tinha), `antes-depois/` (22), `montemor/` (14); nomes descritivos; a ligação
+  galeria → site está em `demo/ferramentas/fotos/site-albuns.tsv` e aplica-se com `para_o_site.py` (cópia byte a byte + `-m` a 1 000 px de
+  largura; `--conferir` para o teste). **`site/conteudo.php`:** separadores Monte e exterior 29 · Sala, cozinha e biblioteca 20 · Quartos e
+  banho 13 · **A quinta 17** (novo, ordem do Zenfolio) · **Antes e depois 22** (os 11 pares certos, antes → depois; substituem as quatro
+  miniaturas de 534 px, duas das quais eram os pares errados da V1.3.1) · **Montemor-o-Novo 14** (substitui a miniatura de 600 px). Legendas
+  escritas pelo Claude só com o que se vê na imagem (sem «horta», sem nomes de igrejas; «castelo de Montemor-o-Novo» e «estação do Paião»,
+  que se lê na placa). **Código, mínimo:** álbum com `'pares' => true` (classe `album-pares`: 2 colunas no telemóvel, 4 no computador, para
+  cada par ficar lado a lado), `'etiqueta'` por fotografia («Antes» escura, «Depois» na cor primária), `'sem_schema' => true` (o
+  «Antes e depois» e Montemor saem das imagens do `VacationRental`; antes iam para lá as ruínas) em `partes/fotografias.php`,
+  `assets/css/site.css` e `index.php`. **Achado e corrigido:** o site mostrava **quatro fotografias duas vezes** no mesmo álbum (herança
+  de juntar as 59 da galeria às 14 antigas): `alpendre` = `cadeiras-vinho`, `piscina-dia` = `piscina-casa-frente`, `sala-portas` =
+  `sala-portas-abertas`, `lareira` (768 px) = `lareira-acesa`; saíram as repetidas (ficheiros incluídos) e a secção «Sala e cozinha»
+  passou a usar a lareira grande. Das seis miniaturas pequenas de 7/11 resta uma: `exterior/piscina-entardecer.jpg` (600 px, não está na
+  coleção v2). **Testes:** `demo/ferramentas/site/conferir-fotos.php` (referidas que não existem, pares incompletos, repetidas no mesmo
+  álbum fazem falhar; ficheiros sem uso avisam) entrou no `testar-site.sh`; bateria local inteira verde (21 PHP, 116 fotografias referidas,
+  230 ficheiros, conta 1 160 €, capturas 390/1280 com e sem app, sem avisos PHP); capturas dos seis álbuns sem imagens partidas, sem erros
+  JS, sem rolagem horizontal. **`deploy-site.yml`:** `rsync --checksum` (a melhoria anotada a 8/11): com 53 MB de fotografias, sem isto cada
+  deploy reenviava tudo; agora só vai o que mudou de conteúdo e a lista do ensaio lê-se. **Peso:** `site/` 53 MB; o HTML passou de 361 kB
+  para 502 kB (18 kB com a compressão do `.htaccess`), porque cada miniatura leva a lista do seu álbum em `data-galeria`; se um dia pesar,
+  põe-se a lista uma vez por álbum (uma linha no `site.js`). **Por decidir pelo Diogo, por olho:** as etiquetas «Antes/Depois»; as três
+  fotografias com pessoas de costas (`nora-antes`, `banco-vermelho`, `castelo-baloico`); a autoria das de Montemor antes do domínio
+  público. **Não feito:** as cerca de 20 do Zenfolio sem original; `creditos.md` (do GPT e do Diogo); EN.

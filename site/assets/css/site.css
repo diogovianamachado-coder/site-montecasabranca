@@ -230,6 +230,12 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: -.02em; font-wei
 .album.escondido { display: none; }
 .album li { animation: aparecer .6s both; }
 @media (min-width: 768px) { .fotografias { padding-top: 7rem; padding-bottom: 7rem; } .album { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; } }
+/* Álbum em pares (antes | depois): o número de colunas é sempre par, para cada par ficar lado a lado */
+.album .zoom { position: relative; }
+.etiqueta-foto { position: absolute; left: .5rem; top: .5rem; padding: .2rem .6rem; border-radius: 999px; background: color-mix(in oklab, var(--sombra) 62%, transparent); color: var(--sobre-foto); font-size: .6875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; line-height: 1.5; pointer-events: none; }
+.album-pares li:nth-child(even) .etiqueta-foto { background: var(--primario); color: var(--primario-texto); }
+@media (min-width: 768px) { .album.album-pares { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .album.album-pares { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 /* ---- Montemor ---- */
 .distancias { border-top: 1px solid var(--borda); border-bottom: 1px solid var(--borda); }

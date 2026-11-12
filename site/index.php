@@ -11,7 +11,10 @@ $versao = (string)@filemtime(__DIR__ . '/assets/css/site.css');
 
 // JSON-LD (VacationRental + FAQPage), portado de lovable/src/lib/seo.ts
 $imagens = [];
-foreach ($C['fotografias']['albuns'] as $al) foreach (array_slice($al['fotos'], 0, 3) as $f) $imagens[] = $SITE . '/' . foto_url($f['src']);
+foreach ($C['fotografias']['albuns'] as $al) {
+    if (!empty($al['sem_schema'])) continue;   // «Antes e depois» e Montemor-o-Novo não são fotografias da casa como ela é hoje
+    foreach (array_slice($al['fotos'], 0, 3) as $f) $imagens[] = $SITE . '/' . foto_url($f['src']);
+}
 $m = $F['morada'];
 $jsonld = [
     ['@context' => 'https://schema.org', '@type' => ['VacationRental', 'LodgingBusiness'],

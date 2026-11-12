@@ -9,11 +9,12 @@
     <?php endforeach; ?>
   </div>
   <?php foreach ($albuns as $i => $al): ?>
-  <ul id="album-<?= $i ?>" role="tabpanel" aria-labelledby="sep-<?= $i ?>" class="album<?= $i === 0 ? '' : ' escondido' ?>">
+  <ul id="album-<?= $i ?>" role="tabpanel" aria-labelledby="sep-<?= $i ?>" class="album<?= !empty($al['pares']) ? ' album-pares' : '' ?><?= $i === 0 ? '' : ' escondido' ?>">
     <?php foreach ($al['fotos'] as $j => $f): ?>
     <li>
       <button type="button" class="zoom abrir-galeria foto-4-3" data-galeria="<?= galeria_json($al['nome'], $al['fotos']) ?>" data-inicio="<?= $j ?>" aria-label="<?= e($f['alt']) ?> · abrir galeria">
         <?= foto_img($f) ?>
+        <?php if (!empty($f['etiqueta'])): ?><span class="etiqueta-foto"><?= e($f['etiqueta']) ?></span><?php endif; ?>
       </button>
     </li>
     <?php endforeach; ?>

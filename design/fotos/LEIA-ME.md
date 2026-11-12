@@ -104,3 +104,17 @@ Para as trazer é preciso primeiro encontrar os originais: nas subpastas `2. rod
 
 A sessão do Claude não consegue descarregar do Dropbox diretamente (a rede dela não deixa); os computadores do GitHub conseguem. É por
 isso que a via é esta.
+
+## 9. No site (`site/fotos/`)
+
+Desde 12/11/2026 os cinco álbuns estão montados no site em PHP (em `main`; no servidor só depois do «Lança» do Diogo):
+
+| Álbum da galeria | No site | Separador do site |
+|---|---|---|
+| `01-o-monte/` e `02-os-quartos/` | `site/fotos/exterior/`, `interior/`, `quartos/` (montadas com o site, a 7/11) | Monte e exterior · Sala, cozinha e biblioteca · Quartos e banho |
+| `03-a-quinta/` | `site/fotos/quinta/` (16 ficheiros; a 7.ª do álbum é `exterior/campo-verde.jpg`, que o site já tinha) | A quinta · 17 |
+| `04-antes-e-depois/` | `site/fotos/antes-depois/` (22) | Antes e depois · 22, os 11 pares lado a lado com a etiqueta «Antes» ou «Depois» |
+| `05-montemor-o-novo/` | `site/fotos/montemor/` (14) | Montemor-o-Novo · 14 |
+
+Que ficheiro da galeria é cada ficheiro do site está em `demo/ferramentas/fotos/site-albuns.tsv`; `python3 demo/ferramentas/fotos/para_o_site.py`
+copia-os tal e qual e cria ao lado a variante de telemóvel (`-m`, 1 000 px de largura). As legendas escrevem-se em `site/conteudo.php`.
