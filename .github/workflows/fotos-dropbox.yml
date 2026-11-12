@@ -1,0 +1,128 @@
+# Fotografias do Dropbox para o repositório (12/11/2026, pedido do Diogo: «trazer do Dropbox as fotos que faltam,
+# que o GPT ainda não trouxe, para o repositório GitHub na ordem que estava programada»).
+#
+# Porquê um workflow: a sessão do Claude não consegue descarregar do Dropbox (a rede dela não deixa); os computadores
+# do GitHub conseguem. O Claude pede ao conector do Dropbox uma ligação temporária por fotografia (uso único, 15 minutos)
+# e lança este workflow à mão com essas ligações. O workflow descarrega, reduz ao tamanho web, tira os metadados e grava
+# em design/fotos/galeria/<álbum>/, com os nomes e a ordem do lote demo/ferramentas/fotos/lotes/<álbum>.tsv.
+#
+# Não é um deploy: nada vai para o servidor. No Dropbox é só leitura. As ligações nunca são escritas no registo:
+# o passo de descarga lê-as do ficheiro do evento (não da expressão inputs) e nunca as imprime.
+name: Fotografias do Dropbox
+
+on:
+  workflow_dispatch:
+    inputs:
+      album:
+        description: "Pasta do álbum em design/fotos/galeria (ex.: 03-a-quinta); tem de ter lote em demo/ferramentas/fotos/lotes/"
+        required: true
+        type: string
+      posicoes:
+        description: "Linhas do lote a que as ligações correspondem, pela ordem das ligações (ex.: 1-17 ou 3,7,9)"
+        required: true
+        type: string
+      ligacoes:
+        description: "Ligações temporárias do Dropbox, separadas por espaços, pela ordem das posições"
+        required: true
+        type: string
+      rodape:
+        description: "Linhas a juntar ao fim da mensagem do commit (opcional)"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fotos-dropbox
+  cancel-in-progress: false
+
+jobs:
+  trazer:
+    name: Trazer ${{ inputs.album }} · posições ${{ inputs.posicoes }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      ALBUM: ${{ inputs.album }}
+      POSICOES: ${{ inputs.posicoes }}
+    steps:
+      # Primeiro passo de propósito: as ligações são de uso único e gastam-se aqui, segundos depois de o trabalho arrancar.
+      - name: Descarregar do Dropbox
+        run: |
+          python3 - <<'PY'
+          import json, os, sys, urllib.request, urllib.error
+          evento = json.load(open(os.environ['GITHUB_EVENT_PATH'], encoding='utf-8'))
+          ligacoes = (evento.get('inputs') or {}).get('ligacoes', '').split()
+          for u in ligacoes:
+              print(f'::add-mask::{u}')          # se alguma vez fosse impressa, o registo mostrava ***
+          if not ligacoes:
+              sys.exit('não chegou nenhuma ligação')
+          os.makedirs('/tmp/originais', exist_ok=True)
+          falhas = 0
+          for i, u in enumerate(ligacoes):
+              destino = f'/tmp/originais/{i:03d}.bin'
+              if not u.startswith('https://'):
+                  print(f'ligação {i + 1}: não é https, ignorada'); falhas += 1; continue
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'monte-casa-branca-fotos/1'}), timeout=180) as r, open(destino, 'wb') as f:
+                      total = 0
+                      while True:
+                          bloco = r.read(1 << 20)
+                          if not bloco:
+                              break
+                          f.write(bloco); total += len(bloco)
+                  print(f'ligação {i + 1}: {total} bytes')
+              except urllib.error.HTTPError as e:
+                  falhas += 1
+                  if os.path.exists(destino): os.remove(destino)
+                  print(f'ligação {i + 1}: FALHOU com HTTP {e.code}')
+              except Exception as e:
+                  falhas += 1
+                  if os.path.exists(destino): os.remove(destino)
+                  print(f'ligação {i + 1}: FALHOU ({type(e).__name__})')
+          print(f'{len(ligacoes) - falhas} de {len(ligacoes)} descarregadas')
+          PY
+
+      - name: Obter o código
+        uses: actions/checkout@v4
+
+      - name: Python com Pillow
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Reduzir, tirar metadados e gravar no álbum
+        id: tratar
+        run: |
+          pip install --quiet --disable-pip-version-check "pillow==12.3.0"
+          set +e
+          python3 demo/ferramentas/fotos/processar.py "$ALBUM" "$POSICOES" /tmp/originais --resultado /tmp/fotos_resultado.json
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Gravar no repositório
+        env:
+          RODAPE: ${{ inputs.rodape }}
+        run: |
+          set -euo pipefail
+          test -f /tmp/fotos_resultado.json || { echo "::error::o tratamento não chegou a correr; nada para gravar"; exit 1; }
+          TITULO=$(python3 -c "import json;print(json.load(open('/tmp/fotos_resultado.json'))['titulo'])")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ ! -d "design/fotos/galeria/$ALBUM" ]; then echo "nenhuma fotografia ficou gravada; nada para guardar"; exit 0; fi
+          git add "design/fotos/galeria/$ALBUM"
+          if git diff --cached --quiet; then echo "nada de novo para gravar"; exit 0; fi
+          N=$(git diff --cached --name-only | wc -l)
+          { echo "SITE · fotografias: álbum $TITULO ($N imagens, posições $POSICOES do lote)"; echo; echo "Trazidas do Dropbox pelo workflow «Fotografias do Dropbox»: 1 600 px no lado maior, sem metadados."; if [ -n "$RODAPE" ]; then echo; printf '%s\n' "$RODAPE"; fi; } > /tmp/mensagem.txt
+          git commit -q -F /tmp/mensagem.txt
+          for tentativa in 1 2 3; do
+            if git push -q origin HEAD:main; then echo "gravadas $N imagens em design/fotos/galeria/$ALBUM"; exit 0; fi
+            echo "push recusado (tentativa $tentativa); a trazer o que entrou entretanto"; git pull -q --rebase origin main || true; sleep 3
+          done
+          echo "::error::não foi possível gravar no repositório"; exit 1
+
+      - name: Dizer se alguma falhou
+        if: ${{ steps.tratar.outputs.codigo != '0' }}
+        run: |
+          echo "::error::houve fotografias que falharam; ver o resumo deste trabalho. As que correram bem ficaram gravadas."
+          exit 1
