@@ -113,7 +113,8 @@ jobs:
           git add "design/fotos/galeria/$ALBUM"
           if git diff --cached --quiet; then echo "nada de novo para gravar"; exit 0; fi
           N=$(git diff --cached --name-only | wc -l)
-          { echo "SITE · fotografias: álbum $TITULO ($N imagens, posições $POSICOES do lote)"; echo; echo "Trazidas do Dropbox pelo workflow «Fotografias do Dropbox»: 1 600 px no lado maior, sem metadados."; if [ -n "$RODAPE" ]; then echo; printf '%s\n' "$RODAPE"; fi; } > /tmp/mensagem.txt
+          if [ "$N" = "1" ]; then IMAGENS="1 imagem, posição"; else IMAGENS="$N imagens, posições"; fi
+          { echo "SITE · fotografias: álbum $TITULO ($IMAGENS $POSICOES do lote)"; echo; echo "Trazidas do Dropbox pelo workflow «Fotografias do Dropbox»: 1 600 px no lado maior, sem metadados."; if [ -n "$RODAPE" ]; then echo; printf '%s\n' "$RODAPE"; fi; } > /tmp/mensagem.txt
           git commit -q -F /tmp/mensagem.txt
           for tentativa in 1 2 3; do
             if git push -q origin HEAD:main; then echo "gravadas $N imagens em design/fotos/galeria/$ALBUM"; exit 0; fi

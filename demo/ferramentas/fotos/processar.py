@@ -11,6 +11,10 @@ Para cada fotografia: confere os bytes com o lote, aplica a orientação do EXIF
 (nunca aumenta), grava JPEG de qualidade 82, progressivo, sem metadados (fica só o perfil de cor), com o nome do lote.
 É a convenção das duas primeiras entregas (álbuns 01 e 02, GPT, 7/11/2026).
 
+Retoques de privacidade: a 6.ª coluna do lote, quando existe, leva «desfocar=x0,y0,x1,y1» (frações da largura e da
+altura da imagem já endireitada; várias zonas separadas por «|»). Essa zona fica em mosaico grosso na cópia web, de
+forma que não se recupera (matrículas, por exemplo). O original no Dropbox nunca é tocado.
+
 Sai com 1 se alguma falhar; as que correram bem ficam gravadas na pasta do álbum. Nunca escreve ligações nem caminhos
 fora do repositório. Só usa a biblioteca padrão e o Pillow.
 """
@@ -22,7 +26,7 @@ import os
 import re
 import sys
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageFilter, ImageOps
 
 LADO_MAIOR = 1600
 QUALIDADE = 82
@@ -51,10 +55,43 @@ def ler_lote(caminho: str) -> tuple[str, dict[int, dict]]:
                 raise SystemExit(f'nome final inválido no lote: {final!r}')
             if pos in linhas:
                 raise SystemExit(f'posição repetida no lote: {pos}')
-            linhas[pos] = {'posicao': pos, 'origem': origem, 'bytes': tamanho, 'final': final}
+            linhas[pos] = {'posicao': pos, 'origem': origem, 'bytes': tamanho, 'final': final,
+                           'zonas': ler_zonas(campos[5]) if len(campos) > 5 else []}
     if not linhas:
         raise SystemExit('lote vazio')
     return titulo, linhas
+
+
+def ler_zonas(texto: str) -> list[tuple[float, float, float, float]]:
+    """«desfocar=0.19,0.75,0.23,0.77|…» → lista de zonas em frações (x0, y0, x1, y1). Texto vazio → lista vazia."""
+    texto = texto.strip()
+    if not texto:
+        return []
+    if not texto.startswith('desfocar='):
+        raise SystemExit(f'retoque desconhecido no lote: {texto!r}')
+    zonas = []
+    for parte in texto[len('desfocar='):].split('|'):
+        try:
+            x0, y0, x1, y1 = (float(v) for v in parte.split(','))
+        except ValueError:
+            raise SystemExit(f'zona a desfocar mal escrita no lote: {parte!r}')
+        if not (0 <= x0 < x1 <= 1 and 0 <= y0 < y1 <= 1):
+            raise SystemExit(f'zona a desfocar fora da imagem: {parte!r}')
+        zonas.append((x0, y0, x1, y1))
+    return zonas
+
+
+def desfocar(im: Image.Image, zonas: list[tuple[float, float, float, float]]) -> Image.Image:
+    """Mosaico grosso e alisado em cada zona: não fica nada que se leia nem que se recupere."""
+    for x0, y0, x1, y1 in zonas:
+        caixa = (int(x0 * im.size[0]), int(y0 * im.size[1]), max(int(x1 * im.size[0]), int(x0 * im.size[0]) + 2),
+                 max(int(y1 * im.size[1]), int(y0 * im.size[1]) + 2))
+        zona = im.crop(caixa)
+        l, a = zona.size
+        blocos = (max(2, l // max(8, a // 2)), 2)          # dois blocos de altura: nenhuma letra sobrevive
+        zona = zona.resize(blocos, Image.BOX).resize((l, a), Image.BILINEAR).filter(ImageFilter.GaussianBlur(max(1.0, a / 8)))
+        im.paste(zona, caixa[:2])
+    return im
 
 
 def expandir_posicoes(texto: str) -> list[int]:
@@ -78,8 +115,8 @@ def expandir_posicoes(texto: str) -> list[int]:
     return saida
 
 
-def tratar(origem: str, destino: str) -> tuple[tuple[int, int], tuple[int, int]]:
-    """Abre o original, endireita, reduz e grava. Devolve (dimensões de origem, dimensões finais)."""
+def tratar(origem: str, destino: str, zonas: list | None = None) -> tuple[tuple[int, int], tuple[int, int]]:
+    """Abre o original, endireita, aplica os retoques de privacidade, reduz e grava. Devolve (dimensões de origem, finais)."""
     with Image.open(origem) as im:
         im.load()
         icc = im.info.get('icc_profile')
@@ -87,6 +124,8 @@ def tratar(origem: str, destino: str) -> tuple[tuple[int, int], tuple[int, int]]
         antes = im.size
         if im.mode not in ('RGB', 'L'):
             im = im.convert('RGB')
+        if zonas:
+            im = desfocar(im, zonas)
         if max(im.size) > LADO_MAIOR:
             im.thumbnail((LADO_MAIOR, LADO_MAIOR), Image.LANCZOS)
         opcoes = {'quality': QUALIDADE, 'optimize': True, 'progressive': True}
@@ -134,7 +173,7 @@ def main() -> int:
             continue
         destino = os.path.join(pasta, item['final'])
         try:
-            antes, depois = tratar(origem, destino)
+            antes, depois = tratar(origem, destino, item['zonas'])
         except Exception as e:  # ficheiro que não é imagem, truncado, etc.
             if os.path.exists(destino):
                 os.remove(destino)
@@ -143,7 +182,8 @@ def main() -> int:
             continue
         final_bytes = os.path.getsize(destino)
         gravadas.append({**item, 'px_origem': list(antes), 'px_final': list(depois), 'bytes_final': final_bytes})
-        print(f'OK     {rotulo}: {antes[0]}×{antes[1]} ({recebidos // 1024} kB) → {depois[0]}×{depois[1]} ({final_bytes // 1024} kB)')
+        retoque = f' · {len(item["zonas"])} zona(s) desfocada(s)' if item['zonas'] else ''
+        print(f'OK     {rotulo}: {antes[0]}×{antes[1]} ({recebidos // 1024} kB) → {depois[0]}×{depois[1]} ({final_bytes // 1024} kB){retoque}')
 
     resumo = {'album': a.album, 'titulo': titulo or a.album, 'posicoes': a.posicoes, 'gravadas': gravadas, 'falhas': falhas}
     if a.resultado:
@@ -158,7 +198,8 @@ def main() -> int:
                 f.write('| Posição | Ficheiro | Origem | Final |\n|---:|---|---|---|\n')
                 for g in gravadas:
                     f.write(f'| {g["posicao"]} | `{g["final"]}` | {g["px_origem"][0]}×{g["px_origem"][1]} · {g["bytes"] // 1024} kB | '
-                            f'{g["px_final"][0]}×{g["px_final"][1]} · {g["bytes_final"] // 1024} kB |\n')
+                            f'{g["px_final"][0]}×{g["px_final"][1]} · {g["bytes_final"] // 1024} kB'
+                            f'{" · zona desfocada" if g["zonas"] else ""} |\n')
             for x in falhas:
                 f.write(f'\n- **Falhou** a posição {x["posicao"]} (`{x["final"]}`): {x["motivo"]}\n')
     print(f'\n{len(gravadas)} gravadas em design/fotos/galeria/{a.album}/ · {len(falhas)} falhadas')
