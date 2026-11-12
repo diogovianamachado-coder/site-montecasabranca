@@ -631,3 +631,14 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   põe-se a lista uma vez por álbum (uma linha no `site.js`). **Por decidir pelo Diogo, por olho:** as etiquetas «Antes/Depois»; as três
   fotografias com pessoas de costas (`nora-antes`, `banco-vermelho`, `castelo-baloico`); a autoria das de Montemor antes do domínio
   público. **Não feito:** as cerca de 20 do Zenfolio sem original; `creditos.md` (do GPT e do Diogo); EN.
+  **12/11 (23h35–23h40 UTC) · «Capturas» n.º 31 VERDE para `095dc96` (os dois trabalhos) e ensaio do deploy-site n.º 8 (dry_run,
+  destino novo, run 43330276533) LIDO: nada foi enviado.** Lista do rsync, já com `--checksum`: mudam de conteúdo (`<fcst`) só
+  `conteudo.php`, `index.php`, `assets/css/site.css` e `partes/fotografias.php`; **104 ficheiros novos** (`fotos/quinta/` 32, pasta nova ·
+  `fotos/antes-depois/` 44 · `fotos/montemor/` 28); **12 apagados** (as quatro miniaturas antigas do antes/depois, `montemor-rua`, as
+  repetidas `piscina-casa-frente`, `cadeiras-vinho`, `sala-portas-abertas` com as variantes `-m`, e `lareira.jpg`); tudo o resto `.f..t`
+  (só a data, sem envio); `config.php` e `cache/` de fora; 52,3 MB no total. **O deploy real espera o «Lança» do Diogo** (será o n.º 9;
+  precisa do «Capturas» verde do commit que estiver em `main` nesse momento). Capturas dos álbuns enviadas ao Diogo na conversa
+  (computador e telemóvel); recado ao GPT de 12/11 em `RECADOS_PARA_O_CHATGPT.md`. **Deploys do site:** 1–3 travões · 4 ensaio · 5 real ·
+  6 ensaio · 7 real · 8 ensaio. **Em aberto:** «Lança» · olho do Diogo aos três álbuns, às etiquetas e às fotografias com pessoas ·
+  autor das de Montemor e `creditos.md` · as cerca de 20 sem original · repositório público (KPI, fotografias, a matrícula no histórico) ·
+  o resto como antes (portas #189–#192 e `SITE_CHAVE`, K, mensagem, EN, v1.3, S31–S33). **Próxima sugestão: S37.**

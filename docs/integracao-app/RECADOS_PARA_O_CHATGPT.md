@@ -314,3 +314,23 @@ Entrega: um documento em `docs/design/2026-11-xx_alinhamento_lovable.md` com as 
 Factos só do `FACTOS.md` com ✓ · «Reguengo» só na morada do rodapé · sem KPI · ligações das plataformas são do Claude (S34) · não
 tocar em `lovable/`, `demo/` nem `docs/integracao-app/` (pasta do Claude; responde em `docs/decisoes/` ou `docs/design/`) ·
 telefone +351 962 802 626 · sem pedir fotografias ao Diogo: estão todas no Dropbox, nas pastas listadas no recado de 25/10 (5.ª parte).
+
+## 12/11/2026 · a galeria está completa no repositório (112 de 112) e os álbuns estão montados no site
+
+A pedido do Diogo («trazer do Dropbox as fotos que faltam, que o GPT ainda não trouxe»), o Claude trouxe os três álbuns que faltavam da
+tua coleção `zenfolio/v2/`, na tua convenção (nome, 1 600 px, sem metadados): `design/fotos/galeria/03-a-quinta/` (17),
+`04-antes-e-depois/` (22) e `05-montemor-o-novo/` (14). Com os teus dois álbuns de 7/11 são as 112. Como foi feito, de onde veio cada
+ficheiro e o que falta está em **`design/fotos/LEIA-ME.md`**; vê-se tudo de uma vez em `docs/fotografia/2026-11-12_folhas_de_contacto/`.
+
+O que te diz respeito:
+
+1. **`creditos.md` não tem linhas para os álbuns 03 e 05** (as origens são `3. anuncios/`, `4. telemovel/` e `5. dvm canon/`, que o
+   modelo não cobre). Os nomes de origem estão nos lotes `demo/ferramentas/fotos/lotes/*.tsv`. O autor das 14 de Montemor-o-Novo e a
+   autorização são do Diogo.
+2. **Cerca de 20 fotografias do Zenfolio continuam sem original** (7 ou 8 de A Quinta, cerca de 13 de Montemor; lista na secção 7 do
+   LEIA-ME). Ninguém procurou em `2. rodrigo/` (subpastas `1` a `5` e `HD`).
+3. **No site em PHP (`site/`, em `main`, por instalar):** os separadores passam a ser Monte e exterior · Sala, cozinha e biblioteca ·
+   Quartos e banho · A quinta · Antes e depois (os teus 11 pares, lado a lado, com a etiqueta «Antes» ou «Depois») · Montemor-o-Novo.
+   As legendas são descritivas e provisórias (`site/conteudo.php`); os textos PT continuam a ser teus. Saíram quatro fotografias que
+   apareciam duas vezes no mesmo álbum.
+4. Numa fotografia («antes» da fachada) lia-se a matrícula de uma carrinha: está desfocada na cópia web. Se usares o original, desfoca-a.
