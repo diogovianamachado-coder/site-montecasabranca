@@ -744,3 +744,62 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   ensaio em segundo plano morrem ao fim do tempo limite (voltar a lançar com `run_in_background` e limite maior); `cd` numa chamada muda
   a pasta das seguintes (usar sempre caminhos absolutos).
 
+- **15/11/2026 (noite, 20h20–21h15 UTC) · RESPOSTAS DO DIOGO À REVISÃO · REGISTO DE VERSÕES DO ENSAIO · tudo em `main`, nada no servidor.**
+  O Diogo respondeu às perguntas e pediu uma coisa nova: «preciso que se registe as versões que vão para o "novo" para sabermos onde
+  fomos melhores. Eu quero poder dizer que quero manter X parte da versão anterior. Conseguimos fazer tracking disto?» **Sim; está feito.**
+  **(1) Registo de versões (`docs/versoes/`), a regra daqui em diante: cada publicação em `novo.` é uma versão com número e ficha.**
+  **V1** = a que está no ar desde 8/11 (commit `17198b1`, deploys n.º 5 e 7); **V2** = o rascunho de 15/11. `REGISTO.md`: como se usa
+  (em linguagem simples, para o Diogo), **os nomes das doze partes da página** (capa · a casa · os espaços · fecho e régua · Montemor, N2 e
+  onde estamos · a galeria · antes de chegar · quem já ficou · contactos e rodapé · menu completo · painel das datas · barra de baixo) e
+  onde está cada uma no código, e a ficha de cada versão com o que mudou em cada parte e a coluna «O que o Diogo achou» (por dizer).
+  `v1/` e `v2/`: cada versão fotografada parte a parte, a 1280 e a 390, **como está no ensaio** (sem as portas da app, calendário de
+  exemplo, conta pelo site; tempo de ensaio). `versoes.json`: data, estado e **o identificador completo do commit publicado** de cada
+  versão. **No site:** `site/versao.json` (número e data) e, no fundo da página, só no ensaio (Host `novo.`, `127.0.0.1` ou `localhost`),
+  «Ensaio · versão 2 · 15/11/2026». **Ferramentas** em `demo/ferramentas/site/versao/`: `fotografar.sh <N> [ref]` (monta a versão numa
+  pasta temporária a partir do commit ou da pasta `site/`, servidor em 8795, e chama `fotografar.cjs`), `comparar.py <A> <B> [pasta]
+  [--pdf ficheiro]` (duas versões lado a lado, uma folha por parte e por aparelho) e `miniatura.py`. As folhas lado a lado **não se
+  guardam no repositório** (fazem-se quando é preciso); o PDF «V1 ao lado da V2» (23 páginas) foi enviado ao Diogo na conversa.
+  **Deploy (`deploy-site.yml`):** pré-voo novo que pára se `site/versao.json` não tiver número, se faltar a ficha `### V<N> · ` no
+  REGISTO, ou se a versão N já tiver sido publicada com outro conteúdo (sabe-o pela etiqueta ou pelo commit de `versoes.json`:
+  `commit` para o ensaio, `commit_raiz` para o site a sério); no fim de um envio a sério cria a etiqueta `novo-v<N>` (precisa de
+  `contents: write`); a verificação final confirma «Ensaio · versão N» na página. **Depois de cada envio a sério, à mão:** escrever
+  na ficha a data, o n.º do deploy e o commit, e em `versoes.json` o commit completo e o estado. **Repor uma parte de uma versão
+  anterior** = ir buscar essa parte ao commit da ficha (`git show 17198b1:site/partes/…`), montá-la na versão atual sem desfazer o
+  resto, fechar como versão nova e mostrar as duas lado a lado antes do «Lança» (receita no REGISTO). **Etiquetas, o limite:** a sessão
+  não envia etiquetas (HTTP 403; só commits em `main`) e o GitHub só deixa um workflow etiquetar um commit cujos ficheiros de
+  `.github/workflows` sejam iguais aos de `main` nesse momento; por isso **a V1 não tem etiqueta** (corrida n.º 1 do workflow manual
+  «Etiqueta de versão do site», `versao-etiqueta.yml`, recusada) e a referência dela é o commit. Nas versões futuras a etiqueta nasce
+  no deploy; se falhar, o envio fica feito e vale o commit do registo.
+  **(2) Respostas (numeração dele):** 1 as três capas vêem-se no `novo.` com `?capa=1|2|3` depois do «Lança» · 2 pediu a recomendação
+  do Claude sobre o menu: confirmado que foi sendo atualizado (notas 3, 4, 5, 10, 16); recomendado não mexer mais até ver a V2 ao vivo
+  e, nessa altura, ver se «Passear pelo Monte» sobe para logo a seguir à casa · 3 **saída tardia: 18h** (`inc/factos.php` →
+  `saida_tardia`; perguntas, painel e `llms.txt`) · 4 «tarifas de 2028» era engano, queria dizer 2027: nada a mudar · 5 **marca de
+  água: não se põe** (não é prática corrente; a ferramenta e as amostras ficam sem uso) · 6 **infografia das três notas** em «Quem já
+  ficou»: três anéis finos, **Booking 10** (11 comentários) · **Airbnb 4,95** (21 avaliações) · **Google 5,0** (21 críticas), cada um
+  a abrir o anúncio ou a ficha; `inc/factos.php` → `notas` (com a data «novembro de 2026»), `partes/avaliacoes.php`, bloco «notas» do
+  `site.css`; fora dos dados estruturados (sem `aggregateRating`); **a nota do Airbnb é a média das 21 avaliações que ele enviou
+  (20 de cinco e uma de quatro) e está POR CONFIRMAR por ele no anúncio** (não fui buscá-la ao anúncio: o endereço leva o nome do
+  projeto) · 7 fotografias 34, 51 e 52: «antes mostra» → trazidas pela via do GitHub (corrida n.º 10 do `fotos-dropbox.yml`) para
+  `design/fotos/galeria/06-verao-por-decidir/` com a `40.0` e a `4`; a 51 e a 52 são as duas fachadas que faltavam ao «O Monte» do
+  Zenfolio (confirmado na captura 07), a 34 é a casa ao longe vista do campo, a 40.0 e a 4 são gémeas de `01-o-monte/40_img_0255` e
+  `01_img_0264`; folhas em `docs/fotografia/2026-11-15_pasta_do_verao/`, enviadas na conversa; **não entraram no site: esperam a
+  palavra dele** · 8 **casas de banho só na galeria**: saiu a fotografia da régua (19); continuam na resposta dos quartos de «Antes de
+  chegar» · 9 **a galeria chama-se «Passear pelo Monte»** (menu de cima, menu completo, título da secção, ligação da régua); a ligação
+  de Montemor passou a «Visitar Montemor-o-Novo» para não haver dois «Passear…» parecidos (escolha do Claude, dita ao Diogo).
+  **(3) Testes e ferramenta:** `testar-site.sh` com as verificações da versão e das três notas, `semear-tempo.php` (o tempo de ensaio
+  num ficheiro só) e os servidores de ensaio lançados com `php -S … -t pasta` (com subshell ficavam a correr depois do teste);
+  bateria local verde; treze larguras sem rolagem horizontal; o menu de cima cabe numa linha a partir de 900 px. **No GitHub:** commits
+  `32d2314` e `46a33c8`; «Capturas» n.º 40 e 41 verdes; **ensaio a seco do deploy n.º 10** (run 43762098026, `46a33c8`): versão 2
+  reconhecida como nova, nada enviado; face ao servidor (V1) mudam 15 ficheiros, entram 65 (32 da Quinta, 28 de Montemor, quatro
+  partes da página e o `versao.json`) e saem 18; 41 MB. **O envio a sério (será o n.º 11) espera o «Lança»**; a seguir: escrever o
+  commit, a data e o deploy na ficha da V2 e em `versoes.json`.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8 ensaio · 9 ensaio · 10 ensaio.
+  **Lições de ferramenta:** um heredoc dentro de outro heredoc com o mesmo marcador corta o comando (a verificação de segurança
+  travou-o): editar ficheiros com as ferramentas de edição, não com heredocs encaixados; com `set -o pipefail`, `curl … | grep -q`
+  falha quando o grep fecha o cano cedo (guardar a página numa variável); `(cd pasta && php -S …) &` deixa o php a correr depois do
+  `kill` do subshell; as capturas feitas com a app de ensaio mostram avaliações inventadas, por isso as das versões fazem-se sem app.
+  **Por confirmar pelo Diogo:** a capa (1, 2 ou 3) · a nota do Airbnb (4,95?) · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a
+  4) · a ligação de «Partilhar» da ficha do Google Maps · as ligações da ecopista e da N2 por olho · os originais das quatro frases
+  traduzidas pelo Airbnb · os textos novos · o que achou de cada parte da V2 (coluna do REGISTO). **Em aberto, de antes:** «Lança» ·
+  cópia do FACTOS para a app (secção 11) · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo ·
+  versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**
