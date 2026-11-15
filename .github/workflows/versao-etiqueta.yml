@@ -3,10 +3,14 @@ name: Etiqueta de versão do site
 # ---------------------------------------------------------------------------
 # Põe a etiqueta de uma versão (novo-v<N> ou raiz-v<N>) num commit, para o registo de versões (docs/versoes/REGISTO.md).
 #
-# Normalmente não é preciso: o «Deploy do site (Amen)» cria a etiqueta sozinho no fim de cada envio a sério. Serve para dois casos:
-#   1. a V1, publicada a 8/11/2026, antes de este registo existir;
-#   2. um envio que correu bem mas em que a etiqueta não ficou criada (o deploy avisa).
+# Normalmente não é preciso: o «Deploy do site (Amen)» cria a etiqueta sozinho no fim de cada envio a sério. Serve para o caso de um
+# envio ter corrido bem mas a etiqueta não ter ficado criada (o deploy avisa).
 # É um workflow porque a sessão do Claude não pode enviar etiquetas para o GitHub (só commits em main); os computadores do GitHub podem.
+#
+# LIMITE (visto a 15/11/2026, corrida n.º 1): o GitHub só deixa um workflow etiquetar um commit cujos ficheiros de .github/workflows
+# sejam iguais aos de main nesse momento. Num commit antigo, anterior a uma mudança nos workflows, a etiqueta é recusada («refusing to
+# allow a GitHub App to create or update workflow … without workflows permission»). Foi o que aconteceu com a V1 (commit 17198b1, de
+# 8/11): por isso a V1 não tem etiqueta e a sua referência é o commit, escrito em docs/versoes/versoes.json e no REGISTO.
 #
 # Não toca no servidor nem nos ficheiros: só cria a etiqueta. Uma etiqueta de versão nunca se muda nem se apaga: se já existir, pára.
 # ---------------------------------------------------------------------------

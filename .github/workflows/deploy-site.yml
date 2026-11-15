@@ -24,7 +24,9 @@ name: Deploy do site (Amen)
 # Versões (15/11/2026, pedido do Diogo: «preciso que se registe as versões que vão para o novo»): cada publicação é uma versão.
 #   O número está em site/versao.json e a ficha em docs/versoes/REGISTO.md («### V<N> · …»). O pré-voo pára se faltar a ficha, ou se
 #   esse número já tiver sido publicado neste destino com OUTRO conteúdo (é preciso subir o número). No fim de um envio a sério, o
-#   workflow põe no commit enviado a etiqueta novo-v<N> (ou raiz-v<N>): é por ela que se vai buscar uma parte de uma versão anterior.
+#   workflow põe no commit enviado a etiqueta novo-v<N> (ou raiz-v<N>); o commit fica também escrito em docs/versoes/versoes.json.
+#   É por um deles que se vai buscar uma parte de uma versão anterior. (O GitHub só deixa o workflow etiquetar o commit que está
+#   em main nesse momento: se a etiqueta falhar, o envio fica feito na mesma e vale o commit escrito no registo.)
 # ---------------------------------------------------------------------------
 
 on:
@@ -104,16 +106,23 @@ jobs:
           if ! grep -q "^### V$N · " docs/versoes/REGISTO.md; then echo "::error::falta a ficha «### V$N · …» em docs/versoes/REGISTO.md: cada versão publicada tem de ficar registada"; exit 1; fi
           ETIQUETA="$DESTINO-v$N"
           echo "VERSAO=$N" >> "$GITHUB_ENV"; echo "ETIQUETA=$ETIQUETA" >> "$GITHUB_ENV"
+          # Esta versão já foi publicada neste destino? Sabe-se pela etiqueta (posta pelo deploy) ou, se não houver, pelo commit
+          # escrito em docs/versoes/versoes.json («commit» para o ensaio, «commit_raiz» para o site a sério), que é o identificador completo.
+          JA=""
           if git ls-remote --exit-code --tags origin "refs/tags/$ETIQUETA" > /dev/null 2>&1; then
-            git fetch -q --depth=1 origin "refs/tags/$ETIQUETA:refs/tags/$ETIQUETA"
-            if git diff --quiet "$ETIQUETA" HEAD -- site/; then
-              echo "a versão $N já está publicada em «$DESTINO» com este mesmo conteúdo (etiqueta $ETIQUETA): este envio não muda o site"
-            else
-              echo "::error::a versão $N já foi publicada em «$DESTINO» com outro conteúdo (etiqueta $ETIQUETA). Cada publicação é uma versão nova: sobe o número em site/versao.json e escreve a ficha em docs/versoes/REGISTO.md"
-              exit 1
-            fi
+            git fetch -q --depth=1 origin "refs/tags/$ETIQUETA:refs/tags/$ETIQUETA" && JA="$ETIQUETA"
           else
+            CAMPO=$([ "$DESTINO" = "raiz" ] && echo commit_raiz || echo commit)
+            C=$(jq -r --arg n "$N" --arg c "$CAMPO" '.[$n][$c] // empty' docs/versoes/versoes.json 2>/dev/null || true)
+            if [[ "$C" =~ ^[0-9a-f]{40}$ ]] && git fetch -q --depth=1 origin "$C"; then JA="$C"; fi
+          fi
+          if [ -z "$JA" ]; then
             echo "versão $N: nova em «$DESTINO» (a etiqueta $ETIQUETA nasce no fim de um envio a sério)"
+          elif git diff --quiet "$JA" HEAD -- site/; then
+            echo "a versão $N já está publicada em «$DESTINO» com este mesmo conteúdo (${JA:0:12}): este envio não muda o site"
+          else
+            echo "::error::a versão $N já foi publicada em «$DESTINO» com outro conteúdo (${JA:0:12}). Cada publicação é uma versão nova: sobe o número em site/versao.json e escreve a ficha em docs/versoes/REGISTO.md"
+            exit 1
           fi
 
       - name: Confirmar o teste de fumo «Capturas» deste commit (#176)
@@ -239,7 +248,7 @@ jobs:
           if git push -q origin "refs/tags/$ETIQUETA"; then
             echo "etiqueta $ETIQUETA criada em ${GITHUB_SHA:0:7} (versão $VERSAO, deploy n.º $GITHUB_RUN_NUMBER)"
           else
-            echo "::warning::o envio correu bem mas a etiqueta $ETIQUETA não ficou criada; cria-se à mão: git tag $ETIQUETA ${GITHUB_SHA:0:7} && git push origin $ETIQUETA"
+            echo "::warning::o envio correu bem mas a etiqueta $ETIQUETA não ficou criada; escreve o commit $GITHUB_SHA em docs/versoes/versoes.json (ou tenta o workflow «Etiqueta de versão do site»)"
           fi
 
       - name: Apagar a chave

@@ -43,7 +43,8 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ### V2 · revisão do Diogo de 15/11/2026 · rascunho, por publicar
 
-- **Estado:** em `main`, à espera do «Lança». Quando for publicada: data, n.º do deploy e etiqueta `novo-v2` ficam escritos aqui.
+- **Estado:** em `main`, à espera do «Lança». Quando for publicada: a data, o n.º do deploy, o commit e a etiqueta `novo-v2` ficam
+  escritos aqui.
 - **Capturas:** `docs/versoes/v2/` · **De onde vem:** as 17 notas do Diogo de 15/11 e as respostas da mesma noite
   (`docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`).
 - **Ordem da página:** capa → a casa → por fora → sem pressa → por dentro → fecho e régua → Montemor, N2 e onde estamos → Passear pelo
@@ -68,7 +69,8 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V1 · 8/11/2026 · a primeira versão em `novo.`
 
 - **Publicada:** 8/11/2026, deploys do site n.º 5 (20h12 UTC, commit `3c73fd9`) e n.º 7 (20h30 UTC, commit `17198b1`: o mesmo site com o
-  nosso ícone e fora dos motores de busca). **Etiqueta:** `novo-v1` (em `17198b1`). Esteve no ar de 8/11 até à publicação da V2.
+  nosso ícone e fora dos motores de busca). **Referência:** o commit `17198b1` (sem etiqueta: é anterior a este registo e o GitHub não
+  deixa etiquetar commits antigos). Esteve no ar de 8/11 até à publicação da V2.
 - **Capturas:** `docs/versoes/v1/` · **De onde vem:** o site em PHP feito a partir do desenho do Lovable (7/11), verificado e corrigido.
 - **Ordem da página:** capa → «O dia é vosso / A casa também» → descobrir a casa (lá fora, alpendre, sala e cozinha, quartos e banho) →
   «A casa, num relance» → quem cá esteve → perguntas frequentes → fotografias → onde estamos (Montemor e N2) → contactos.
@@ -93,7 +95,8 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 **Regra:** cada publicação em `novo.` é uma versão; nenhuma vai para o servidor sem número e sem ficha aqui.
 
 **Fechar uma versão (antes do «Lança»):**
-1. Subir o número e a data em `site/versao.json` e juntar a versão a `docs/versoes/versoes.json` (data e estado, para as legendas).
+1. Subir o número e a data em `site/versao.json` e juntar a versão a `docs/versoes/versoes.json` (data e estado, para as legendas;
+   o `commit` fica vazio até ser publicada).
 2. Escrever a ficha `### V<N> · …` neste ficheiro, por cima das outras: o que mudou em cada parte face à anterior.
 3. Fotografar: `bash demo/ferramentas/site/versao/fotografar.sh <N>` (grava `docs/versoes/v<N>/`, computador e telemóvel).
 4. Lado a lado com a anterior, para mostrar ao Diogo: `python3 demo/ferramentas/site/versao/comparar.py <N-1> <N> <pasta>`.
@@ -101,17 +104,22 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 **O que o deploy faz sozinho** (`.github/workflows/deploy-site.yml`): pára se `site/versao.json` não tiver número, se faltar a ficha
 `### V<N> · ` aqui, ou se a versão N já tiver sido publicada com outro conteúdo (é preciso subir o número); no fim de um envio a sério
-cria a etiqueta `novo-v<N>` no commit enviado (`raiz-v<N>` quando for para `montecasabranca.pt`). Depois do envio: escrever aqui a data,
-o n.º do deploy e a etiqueta, e mudar o estado em `versoes.json`.
+cria a etiqueta `novo-v<N>` no commit enviado (`raiz-v<N>` quando for para `montecasabranca.pt`).
 
-**As etiquetas nascem no GitHub, não na sessão:** a sessão do Claude não consegue enviar etiquetas (o GitHub responde 403; só aceita
-commits em `main`). Por isso é o deploy que as cria; para a V1, anterior a este registo, e para o caso de um envio em que a etiqueta
-falhe, há o workflow manual «Etiqueta de versão do site» (`.github/workflows/versao-etiqueta.yml`: nome da etiqueta, commit e texto).
-Para as usar na sessão: `git fetch origin 'refs/tags/novo-v*:refs/tags/novo-v*'`. Uma etiqueta de versão nunca se muda nem se apaga.
+**Depois de um envio a sério (à mão, logo a seguir):** escrever na ficha a data, o n.º do deploy e o commit; em `versoes.json`, o
+identificador **completo** do commit em `commit` (`commit_raiz` quando for o site a sério), a etiqueta e o estado. É por esse commit
+(ou pela etiqueta) que o deploy sabe que a versão já foi publicada e que se vai buscar uma parte mais tarde.
+
+**Etiquetas: o que se pode e o que não se pode.** A sessão do Claude não consegue enviar etiquetas para o GitHub (403; só commits em
+`main`), por isso é o deploy que as cria. O GitHub só deixa um workflow etiquetar um commit cujos ficheiros de `.github/workflows` sejam
+iguais aos de `main` nesse momento: funciona no envio normal (envia-se o commit que está em `main`) e falha para commits antigos. Por isso
+**a V1 não tem etiqueta** (tentado a 15/11, recusado) e a referência dela é o commit `17198b1`. Se a etiqueta de um envio falhar, o envio
+fica feito na mesma: vale o commit escrito aqui, e pode tentar-se o workflow manual «Etiqueta de versão do site». Para usar as etiquetas
+na sessão: `git fetch origin 'refs/tags/novo-v*:refs/tags/novo-v*'`. Uma etiqueta de versão nunca se muda nem se apaga.
 
 **Repor uma parte de uma versão anterior:**
-1. Ver como era: as capturas de `docs/versoes/v<N>/` e o código, `git show novo-v<N>:site/partes/<ficheiro>` e
-   `git diff novo-v<N> HEAD -- site/partes/<ficheiro> site/conteudo.php site/assets/css/site.css`.
+1. Ver como era: as capturas de `docs/versoes/v<N>/` e o código dessa versão, pelo commit da ficha (ou pela etiqueta, se houver):
+   `git show 17198b1:site/partes/<ficheiro>` e `git diff 17198b1 HEAD -- site/partes/<ficheiro> site/conteudo.php site/assets/css/site.css`.
 2. Trazer para a versão atual só essa parte: o ficheiro de `partes/`, as chaves de `conteudo.php` e o bloco do `site.css` que lhe
    pertencem (tabela «As partes da página»), acertando os nomes que mudaram entretanto (ex.: `#casa` → `#a-casa`). Nunca repor a pasta
    `site/` inteira nem desfazer o resto.
