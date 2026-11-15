@@ -670,3 +670,64 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `V3_inverno` 40–62; `4. telemovel` ou `1. todas`). **Regras do Diogo nesta parte:** «não faças nada» enquanto ele envia material; ele
   escolhe as fotografias e onde aparecem, depois de estarem todas disponíveis. **Em aberto:** «sim» à passagem · procurar as 23 (espera
   ordem) · onde está a alta resolução do Rodrigo · «Lança» dos álbuns novos · o resto como antes. **Próxima sugestão: S37.**
+- **15/11/2026 · REVISÃO DO SITE PELO DIOGO NO PC: 17 NOTAS · A PÁGINA REFEITA EM `main` (rascunho; nada no servidor).** O Diogo abriu
+  `novo.montecasabranca.pt` no PC e deixou as notas 1 a 17 com capturas («não faças nada sem que eu diga que está revisto»); no fim: «Já
+  terminei. Podes agora tu fazer o trabalho e perguntar coisas para avançarmos.» **Regra de escrita (dele, 15/11, vale daqui em diante):**
+  «escrevo o texto mas preciso que refaças a mensagem de acordo com o tom que estamos a adotar; é muito importante não ser literal nem
+  escrever um testamento; se não consegues preciso saber, para dar ao GPT». As referências que mostrou são de um estudo do ChatGPT
+  posterior a 24/10 que nunca chegou ao repositório (lidas nas capturas). **Registo completo, nota a nota, com os textos lado a lado e o que
+  está por confirmar: `docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`.** O essencial:
+  **(1) Nota 1, o salto para `#casa`:** os menus eram âncoras normais e deixavam `#casa` no endereço; o browser guardava-o e saltava ao
+  abrir. Agora as ligações internas rolam sem mexer no endereço (`site.js`, primeiro bloco), um `#…` de chegada é limpo depois do salto e
+  a secção passou a `#a-casa` (o endereço antigo abre na capa). **(2) Capa (notas 2 e 7):** título em cascata «Uma casa inteira» / «O
+  Alentejo à vossa porta»; a fotografia deixou de ser ampliada 8 %; **estudo com três opções** em `conteudo.php` → `inicio.capas`, que
+  só se vêem no ensaio com `?capa=1|2|3` (botões 1 · 2 · 3 no cimo): 1 = fotografia 1, título no céu, quase sem máscara (por omissão; a
+  leitura do Claude) · 2 = fotografia 1, título em baixo, máscara leve · 3 = fotografia 2 (espreguiçadeiras e chapéu), máscara média.
+  **(3) Menus (notas 3, 4, 5, 16):** de cima «Montemor-o-Novo · N2 · Galeria · Antes de chegar · Avaliações» (`menu_topo`); completo «A casa»
+  (com a linha «Por fora · Sem pressa · Por dentro», cada palavra para o seu momento) · Montemor-o-Novo · Nacional 2 · Galeria · Antes de
+  chegar · Quem já ficou · Contactos; «Entrar pela casa» só na capa. **A ordem da página é a do menu de cima.** **(4) A casa (notas 8 e
+  6b):** secção `#a-casa` com a mensagem «Por fora / Sem pressa / Por dentro» («a melhor mensagem que a casa tem») e três momentos
+  (`#por-fora`, `#sem-pressa`, `#por-dentro`) com os títulos e textos da referência; em cada um, fotografia principal e três ou quatro
+  atrás **a rolar devagar em círculo** (componente «rolo»: `rolo()` em `inc/util.php`, estilos «Rolos» em `site.css`, bloco «Rolos» em
+  `site.js`; o dedo ou o rato aceleram ou param; sem setas nem contagens; parado com «reduzir movimento»); depois «Há dias em que não é
+  preciso mais nada» e a régua «Há mais casa para descobrir» (20 fotografias pequenas, ordem ao acaso em cada visita). **O «antes e
+  depois» saiu do site** (decisão dele; as 22 continuam em `design/fotos/galeria/04-antes-e-depois/`). **(5) Galeria (nota 9):** os
+  álbuns do Zenfolio pela mesma ordem: O Monte 47 · Os Quartos 12 · A Quinta 17 · Montemor-o-Novo 14; os dados de cada conjunto vão uma
+  vez em `data-galeria` (o HTML desceu de 502 kB para 115 kB). **Marca de água:** possível; `demo/ferramentas/fotos/marca_de_agua.py`
+  (canto · centro · repetida) e amostras em `docs/fotografia/2026-11-15_marca_de_agua/`; **não aplicada, espera a escolha**.
+  **(6) «Antes de chegar» (nota 10):** «Para se sentirem em casa», sete perguntas (saíram limpeza, pagamento e plataformas); factos novos
+  dele: **mais um WC social** e **um dos twin pode passar a casal** (3 de casal + 1 twin). **(7) Montemor, N2 e localização (notas 11 e
+  12):** «Montemor-o-Novo também é a estadia» com dez fotografias a rolar na própria secção; ligações a `visitmontemornovo.com`, à
+  Ecopista do Montado («passa pela nossa casa»; página das Infraestruturas de Portugal, `…/pt-pt/node/66`, achada por pesquisa) e a
+  `rotan2.pt/entity/219` (dada por ele: «acho que era esta»); **programa de duas noites feito por nós** (sexta · sábado com o mercado de
+  manhã e o castelo · domingo com Évora e a saída tardia); o botão do mapa abre a procura «Monte Casa Branca» centrada nas coordenadas
+  (falta a ligação de «Partilhar» da ficha do Google: 5,0 com 21 críticas). **(8) Avaliações (nota 13):** «Quem já ficou», uma frase
+  curta de cada vez (dez, a rodar de 6 em 6 s), sem nomes, escolhidas das 30 que ele deu em capturas (Booking 10 «Excecional» com 11
+  comentários; Airbnb 21; Vrbo 4) pelas regras dele (pormenores, recentes, as de fora); cinco são tradução automática do Airbnb e uma
+  tradução nossa do inglês. A que lá estava vinha do Canva dele (FACTOS §7). **(9) Contactos (nota 14):** «Falamos? · Contem-nos os vossos
+  planos»; rodapé «Monte Casa Branca · Montemor-o-Novo · Alentejo · Registo 126450/AL» e, em letra pequena, firma, morada e plataformas.
+  **(10) Painel das datas (nota 17 e o PDF do simulador):** «Os vossos dias · Quando vos apetece vir?»; «As contas, sem surpresas» com a
+  conta em três linhas (estadia · limpeza final · total da casa); **saída tardia «até às 17h/18h» quando ninguém entra no dia da saída,
+  sem pôr do sol** (`inc/factos.php` → `saida_tardia`; o aviso saiu de `inc/tarifas.php` e é dito pelo painel, que conhece o calendário);
+  tempo com os ícones de traço do Lovable e, para as datas pedidas, **previsão (16 dias) ou média dos últimos cinco anos** nesses dias
+  (`api/tempo.php?de=…&ate=…`, arquivo do Open-Meteo, `cache/clima.json` 30 dias) com a nota «Ainda é cedo para previsões. Nos últimos
+  anos, estes dias foram assim». Os textos do painel vão do `conteudo.php` para o `site.js` num `<script id="textos">`. O pedido ainda
+  **não** entra na app (falta a porta #191). **(11) Fotografias (pergunta da nota 6b):** as 109 da galeria mais duas podem ser usadas;
+  o site usa 92 (184 ficheiros com as `-m`), todas referidas. A pasta do verão (`3. anuncios/V2_verão/`, 69, listada pelo conector) está
+  toda no repositório menos a `34`, a `51` e a `52` e uma das `40`. **Testes:** `conferir-fotos.php` (álbuns, momentos, régua, rolo de
+  Montemor, capas), `captura-site.cjs` (ligações sem «#», fotografias a rolar, frase a mudar, tempo com médias, fotografia em grande) e
+  `testar-site.sh` (caches separadas com e sem app; estudo da capa só no ensaio): bateria local verde; treze larguras sem rolagem
+  horizontal. `deploy-site.yml`: a verificação final passou a informar das médias do tempo e, no ensaio, do `noindex` e do `robots.txt`
+  (a melhoria anotada a 8/11). **Erros do Claude apanhados pelos testes e corrigidos:** o título em degraus transbordava em tablets; a
+  fotografia principal não enchia a caixa (o `<picture>` sem altura); depois de arrastar com o rato as fotografias não retomavam (o foco
+  do rato prendia o rolo). **Nota de monitor:** commit `7056b2b` da conta do Diogo (ChatGPT, 15/11 17h43) mexeu só em
+  `demo/site/index.html` (a demo antiga r3: «Simular preços», «Simule a vossa estadia», «Ver quanto fica a estadia»); a mensagem foi
+  passada para `site/` pelo Claude, no tom. **FACTOS:** secção 11 nova em `docs/conteudos/fontes/FACTOS.md`; **a cópia da app
+  (`appmontecasabranca/docs/temas/site/FACTOS.md`) ficou por sincronizar** (a sessão não tem a app com escrita). **Por confirmar pelo
+  Diogo (lista no documento, secção 3):** capa 1, 2 ou 3 · se a ideia do menu se mantém (nota 6a) · «17h/18h» ou uma só hora · o que eram
+  as «tarifas de 2028» (o site tem 2026 e 2027) · a ligação de partilha da ficha do Google Maps · ver por olho as ligações da ecopista e
+  da N2 (a rede da sessão não as abre) · as dez frases, as notas das plataformas e os originais das traduzidas · marca de água (modo e
+  onde) · «não precisamos tocar no nome banhos ou casa de banho» (li: não falar delas nos três momentos) · trazer a 34, a 51 e a 52 ·
+  os textos novos. **Em aberto, de antes:** «Lança» (o servidor tem o commit `17198b1` de 8/11) · «sim» à passagem do GPT (v1.3) · as 23
+  do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN ·
+  repositório público · S31–S33. **Próxima sugestão: S37.**

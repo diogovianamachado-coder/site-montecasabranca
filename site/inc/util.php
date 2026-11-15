@@ -47,7 +47,7 @@ function foto_url_m(string $src): ?string
 }
 
 /**
- * Uma <img> ou <picture> com lazy loading, foco (object-position) e variante móvel.
+ * Uma <img> ou <picture> com lazy loading, foco ('pos' = object-position; 'pos_m' = o mesmo, só no telemóvel) e variante móvel.
  * $attrs: atributos extra para a <img> (class, fetchpriority, …).
  */
 function foto_img(array $foto, array $attrs = [], bool $lazy = true): string
@@ -56,7 +56,9 @@ function foto_img(array $foto, array $attrs = [], bool $lazy = true): string
     $m = foto_url_m($foto['src']);
     $a = ['src' => $src, 'alt' => $foto['alt'] ?? '', 'decoding' => 'async'];
     if ($lazy) $a['loading'] = 'lazy';
-    $style = isset($foto['pos']) ? 'object-position:' . $foto['pos'] : '';
+    // O foco vai em variáveis CSS (--pos; --pos-m para o telemóvel): a folha de estilos aplica-as (site.css, «Foco das fotografias»).
+    $style = isset($foto['pos']) ? '--pos:' . $foto['pos'] : '';
+    if (isset($foto['pos_m'])) $style = trim($style . ';--pos-m:' . $foto['pos_m'], ';');
     foreach ($attrs as $k => $v) {
         if ($k === 'style') $style = trim($style . ';' . $v, ';');
         else $a[$k] = $v;
@@ -71,11 +73,47 @@ function foto_img(array $foto, array $attrs = [], bool $lazy = true): string
     return $html;
 }
 
-/** Dados de uma lista de fotografias para a galeria (JSON no atributo data-galeria). */
+/**
+ * Dados de uma lista de fotografias para a galeria (JSON no atributo data-galeria).
+ * Vai UMA vez por conjunto, no elemento que envolve as fotografias; cada botão .abrir-galeria só leva data-inicio (a posição).
+ */
 function galeria_json(string $nome, array $fotos): string
 {
-    $lista = array_map(fn($f) => ['src' => foto_url($f['src']), 'alt' => $f['alt'] ?? '', 'pos' => $f['pos'] ?? 'center'], $fotos);
+    $lista = array_map(fn($f) => ['src' => foto_url($f['src']), 'alt' => $f['legenda'] ?? $f['alt'] ?? ''], $fotos);
     return e(json_encode(['nome' => $nome, 'fotos' => $lista], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+}
+
+/** Largura e altura de uma fotografia (lidas do ficheiro, uma vez por pedido). Sem ficheiro: 3 × 2. */
+function foto_dim(string $src): array
+{
+    static $cache = [];
+    if (!isset($cache[$src])) {
+        $t = @getimagesize(MCB_RAIZ . '/fotos/' . ltrim($src, '/'));
+        $cache[$src] = ($t && $t[0] > 0 && $t[1] > 0) ? [$t[0], $t[1]] : [3, 2];
+    }
+    return $cache[$src];
+}
+
+/**
+ * Um «rolo»: fotografias lado a lado que rolam devagar sozinhas e em círculo (site.js, «Rolos»); o dedo ou o rato aceleram ou param.
+ * Não leva setas, pontos nem contagens: o movimento mostra que há mais. Cada fotografia abre a galeria do conjunto.
+ * $op: 'classe' (classes extra) · 'principal' (true: a primeira é a principal, mais larga no computador) · 'legendas' (true: mostra
+ * 'legenda' de cada fotografia) · 'acaso' (true: ordem ao acaso em cada visita) · 'vel' (píxeis por segundo; por omissão 22).
+ */
+function rolo(string $nome, array $fotos, array $op = []): string
+{
+    $h = '<div class="rolo' . (!empty($op['classe']) ? ' ' . e($op['classe']) : '') . '" data-rolo data-vel="' . (int)($op['vel'] ?? 22) . '"'
+        . (!empty($op['acaso']) ? ' data-acaso' : '') . '>';
+    $h .= '<ul class="rolo-faixa" data-galeria="' . galeria_json($nome, $fotos) . '">';
+    foreach ($fotos as $i => $f) {
+        [$l, $a] = foto_dim($f['src']);
+        $h .= '<li class="rolo-item' . ($i === 0 && !empty($op['principal']) ? ' rolo-principal' : '') . '" style="--r:' . round($l / $a, 4) . '">';
+        $h .= '<button type="button" class="abrir-galeria" data-inicio="' . $i . '" aria-label="' . e(($f['alt'] ?? '') . ' · abrir a fotografia') . '">';
+        $h .= foto_img($f, ['draggable' => 'false']) . '</button>';
+        if (!empty($op['legendas']) && !empty($f['legenda'])) $h .= '<span class="rolo-legenda">' . e($f['legenda']) . '</span>';
+        $h .= '</li>';
+    }
+    return $h . '</ul></div>';
 }
 
 /** Ícones SVG (traço, estilo lucide), por nome. */
@@ -95,6 +133,7 @@ function icone(string $nome, string $class = 'ico'): string
         'instagram' => '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
         'mapa' => '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
         'mais' => '<path d="M5 12h14"/><path d="M12 5v14"/>',
+        'fora' => '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
     ];
     return '<svg class="' . e($class) . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . ($p[$nome] ?? '') . '</svg>';
 }

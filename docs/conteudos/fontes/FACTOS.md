@@ -57,7 +57,9 @@ Nada com **?** ou **✗** entra no site sem a resposta. Os textos finais escreve
 - ✓ **Piscina de 10 × 5 m**, «fim de dia soberbo na piscina a admirar o pôr do sol».
 - ✓ **Casa Principal** («a casa dos “senhores” de antigamente, renovada para os “senhores” de hoje»): **4 quartos** = 1 quarto de casal
   **queen com casa de banho privativa** · 1 quarto de casal queen · 2 quartos com 2 camas de solteiro cada · **1 casa de banho completa**
-  partilhada → **2 casas de banho** no total. **?** Confirmar que a configuração B da app (3 de casal + 1 twin) é um dos twin com as camas juntas.
+  partilhada → **2 casas de banho** no total. ✓ **Mais um WC social** (Diogo, 15/11/2026). ✓ A configuração B (3 de casal + 1 twin) é
+  **um dos quartos twin convertido em quarto de casal** (Diogo, 15/11/2026: «um dos quartos twin pode ser convertido em mais um quarto de
+  casal ficando a casa com 3 quartos de casal e 1 twin»).
 - ✓ **Biblioteca com lareira**, livros, jogos de tabuleiro e cartas.
 - ✓ **Na EN2**, «a mítica estrada que atravessa Portugal de norte a sul», **a 3 km do centro de Montemor-o-Novo**.
 - ✓ **Coordenadas GPS: 38.6142917, −8.211253** (a pergunta do kmz está respondida).
@@ -106,6 +108,8 @@ Nada com **?** ou **✗** entra no site sem a resposta. Os textos finais escreve
   ✓ **Late check-out ao fim de semana «à hora do pôr do sol», 17h/18h (Diogo, 8/10):** é uma mensagem de «way of living Alentejo»,
   «na nossa casa é assim», não uma promoção. No site vai com asterisco: ***válido quando não há entrada no mesmo dia**; acontece quase
   sempre, menos em julho e agosto, em que é muito difícil*. Entra na página «A casa» (secção «Chegar e entrar») e nas «Perguntas frequentes».
+  ✓ **15/11/2026 (Diogo, revisão do site):** diz-se «até às 17/18h, para aproveitarem ao máximo», **sem falar no pôr do sol**, e vale
+  **quando não há entradas no mesmo dia** (não só ao fim de semana). No site: `inc/factos.php` → `saida_tardia` («17h/18h»).
 - ✓ **Limpeza final incluída uma vez por estadia**, seja qual for a duração; nas estadias longas o Diogo faz uma limpeza por semana
   **sem custo** (princípio 1 da 0e). Mostrada à parte no preço: **170 € em 2026 · 180 € em 2027**.
 - ✓ **Mínimo de noites:** 2 (base do modelo 0e); no **verão (18 jul – 31 ago) 7 noites, de sábado a sábado**.
@@ -298,3 +302,29 @@ Nada disto se decide agora.
 
 **Como responder:** basta escrever «FACTOS: 2 casas de banho; Wi-Fi sim; AC em todos os quartos; animais não; …» ou corrigir este
 ficheiro no GitHub. O Claude passa cada resposta a **✓** e só então escreve os textos finais (PT, depois EN).
+
+## 11. Factos e decisões de 15/11/2026 (notas do Diogo na revisão do site, no PC)
+
+Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`. O que é facto novo ou muda um facto:
+
+- ✓ **Mais um WC social**, além das duas casas de banho (secção 2). No site: «Antes de chegar», `llms.txt` e dados estruturados
+  (`numberOfFullBathrooms` 2, `numberOfPartialBathrooms` 1).
+- ✓ **Um dos quartos twin pode passar a quarto de casal** (3 de casal + 1 twin) (secção 2).
+- ✓ **Saída tardia até às 17/18h quando não há entradas no mesmo dia**, sem pôr do sol (secção 3).
+- ✓ **A Ecopista do Montado passa pela casa** e é um passeio a incluir na estadia (Diogo). Dados da ecopista, de fonte pública (página das
+  Infraestruturas de Portugal, lida por pesquisa a 15/11; a sessão não abre o endereço): antiga linha de comboio entre Montemor-o-Novo e
+  Torre da Gadanha, 12,7 km, com passagem pelo apeadeiro do Paião. **?** O Diogo confirma por olho a ligação e que está aberta.
+- ✓ **Mercado de Montemor-o-Novo ao sábado de manhã** (Diogo), para o programa de duas noites da Nacional 2. O programa é nosso.
+- ✓ **Portal de turismo do município** `https://www.visitmontemornovo.com/`: «tem de fazer parte da experiência» (Diogo).
+- **?** Montemor-o-Novo na Rota da N2: `https://www.rotan2.pt/entity/219` («acho que era esta», Diogo); por confirmar por olho.
+- ✓ **Ficha do Google:** «Monte Casa Branca», 5,0 com 21 críticas (captura do Diogo de 15/11). O botão do mapa deve abrir esta ficha.
+  **?** Falta a ligação de «Partilhar» da ficha (o site usa, por agora, a procura pelo nome centrada nas coordenadas).
+- ✓ **Avaliações dadas pelo Diogo a 15/11** (capturas): Booking 10 «Excecional» com 11 comentários; Airbnb 21 comentários; Vrbo 4, todos
+  10/10. Critério dele para o site: as que contam pormenores, mais recentes do que antigas, e as de estrangeiros se forem relevantes;
+  frases curtas e calorosas, uma de cada vez; **sem nomes**. As dez escolhidas estão em `site/conteudo.php` → `avaliacoes`.
+  **?** Cinco delas são tradução automática do Airbnb (o original não está nas capturas) e uma é tradução do inglês do Vrbo.
+- ✓ **O «antes e depois» sai do site** (decisão do Diogo, 15/11). As fotografias continuam na galeria do repositório.
+- ✓ **Mensagem da casa:** «Por fora · Sem pressa · Por dentro» («a melhor mensagem que a casa tem») e, a fechar o dia, «Há dias em que
+  não é preciso mais nada». Título da capa: «Uma casa inteira» / «O Alentejo à vossa porta».
+- **Cópia da app por sincronizar:** `appmontecasabranca/docs/temas/site/FACTOS.md` não leva estas linhas (a sessão SITE de 15/11 não tem
+  a app junta); copiar numa sessão com a app.

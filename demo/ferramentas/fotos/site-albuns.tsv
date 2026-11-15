@@ -1,5 +1,6 @@
 # Da galeria (design/fotos/galeria/) para o site (site/fotos/): que ficheiro da galeria é cada fotografia dos álbuns do site.
-# Álbuns 03, 04 e 05, montados no site a 12/11/2026. Aplica-se com: python3 demo/ferramentas/fotos/para_o_site.py
+# Álbuns 03 e 05, montados no site a 12/11/2026 (o 04, «Antes e depois», saiu do site a 15/11/2026 por decisão do Diogo; as
+# fotografias continuam na galeria). Aplica-se com: python3 demo/ferramentas/fotos/para_o_site.py
 # colunas: ficheiro na galeria · ficheiro no site (a variante -m, 1 000 px de largura, é criada ao lado)
 03-a-quinta/01_img_0268.jpg	quinta/casa-pinheiro-terreno.jpg
 03-a-quinta/02_pkbl4474.jpg	quinta/casa-piscina-campo.jpg
@@ -18,28 +19,6 @@
 03-a-quinta/15_img_5947.jpg	quinta/olival-encosta.jpg
 03-a-quinta/16_img_5955.jpg	quinta/cao-olival.jpg
 03-a-quinta/17_img_5960.jpg	quinta/oliveiras-vedacao.jpg
-04-antes-e-depois/ad01_casa-piscina_antes.jpg	antes-depois/casa-piscina-antes.jpg
-04-antes-e-depois/ad01_casa-piscina_depois.jpg	antes-depois/casa-piscina-depois.jpg
-04-antes-e-depois/ad02_salao_antes.jpg	antes-depois/salao-antes.jpg
-04-antes-e-depois/ad02_salao_depois.jpg	antes-depois/salao-depois.jpg
-04-antes-e-depois/ad03_fachada_antes.jpg	antes-depois/fachada-antes.jpg
-04-antes-e-depois/ad03_fachada_depois.jpg	antes-depois/fachada-depois.jpg
-04-antes-e-depois/ad04_chamine_antes.jpg	antes-depois/chamine-antes.jpg
-04-antes-e-depois/ad04_chamine_depois.jpg	antes-depois/chamine-depois.jpg
-04-antes-e-depois/ad05_patio_antes.jpg	antes-depois/patio-antes.jpg
-04-antes-e-depois/ad05_patio_depois.jpg	antes-depois/patio-depois.jpg
-04-antes-e-depois/ad06_corredor_antes.jpg	antes-depois/corredor-antes.jpg
-04-antes-e-depois/ad06_corredor_depois.jpg	antes-depois/corredor-depois.jpg
-04-antes-e-depois/ad07_pergula-tanque_antes.jpg	antes-depois/pergula-tanque-antes.jpg
-04-antes-e-depois/ad07_pergula-tanque_depois.jpg	antes-depois/pergula-tanque-depois.jpg
-04-antes-e-depois/ad08_quarto_antes.jpg	antes-depois/quarto-antes.jpg
-04-antes-e-depois/ad08_quarto_depois.jpg	antes-depois/quarto-depois.jpg
-04-antes-e-depois/ad09_poco-frente_antes.jpg	antes-depois/poco-frente-antes.jpg
-04-antes-e-depois/ad09_poco-frente_depois.jpg	antes-depois/poco-frente-depois.jpg
-04-antes-e-depois/ad10_poco-lado_antes.jpg	antes-depois/poco-lado-antes.jpg
-04-antes-e-depois/ad10_poco-lado_depois.jpg	antes-depois/poco-lado-depois.jpg
-04-antes-e-depois/ad11_nora_antes.jpg	antes-depois/nora-antes.jpg
-04-antes-e-depois/ad11_nora_depois.jpg	antes-depois/nora-depois.jpg
 05-montemor-o-novo/01_54.jpg	montemor/banco-vermelho.jpg
 05-montemor-o-novo/02_50.jpg	montemor/estacao-paiao.jpg
 05-montemor-o-novo/03_55.jpg	montemor/caminho-arvores-bicicleta.jpg
@@ -54,3 +33,66 @@
 05-montemor-o-novo/12_42.jpg	montemor/vila-muralha.jpg
 05-montemor-o-novo/13_44.jpg	montemor/janela-flores.jpg
 05-montemor-o-novo/14_54.jpg	montemor/miradouro-banco-bicicleta.jpg
+#
+# Álbuns 01 e 02 (só para consulta; estas linhas são comentários e o guião não as aplica): os ficheiros do site vieram do pacote
+# de 7/11/2026 com nomes descritivos e são a mesma fotografia da galeria, noutra gravação (não são iguais byte a byte).
+# A galeria do site segue esta ordem, que é a do Zenfolio (com a troca 39/40: no Zenfolio o pôr do sol vem antes da piscina à noite).
+# 01-o-monte/01_img_0264.jpg	exterior/casa-campo-entardecer.jpg
+# 01-o-monte/02_2.jpg	exterior/piscina-pinheiro-manha.jpg
+# 01-o-monte/03_3.jpg	exterior/alpendre-por-do-sol.jpg
+# 01-o-monte/04_4-1.jpg	exterior/alpendre-piscina-manha.jpg
+# 01-o-monte/05_1.jpg	exterior/piscina-chapeu-sol.jpg
+# 01-o-monte/06_5.jpg	exterior/piscina-dia.jpg
+# 01-o-monte/07_6.jpg	exterior/casa-alpendre-lateral.jpg
+# 01-o-monte/08_7.jpg	exterior/piscina-agua.jpg
+# 01-o-monte/09_8.jpg	exterior/alpendre.jpg
+# 01-o-monte/10_9.jpg	exterior/piscina-sobreiro.jpg
+# 01-o-monte/11_10.jpg	exterior/alpendre-dia.jpg
+# 01-o-monte/12_11.jpg	exterior/sombra-arvore-parede.jpg
+# 01-o-monte/13_12.jpg	exterior/alpendre-mesa-jantar.jpg
+# 01-o-monte/14_15.jpg	exterior/pateo-portas-vidro.jpg
+# 01-o-monte/15_13.jpg	interior/sala-portas.jpg
+# 01-o-monte/16_14-0.jpg	interior/sala-sofa-tv.jpg
+# 01-o-monte/17_14-1.jpg	interior/poltrona-janela.jpg
+# 01-o-monte/18_16.jpg	interior/estantes-cozinha.jpg
+# 01-o-monte/19_46.jpg	interior/salao-tecto-madeira.jpg
+# 01-o-monte/20_17.jpg	interior/cozinha.jpg
+# 01-o-monte/21_45.jpg	interior/cozinha-ilha.jpg
+# 01-o-monte/22_18.jpg	interior/sala-mesa-sofa.jpg
+# 01-o-monte/23_19.jpg	interior/mesa-refeicoes.jpg
+# 01-o-monte/24_48.jpg	interior/cozinha-sala.jpg
+# 01-o-monte/25_47.jpg	interior/sala-poltronas.jpg
+# 01-o-monte/26_15-1.jpg	interior/lareira-cadeira.jpg
+# 01-o-monte/27_20.jpg	interior/biblioteca-tapete-azul.jpg
+# 01-o-monte/28_21-0.jpg	interior/biblioteca-sofa.jpg
+# 01-o-monte/29_whatsapp-image-2022-12-06-at-09-59-52.jpg	interior/lareira-acesa.jpg
+# 01-o-monte/30_21-1.jpg	interior/biblioteca-poltrona-estante.jpg
+# 01-o-monte/31_30.jpg	interior/corredor-quartos.jpg
+# 01-o-monte/32_31.jpg	interior/corredor-luz.jpg
+# 01-o-monte/33_32.jpg	interior/corredor-noite.jpg
+# 01-o-monte/34_33.jpg	exterior/casa-oliveira.jpg
+# 01-o-monte/35_37.jpg	exterior/alpendre-vista-pinheiros.jpg
+# 01-o-monte/36_38-0.jpg	exterior/casa-sobreiros.jpg
+# 01-o-monte/37_39-0.jpg	exterior/casa-tronco-oliveira.jpg
+# 01-o-monte/38_39-1.jpg	exterior/casa-ceu-rosa.jpg
+# 01-o-monte/39_40.jpg	exterior/piscina-noite.jpg
+# 01-o-monte/40_img_0255.jpg	exterior/por-do-sol.jpg
+# 01-o-monte/41_41.jpg	exterior/pateo-noite.jpg
+# 01-o-monte/42_42.jpg	exterior/alpendre-noite.jpg
+# 01-o-monte/43_43.jpg	exterior/casa-lua.jpg
+# 01-o-monte/44_44.jpg	exterior/alpendre-pinheiro.jpg
+# 01-o-monte/45_49.jpg	exterior/chamine-alentejana.jpg
+# 01-o-monte/46_50.jpg	exterior/casao-pergola.jpg
+# 01-o-monte/47_53.jpg	exterior/chamine-arvore.jpg
+# 02-os-quartos/01_22.jpg	quartos/quarto-2.jpg
+# 02-os-quartos/02_a16.jpg	quartos/quarto-casal-comoda.jpg
+# 02-os-quartos/03_28.jpg	quartos/casa-de-banho-marmore.jpg
+# 02-os-quartos/04_23.jpg	quartos/quarto-duas-camas.jpg
+# 02-os-quartos/05_img_0238.jpg	quartos/cama-verde.jpg
+# 02-os-quartos/06_24-0.jpg	quartos/quarto-manta-vermelha.jpg
+# 02-os-quartos/07_24-1.jpg	quartos/espelho-quarto.jpg
+# 02-os-quartos/08_25.jpg	quartos/quarto-duas-camas-2.jpg
+# 02-os-quartos/09_img_0326.jpg	quartos/quarto-amarelo.jpg
+# 02-os-quartos/10_26.jpg	quartos/casa-de-banho.jpg
+# 02-os-quartos/11_27.jpg	quartos/casa-de-banho-2.jpg
+# 02-os-quartos/12_29.jpg	quartos/casa-de-banho-pequena.jpg

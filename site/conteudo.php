@@ -4,10 +4,11 @@
 //  Este é o ficheiro para editar textos, legendas, perguntas e fotografias.
 //  Não é preciso tocar no código: o index.php e as partes lêem tudo daqui.
 //  Regras: factos só do FACTOS.md (inc/factos.php); «Reguengo» só na morada.
-//  Fotografias: ficheiro em fotos/<álbum>/; 'pos' é o ponto de foco (object-position, ex. '20% 70%').
+//  Tom (Diogo, 15/11/2026): frases curtas, calorosas, na segunda pessoa do plural; nunca literal, nunca um testamento.
+//  Fotografias: ficheiro em fotos/<álbum>/; 'pos' é o ponto de foco (object-position, ex. '20% 70%'); 'pos_m' o mesmo, só no telemóvel.
 //  Se existir um ficheiro com o mesmo nome e sufixo -m (ex. piscina-dia-m.jpg) é usado no telemóvel.
-//  Álbuns: 'pares' => true mostra as fotografias duas a duas (antes | depois); 'etiqueta' é a palavra sobre a miniatura;
-//  'sem_schema' => true deixa o álbum fora das imagens que os motores de busca recebem como «fotografias da casa».
+//  'legenda' é a frase curta que acompanha a fotografia nos três momentos e em Montemor; 'alt' descreve a imagem a quem não a vê.
+//  Álbuns: 'sem_schema' => true deixa o álbum fora das imagens que os motores de busca recebem como «fotografias da casa».
 // ============================================================================
 declare(strict_types=1);
 
@@ -18,149 +19,218 @@ return [
     'descricao' => 'Uma casa inteira no Alentejo: 4 quartos, até 8 pessoas, piscina 10 × 5 m. Montemor-o-Novo, a 1 h de Lisboa.',
     'imagem_partilha' => 'exterior/piscina-dia.jpg',
 
-    // ---- Menu -----------------------------------------------------------------
-    'menu' => [
-        ['A casa', '#casa'],
-        ['Descobrir', '#descobrir'],
-        ['Fotografias', '#fotografias'],
+    // ---- Menus ----------------------------------------------------------------
+    // A barra de cima da capa (só no computador) e o menu completo (botão «Menu»). A ordem é a da página.
+    'menu_topo' => [
+        ['Montemor-o-Novo', '#montemor'],
+        ['N2', '#nacional2'],
+        ['Galeria', '#galeria'],
+        ['Antes de chegar', '#antes-de-chegar'],
         ['Avaliações', '#avaliacoes'],
+    ],
+    'menu' => [
+        // 'sub' = a linha pequena por baixo: cada palavra leva ao seu momento da casa
+        ['A casa', '#a-casa', 'sub' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']]],
         ['Montemor-o-Novo', '#montemor'],
         ['Nacional 2', '#nacional2'],
-        ['Perguntas', '#perguntas'],
+        ['Galeria', '#galeria'],
+        ['Antes de chegar', '#antes-de-chegar'],
+        ['Quem já ficou', '#avaliacoes'],
         ['Contactos', '#contactos'],
     ],
+    'menu_rodape' => 'Uma casa inteira no Alentejo',
 
     // ---- 1. Início (capa) -------------------------------------------------------
     'inicio' => [
-        'foto' => ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'Piscina da casa sob o céu azul do Alentejo, com a casa branca de telhado vermelho ao fundo', 'pos' => '50% 60%'],
-        'titulo' => ['Uma casa inteira', 'no Alentejo'],   // duas linhas
+        'titulo' => ['Uma casa inteira', 'O Alentejo à vossa porta'],   // em cascata: a segunda linha desce um degrau
         'subtitulo' => 'Monte Casa Branca · Montemor-o-Novo, a 1 h de Lisboa',
         'etiquetas' => [['pessoas', 'Até 8 pessoas'], ['cama', '4 quartos'], ['ondas', 'Piscina 10 × 5 m']],
-        'botao' => ['Entrar pela casa', '#descobrir'],
+        'botao' => ['Entrar pela casa', '#a-casa'],
         'nota' => 'Sem receção, sem pressa',
+        // A capa que fica: a chave de uma das opções de baixo.
+        'capa' => '1',
+        // Estudo da capa (nota 2 do Diogo, 15/11/2026): no ensaio (novo.montecasabranca.pt), ?capa=1, ?capa=2 ou ?capa=3 mostra cada opção.
+        // 'titulo': 'ceu' (o título sobe para o céu da fotografia e a casa fica toda à vista) ou 'baixo' (tudo em baixo, sobre a água).
+        // 'mascara': 'minima' (quase nada: o texto leva sombra própria), 'leve' (sombra só em cima e em baixo) ou 'media' (mais sombra
+        // em baixo: é o que a fotografia 2 pede, porque o texto cai sobre o chão claro e a espreguiçadeira).
+        'capas' => [
+            '1' => ['nome' => 'Fotografia 1 · título no céu · quase sem máscara', 'titulo' => 'ceu', 'mascara' => 'minima',
+                'foto' => ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'A piscina sob o céu azul do Alentejo, com a casa branca de telhado vermelho ao fundo', 'pos' => '50% 0%', 'pos_m' => '22% 50%']],
+            '2' => ['nome' => 'Fotografia 1 · título em baixo · máscara leve', 'titulo' => 'baixo', 'mascara' => 'leve',
+                'foto' => ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'A piscina sob o céu azul do Alentejo, com a casa branca de telhado vermelho ao fundo', 'pos' => '50% 30%', 'pos_m' => '22% 50%']],
+            '3' => ['nome' => 'Fotografia 2 · título em baixo · máscara média', 'titulo' => 'baixo', 'mascara' => 'media',
+                'foto' => ['src' => 'exterior/piscina-chapeu-sol.jpg', 'alt' => 'Espreguiçadeiras e chapéu-de-sol à beira da piscina, com a casa ao fundo', 'pos' => '50% 30%', 'pos_m' => '30% 50%']],
+        ],
     ],
 
-    // ---- 2. A casa (manifesto) ------------------------------------------------
+    // ---- 2. A casa: a mensagem «Por fora · Sem pressa · Por dentro» ----------------
     'casa' => [
-        'eyebrow' => 'Uma casa inteira, só vossa',
-        'titulo' => 'O dia é vosso',
-        'titulo_italico' => 'A casa também',
-        'texto' => 'Uma casa inteira no Alentejo para estar juntos, abrir as portas e deixar o dia acontecer',
+        'eyebrow' => 'A casa',
+        'titulo' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']],   // três linhas; a do meio em itálico
+        'texto' => 'Uma casa inteira, só vossa, para abrir as portas e deixar o dia acontecer',
     ],
 
-    // ---- 3. Descobrir a casa (quatro espaços) -------------------------------------
-    'descobrir' => [
-        'eyebrow' => 'Descobrir a casa',
-        'fecho' => 'Há dias em que não é preciso mais nada',
-        'espacos' => [
-            [
-                'nome' => 'Piscina e exterior',
-                'titulo' => 'Primeiro, lá fora',
-                'texto' => 'A piscina de 10 por 5 metros, o jardim e o campo à volta. Zona exterior de uso livre e, de vez em quando, ovelhas a pastar',
-                'fotos' => [
-                    ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'Água da piscina em primeiro plano, junto à casa', 'pos' => '20% 70%'],
-                    ['src' => 'exterior/piscina-espreguicadeira.jpg', 'alt' => 'Espreguiçadeira à beira da piscina'],
-                    ['src' => 'exterior/piscina-entardecer.jpg', 'alt' => 'A piscina ao entardecer'],
-                    ['src' => 'exterior/campo-verde.jpg', 'alt' => 'O campo verde à volta da casa'],
-                ],
+    // ---- 3. Os três momentos ------------------------------------------------------
+    // Em cada um, a primeira fotografia é a principal; as seguintes vêm atrás, a rolar devagar (o dedo ou o rato aceleram ou param).
+    'momentos' => [
+        [
+            'id' => 'por-fora', 'eyebrow' => 'Por fora',
+            'titulo' => 'O melhor lugar é cá fora',
+            'texto' => 'Da água à sombra do alpendre, o dia vive-se de portas abertas',
+            'fotos' => [
+                ['src' => 'exterior/piscina-agua.jpg', 'alt' => 'A água da piscina em primeiro plano, com a casa e o chapéu-de-sol ao fundo', 'legenda' => 'A piscina, a casa e a luz do Alentejo'],
+                ['src' => 'exterior/piscina-sobreiro.jpg', 'alt' => 'A piscina e o pinheiro grande, com o sol por trás', 'legenda' => 'Ficar até a luz mudar'],
+                ['src' => 'exterior/casa-oliveira.jpg', 'alt' => 'A casa, a piscina e a oliveira', 'legenda' => 'A casa, entre as árvores'],
+                ['src' => 'quinta/ovelhas.jpg', 'alt' => 'Ovelhas a pastar no campo', 'legenda' => 'E, de vez em quando, ovelhas'],
             ],
-            [
-                'nome' => 'Alpendre',
-                'texto' => 'O alpendre prolonga a casa para fora: mesas ao ar livre, sombra ao meio-dia e luz de fim de tarde',
-                'fotos' => [
-                    ['src' => 'exterior/alpendre.jpg', 'alt' => 'Duas cadeiras brancas e copos de vinho no alpendre'],
-                    ['src' => 'exterior/alpendre-dia.jpg', 'alt' => 'O alpendre de dia'],
-                    ['src' => 'exterior/alpendre-por-do-sol.jpg', 'alt' => 'O alpendre ao pôr do sol'],
-                ],
+        ],
+        [
+            'id' => 'sem-pressa', 'eyebrow' => 'Sem pressa',
+            'titulo' => 'A mesa pode esperar por todos',
+            'texto' => 'Sombra para os dias quentes, uma mesa para as conversas longas e o campo sempre por perto',
+            'fotos' => [
+                ['src' => 'exterior/alpendre-por-do-sol.jpg', 'alt' => 'Mesa posta no alpendre, com o sol a pôr-se atrás do pinheiro', 'legenda' => 'O alpendre, ao fim da tarde'],
+                ['src' => 'exterior/alpendre-mesa-jantar.jpg', 'alt' => 'A mesa de jantar no alpendre', 'legenda' => 'Lugar para todos à mesa'],
+                ['src' => 'exterior/alpendre.jpg', 'alt' => 'Duas cadeiras brancas e copos de vinho no alpendre', 'legenda' => 'Dois copos e a tarde inteira'],
+                ['src' => 'exterior/alpendre-dia.jpg', 'alt' => 'Almoço no alpendre, com o campo em frente', 'legenda' => 'Almoçar com o campo em frente'],
             ],
-            [
-                'nome' => 'Sala e cozinha',
-                'texto' => 'O salão reúne a cozinha equipada para mais do que oito, a mesa de refeições e a zona de estar, ligados ao exterior e à piscina',
-                'nota' => 'Ar condicionado em todas as divisões, lareira na biblioteca',
-                'fotos' => [
-                    ['src' => 'interior/sala-portas.jpg', 'alt' => 'Salão com cozinha, mesa de refeições e zona de estar', 'pos' => '50% 40%'],
-                    ['src' => 'interior/sala-mesa.jpg', 'alt' => 'A mesa de refeições na sala'],
-                    ['src' => 'interior/cozinha.jpg', 'alt' => 'A cozinha equipada'],
-                    ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira da biblioteca'],
-                ],
-            ],
-            [
-                'nome' => 'Quartos e banho',
-                'texto' => 'Dois quartos de casal e dois quartos com duas camas de solteiro. Roupa de cama nova, ar condicionado em todas as divisões, berço a pedido',
-                'fotos' => [
-                    ['src' => 'quartos/quarto.jpg', 'alt' => 'Quarto luminoso com cama feita e roupa de cama branca'],
-                    ['src' => 'quartos/quarto-2.jpg', 'alt' => 'Um dos quartos'],
-                    ['src' => 'quartos/casa-de-banho.jpg', 'alt' => 'Casa de banho'],
-                ],
+        ],
+        [
+            'id' => 'por-dentro', 'eyebrow' => 'Por dentro',
+            'titulo' => 'Entrar sem deixar o exterior para trás',
+            'texto' => 'O salão abre-se à piscina. A cozinha, a mesa e a sala dão lugar a cozinhar, conversar e ficar mais um pouco',
+            'nota' => 'Quatro quartos, lareira na biblioteca e ar condicionado em todas as divisões',
+            'fotos' => [
+                ['src' => 'interior/sala-portas.jpg', 'alt' => 'O salão visto pelas portas abertas: cozinha, mesa de refeições e zona de estar', 'legenda' => 'O salão, de portas abertas'],
+                ['src' => 'interior/sala-mesa-sofa.jpg', 'alt' => 'Mesa de refeições e sofá, com a porta aberta para o alpendre', 'legenda' => 'À mesa cabem todos'],
+                ['src' => 'interior/cozinha.jpg', 'alt' => 'A cozinha com ilha e balcão de madeira', 'legenda' => 'A cozinha, pronta para mais do que oito'],
+                ['src' => 'interior/biblioteca-tapete-azul.jpg', 'alt' => 'A biblioteca, com o tapete azul e o sofá', 'legenda' => 'Livros, lareira e uma tarde inteira'],
+                ['src' => 'quartos/quarto.jpg', 'alt' => 'Quarto luminoso com cama feita e roupa de cama branca', 'legenda' => 'Quatro quartos para descansar'],
             ],
         ],
     ],
 
-    // ---- 4. A casa, num relance (régua horizontal) -------------------------------
-    'relance' => [
-        'titulo' => 'A casa, num relance',
-        'ligacao' => ['Ver fotografias', '#fotografias'],
+    // A frase que fecha o dia.
+    'fecho' => 'Há dias em que não é preciso mais nada',
+
+    // ---- 4. Régua de fotografias (como a galeria das plataformas: pequenas, ao acaso, a rolar) -------
+    'regua' => [
+        'titulo' => 'Há mais casa para descobrir',
+        'ligacao' => ['Ver a galeria', '#galeria'],
         'fotos' => [
-            ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'Piscina da casa sob o céu azul, com a casa branca ao fundo', 'pos' => '40% 60%'],
-            ['src' => 'exterior/alpendre.jpg', 'alt' => 'Alpendre com duas cadeiras brancas e copos de vinho'],
-            ['src' => 'interior/sala-portas.jpg', 'alt' => 'Salão com cozinha, mesa de refeições e zona de estar', 'pos' => '50% 40%'],
-            ['src' => 'quartos/quarto.jpg', 'alt' => 'Quarto luminoso com cama feita e roupa de cama branca'],
+            ['src' => 'exterior/piscina-chapeu-sol.jpg', 'alt' => 'Espreguiçadeiras e chapéu-de-sol junto à piscina'],
+            ['src' => 'interior/salao-tecto-madeira.jpg', 'alt' => 'O salão com o teto de madeira à vista'],
+            ['src' => 'quartos/quarto-casal-comoda.jpg', 'alt' => 'Quarto de casal, com cómoda e cadeira de baloiço'],
+            ['src' => 'exterior/casa-campo-entardecer.jpg', 'alt' => 'A casa e a piscina vistas do campo, ao fim da tarde'],
+            ['src' => 'interior/cozinha-ilha.jpg', 'alt' => 'A ilha da cozinha e a porta para o pátio'],
+            ['src' => 'exterior/por-do-sol.jpg', 'alt' => 'O pôr do sol refletido na piscina'],
+            ['src' => 'quartos/quarto-duas-camas.jpg', 'alt' => 'Quarto com duas camas e porta para o exterior'],
+            ['src' => 'exterior/alpendre-vista-pinheiros.jpg', 'alt' => 'Do alpendre para a piscina e os pinheiros'],
+            ['src' => 'interior/sala-poltronas.jpg', 'alt' => 'As poltronas da sala'],
+            ['src' => 'exterior/piscina-noite.jpg', 'alt' => 'A piscina iluminada, à noite'],
+            ['src' => 'quinta/olival.jpg', 'alt' => 'O olival'],
+            ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno'],
+            ['src' => 'exterior/casa-ceu-rosa.jpg', 'alt' => 'A casa ao entardecer, com o céu cor-de-rosa'],
+            ['src' => 'quartos/casa-de-banho.jpg', 'alt' => 'Casa de banho com duche de vidro e lavatório duplo'],
             ['src' => 'interior/sala-mesa.jpg', 'alt' => 'A mesa de refeições na sala'],
-            ['src' => 'exterior/campo-verde.jpg', 'alt' => 'O campo à volta da casa'],
+            ['src' => 'quinta/cao-campo.jpg', 'alt' => 'Um cão à solta no campo'],
+            ['src' => 'exterior/casa-tronco-oliveira.jpg', 'alt' => 'A casa e a piscina por entre a oliveira'],
+            ['src' => 'interior/biblioteca-sofa.jpg', 'alt' => 'O sofá da biblioteca, junto à lareira'],
+            ['src' => 'exterior/sombra-arvore-parede.jpg', 'alt' => 'A sombra da árvore na parede branca e azul'],
+            ['src' => 'exterior/casa-lua.jpg', 'alt' => 'A casa sob a lua'],
         ],
     ],
 
-    // ---- 5. Quem cá esteve --------------------------------------------------------
-    'avaliacoes' => [
-        'eyebrow' => 'Quem cá esteve',
-        'citacao' => null,           // null = usa a avaliação do FACTOS (inc/factos.php)
-        'assinatura' => 'Hóspedes do Airbnb · 2023',
-        'rodape' => 'Recebemos hóspedes desde 2022 · Airbnb · Booking · Vrbo',
+    // ---- 5. Montemor-o-Novo, a Nacional 2 e onde estamos ---------------------------------
+    // As ligações ('visit_montemor', 'ecopista', 'rota_n2', 'maps') estão em inc/factos.php → 'ligacoes'.
+    'montemor' => [
+        'eyebrow' => 'A 1 h de Lisboa',
+        'titulo' => 'Montemor-o-Novo também é a estadia',
+        'texto' => 'Subir ao castelo, descobrir as ruas e escolher onde parar à mesa. A casa fica a 3 km do centro e Évora a 25 minutos',
+        'ligacao' => ['Passear por Montemor', 'visit_montemor'],
+        'ecopista' => [
+            'texto' => 'A Ecopista do Montado passa à nossa porta: a antiga linha de comboio, hoje caminho entre sobreiros, para fazer a pé ou de bicicleta',
+            'ligacao' => ['Conhecer a ecopista', 'ecopista'],
+        ],
+        // As fotografias rolam aqui mesmo, na secção (não levam a outra página).
+        'fotos' => [
+            ['src' => 'montemor/castelo-ruinas.jpg', 'alt' => 'As ruínas no alto do castelo de Montemor-o-Novo', 'legenda' => 'O castelo, lá no alto', 'pos' => '50% 100%'],
+            ['src' => 'montemor/vila-muralha.jpg', 'alt' => 'Os telhados de Montemor-o-Novo vistos da muralha', 'legenda' => 'A vila, vista da muralha'],
+            ['src' => 'montemor/rua-branca-azul.jpg', 'alt' => 'Uma rua de casas caiadas, com barras azuis', 'legenda' => 'Ruas de cal e barras azuis'],
+            ['src' => 'montemor/caminho-arvores-bicicleta.jpg', 'alt' => 'Uma bicicleta num caminho de terra, sob um túnel de árvores', 'legenda' => 'De bicicleta, à sombra'],
+            ['src' => 'montemor/igreja-fachada.jpg', 'alt' => 'A fachada de uma igreja branca e azul, com o painel de azulejos', 'legenda' => 'Branco, azul e azulejo'],
+            ['src' => 'montemor/estacao-paiao.jpg', 'alt' => 'A antiga estação ferroviária do Paião, com uma bicicleta à porta', 'legenda' => 'A antiga estação do Paião, na ecopista'],
+            ['src' => 'montemor/castelo-porta-vista.jpg', 'alt' => 'A vila vista por uma porta da muralha', 'legenda' => 'Uma porta para a planície'],
+            ['src' => 'montemor/janela-flores.jpg', 'alt' => 'Uma janela com grade de ferro e vasos de flores', 'legenda' => 'Janelas com flores'],
+            ['src' => 'montemor/montado-bicicleta.jpg', 'alt' => 'Uma bicicleta parada junto ao montado', 'legenda' => 'O montado, logo ali'],
+            ['src' => 'montemor/miradouro-candeeiros.jpg', 'alt' => 'A vila vista de um miradouro, entre dois candeeiros', 'legenda' => 'Parar no miradouro'],
+        ],
+        'n2' => [
+            'eyebrow' => 'Nacional 2 · No caminho, uma casa',
+            'titulo' => 'Dois dias no coração do Alentejo',
+            'texto' => 'Na viagem pela Nacional 2, façam de Montemor uma pausa de duas noites. Um dia para a vila, outro para Évora, e a mesma casa à vossa espera ao fim do dia',
+            // O programa é nosso (Diogo, 15/11/2026): castelo e mercado de sábado de manhã.
+            'programa' => [
+                ['Sexta', 'Chegar, abrir as portas e deixar a estrada lá fora'],
+                ['Sábado', 'O mercado de manhã, a subida ao castelo e o fim da tarde entre a piscina e o alpendre'],
+                ['Domingo', 'Évora a 25 minutos e, se ninguém entrar a seguir, a casa é vossa até ao fim da tarde'],
+            ],
+            'nota' => 'Estadia mínima de duas noites. No verão, de sábado a sábado',
+            'ligacao' => ['Montemor-o-Novo na Rota da N2', 'rota_n2'],
+        ],
+        'onde' => ['eyebrow' => 'Onde estamos', 'botao_mapa' => 'Abrir no Google Maps'],
     ],
 
-    // ---- 6. Perguntas frequentes ----------------------------------------------------
-    'perguntas' => [
-        ['A casa é alugada por inteiro?', 'Sim. A casa é reservada na totalidade para o vosso grupo, até oito pessoas.'],
-        ['Quantos quartos e casas de banho tem?', 'Quatro quartos e duas casas de banho: uma privativa no quarto principal e uma partilhada.'],
-        ['A que horas podemos entrar e sair?', 'Entrada a partir das 16h, saída até às 11h. Ao fim de semana, a saída tardia pode ser combinada quando não há entrada no mesmo dia.'],
-        ['Qual é a estadia mínima?', 'Habitualmente, duas noites. De 18 de julho a 31 de agosto, sete noites, de sábado a sábado.'],
-        ['A limpeza está incluída?', 'A limpeza final é cobrada uma vez por estadia e aparece separadamente no resumo do preço.'],
-        ['Podemos levar animais de companhia?', 'Sim, os animais de companhia são bem-vindos. Falem connosco para combinar os detalhes.'],
-        ['Como é feito o pagamento?', '30 % para confirmar e o restante até ao terceiro dia útil antes da entrada, por transferência bancária ou PayPal.'],
-        ['Também estão no Airbnb, Booking ou Vrbo?', 'Sim, a casa está nas três plataformas (ligações no fim da página). Reservar directamente connosco é a forma mais simples de falar com quem a conhece.'],
-    ],
-
-    // ---- 7. Fotografias (álbuns) -------------------------------------------------------
+    // ---- 6. Galeria (os álbuns do Zenfolio, pela mesma ordem) -------------------------------------
     // Para juntar fotografias novas: copiar o ficheiro para fotos/<álbum>/ e acrescentar a linha aqui.
     // Álbuns sem fotografias não aparecem.
-    'fotografias' => [
-        'titulo' => 'Fotografias',
+    'galeria' => [
+        'titulo' => 'Galeria',
         'albuns' => [
             [
-                'nome' => 'Monte e exterior',
+                // Álbum «O Monte» do Zenfolio (design/fotos/galeria/01-o-monte/).
+                'nome' => 'O Monte',
                 'fotos' => [
-                    ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'Piscina da casa sob o céu azul, com a casa branca ao fundo', 'pos' => '40% 60%'],
-                    ['src' => 'exterior/alpendre.jpg', 'alt' => 'Alpendre com duas cadeiras brancas e copos de vinho'],
-                    ['src' => 'exterior/piscina-espreguicadeira.jpg', 'alt' => 'Espreguiçadeira à beira da piscina'],
                     ['src' => 'exterior/casa-campo-entardecer.jpg', 'alt' => 'A casa e a piscina vistas do campo, ao fim da tarde'],
-                    ['src' => 'exterior/piscina-pinheiro-manha.jpg', 'alt' => 'A piscina e o pinheiro, de manhã'],
+                    ['src' => 'exterior/piscina-pinheiro-manha.jpg', 'alt' => 'A piscina e o pinheiro, com o sol baixo'],
                     ['src' => 'exterior/alpendre-por-do-sol.jpg', 'alt' => 'Mesa posta no alpendre, com o sol a pôr-se atrás do pinheiro'],
                     ['src' => 'exterior/alpendre-piscina-manha.jpg', 'alt' => 'O alpendre e a piscina pela manhã'],
                     ['src' => 'exterior/piscina-chapeu-sol.jpg', 'alt' => 'Espreguiçadeiras e chapéu-de-sol junto à piscina'],
+                    ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'A piscina sob o céu azul, com a casa branca ao fundo'],
                     ['src' => 'exterior/casa-alpendre-lateral.jpg', 'alt' => 'A fachada da casa com o alpendre e a barra azul'],
                     ['src' => 'exterior/piscina-agua.jpg', 'alt' => 'A água da piscina com a casa ao fundo'],
-                    ['src' => 'exterior/piscina-sobreiro.jpg', 'alt' => 'A piscina sob o sobreiro'],
+                    ['src' => 'exterior/alpendre.jpg', 'alt' => 'Alpendre com duas cadeiras brancas e copos de vinho'],
+                    ['src' => 'exterior/piscina-sobreiro.jpg', 'alt' => 'A piscina e o pinheiro grande'],
                     ['src' => 'exterior/alpendre-dia.jpg', 'alt' => 'Almoço no alpendre, com o campo em frente'],
                     ['src' => 'exterior/sombra-arvore-parede.jpg', 'alt' => 'A sombra da árvore na parede branca e azul'],
                     ['src' => 'exterior/alpendre-mesa-jantar.jpg', 'alt' => 'A mesa de jantar no alpendre'],
                     ['src' => 'exterior/pateo-portas-vidro.jpg', 'alt' => 'O pátio visto do interior, pelas portas de vidro'],
+                    ['src' => 'interior/sala-portas.jpg', 'alt' => 'O salão visto pelas portas abertas'],
+                    ['src' => 'interior/sala-sofa-tv.jpg', 'alt' => 'A zona de estar com a televisão'],
+                    ['src' => 'interior/poltrona-janela.jpg', 'alt' => 'A poltrona à janela'],
+                    ['src' => 'interior/estantes-cozinha.jpg', 'alt' => 'As estantes da cozinha e o teto de madeira'],
+                    ['src' => 'interior/salao-tecto-madeira.jpg', 'alt' => 'O salão com o teto de madeira à vista'],
+                    ['src' => 'interior/cozinha.jpg', 'alt' => 'A cozinha com ilha e balcão de madeira'],
+                    ['src' => 'interior/cozinha-ilha.jpg', 'alt' => 'A ilha da cozinha e a porta para o pátio'],
+                    ['src' => 'interior/sala-mesa-sofa.jpg', 'alt' => 'Mesa de refeições e sofá, com a porta aberta para o alpendre'],
+                    ['src' => 'interior/mesa-refeicoes.jpg', 'alt' => 'A mesa de refeições para oito'],
+                    ['src' => 'interior/cozinha-sala.jpg', 'alt' => 'Da cozinha para a sala'],
+                    ['src' => 'interior/sala-poltronas.jpg', 'alt' => 'As poltronas da sala'],
+                    ['src' => 'interior/lareira-cadeira.jpg', 'alt' => 'A lareira e a cadeira dourada'],
+                    ['src' => 'interior/biblioteca-tapete-azul.jpg', 'alt' => 'A biblioteca, com o tapete azul e o sofá'],
+                    ['src' => 'interior/biblioteca-sofa.jpg', 'alt' => 'O sofá da biblioteca, junto à lareira'],
+                    ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno'],
+                    ['src' => 'interior/biblioteca-poltrona-estante.jpg', 'alt' => 'A poltrona da biblioteca e a estante'],
+                    ['src' => 'interior/corredor-quartos.jpg', 'alt' => 'O corredor para os quartos'],
+                    ['src' => 'interior/corredor-luz.jpg', 'alt' => 'O corredor com a luz do fim do dia'],
+                    ['src' => 'interior/corredor-noite.jpg', 'alt' => 'O corredor à noite'],
                     ['src' => 'exterior/casa-oliveira.jpg', 'alt' => 'A casa, a piscina e a oliveira'],
                     ['src' => 'exterior/alpendre-vista-pinheiros.jpg', 'alt' => 'Do alpendre para a piscina e os pinheiros'],
-                    ['src' => 'exterior/casa-sobreiros.jpg', 'alt' => 'A casa entre sobreiros'],
+                    ['src' => 'exterior/casa-sobreiros.jpg', 'alt' => 'A casa vista de cima, entre as árvores'],
                     ['src' => 'exterior/casa-tronco-oliveira.jpg', 'alt' => 'A casa e a piscina por entre a oliveira'],
                     ['src' => 'exterior/casa-ceu-rosa.jpg', 'alt' => 'A casa ao entardecer, com o céu cor-de-rosa'],
+                    ['src' => 'exterior/por-do-sol.jpg', 'alt' => 'O pôr do sol refletido na piscina'],
                     ['src' => 'exterior/piscina-noite.jpg', 'alt' => 'A piscina iluminada, à noite'],
-                    ['src' => 'exterior/por-do-sol.jpg', 'alt' => 'O pôr do sol reflectido na piscina'],
                     ['src' => 'exterior/pateo-noite.jpg', 'alt' => 'O pátio à noite'],
                     ['src' => 'exterior/alpendre-noite.jpg', 'alt' => 'O alpendre à noite'],
                     ['src' => 'exterior/casa-lua.jpg', 'alt' => 'A casa sob a lua'],
@@ -171,34 +241,9 @@ return [
                 ],
             ],
             [
-                'nome' => 'Sala, cozinha e biblioteca',
+                // Álbum «Os Quartos» do Zenfolio (design/fotos/galeria/02-os-quartos/).
+                'nome' => 'Os Quartos',
                 'fotos' => [
-                    ['src' => 'interior/sala-portas.jpg', 'alt' => 'Salão com cozinha, mesa de refeições e zona de estar', 'pos' => '50% 40%'],
-                    ['src' => 'interior/sala-mesa.jpg', 'alt' => 'A mesa de refeições na sala'],
-                    ['src' => 'interior/sala-sofa-tv.jpg', 'alt' => 'A zona de estar com a televisão'],
-                    ['src' => 'interior/poltrona-janela.jpg', 'alt' => 'A poltrona à janela'],
-                    ['src' => 'interior/estantes-cozinha.jpg', 'alt' => 'As estantes da cozinha e o tecto de madeira'],
-                    ['src' => 'interior/salao-tecto-madeira.jpg', 'alt' => 'O salão com o tecto de madeira à vista'],
-                    ['src' => 'interior/cozinha.jpg', 'alt' => 'A cozinha com ilha e balcão de madeira'],
-                    ['src' => 'interior/cozinha-ilha.jpg', 'alt' => 'A ilha da cozinha e a porta para o pátio'],
-                    ['src' => 'interior/sala-mesa-sofa.jpg', 'alt' => 'Mesa de refeições e sofá, com a porta aberta para o alpendre'],
-                    ['src' => 'interior/mesa-refeicoes.jpg', 'alt' => 'A mesa de refeições para oito'],
-                    ['src' => 'interior/cozinha-sala.jpg', 'alt' => 'Da cozinha para a sala'],
-                    ['src' => 'interior/sala-poltronas.jpg', 'alt' => 'As poltronas da sala'],
-                    ['src' => 'interior/lareira-cadeira.jpg', 'alt' => 'A lareira e a cadeira dourada'],
-                    ['src' => 'interior/biblioteca-tapete-azul.jpg', 'alt' => 'A biblioteca, com o tapete azul e o sofá-cama'],
-                    ['src' => 'interior/biblioteca-sofa.jpg', 'alt' => 'O sofá-cama da biblioteca, junto à lareira'],
-                    ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno'],
-                    ['src' => 'interior/biblioteca-poltrona-estante.jpg', 'alt' => 'A poltrona da biblioteca e a estante'],
-                    ['src' => 'interior/corredor-quartos.jpg', 'alt' => 'O corredor para os quartos'],
-                    ['src' => 'interior/corredor-luz.jpg', 'alt' => 'O corredor com a luz do fim do dia'],
-                    ['src' => 'interior/corredor-noite.jpg', 'alt' => 'O corredor à noite'],
-                ],
-            ],
-            [
-                'nome' => 'Quartos e banho',
-                'fotos' => [
-                    ['src' => 'quartos/quarto.jpg', 'alt' => 'Quarto luminoso com cama feita e roupa de cama branca'],
                     ['src' => 'quartos/quarto-2.jpg', 'alt' => 'Quarto de casal com porta para o alpendre'],
                     ['src' => 'quartos/quarto-casal-comoda.jpg', 'alt' => 'Quarto de casal, com cómoda e cadeira de baloiço'],
                     ['src' => 'quartos/casa-de-banho-marmore.jpg', 'alt' => 'Casa de banho em mármore, com lavatório suspenso'],
@@ -210,12 +255,12 @@ return [
                     ['src' => 'quartos/quarto-amarelo.jpg', 'alt' => 'Quarto com duas camas e almofadas amarelas'],
                     ['src' => 'quartos/casa-de-banho.jpg', 'alt' => 'Casa de banho com duche de vidro e lavatório duplo'],
                     ['src' => 'quartos/casa-de-banho-2.jpg', 'alt' => 'Casa de banho com lavatório duplo'],
-                    ['src' => 'quartos/casa-de-banho-pequena.jpg', 'alt' => 'A casa de banho de serviço'],
+                    ['src' => 'quartos/casa-de-banho-pequena.jpg', 'alt' => 'A casa de banho social'],
                 ],
             ],
             [
                 // Álbum «A Quinta» do Zenfolio, pela mesma ordem (design/fotos/galeria/03-a-quinta/).
-                'nome' => 'A quinta',
+                'nome' => 'A Quinta',
                 'fotos' => [
                     ['src' => 'quinta/casa-pinheiro-terreno.jpg', 'alt' => 'O pinheiro e a casa, vistos do terreno'],
                     ['src' => 'quinta/casa-piscina-campo.jpg', 'alt' => 'A casa e a piscina vistas do campo'],
@@ -234,37 +279,6 @@ return [
                     ['src' => 'quinta/olival-encosta.jpg', 'alt' => 'O olival na encosta'],
                     ['src' => 'quinta/cao-olival.jpg', 'alt' => 'Um cão a passear no olival'],
                     ['src' => 'quinta/oliveiras-vedacao.jpg', 'alt' => 'Oliveiras antigas junto à vedação'],
-                ],
-            ],
-            [
-                // Os 11 pares do álbum «Antes e Depois» do Zenfolio, sempre pela ordem antes, depois
-                // (design/fotos/galeria/04-antes-e-depois/). Os ângulos de cada par não são iguais: mostram-se lado a lado.
-                'nome' => 'Antes e depois',
-                'pares' => true,
-                'sem_schema' => true,
-                'fotos' => [
-                    ['src' => 'antes-depois/casa-piscina-antes.jpg', 'alt' => 'A casa e a piscina · antes: os dois edifícios e o campo seco', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/casa-piscina-depois.jpg', 'alt' => 'A casa e a piscina · depois', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/salao-antes.jpg', 'alt' => 'O salão · antes: o interior do antigo casão, em bruto', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/salao-depois.jpg', 'alt' => 'O salão · depois: as vigas novas e a zona de estar', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/fachada-antes.jpg', 'alt' => 'A fachada da casa principal · antes', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/fachada-depois.jpg', 'alt' => 'A fachada da casa principal · depois, com a barra azul', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/chamine-antes.jpg', 'alt' => 'A chaminé · antes', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/chamine-depois.jpg', 'alt' => 'A chaminé · depois do restauro', 'pos' => '50% 12%', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/patio-antes.jpg', 'alt' => 'O pátio · antes: o espaço entre as duas casas', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/patio-depois.jpg', 'alt' => 'O pátio · depois: envidraçado, com vista para o alpendre e a piscina', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/corredor-antes.jpg', 'alt' => 'O corredor · antes', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/corredor-depois.jpg', 'alt' => 'O corredor · depois', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/pergula-tanque-antes.jpg', 'alt' => 'A pérgula e o tanque · antes', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/pergula-tanque-depois.jpg', 'alt' => 'A pérgula e o tanque · depois, de branco e azul', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/quarto-antes.jpg', 'alt' => 'Um quarto da casa principal · antes', 'pos' => '50% 35%', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/quarto-depois.jpg', 'alt' => 'Um quarto da casa principal · depois', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/poco-frente-antes.jpg', 'alt' => 'O poço, de frente · antes', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/poco-frente-depois.jpg', 'alt' => 'O poço, de frente · depois', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/poco-lado-antes.jpg', 'alt' => 'O poço, de lado · antes', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/poco-lado-depois.jpg', 'alt' => 'O poço, de lado · depois', 'etiqueta' => 'Depois'],
-                    ['src' => 'antes-depois/nora-antes.jpg', 'alt' => 'A nora do poço · antes', 'pos' => '50% 40%', 'etiqueta' => 'Antes'],
-                    ['src' => 'antes-depois/nora-depois.jpg', 'alt' => 'A nora do poço · depois', 'etiqueta' => 'Depois'],
                 ],
             ],
             [
@@ -291,35 +305,84 @@ return [
         ],
     ],
 
-    // ---- 8. Onde estamos ---------------------------------------------------------------
-    'montemor' => [
-        'foto' => ['src' => 'exterior/alpendre.jpg', 'alt' => 'Fim de tarde no alpendre, com o campo alentejano à volta', 'pos' => '50% 60%'],
-        'eyebrow' => 'Onde estamos',
-        'titulo' => 'O Alentejo mesmo à porta',
-        'botao_mapa' => 'Abrir no Google Maps',
-        'blocos' => [
-            ['id' => null, 'titulo' => 'Montemor-o-Novo', 'texto' => 'Subir ao castelo, percorrer as ruas, descobrir o património e escolher onde parar à mesa. Montemor-o-Novo também faz parte da estadia'],
-            ['id' => 'nacional2', 'titulo' => 'Nacional 2 · roteiro de duas noites', 'texto' => 'Façam de Montemor-o-Novo uma pausa de duas noites na viagem pela Nacional 2. Um dia para descobrir Montemor. Outro para passear por Évora. E a mesma casa para regressar ao fim do dia'],
+    // ---- 7. Antes de chegar (perguntas) -------------------------------------------------------------
+    // {saida_tardia} é trocado pela hora de inc/factos.php → 'saida_tardia'.
+    'antes' => [
+        'eyebrow' => 'Antes de chegar',
+        'titulo' => 'Para se sentirem em casa',
+    ],
+    'perguntas' => [
+        ['A casa é só para nós?', 'Sim. A estadia é sempre de casa inteira: até oito pessoas, quatro quartos e a piscina de 10 × 5 m só para o vosso grupo.'],
+        ['Como estão distribuídos os quartos?', 'Dois quartos de casal e dois twin. Se preferirem, um dos twin passa a casal e a casa fica com três quartos de casal e um twin. Há duas casas de banho, uma delas privativa, e ainda um WC social.'],
+        ['Podemos ir no inverno?', 'Podem, e vale a pena: há ar condicionado em todas as divisões e lareira na biblioteca.'],
+        ['A que horas podemos chegar?', 'A entrada é a partir das 16h e a saída até às 11h. Quando ninguém entra no mesmo dia, a saída pode ficar para as {saida_tardia}, para aproveitarem o dia até ao fim. O Diogo envia as indicações de chegada antes da estadia.'],
+        ['Qual é a estadia mínima?', 'Duas noites, quase todo o ano. De 18 de julho a 31 de agosto, sete noites, de sábado a sábado.'],
+        ['Os animais também podem vir?', 'Podem, são bem-vindos. Digam-nos só quem vem, para deixarmos tudo combinado.'],
+        ['Como podemos pedir as nossas datas?', 'Escolham as datas no calendário e falem connosco por WhatsApp ou email. O pedido só fica confirmado depois de falarem com o Diogo.'],
+    ],
+
+    // ---- 8. Quem já ficou (frases curtas, uma de cada vez) ----------------------------------------
+    // Cada linha: [frase tal como o hóspede a escreveu, plataforma, mês e ano, true se for tradução]. Sem nomes.
+    // Escolha (Diogo, 15/11/2026): as que contam pormenores, mais recentes do que antigas, e as de quem veio de fora.
+    'avaliacoes' => [
+        'eyebrow' => 'Quem já ficou',
+        'citacoes' => [
+            ['Rodeada por ovelhas, com um pôr do sol magnífico', 'Airbnb', 'julho de 2026', true],
+            ['Cozinha ultra moderna muito bem equipada, camas muito confortáveis também', 'Booking', 'setembro de 2026', false],
+            ['Uma casa moderna, rodeada por uma quinta. Foi perfeito', 'Airbnb', 'julho de 2024', true],
+            ['A casa foi decorada com grande atenção aos detalhes e está muito bem equipada', 'Airbnb', 'abril de 2023', true],
+            ['Os bebés também tiveram todo o conforto necessário', 'Booking', 'março de 2024', false],
+            ['Excelente design moderno em combinação com a antiga arquitetura alentejana', 'Airbnb', 'maio de 2024', false],
+            ['Foi nosso melhor Natal', 'Airbnb', 'dezembro de 2023', false],
+            ['O campo aqui é tão bonito. Vamos voltar de certeza', 'Vrbo', 'janeiro de 2024', true],
+            ['A casa superou as nossas expectativas e as fotografias', 'Airbnb', 'outubro de 2023', true],
+            ['A piscina é maravilhosa e apanha sol até ao final da tarde', 'Vrbo', 'agosto de 2022', false],
         ],
+        'rodape' => 'Recebemos hóspedes desde 2022 · Airbnb · Booking · Vrbo',
     ],
 
     // ---- 9. Contactos (rodapé) ------------------------------------------------------------
     'contactos' => [
-        'titulo' => 'Venham conhecer a casa, falem connosco',
-        'texto' => 'Contem-nos as vossas datas e como gostam de viajar. Respondemos por WhatsApp ou por email, sem formulários nem esperas',
+        'eyebrow' => 'Falamos?',
+        'titulo' => 'Contem-nos os vossos planos',
+        'texto' => 'Falem com o Diogo sobre as vossas datas, por WhatsApp ou email',
+        'rodape' => 'Monte Casa Branca · Montemor-o-Novo · Alentejo · Registo 126450/AL',
     ],
 
     // ---- 10. Painel «Verificar disponibilidade» --------------------------------------------
+    // {hora} é trocado pela hora de inc/factos.php → 'saida_tardia'.
     'disponibilidade' => [
-        'eyebrow' => 'Disponibilidade',
-        'titulo' => 'As vossas datas',
+        'eyebrow' => 'Os vossos dias',
+        'titulo' => 'Quando vos apetece vir?',
+        'texto' => 'Juntem as pessoas de quem gostam e escolham os dias. Das contas tratamos nós',
         'legenda_livre' => 'Livre',
         'legenda_ocupado' => 'Ocupado',
-        'nota_calendario' => 'Datas indicativamente livres · confirmamos no pedido',
-        'simular' => 'Simulem a estadia',
-        'nota_preco' => 'A disponibilidade e o valor final são confirmados connosco, por mensagem',
+        'nota_calendario' => 'O calendário mostra o que está livre hoje · o Diogo confirma no pedido',
+        'nota_exemplo' => 'Calendário de exemplo · a disponibilidade real é confirmada no pedido',
+        'nota_sem_calendario' => 'Calendário indisponível de momento · confirmamos as datas no pedido',
+        'simular' => 'As contas, sem surpresas',
+        'chegada' => 'Chegada',
+        'partida' => 'Partida',
+        'pessoas' => 'Quantas pessoas vêm?',
+        'nota_casa' => 'A casa é só vossa, venham dois ou oito',
+        'conta_vazia' => 'Escolham a chegada e a partida para ver quanto fica a estadia',
+        'conta_calcular' => 'A fazer as contas…',
+        'conta_falha' => 'Não conseguimos fazer as contas agora. Falem connosco por WhatsApp ou email',
+        'conta_ocupado' => 'Estes dias já têm dono. Experimentem outros ou falem connosco',
+        'linha_estadia' => 'Estadia',
+        'linha_limpeza' => 'Limpeza final · uma vez por estadia',
+        'linha_total' => 'Total da casa',
+        'depois_conta' => 'Quatro quartos, piscina e a casa inteira só para o vosso grupo',
+        'saida_tardia' => 'No dia da saída, se ninguém entrar a seguir, podem ficar até às {hora} e aproveitar o dia até ao fim',
+        'estimativa' => 'Valor calculado pelo site. O Diogo confirma no pedido',
+        'pedir_titulo' => 'Gostam destas datas? Falem com o Diogo',
         'pedir' => 'Pedir estas datas',
-        'tempo' => 'Tempo em Montemor-o-Novo',
+        'nota_preco' => 'Sem reserva automática e sem pagamentos aqui: o Diogo confirma as datas e o valor',
+        'tempo' => 'O tempo no Monte',
+        'tempo_proximos' => 'Os próximos dias',
+        'tempo_estadia' => 'Previsão para os vossos dias',
+        'tempo_medias' => 'Ainda é cedo para previsões. Nos últimos anos, estes dias foram assim',
+        'tempo_misto' => 'Previsão para os primeiros dias. Para os outros ainda é cedo: mostramos como costumam ser',
         'fonte_tempo' => 'Dados: Open-Meteo',
     ],
 

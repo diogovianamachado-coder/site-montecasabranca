@@ -1,15 +1,15 @@
-<?php $I = $C['inicio']; ?>
-<section id="inicio" class="hero">
-  <?= foto_img($I['foto'], ['class' => 'hero-foto', 'fetchpriority' => 'high', 'id' => 'hero-foto'], false) ?>
-  <div class="hero-shade"></div>
+<?php $I = $C['inicio']; // $CAPA, $capaChave e $capaEstudo vêm do index.php ?>
+<section id="inicio" class="hero hero-<?= e($CAPA['mascara']) ?> hero-titulo-<?= e($CAPA['titulo']) ?>">
+  <?= foto_img($CAPA['foto'], ['class' => 'hero-foto', 'fetchpriority' => 'high', 'id' => 'hero-foto'], false) ?>
+  <div class="hero-shade" aria-hidden="true"></div>
   <header class="hero-topo contentor">
     <a href="#inicio" class="logo logo-hero" aria-label="<?= e($F['nome']) ?>"></a>
     <nav class="hero-nav" aria-label="Secções">
-      <?php foreach (array_slice($C['menu'], 0, 5) as [$t, $h]): ?><a href="<?= e($h) ?>"><?= e($t) ?></a><?php endforeach; ?>
+      <?php foreach ($C['menu_topo'] as [$t, $h]): ?><a href="<?= e($h) ?>"><?= e($t) ?></a><?php endforeach; ?>
     </nav>
   </header>
   <div class="hero-texto contentor">
-    <h1 class="entrada"><?= e($I['titulo'][0]) ?><br><?= e($I['titulo'][1]) ?></h1>
+    <h1 class="hero-titulo"><span class="l1 entrada"><?= e($I['titulo'][0]) ?></span> <span class="l2 entrada"><?= e($I['titulo'][1]) ?></span></h1>
     <p class="hero-sub entrada"><?= e($I['subtitulo']) ?></p>
     <ul class="etiquetas entrada">
       <?php foreach ($I['etiquetas'] as [$ic, $t]): ?>
@@ -21,5 +21,11 @@
     </div>
     <p class="hero-nota serif"><?= e($I['nota']) ?></p>
   </div>
-  <a href="#casa" class="hero-descer" aria-label="Descer para a secção seguinte"><?= icone('baixo') ?></a>
+  <a href="#a-casa" class="hero-descer" aria-label="Descer para a secção seguinte"><?= icone('baixo') ?></a>
+  <?php if ($capaEstudo): // estudo da capa: só no ensaio e só com ?capa= no endereço ?>
+  <nav class="estudo-capa" aria-label="Estudo da capa">
+    <span>Capa</span>
+    <?php foreach ($I['capas'] as $k => $c): ?><a href="?capa=<?= e((string)$k) ?>" title="<?= e($c['nome']) ?>"<?= (string)$k === $capaChave ? ' aria-current="true"' : '' ?>><?= e((string)$k) ?></a><?php endforeach; ?>
+  </nav>
+  <?php endif; ?>
 </section>

@@ -117,14 +117,29 @@ isso que a via é esta.
 
 ## 9. No site (`site/fotos/`)
 
-Desde 12/11/2026 os cinco álbuns estão montados no site em PHP (em `main`; no servidor só depois do «Lança» do Diogo):
+Desde 15/11/2026 (revisão do Diogo) a galeria do site segue os álbuns do Zenfolio, pela mesma ordem, **sem o «Antes e Depois»**, que saiu
+do site por decisão dele (as 22 fotografias continuam aqui, em `04-antes-e-depois/`). Em `main`; no servidor só depois do «Lança».
 
 | Álbum da galeria | No site | Separador do site |
 |---|---|---|
-| `01-o-monte/` e `02-os-quartos/` | `site/fotos/exterior/`, `interior/`, `quartos/` (montadas com o site, a 7/11) | Monte e exterior · Sala, cozinha e biblioteca · Quartos e banho |
-| `03-a-quinta/` | `site/fotos/quinta/` (16 ficheiros; a 7.ª do álbum é `exterior/campo-verde.jpg`, que o site já tinha) | A quinta · 17 |
-| `04-antes-e-depois/` | `site/fotos/antes-depois/` (22) | Antes e depois · 22, os 11 pares lado a lado com a etiqueta «Antes» ou «Depois» |
-| `05-montemor-o-novo/` | `site/fotos/montemor/` (14) | Montemor-o-Novo · 14 |
+| `01-o-monte/` | `site/fotos/exterior/` e `interior/` (montadas com o site, a 7/11) | O Monte · 47, pela ordem do Zenfolio (com a troca 39/40: lá o pôr do sol vem antes da piscina à noite) |
+| `02-os-quartos/` | `site/fotos/quartos/` | Os Quartos · 12 |
+| `03-a-quinta/` | `site/fotos/quinta/` (16 ficheiros; a 7.ª do álbum é `exterior/campo-verde.jpg`, que o site já tinha) | A Quinta · 17 |
+| `04-antes-e-depois/` | fora do site desde 15/11 | — |
+| `05-montemor-o-novo/` | `site/fotos/montemor/` (14) | Montemor-o-Novo · 14; dez delas rolam também na secção de Montemor |
 
-Que ficheiro da galeria é cada ficheiro do site está em `demo/ferramentas/fotos/site-albuns.tsv`; `python3 demo/ferramentas/fotos/para_o_site.py`
-copia-os tal e qual e cria ao lado a variante de telemóvel (`-m`, 1 000 px de largura). As legendas escrevem-se em `site/conteudo.php`.
+Fora da galeria, o site usa as mesmas fotografias na capa (duas, em estudo), nos três momentos da casa (13), na régua (20) e na secção de
+Montemor (10), e ainda `interior/sala-mesa.jpg` e `quartos/quarto.jpg`, que não estão no Zenfolio. As duas miniaturas pequenas que restavam
+(`piscina-entardecer`, 600 px, e o recorte `piscina-espreguicadeira`) saíram. São 92 fotografias, todas usadas.
+
+Que ficheiro da galeria é cada ficheiro do site está em `demo/ferramentas/fotos/site-albuns.tsv` (os álbuns 03 e 05 como regras que o
+guião aplica; os 01 e 02 em comentário, só para consulta, porque esses ficheiros são a mesma fotografia noutra gravação);
+`python3 demo/ferramentas/fotos/para_o_site.py` copia os primeiros tal e qual e cria ao lado a variante de telemóvel (`-m`, 1 000 px de
+largura). As descrições e as legendas escrevem-se em `site/conteudo.php`.
+
+**Pasta do verão** (`7. Fotos/3. anuncios/V2_verão/`, 69 ficheiros, listada pelo conector a 15/11/2026): estão na galeria todas menos a
+`34`, a `51` e a `52` (as duas últimas devem ser as fachadas laterais do fim de «O Monte») e uma das duas `40` (`40.JPG` e `40.0.JPG`).
+
+**Marca de água** (pergunta do Diogo, 15/11): `demo/ferramentas/fotos/marca_de_agua.py` grava o logótipo na imagem em três modos (canto,
+centro, repetida); amostras em `docs/fotografia/2026-11-15_marca_de_agua/`. Não foi aplicada: espera a escolha dele. Com o repositório
+público só protege as cópias do servidor; as limpas continuam aqui à vista.

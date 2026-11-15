@@ -9,8 +9,6 @@ final class Tarifas
     public const PAX_MAX = 8;
     public const REGRAS = ['Entrada a partir das 16h', 'Saída até às 11h'];
     public const MENSAL = ['valor' => 4000, 'noites' => 28, 'meses' => [11, 12, 1, 2, 3]];
-    public const LAT = 38.6142917;
-    public const LON = -8.211253;
 
     private static function epocas(int $inicioVerao, int $verao, int $setembro): array
     {
@@ -128,35 +126,10 @@ final class Tarifas
         $R['limpeza'] = $ep0['limpeza'];
         $R['dormidas'] = round($dormidas, 2);
         $R['total'] = round($R['dormidas'] + $R['limpeza'], 2);
-        $ds = (int)$ate->format('w');
-        if ($ds === 0 || $ds === 6) {
-            $nomeDia = $ds === 0 ? 'domingo' : 'sábado';
-            $R['avisos'][] = 'Saída ao ' . $nomeDia . ': podem ficar até ao pôr do sol (' . self::porDoSol($saida) . ')*, a combinar, quando não há entrada nesse dia.';
-        }
+        // A saída tardia (quando ninguém entra no dia da saída) é dita pelo painel do site, que conhece o calendário:
+        // conteudo.php → 'disponibilidade' → 'saida_tardia', com a hora de inc/factos.php. Sem pôr do sol (Diogo, 15/11/2026).
         $R['ok'] = true;
         $R['calculado_em'] = (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format(DATE_ATOM);
         return $R;
-    }
-
-    /** Pôr do sol na casa (algoritmo da NOAA, erro de 1–2 min), em hora de Lisboa, «20h47». */
-    public static function porDoSol(string $iso, float $lat = self::LAT, float $lon = self::LON): string
-    {
-        $d = self::dt($iso);
-        $Y = (int)$d->format('Y'); $M = (int)$d->format('n'); $D = (int)$d->format('j');
-        $a = intdiv(14 - $M, 12); $y = $Y + 4800 - $a; $m = $M + 12 * $a - 3;
-        $jdn = $D + intdiv(153 * $m + 2, 5) + 365 * $y + intdiv($y, 4) - intdiv($y, 100) + intdiv($y, 400) - 32045;
-        $rad = M_PI / 180;
-        $n = $jdn - 2451545 + 0.0008; $Jx = $n - $lon / 360;
-        $Mm = fmod(fmod(357.5291 + 0.98560028 * $Jx, 360) + 360, 360);
-        $C = 1.9148 * sin($Mm * $rad) + 0.02 * sin(2 * $Mm * $rad) + 0.0003 * sin(3 * $Mm * $rad);
-        $L = fmod($Mm + $C + 180 + 102.9372, 360);
-        $Jt = 2451545 + $Jx + 0.0053 * sin($Mm * $rad) - 0.0069 * sin(2 * $L * $rad);
-        $dec = asin(sin($L * $rad) * sin(23.4397 * $rad));
-        $cosw = (sin(-0.833 * $rad) - sin($lat * $rad) * sin($dec)) / (cos($lat * $rad) * cos($dec));
-        if ($cosw > 1 || $cosw < -1) return '—';
-        $w = acos($cosw) / $rad; $Jset = $Jt + $w / 360;
-        $ts = (int)round(($Jset - 2440587.5) * 86400);
-        $inst = (new DateTimeImmutable('@' . $ts))->setTimezone(new DateTimeZone('Europe/Lisbon'));
-        return $inst->format('H\hi');
     }
 }

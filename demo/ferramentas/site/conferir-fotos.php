@@ -1,7 +1,8 @@
 <?php
 // Confere as fotografias do site (site/conteudo.php contra site/fotos/). Uso: php demo/ferramentas/site/conferir-fotos.php
-// Falha (sai com 1) se: uma fotografia referida não existe · um álbum em pares tem número ímpar de fotografias ou as etiquetas não
-// alternam · a mesma fotografia aparece duas vezes no mesmo álbum. Avisa (sem falhar) dos ficheiros que ninguém usa.
+// Falha (sai com 1) se: uma fotografia referida não existe · a mesma fotografia aparece duas vezes no mesmo álbum ou no mesmo rolo ·
+// uma fotografia não tem descrição (alt) · um rolo com legendas tem uma fotografia sem legenda. Avisa (sem falhar) dos ficheiros
+// que ninguém usa.
 declare(strict_types=1);
 
 $raiz = dirname(__DIR__, 3) . '/site';
@@ -17,25 +18,22 @@ foreach (array_keys($referidas) as $src) {
     if (!is_file("$raiz/fotos/$src")) $erros[] = "fotografia referida que não existe: fotos/$src";
 }
 
-foreach ($C['fotografias']['albuns'] as $al) {
-    $nome = $al['nome'];
-    $n = count($al['fotos']);
+/** Um conjunto de fotografias (álbum ou rolo): sem repetidas, todas com descrição; $legendas = todas com legenda. */
+$conferir = function (string $nome, array $fotos, bool $legendas = false) use (&$erros): void {
     $vistas = [];
-    foreach ($al['fotos'] as $f) {
-        if (isset($vistas[$f['src']])) $erros[] = "álbum «{$nome}»: {$f['src']} aparece duas vezes";
+    foreach ($fotos as $f) {
+        if (isset($vistas[$f['src']])) $erros[] = "«{$nome}»: {$f['src']} aparece duas vezes";
         $vistas[$f['src']] = true;
-        if (trim((string)($f['alt'] ?? '')) === '') $erros[] = "álbum «{$nome}»: {$f['src']} sem legenda (alt)";
+        if (trim((string)($f['alt'] ?? '')) === '') $erros[] = "«{$nome}»: {$f['src']} sem descrição (alt)";
+        if ($legendas && trim((string)($f['legenda'] ?? '')) === '') $erros[] = "«{$nome}»: {$f['src']} sem legenda";
     }
-    if (!empty($al['pares'])) {
-        if ($n % 2 !== 0) $erros[] = "álbum «{$nome}» é em pares e tem {$n} fotografias (número ímpar)";
-        for ($i = 0; $i + 1 < $n; $i += 2) {
-            $a = $al['fotos'][$i]['etiqueta'] ?? '';
-            $d = $al['fotos'][$i + 1]['etiqueta'] ?? '';
-            if ($a === '' || $d === '' || $a === $d) $erros[] = "álbum «{$nome}»: o par n.º " . ($i / 2 + 1) . " não tem as duas etiquetas (antes, depois)";
-        }
-    }
-    printf("  %-28s %3d%s\n", $nome, $n, !empty($al['pares']) ? '  (' . intdiv($n, 2) . ' pares)' : '');
-}
+    printf("  %-34s %3d\n", $nome, count($fotos));
+};
+foreach ($C['galeria']['albuns'] as $al) $conferir('álbum ' . $al['nome'], $al['fotos']);
+foreach ($C['momentos'] as $m) $conferir('momento ' . $m['eyebrow'], $m['fotos'], true);
+$conferir('régua', $C['regua']['fotos']);
+$conferir('rolo de Montemor-o-Novo', $C['montemor']['fotos'], true);
+foreach ($C['inicio']['capas'] as $k => $c) if (!is_file("$raiz/fotos/" . $c['foto']['src'])) $erros[] = "capa $k: falta fotos/{$c['foto']['src']}";
 
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("$raiz/fotos", FilesystemIterator::SKIP_DOTS));
 $ficheiros = 0;
