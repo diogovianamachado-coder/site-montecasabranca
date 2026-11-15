@@ -328,9 +328,12 @@ Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo
 - ✓ **Mensagem da casa:** «Por fora · Sem pressa · Por dentro» («a melhor mensagem que a casa tem») e, a fechar o dia, «Há dias em que
   não é preciso mais nada». Título da capa: «Uma casa inteira» / «O Alentejo à vossa porta».
 - ✓ **As três notas no site** (Diogo, 15/11, noite: «uma infografia ligeira com essas 3 notas: booking, airbnb e google»): **Booking 10**
-  (11 comentários) e **Google 5,0** (21 críticas), das capturas dele de 15/11. **? Airbnb 4,95**: é a média das 21 avaliações que enviou
-  (20 de cinco estrelas e uma de quatro); a nota geral não aparece nas capturas, por isso **o Diogo confirma-a no anúncio**. No site:
-  `inc/factos.php` → `notas` (com a data, «novembro de 2026»); não vão para os dados estruturados (são notas de terceiros).
+  (11 comentários) e **Google 5,0** (21 críticas), das capturas dele de 15/11; **Airbnb 4,95** (21 avaliações), confirmado por ele na
+  mesma noite com a captura da aplicação de anfitrião («Airbnb está certo»). No site: `inc/factos.php` → `notas` (com a data, «novembro
+  de 2026»); não vão para os dados estruturados (são notas de terceiros).
+- ✓ **Sem ligações para as plataformas no site** (Diogo, 15/11, noite: «não quero links para as plataformas. Só notas da avaliação»):
+  as três notas não abrem nada e o rodapé deixou de ter as ligações para o Airbnb, o Booking e o Vrbo. As ligações oficiais da secção 8
+  continuam a valer para os dados estruturados (`sameAs`), que não se vêem na página.
 - ✓ **Casas de banho só na galeria** (Diogo, 15/11, noite): não fazem parte da mensagem dos três momentos nem das fotografias de destaque
   (capa, momentos, régua). Continuam na resposta sobre os quartos em «Antes de chegar», que é informação.
 - ✓ **A galeria chama-se «Passear pelo Monte»** no menu e na secção (Diogo, 15/11, noite).

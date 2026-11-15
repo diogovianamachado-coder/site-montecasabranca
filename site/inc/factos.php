@@ -33,15 +33,15 @@ return [
     // e para o painel das datas.
     'saida_tardia' => '18h',
     // As notas nas plataformas, para a infografia de «Quem já ficou» (Diogo, 15/11/2026: «uma infografia ligeira com essas 3 notas:
-    // booking, airbnb e google»). Booking e Google: capturas dele de 15/11. Airbnb: a média das 21 avaliações que enviou (20 de cinco
-    // estrelas e uma de quatro = 4,95), POR CONFIRMAR por ele no anúncio. 'ligacao' é a chave de 'ligacoes', em baixo.
+    // booking, airbnb e google»). Booking 10 e Google 5,0: capturas dele de 15/11. Airbnb 4,95 com 21 avaliações: captura dele da
+    // aplicação de anfitrião, na mesma noite («Airbnb está certo»). Só as notas, sem ligações («não quero links para as plataformas»).
     // Quando uma nota mudar, muda-se aqui (e a data). Não vão para os dados estruturados (schema.org): são notas de terceiros.
     'notas' => [
         'data' => 'novembro de 2026',
         'lista' => [
-            ['plataforma' => 'Booking', 'nota' => '10', 'escala' => '10', 'base' => '11 comentários', 'ligacao' => 'booking'],
-            ['plataforma' => 'Airbnb', 'nota' => '4,95', 'escala' => '5', 'base' => '21 avaliações', 'ligacao' => 'airbnb'],
-            ['plataforma' => 'Google', 'nota' => '5,0', 'escala' => '5', 'base' => '21 críticas', 'ligacao' => 'maps'],
+            ['plataforma' => 'Booking', 'nota' => '10', 'escala' => '10', 'base' => '11 comentários'],
+            ['plataforma' => 'Airbnb', 'nota' => '4,95', 'escala' => '5', 'base' => '21 avaliações'],
+            ['plataforma' => 'Google', 'nota' => '5,0', 'escala' => '5', 'base' => '21 críticas'],
         ],
     ],
     'distancias' => [

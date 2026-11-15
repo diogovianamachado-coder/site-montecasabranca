@@ -46,6 +46,10 @@ echo "== quem já ficou: as três notas, fora dos dados estruturados"
 [ "$(grep -o 'class="nota-anel"' <<<"$P" | wc -l)" = "3" ] || { echo "FALHOU: a página não mostra as três notas (Booking, Airbnb, Google)"; exit 1; }
 if grep -q 'aggregateRating' <<<"$P"; then echo "FALHOU: as notas das plataformas não podem ir para os dados estruturados"; exit 1; fi
 echo "três notas na página OK · sem aggregateRating OK"
+echo "== sem ligações para as plataformas (Diogo, 15/11/2026): nem nas notas, nem no rodapé"
+if grep -Eiq '<a [^>]*href="https?://[^"]*(airbnb|booking|vrbo)\.' <<<"$P"; then echo "FALHOU: a página tem uma ligação para uma plataforma (Airbnb, Booking ou Vrbo)"; exit 1; fi
+php -r '$p = stream_get_contents(STDIN); if (!preg_match("#<ul class=\"notas\".*?</ul>#s", $p, $m)) exit(2); exit(stripos($m[0], "<a ") === false ? 0 : 1);' <<<"$P" || { echo "FALHOU: as três notas não podem ser ligações (ou a lista das notas não está na página)"; exit 1; }
+echo "sem ligações para as plataformas OK"
 echo "== capturas"; node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8791 "$SAIDA" app
 node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8792 "$SAIDA" semapp
 echo "== avisos PHP nos registos"; if grep -hE 'Warning|Notice|Fatal|Deprecated' /tmp/site-app.log /tmp/site-semapp.log; then echo "FALHOU: avisos PHP"; exit 1; fi; echo "sem avisos PHP"

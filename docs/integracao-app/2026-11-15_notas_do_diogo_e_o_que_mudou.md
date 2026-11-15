@@ -253,7 +253,7 @@ O Diogo respondeu às perguntas que o Claude lhe fez na conversa (a numeração 
 | 3 · Saída tardia | «18h» | `inc/factos.php` → `saida_tardia` = «18h»: vale para «Antes de chegar», para o painel das datas e para o `llms.txt` |
 | 4 · «Tarifas de 2028» | «sim era erro. queria dizer 2027» | Nada a mudar: o site tem 2026 e 2027 |
 | 5 · Marca de água | «não coloque. não é prática corrente, pois não?» | Não se aplica. Não é prática corrente em sites de casas de férias (as plataformas também não a usam). A ferramenta e as amostras ficam no repositório, sem uso |
-| 6 · Avaliações | «sim, podes fazer uma infografia ligeira com essas 3 notas: booking, airbnb e google» | As dez frases ficam. Por baixo, três anéis finos: **Booking 10** (11 comentários) · **Airbnb 4,95** (21 avaliações) · **Google 5,0** (21 críticas), cada um a abrir o anúncio ou a ficha. Rodapé «Recebemos hóspedes desde 2022 · notas de novembro de 2026». Fora dos dados estruturados. **A nota do Airbnb é a média das 21 avaliações que ele enviou; falta ele confirmá-la no anúncio** |
+| 6 · Avaliações | «sim, podes fazer uma infografia ligeira com essas 3 notas: booking, airbnb e google» | As dez frases ficam. Por baixo, três anéis finos: **Booking 10** (11 comentários) · **Airbnb 4,95** (21 avaliações) · **Google 5,0** (21 críticas), sem ligações (ver a nota de baixo). Rodapé «Recebemos hóspedes desde 2022 · notas de novembro de 2026». Fora dos dados estruturados. A nota do Airbnb era a média das 21 avaliações que ele enviou; **ele confirmou-a na mesma noite** |
 | 7 · Fotografias 34, 51 e 52 | «sim mas antes mostra as fotos desses números que não sei quais são» | Trazidas do Dropbox pelo workflow (corrida n.º 10) para `design/fotos/galeria/06-verao-por-decidir/`, com a `40.0` e a `4`, e mostradas ao Diogo (`docs/fotografia/2026-11-15_pasta_do_verao/`). A 51 e a 52 são as duas fachadas que faltavam ao álbum «O Monte» do Zenfolio; a 34 é a casa ao longe, vista do campo; a 40.0 e a 4 são quase iguais a duas que já estão no site. **Não entraram no site: esperam a palavra dele** |
 | 8 · Casas de banho | «isso, casas de banho não fazer parte desta mensagem. nem das fotos de destaque. só na galeria» | Saiu a fotografia da casa de banho da régua (ficam 19). Nos três momentos e na capa não havia nenhuma. Continuam na galeria e na resposta sobre os quartos de «Antes de chegar» |
 | 9 · Nome da galeria | «no menu, na secção das fotos/galeria vamos passar a chamar "passear pelo monte"» | «Passear pelo Monte» no menu de cima, no menu completo, no título da secção e na ligação da régua. Para não haver dois «Passear…» parecidos, a ligação de Montemor passou de «Passear por Montemor» a «Visitar Montemor-o-Novo» |
@@ -268,6 +268,13 @@ parte da versão anterior»). Feito em `docs/versoes/`:
 - **O deploy** pára se a versão não tiver número e ficha, ou se o número já tiver sido publicado com outro conteúdo; no fim de um envio a
   sério cria a etiqueta `novo-v<N>`. A etiqueta da V1 cria-se pelo workflow «Etiqueta de versão do site» (a sessão não envia etiquetas).
 
-**Continua por confirmar pelo Diogo:** a capa (1, 2 ou 3) · a nota do Airbnb · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
+**Mais tarde, na mesma noite (22h, com a captura da aplicação de anfitrião do Airbnb: «21 avaliações · 4,95»):** «Airbnb está certo.
+Mas não quero links para as plataformas. Só notas da avaliação.» Feito: a nota do Airbnb fica confirmada; os três anéis deixaram de
+ser ligações (são só as notas); e saíram do rodapé as três ligações pequenas para o Airbnb, o Booking e o Vrbo, que vinham da V1 (a
+página deixa de ter qualquer ligação para as plataformas; um teste falha se voltar a aparecer alguma). O que não se vê continua: os
+dados estruturados dizem aos motores de busca que os três anúncios são da mesma casa (`sameAs`), e o `llms.txt` diz que também se pode
+reservar por eles. O Instagram, o WhatsApp, o email, o mapa, o Visit Montemor, a ecopista e a Rota da N2 não são plataformas e ficam.
+
+**Continua por confirmar pelo Diogo:** a capa (1, 2 ou 3) · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
 a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 · os originais das quatro frases traduzidas
 pelo Airbnb · os textos novos.

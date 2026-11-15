@@ -286,9 +286,9 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .citacao blockquote::before { content: "«"; }
 .citacao blockquote::after { content: "»"; }
 .citacao-origem { margin-top: 1.5rem; font-size: .875rem; letter-spacing: .02em; color: var(--suave); }
-/* As três notas (Booking, Airbnb, Google): um anel fino que se enche até à nota quando a secção entra no ecrã. */
+/* As três notas (Booking, Airbnb, Google): um anel fino que se enche até à nota quando a secção entra no ecrã. Sem ligações. */
 .notas { margin: 3.25rem auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; max-width: 31rem; text-align: center; }
-.notas a { display: flex; flex-direction: column; align-items: center; color: inherit; }
+.nota { display: flex; flex-direction: column; align-items: center; }
 .nota-anel { position: relative; display: grid; place-content: center; justify-items: center; width: clamp(4.9rem, 23vw, 6.25rem); aspect-ratio: 1; margin-bottom: .85rem; }
 .nota-anel svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
 .nota-trilho, .nota-arco { fill: none; }
@@ -297,9 +297,8 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .reveal:not(.is-in) .nota-arco { stroke-dashoffset: 100; }
 .nota-valor { font-size: clamp(1.5rem, 6.4vw, 1.9rem); line-height: 1; }
 .nota-escala { margin-top: .3rem; font-size: .6875rem; letter-spacing: .05em; color: var(--suave); }
-.nota-onde { font-size: .75rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; transition: color .3s; }
+.nota-onde { font-size: .75rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
 .nota-base { margin-top: .2rem; font-size: .8125rem; color: var(--suave); }
-.notas a:hover .nota-onde, .notas a:focus-visible .nota-onde { color: var(--primario); }
 .avaliacoes-rodape { margin-top: 2.75rem; text-align: center; font-size: .8125rem; color: var(--suave); }
 @media (min-width: 768px) { .avaliacoes { padding: 8rem 0; } }
 
