@@ -322,7 +322,7 @@ Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo
 - ✓ **Avaliações dadas pelo Diogo a 15/11** (capturas): Booking 10 «Excecional» com 11 comentários; Airbnb 21 comentários; Vrbo 4, todos
   10/10. Critério dele para o site: as que contam pormenores, mais recentes do que antigas, e as de estrangeiros se forem relevantes;
   frases curtas e calorosas, uma de cada vez; **sem nomes**. As dez escolhidas estão em `site/conteudo.php` → `avaliacoes`.
-  **?** Cinco delas são tradução automática do Airbnb (o original não está nas capturas) e uma é tradução do inglês do Vrbo.
+  **?** Quatro delas são tradução automática do Airbnb (o original não está nas capturas) e uma é tradução do inglês do Vrbo.
 - ✓ **O «antes e depois» sai do site** (decisão do Diogo, 15/11). As fotografias continuam na galeria do repositório.
 - ✓ **Mensagem da casa:** «Por fora · Sem pressa · Por dentro» («a melhor mensagem que a casa tem») e, a fechar o dia, «Há dias em que
   não é preciso mais nada». Título da capa: «Uma casa inteira» / «O Alentejo à vossa porta».

@@ -219,7 +219,7 @@ estimativa. O exemplo do estudo (990 € + 180 €) é a tabela de 2027. Por esc
 4. **«Tarifas de 2028»:** o que queria dizer (hoje há 2026 e 2027).
 5. **Mapa:** a ligação de «Partilhar» da ficha «Monte Casa Branca» no Google Maps (no PC: abrir a ficha → Partilhar → Copiar ligação).
 6. **Ligações a ver por olho no PC:** a da ecopista (Infraestruturas de Portugal) e a da N2 (`rotan2.pt/entity/219`).
-7. **Avaliações:** as dez frases; se quer as notas das plataformas (10 no Booking, 5,0 no Google); os originais das cinco traduzidas pelo
+7. **Avaliações:** as dez frases; se quer as notas das plataformas (10 no Booking, 5,0 no Google); os originais das quatro traduzidas pelo
    Airbnb («Exibir original»), para a tradução ser nossa.
 8. **Marca de água:** canto, centro ou repetida; e em que fotografias (só na galeria, ou também na capa e nos três momentos).
 9. **«Não precisamos tocar no nome banhos ou casa de banho»:** li como «nos três momentos não é preciso falar delas»; as casas de banho

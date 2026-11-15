@@ -703,7 +703,7 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   manhã e o castelo · domingo com Évora e a saída tardia); o botão do mapa abre a procura «Monte Casa Branca» centrada nas coordenadas
   (falta a ligação de «Partilhar» da ficha do Google: 5,0 com 21 críticas). **(8) Avaliações (nota 13):** «Quem já ficou», uma frase
   curta de cada vez (dez, a rodar de 6 em 6 s), sem nomes, escolhidas das 30 que ele deu em capturas (Booking 10 «Excecional» com 11
-  comentários; Airbnb 21; Vrbo 4) pelas regras dele (pormenores, recentes, as de fora); cinco são tradução automática do Airbnb e uma
+  comentários; Airbnb 21; Vrbo 4) pelas regras dele (pormenores, recentes, as de fora); quatro são tradução automática do Airbnb e uma
   tradução nossa do inglês. A que lá estava vinha do Canva dele (FACTOS §7). **(9) Contactos (nota 14):** «Falamos? · Contem-nos os vossos
   planos»; rodapé «Monte Casa Branca · Montemor-o-Novo · Alentejo · Registo 126450/AL» e, em letra pequena, firma, morada e plataformas.
   **(10) Painel das datas (nota 17 e o PDF do simulador):** «Os vossos dias · Quando vos apetece vir?»; «As contas, sem surpresas» com a
