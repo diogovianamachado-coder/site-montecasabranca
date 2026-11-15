@@ -109,7 +109,8 @@ Nada com **?** ou **✗** entra no site sem a resposta. Os textos finais escreve
   «na nossa casa é assim», não uma promoção. No site vai com asterisco: ***válido quando não há entrada no mesmo dia**; acontece quase
   sempre, menos em julho e agosto, em que é muito difícil*. Entra na página «A casa» (secção «Chegar e entrar») e nas «Perguntas frequentes».
   ✓ **15/11/2026 (Diogo, revisão do site):** diz-se «até às 17/18h, para aproveitarem ao máximo», **sem falar no pôr do sol**, e vale
-  **quando não há entradas no mesmo dia** (não só ao fim de semana). No site: `inc/factos.php` → `saida_tardia` («17h/18h»).
+  **quando não há entradas no mesmo dia** (não só ao fim de semana). No site: `inc/factos.php` → `saida_tardia`.
+  ✓ **15/11/2026 (noite): a hora é uma só, 18h** (resposta do Diogo à pergunta «17h/18h ou uma só hora?»). No site diz-se «até às 18h».
 - ✓ **Limpeza final incluída uma vez por estadia**, seja qual for a duração; nas estadias longas o Diogo faz uma limpeza por semana
   **sem custo** (princípio 1 da 0e). Mostrada à parte no preço: **170 € em 2026 · 180 € em 2027**.
 - ✓ **Mínimo de noites:** 2 (base do modelo 0e); no **verão (18 jul – 31 ago) 7 noites, de sábado a sábado**.
@@ -310,7 +311,7 @@ Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo
 - ✓ **Mais um WC social**, além das duas casas de banho (secção 2). No site: «Antes de chegar», `llms.txt` e dados estruturados
   (`numberOfFullBathrooms` 2, `numberOfPartialBathrooms` 1).
 - ✓ **Um dos quartos twin pode passar a quarto de casal** (3 de casal + 1 twin) (secção 2).
-- ✓ **Saída tardia até às 17/18h quando não há entradas no mesmo dia**, sem pôr do sol (secção 3).
+- ✓ **Saída tardia até às 18h quando não há entradas no mesmo dia**, sem pôr do sol (secção 3; a hora única é da noite de 15/11).
 - ✓ **A Ecopista do Montado passa pela casa** e é um passeio a incluir na estadia (Diogo). Dados da ecopista, de fonte pública (página das
   Infraestruturas de Portugal, lida por pesquisa a 15/11; a sessão não abre o endereço): antiga linha de comboio entre Montemor-o-Novo e
   Torre da Gadanha, 12,7 km, com passagem pelo apeadeiro do Paião. **?** O Diogo confirma por olho a ligação e que está aberta.
@@ -326,5 +327,14 @@ Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo
 - ✓ **O «antes e depois» sai do site** (decisão do Diogo, 15/11). As fotografias continuam na galeria do repositório.
 - ✓ **Mensagem da casa:** «Por fora · Sem pressa · Por dentro» («a melhor mensagem que a casa tem») e, a fechar o dia, «Há dias em que
   não é preciso mais nada». Título da capa: «Uma casa inteira» / «O Alentejo à vossa porta».
+- ✓ **As três notas no site** (Diogo, 15/11, noite: «uma infografia ligeira com essas 3 notas: booking, airbnb e google»): **Booking 10**
+  (11 comentários) e **Google 5,0** (21 críticas), das capturas dele de 15/11. **? Airbnb 4,95**: é a média das 21 avaliações que enviou
+  (20 de cinco estrelas e uma de quatro); a nota geral não aparece nas capturas, por isso **o Diogo confirma-a no anúncio**. No site:
+  `inc/factos.php` → `notas` (com a data, «novembro de 2026»); não vão para os dados estruturados (são notas de terceiros).
+- ✓ **Casas de banho só na galeria** (Diogo, 15/11, noite): não fazem parte da mensagem dos três momentos nem das fotografias de destaque
+  (capa, momentos, régua). Continuam na resposta sobre os quartos em «Antes de chegar», que é informação.
+- ✓ **A galeria chama-se «Passear pelo Monte»** no menu e na secção (Diogo, 15/11, noite).
+- ✓ **Marca de água: não se põe** (Diogo, 15/11, noite). As fotografias do site já são cópias em tamanho web, sem metadados.
+- ✓ **«Tarifas de 2028» era engano: queria dizer 2027** (Diogo, 15/11, noite). O site tem 2026 e 2027; nada a mudar.
 - **Cópia da app por sincronizar:** `appmontecasabranca/docs/temas/site/FACTOS.md` não leva estas linhas (a sessão SITE de 15/11 não tem
   a app junta); copiar numa sessão com a app.

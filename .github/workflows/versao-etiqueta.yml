@@ -1,0 +1,69 @@
+name: Etiqueta de versão do site
+
+# ---------------------------------------------------------------------------
+# Põe a etiqueta de uma versão (novo-v<N> ou raiz-v<N>) num commit, para o registo de versões (docs/versoes/REGISTO.md).
+#
+# Normalmente não é preciso: o «Deploy do site (Amen)» cria a etiqueta sozinho no fim de cada envio a sério. Serve para dois casos:
+#   1. a V1, publicada a 8/11/2026, antes de este registo existir;
+#   2. um envio que correu bem mas em que a etiqueta não ficou criada (o deploy avisa).
+# É um workflow porque a sessão do Claude não pode enviar etiquetas para o GitHub (só commits em main); os computadores do GitHub podem.
+#
+# Não toca no servidor nem nos ficheiros: só cria a etiqueta. Uma etiqueta de versão nunca se muda nem se apaga: se já existir, pára.
+# ---------------------------------------------------------------------------
+
+on:
+  workflow_dispatch:
+    inputs:
+      etiqueta:
+        description: "Nome da etiqueta: novo-v<N> (ensaio) ou raiz-v<N> (montecasabranca.pt)"
+        required: true
+        type: string
+      commit:
+        description: "O commit que foi para o servidor (identificador completo ou os primeiros 7 caracteres)"
+        required: true
+        type: string
+      mensagem:
+        description: "Texto da etiqueta (ex.: Versão 1 do site publicada em … · deploys n.º 5 e 7 · 2026-11-08)"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: versao-etiqueta
+  cancel-in-progress: false
+
+jobs:
+  etiquetar:
+    name: Etiquetar ${{ inputs.etiqueta }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      ETIQUETA: ${{ inputs.etiqueta }}
+      COMMIT: ${{ inputs.commit }}
+      MENSAGEM: ${{ inputs.mensagem }}
+    steps:
+      - name: Obter o código (com o histórico)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Criar a etiqueta
+        run: |
+          set -euo pipefail
+          [[ "$ETIQUETA" =~ ^(novo|raiz)-v[0-9]+$ ]] || { echo "::error::nome de etiqueta inválido: tem de ser novo-v<N> ou raiz-v<N>"; exit 1; }
+          [[ "$COMMIT" =~ ^[0-9a-f]{7,40}$ ]] || { echo "::error::o commit tem de ser o identificador (7 a 40 caracteres hexadecimais)"; exit 1; }
+          SHA=$(git rev-parse --verify --quiet "$COMMIT^{commit}") || { echo "::error::o commit $COMMIT não existe neste repositório"; exit 1; }
+          git merge-base --is-ancestor "$SHA" origin/main || { echo "::error::o commit $COMMIT não está em main"; exit 1; }
+          if git ls-remote --exit-code --tags origin "refs/tags/$ETIQUETA" > /dev/null 2>&1; then
+            echo "::error::a etiqueta $ETIQUETA já existe; uma etiqueta de versão nunca se muda"; exit 1
+          fi
+          N="${ETIQUETA##*-v}"
+          TEXTO="${MENSAGEM:-Versão $N do site ($ETIQUETA)}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$ETIQUETA" -m "$TEXTO" "$SHA"
+          git push -q origin "refs/tags/$ETIQUETA"
+          echo "etiqueta $ETIQUETA criada em ${SHA:0:7}: $TEXTO"

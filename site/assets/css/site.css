@@ -82,6 +82,7 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .reveal { opacity: 1; transform: none; }
+  .nota-arco { transition: none; } .reveal:not(.is-in) .nota-arco { stroke-dashoffset: 0; }
 }
 
 /* Botões */
@@ -285,7 +286,21 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .citacao blockquote::before { content: "«"; }
 .citacao blockquote::after { content: "»"; }
 .citacao-origem { margin-top: 1.5rem; font-size: .875rem; letter-spacing: .02em; color: var(--suave); }
-.avaliacoes-rodape { margin-top: 3rem; text-align: center; font-size: .8125rem; color: var(--suave); }
+/* As três notas (Booking, Airbnb, Google): um anel fino que se enche até à nota quando a secção entra no ecrã. */
+.notas { margin: 3.25rem auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; max-width: 31rem; text-align: center; }
+.notas a { display: flex; flex-direction: column; align-items: center; color: inherit; }
+.nota-anel { position: relative; display: grid; place-content: center; justify-items: center; width: clamp(4.9rem, 23vw, 6.25rem); aspect-ratio: 1; margin-bottom: .85rem; }
+.nota-anel svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.nota-trilho, .nota-arco { fill: none; }
+.nota-trilho { stroke: color-mix(in oklab, var(--texto) 15%, transparent); stroke-width: 1.5; }
+.nota-arco { stroke: var(--primario); stroke-width: 2.75; stroke-linecap: round; transition: stroke-dashoffset 1.6s var(--ease) .35s; }
+.reveal:not(.is-in) .nota-arco { stroke-dashoffset: 100; }
+.nota-valor { font-size: clamp(1.5rem, 6.4vw, 1.9rem); line-height: 1; }
+.nota-escala { margin-top: .3rem; font-size: .6875rem; letter-spacing: .05em; color: var(--suave); }
+.nota-onde { font-size: .75rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; transition: color .3s; }
+.nota-base { margin-top: .2rem; font-size: .8125rem; color: var(--suave); }
+.notas a:hover .nota-onde, .notas a:focus-visible .nota-onde { color: var(--primario); }
+.avaliacoes-rodape { margin-top: 2.75rem; text-align: center; font-size: .8125rem; color: var(--suave); }
 @media (min-width: 768px) { .avaliacoes { padding: 8rem 0; } }
 
 /* ---- Perguntas ---- */
@@ -349,6 +364,7 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .rodape-linha { font-size: .875rem; letter-spacing: .02em; opacity: .92; }
 .legal { margin-top: .4rem; max-width: 44rem; font-size: .6875rem; line-height: 1.6; opacity: .6; }
 .legal a:hover { text-decoration: underline; }
+.versao-ensaio { margin-top: .6rem; letter-spacing: .06em; }   /* só no ensaio: «Ensaio · versão N · data» */
 @media (min-width: 768px) { .contactos { padding: 5.5rem 0 5.5rem; } .contactos-lista { grid-template-columns: repeat(3, 1fr); } .contactos-rodape { flex-direction: row; align-items: flex-end; justify-content: space-between; } .contactos-linhas { text-align: right; } .legal { margin-left: auto; } }
 
 /* ---- Dock ---- */

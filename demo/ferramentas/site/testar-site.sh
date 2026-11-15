@@ -15,14 +15,11 @@ cp demo/ferramentas/site/config.ensaio.php /tmp/site-ensaio-app/config.php
 sed "s|'http://127.0.0.1:8799'|'http://127.0.0.1:8798'|; s|8791|8792|; s|site-ensaio-cache|site-ensaio-cache-semapp|" demo/ferramentas/site/config.ensaio.php > /tmp/site-ensaio-semapp/config.php
 # O tempo de ensaio (a máquina dos testes não chega ao Open-Meteo): 16 dias de «previsão» e as «médias dos últimos anos» por dia do ano.
 # Cada servidor (com app, sem app) tem a sua pasta de cache, para um não ler o que o outro guardou.
-for C in /tmp/site-ensaio-cache /tmp/site-ensaio-cache-semapp; do
-  mkdir -p "$C"; rm -f "$C"/*.json
-  CACHE="$C" php -r '$C=getenv("CACHE"); $h=new DateTimeImmutable("today"); $d=[]; foreach(range(0,15) as $i){$d[]=["dia"=>$h->modify("+$i days")->format("Y-m-d"),"codigo"=>[0,1,2,3,61,0,0,2,45,0,1,3,80,0,95,2][$i],"max"=>18+$i%5,"min"=>8+$i%4];} file_put_contents("$C/tempo.json", json_encode(["ok"=>true,"dias"=>$d,"fonte"=>"ensaio"]));
-  $c=[]; for($x=new DateTimeImmutable("2024-01-01"); $x->format("Y")==="2024"; $x=$x->modify("+1 day")){ $n=(int)$x->format("z"); $t=17+11*sin(($n-110)/366*2*M_PI); $c[$x->format("m-d")]=["codigo"=>[0,2,3,61,80][$n%5],"max"=>(int)round($t+6),"min"=>(int)round($t-5)]; } file_put_contents("$C/clima.json", json_encode(["dias"=>$c,"anos"=>"ensaio"]));'
-done
+for C in /tmp/site-ensaio-cache /tmp/site-ensaio-cache-semapp; do php demo/ferramentas/site/semear-tempo.php "$C"; done
 php -S 127.0.0.1:8799 demo/ferramentas/site/app-ensaio.php > /tmp/app-ensaio.log 2>&1 & P1=$!
-(cd /tmp/site-ensaio-app && php -S 127.0.0.1:8791 > /tmp/site-app.log 2>&1) & P2=$!
-(cd /tmp/site-ensaio-semapp && php -S 127.0.0.1:8792 > /tmp/site-semapp.log 2>&1) & P3=$!
+# Sem subshell («-t pasta» em vez de «cd pasta»): assim $! é o próprio php e o trap do fim pára-o mesmo (antes ficava a correr).
+php -S 127.0.0.1:8791 -t /tmp/site-ensaio-app > /tmp/site-app.log 2>&1 & P2=$!
+php -S 127.0.0.1:8792 -t /tmp/site-ensaio-semapp > /tmp/site-semapp.log 2>&1 & P3=$!
 trap 'kill $P1 $P2 $P3 2>/dev/null || true' EXIT
 for p in 8791 8792; do curl -sS -o /dev/null --retry 20 --retry-connrefused --retry-delay 1 "http://127.0.0.1:$p/"; done
 echo "== portas"; curl -sS "http://127.0.0.1:8791/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | grep -q '"fonte":"app"' && echo "tarifa via app OK"
@@ -37,6 +34,18 @@ echo "== estudo da capa: ?capa= só no ensaio"
 P=$(curl -sS -H 'Host: novo.montecasabranca.pt' 'http://127.0.0.1:8791/?capa=3'); grep -q 'class="estudo-capa"' <<<"$P" && grep -q 'piscina-chapeu-sol' <<<"$P" || { echo "FALHOU: ?capa=3 não mostrou a opção 3 no ensaio"; exit 1; }
 P=$(curl -sS -H 'Host: montecasabranca.pt' 'http://127.0.0.1:8791/?capa=3'); if grep -q 'class="estudo-capa"' <<<"$P"; then echo "FALHOU: o estudo da capa apareceu fora do ensaio"; exit 1; fi
 echo "estudo da capa no ensaio OK · ignorado fora do ensaio OK"
+echo "== versão: número, ficha no registo e «Ensaio · versão N» só no ensaio"
+N=$(php -r '$v=json_decode((string)file_get_contents("site/versao.json"),true); echo is_array($v)&&isset($v["versao"])&&is_int($v["versao"])?$v["versao"]:"";')
+[ -n "$N" ] || { echo "FALHOU: site/versao.json não tem o número da versão"; exit 1; }
+grep -q "^### V$N · " docs/versoes/REGISTO.md || { echo "FALHOU: falta a ficha «### V$N · …» em docs/versoes/REGISTO.md"; exit 1; }
+php -r '$v=json_decode((string)file_get_contents("docs/versoes/versoes.json"),true); exit(is_array($v)&&isset($v[$argv[1]])?0:1);' "$N" || { echo "FALHOU: a versão $N não está em docs/versoes/versoes.json"; exit 1; }
+P=$(curl -sS -H 'Host: novo.montecasabranca.pt' http://127.0.0.1:8791/); grep -q "Ensaio · versão $N" <<<"$P" || { echo "FALHOU: o ensaio não mostra «Ensaio · versão $N»"; exit 1; }
+P=$(curl -sS -H 'Host: montecasabranca.pt' http://127.0.0.1:8791/); if grep -q 'versao-ensaio' <<<"$P"; then echo "FALHOU: o número da versão apareceu fora do ensaio"; exit 1; fi
+echo "versão $N com ficha no registo OK · à vista só no ensaio OK"
+echo "== quem já ficou: as três notas, fora dos dados estruturados"
+[ "$(grep -o 'class="nota-anel"' <<<"$P" | wc -l)" = "3" ] || { echo "FALHOU: a página não mostra as três notas (Booking, Airbnb, Google)"; exit 1; }
+if grep -q 'aggregateRating' <<<"$P"; then echo "FALHOU: as notas das plataformas não podem ir para os dados estruturados"; exit 1; fi
+echo "três notas na página OK · sem aggregateRating OK"
 echo "== capturas"; node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8791 "$SAIDA" app
 node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8792 "$SAIDA" semapp
 echo "== avisos PHP nos registos"; if grep -hE 'Warning|Notice|Fatal|Deprecated' /tmp/site-app.log /tmp/site-semapp.log; then echo "FALHOU: avisos PHP"; exit 1; fi; echo "sem avisos PHP"

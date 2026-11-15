@@ -21,6 +21,14 @@ if (preg_match('/^(novo\.|127\.0\.0\.1|localhost)/i', $anfitriao) && isset($_GET
 $CAPA = $C['inicio']['capas'][$capaChave];
 $capaM = foto_url_m($CAPA['foto']['src']);
 
+// Versão do ensaio (docs/versoes/REGISTO.md): cada publicação em novo.montecasabranca.pt tem um número, escrito em versao.json.
+// Aparece em letra pequena no fundo da página, só no ensaio (e no servidor local dos testes); o site a sério não o mostra.
+$ENSAIO_VERSAO = null;
+if (preg_match('/^(novo\.|127\.0\.0\.1|localhost)/i', $anfitriao)) {
+    $v = json_decode((string)@file_get_contents(__DIR__ . '/versao.json'), true);
+    if (is_array($v) && isset($v['versao'])) $ENSAIO_VERSAO = ['numero' => (int)$v['versao'], 'data' => (string)($v['data'] ?? '')];
+}
+
 // «Antes de chegar»: a hora da saída tardia entra nas respostas (e no FAQPage) a partir dos factos.
 $PERGUNTAS = array_map(fn($p) => [$p[0], str_replace('{saida_tardia}', $F['saida_tardia'], $p[1])], $C['perguntas']);
 

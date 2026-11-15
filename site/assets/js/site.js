@@ -305,7 +305,7 @@
     (R.avisos || []).forEach(aviso);
     // Saída tardia: só não se diz quando o calendário (o verdadeiro) mostra que alguém entra no dia da saída.
     var entraAlguem = !semApp && !ocupacaoExemplo && ocupadas[R.saida];
-    if (!entraAlguem && txt('saida_tardia')) aviso(txt('saida_tardia').replace('{hora}', txt('hora_saida_tardia', '17h')));
+    if (!entraAlguem && txt('saida_tardia')) aviso(txt('saida_tardia').replace('{hora}', txt('hora_saida_tardia', '18h')));
     if (R.fonte === 'site') aviso(txt('estimativa'));
     formPedido.hidden = false; if (!inicioPreenchimento) inicioPreenchimento = Date.now();
     atualizarLigacoes();

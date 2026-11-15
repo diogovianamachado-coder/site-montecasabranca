@@ -28,10 +28,22 @@ return [
     'piscina' => '10 × 5 m',
     'check_in' => '16:00',
     'check_out' => '11:00',
-    // Saída tardia: quando ninguém entra no dia da saída, a casa fica disponível até ao fim da tarde. A hora é a que o Diogo usa
-    // desde o Linktree («late checkout 5/6pm») e repetiu a 15/11/2026 («até às 17/18h», sem falar no pôr do sol). Se ele fixar uma
-    // só hora, muda-se aqui e vale para as perguntas e para o painel das datas.
-    'saida_tardia' => '17h/18h',
+    // Saída tardia: quando ninguém entra no dia da saída, a casa fica disponível até ao fim da tarde, sem falar no pôr do sol.
+    // A hora é uma só: 18h (Diogo, 15/11/2026, à pergunta «17h/18h ou uma só hora?»). Muda-se aqui e vale para as perguntas
+    // e para o painel das datas.
+    'saida_tardia' => '18h',
+    // As notas nas plataformas, para a infografia de «Quem já ficou» (Diogo, 15/11/2026: «uma infografia ligeira com essas 3 notas:
+    // booking, airbnb e google»). Booking e Google: capturas dele de 15/11. Airbnb: a média das 21 avaliações que enviou (20 de cinco
+    // estrelas e uma de quatro = 4,95), POR CONFIRMAR por ele no anúncio. 'ligacao' é a chave de 'ligacoes', em baixo.
+    // Quando uma nota mudar, muda-se aqui (e a data). Não vão para os dados estruturados (schema.org): são notas de terceiros.
+    'notas' => [
+        'data' => 'novembro de 2026',
+        'lista' => [
+            ['plataforma' => 'Booking', 'nota' => '10', 'escala' => '10', 'base' => '11 comentários', 'ligacao' => 'booking'],
+            ['plataforma' => 'Airbnb', 'nota' => '4,95', 'escala' => '5', 'base' => '21 avaliações', 'ligacao' => 'airbnb'],
+            ['plataforma' => 'Google', 'nota' => '5,0', 'escala' => '5', 'base' => '21 críticas', 'ligacao' => 'maps'],
+        ],
+    ],
     'distancias' => [
         ['lugar' => 'Centro de Montemor-o-Novo', 'valor' => '3 km'],
         ['lugar' => 'Évora', 'valor' => '25 min'],

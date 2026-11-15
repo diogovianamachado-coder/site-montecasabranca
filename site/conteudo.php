@@ -24,7 +24,7 @@ return [
     'menu_topo' => [
         ['Montemor-o-Novo', '#montemor'],
         ['N2', '#nacional2'],
-        ['Galeria', '#galeria'],
+        ['Passear pelo Monte', '#galeria'],      // a galeria (Diogo, 15/11/2026: «vamos passar a chamar "passear pelo monte"»)
         ['Antes de chegar', '#antes-de-chegar'],
         ['Avaliações', '#avaliacoes'],
     ],
@@ -33,7 +33,7 @@ return [
         ['A casa', '#a-casa', 'sub' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']]],
         ['Montemor-o-Novo', '#montemor'],
         ['Nacional 2', '#nacional2'],
-        ['Galeria', '#galeria'],
+        ['Passear pelo Monte', '#galeria'],
         ['Antes de chegar', '#antes-de-chegar'],
         ['Quem já ficou', '#avaliacoes'],
         ['Contactos', '#contactos'],
@@ -114,9 +114,10 @@ return [
     'fecho' => 'Há dias em que não é preciso mais nada',
 
     // ---- 4. Régua de fotografias (como a galeria das plataformas: pequenas, ao acaso, a rolar) -------
+    // Sem casas de banho (Diogo, 15/11/2026: não fazem parte da mensagem nem das fotografias de destaque; só na galeria).
     'regua' => [
         'titulo' => 'Há mais casa para descobrir',
-        'ligacao' => ['Ver a galeria', '#galeria'],
+        'ligacao' => ['Passear pelo Monte', '#galeria'],
         'fotos' => [
             ['src' => 'exterior/piscina-chapeu-sol.jpg', 'alt' => 'Espreguiçadeiras e chapéu-de-sol junto à piscina'],
             ['src' => 'interior/salao-tecto-madeira.jpg', 'alt' => 'O salão com o teto de madeira à vista'],
@@ -131,7 +132,6 @@ return [
             ['src' => 'quinta/olival.jpg', 'alt' => 'O olival'],
             ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno'],
             ['src' => 'exterior/casa-ceu-rosa.jpg', 'alt' => 'A casa ao entardecer, com o céu cor-de-rosa'],
-            ['src' => 'quartos/casa-de-banho.jpg', 'alt' => 'Casa de banho com duche de vidro e lavatório duplo'],
             ['src' => 'interior/sala-mesa.jpg', 'alt' => 'A mesa de refeições na sala'],
             ['src' => 'quinta/cao-campo.jpg', 'alt' => 'Um cão à solta no campo'],
             ['src' => 'exterior/casa-tronco-oliveira.jpg', 'alt' => 'A casa e a piscina por entre a oliveira'],
@@ -147,7 +147,7 @@ return [
         'eyebrow' => 'A 1 h de Lisboa',
         'titulo' => 'Montemor-o-Novo também é a estadia',
         'texto' => 'Subir ao castelo, descobrir as ruas e escolher onde parar à mesa. A casa fica a 3 km do centro e Évora a 25 minutos',
-        'ligacao' => ['Passear por Montemor', 'visit_montemor'],
+        'ligacao' => ['Visitar Montemor-o-Novo', 'visit_montemor'],   // não «Passear por…»: «Passear pelo Monte» é a galeria
         'ecopista' => [
             'texto' => 'A Ecopista do Montado passa à nossa porta: a antiga linha de comboio, hoje caminho entre sobreiros, para fazer a pé ou de bicicleta',
             'ligacao' => ['Conhecer a ecopista', 'ecopista'],
@@ -181,11 +181,11 @@ return [
         'onde' => ['eyebrow' => 'Onde estamos', 'botao_mapa' => 'Abrir no Google Maps'],
     ],
 
-    // ---- 6. Galeria (os álbuns do Zenfolio, pela mesma ordem) -------------------------------------
+    // ---- 6. Galeria, com o nome «Passear pelo Monte» (os álbuns do Zenfolio, pela mesma ordem) ----------
     // Para juntar fotografias novas: copiar o ficheiro para fotos/<álbum>/ e acrescentar a linha aqui.
     // Álbuns sem fotografias não aparecem.
     'galeria' => [
-        'titulo' => 'Galeria',
+        'titulo' => 'Passear pelo Monte',
         'albuns' => [
             [
                 // Álbum «O Monte» do Zenfolio (design/fotos/galeria/01-o-monte/).
@@ -338,7 +338,11 @@ return [
             ['A casa superou as nossas expectativas e as fotografias', 'Airbnb', 'outubro de 2023', true],
             ['A piscina é maravilhosa e apanha sol até ao final da tarde', 'Vrbo', 'agosto de 2022', false],
         ],
-        'rodape' => 'Recebemos hóspedes desde 2022 · Airbnb · Booking · Vrbo',
+        // As três notas (Booking, Airbnb, Google) vêm de inc/factos.php → 'notas'. {data} é trocado pelo mês das notas.
+        'notas_titulo' => 'As notas de quem já ficou',          // só para quem usa leitor de ecrã
+        'nota_escala' => 'em {escala}',
+        'rodape' => 'Recebemos hóspedes desde 2022',
+        'rodape_notas' => 'notas de {data}',                    // junta-se ao rodapé quando há notas («… · notas de novembro de 2026»)
     ],
 
     // ---- 9. Contactos (rodapé) ------------------------------------------------------------

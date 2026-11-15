@@ -8,8 +8,9 @@ Página única em PHP + CSS + JavaScript nativo (sem Node, sem build, sem base d
 |---|---|---|
 | `conteudo.php` | Diogo / Claude | **Todos os textos** do site: título, menus, a capa (e as opções do estudo da capa), os três momentos da casa, a régua, Montemor e a Nacional 2, a galeria, «Antes de chegar», as frases de quem já ficou, contactos e os textos do painel das datas. Sem código — só um array PHP com strings. |
 | `fotos/<álbum>/` | Diogo / Claude | As fotografias, por pasta (`exterior`, `interior`, `quartos`, `quinta`, `montemor`). Para cada `x.jpg` pode existir `x-m.jpg` (versão telemóvel, 1 000 px de largura); o site usa-a sozinho se existir. As de `quinta` e `montemor` vêm da galeria `design/fotos/galeria/` pela tabela `demo/ferramentas/fotos/site-albuns.tsv` (`python3 demo/ferramentas/fotos/para_o_site.py`); a mesma tabela diz, em comentário, que ficheiro da galeria é cada fotografia de `exterior`, `interior` e `quartos`. O «antes e depois» saiu do site a 15/11/2026 (as fotografias continuam na galeria). |
-| `inc/factos.php` | só com FACTOS.md | Os factos da casa (capacidade, AL, morada, contactos, coordenadas, hora da saída tardia) e as ligações para fora (plataformas, mapa, Visit Montemor, ecopista, Rota da N2). Espelha `docs/conteudos/fontes/FACTOS.md` do repositório — mudar só quando o FACTOS mudar. |
+| `inc/factos.php` | só com FACTOS.md | Os factos da casa (capacidade, AL, morada, contactos, coordenadas, hora da saída tardia, as notas nas plataformas) e as ligações para fora (plataformas, mapa, Visit Montemor, ecopista, Rota da N2). Espelha `docs/conteudos/fontes/FACTOS.md` do repositório — mudar só quando o FACTOS mudar. |
 | `inc/tarifas.php` | Diogo | Tabela de épocas e regras (porta de `lovable/src/lib/tarifas.ts`). Só serve de **recurso** quando a app não responde; a conta oficial vem da app. |
+| `versao.json` | Claude | O número e a data da versão que está nesta pasta (V1, V2…). Aparece em letra pequena no fundo da página **só no ensaio** («Ensaio · versão 2 · 15/11/2026»). Sobe a cada publicação; a ficha de cada versão está em `docs/versoes/REGISTO.md` e o deploy pára se faltar. |
 | `config.php` | Diogo (no servidor) | Endereços da app, chave `SITE_CHAVE`, pasta de cache. **Não vai para o GitHub.** Copiar de `config.exemplo.php`. |
 | `index.php`, `partes/`, `inc/util.php`, `assets/` | código | Estrutura, estilos (`assets/css/site.css`) e interacção (`assets/js/site.js`). |
 | `api/` | código | As portas do site para a app: `ocupacao.php` (#189), `tarifa.php` (#190), `prereserva.php` (#191, com a chave), `avaliacoes.php` (#192) e `tempo.php` (Open-Meteo: a previsão dos próximos 16 dias e, com `?de=…&ate=…`, o tempo de uma estadia — previsão para os dias que ela alcança, média dos últimos cinco anos para os outros). |
@@ -25,6 +26,8 @@ Página única em PHP + CSS + JavaScript nativo (sem Node, sem build, sem base d
    - `'sem_schema' => true` deixa um álbum fora das imagens da casa que os motores de busca recebem (o de Montemor-o-Novo).
    - Conferir: `php demo/ferramentas/site/conferir-fotos.php` (todas as fotografias referidas existem, nenhuma repetida no mesmo conjunto, todas com descrição e, nos rolos, com legenda).
 4. Quem já ficou: cada frase é `['frase', 'plataforma', 'mês e ano', true se for tradução]` em `'avaliacoes' → 'citacoes'`. Curtas, sem nomes.
+   As três notas (Booking, Airbnb, Google) estão em `inc/factos.php` → `'notas'`: o número, a escala, em quantas opiniões assenta e o mês
+   em que foram lidas. Quando uma mudar, muda-se aí o número e a data. Não vão para os dados estruturados.
 5. Regras: factos só de `FACTOS.md`; «Reguengo» só na morada postal; nada de tabelas de preços ou KPI no site; tom do Diogo (frases curtas, na segunda pessoa do plural).
 
 ## Pôr no servidor (Amen)

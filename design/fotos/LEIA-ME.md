@@ -18,6 +18,13 @@ exceção pedida pelo Diogo.
 | `04-antes-e-depois/` | Antes e Depois (11 pares) | 22 | Claude, pelo workflow (corridas n.º 4 a 6 e 9) | 12/11/2026 |
 | `05-montemor-o-novo/` | Montemor-o-Novo | 14 | Claude, pelo workflow (corridas n.º 7 e 8) | 12/11/2026 |
 | | **Total** | **112** | | |
+| `06-verao-por-decidir/` | Pasta do verão · por decidir (não é um álbum do Zenfolio) | 5 | Claude, pelo workflow (corrida n.º 10) | 15/11/2026 |
+
+A pasta `06-verao-por-decidir/` são as cinco fotografias de `3. anuncios/V2_verão/` que não estavam aqui, trazidas a 15/11/2026 para o
+Diogo as ver («mostra as fotos desses números que não sei quais são»): **`34`** (a casa ao longe, vista do campo), **`51`** e **`52`**
+(as duas fachadas laterais que faltavam ao álbum «O Monte» do Zenfolio: confirmado por olho), **`40-0`** e **`4`** (quase iguais a
+`01-o-monte/40_img_0255.jpg` e `01_img_0264.jpg`: a mesma cena, um pouco mais fechada). **Não estão no site**: só entram na galeria, e
+em que álbum, quando ele disser. Sem pessoas nem matrículas. Folhas para as ver: `docs/fotografia/2026-11-15_pasta_do_verao/`.
 
 Vê-se tudo de uma vez nas folhas de contacto: `docs/fotografia/2026-11-12_folhas_de_contacto/` (uma imagem por álbum, com o nome e as
 dimensões por baixo de cada fotografia).
@@ -95,8 +102,9 @@ estão 112, faltam 23.** (A nota do ChatGPT de 25/10 dizia «cerca de 20».)
 | Antes e Depois | 22 | 22 | Nenhuma. No Zenfolio cada par aparece «depois, antes» (só o quarto está ao contrário); aqui os nomes ordenam «antes, depois» |
 | Montemor o Novo | 27 | 14 | A estação do Paião de perto · a bicicleta junto ao tanque · o túnel de árvores sem bicicleta · as vacas no montado · a torre com a muralha · o interior da igreja · três vistas ao longe (a colina com casas, o castelo, o vale com a ponte) · o passadiço · o monte com o castelo · duas do miradouro com o banco |
 
-Pistas para as encontrar (não são certezas, só se confirma vendo-as): as duas fachadas devem ser `3. anuncios/V2_verão/51.JPG` e
-`52.JPG`, os dois números que a coleção v2 saltou entre `50` e `53`; as de Montemor devem estar entre os números 40 e 62 de
+**As duas fachadas de «O Monte» já cá estão** (15/11/2026): eram mesmo `3. anuncios/V2_verão/51.JPG` e `52.JPG`, e estão em
+`06-verao-por-decidir/` à espera da palavra do Diogo; com elas, «O Monte» fica com 49 e passam a faltar 21.
+Pistas para as outras (não são certezas, só se confirma vendo-as): as de Montemor devem estar entre os números 40 e 62 de
 `3. anuncios/V3_inverno/`; as da quinta, em `4. telemovel/` ou `1. todas/`.
 
 **A alta resolução do Rodrigo não está no Dropbox, a não ser uma fotografia** (visto a 12/11/2026, só em leitura): `2. rodrigo/` tem

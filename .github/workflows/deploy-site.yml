@@ -20,6 +20,11 @@ name: Deploy do site (Amen)
 # O que vai: tudo o que está em site/, menos config.php, cache/, LEIA-ME.md e .gitignore. rsync --delete só dentro da pasta de destino.
 # config.php: escrito no servidor pelo workflow a partir das variáveis e dos secrets, só se ainda não existir (ou com reescrever_config = true).
 # Travões: o teste de fumo «Capturas» deste commit tem de estar verde (#176); a pasta de destino tem de existir; a raiz nunca pode ser a pasta da app.
+#
+# Versões (15/11/2026, pedido do Diogo: «preciso que se registe as versões que vão para o novo»): cada publicação é uma versão.
+#   O número está em site/versao.json e a ficha em docs/versoes/REGISTO.md («### V<N> · …»). O pré-voo pára se faltar a ficha, ou se
+#   esse número já tiver sido publicado neste destino com OUTRO conteúdo (é preciso subir o número). No fim de um envio a sério, o
+#   workflow põe no commit enviado a etiqueta novo-v<N> (ou raiz-v<N>): é por ela que se vai buscar uma parte de uma versão anterior.
 # ---------------------------------------------------------------------------
 
 on:
@@ -44,7 +49,7 @@ on:
         default: false
 
 permissions:
-  contents: read
+  contents: write   # só para a etiqueta da versão (novo-v<N>) no fim de um envio a sério; o workflow não faz commits
   actions: read
 
 concurrency:
@@ -90,6 +95,26 @@ jobs:
             exit 1
           fi
           echo "pré-voo OK: variável e secrets presentes"
+
+      - name: Pré-voo · a versão tem número e ficha no registo? já foi publicada?
+        run: |
+          set -uo pipefail
+          N=$(jq -r '.versao // empty' site/versao.json 2>/dev/null || true)
+          if ! [[ "$N" =~ ^[0-9]+$ ]]; then echo "::error::site/versao.json não tem o número da versão (\"versao\": N)"; exit 1; fi
+          if ! grep -q "^### V$N · " docs/versoes/REGISTO.md; then echo "::error::falta a ficha «### V$N · …» em docs/versoes/REGISTO.md: cada versão publicada tem de ficar registada"; exit 1; fi
+          ETIQUETA="$DESTINO-v$N"
+          echo "VERSAO=$N" >> "$GITHUB_ENV"; echo "ETIQUETA=$ETIQUETA" >> "$GITHUB_ENV"
+          if git ls-remote --exit-code --tags origin "refs/tags/$ETIQUETA" > /dev/null 2>&1; then
+            git fetch -q --depth=1 origin "refs/tags/$ETIQUETA:refs/tags/$ETIQUETA"
+            if git diff --quiet "$ETIQUETA" HEAD -- site/; then
+              echo "a versão $N já está publicada em «$DESTINO» com este mesmo conteúdo (etiqueta $ETIQUETA): este envio não muda o site"
+            else
+              echo "::error::a versão $N já foi publicada em «$DESTINO» com outro conteúdo (etiqueta $ETIQUETA). Cada publicação é uma versão nova: sobe o número em site/versao.json e escreve a ficha em docs/versoes/REGISTO.md"
+              exit 1
+            fi
+          else
+            echo "versão $N: nova em «$DESTINO» (a etiqueta $ETIQUETA nasce no fim de um envio a sério)"
+          fi
 
       - name: Confirmar o teste de fumo «Capturas» deste commit (#176)
         env:
@@ -194,12 +219,28 @@ jobs:
               if [[ "$SITE_URL" == *"://novo."* ]]; then
                 if grep -q 'name="robots" content="noindex' /tmp/pagina.html; then echo "noindex no ensaio OK"; else echo "::warning::a página do ensaio não leva noindex"; fi
                 if curl -s $K --max-time 20 "$SITE_URL/robots.txt" | grep -q '^Disallow: /$'; then echo "robots.txt do ensaio bloqueia tudo OK"; else echo "::warning::o robots.txt do ensaio não bloqueia tudo"; fi
+                if grep -q "Ensaio · versão $VERSAO" /tmp/pagina.html; then echo "o ensaio mostra «versão $VERSAO» no fundo da página OK"; else echo "::warning::o ensaio não mostra «versão $VERSAO» no fundo da página"; fi
               fi
               exit 0
             fi
             sleep 5
           done
           echo "::error::o site não respondeu em $SITE_URL"; exit 1
+
+      # A etiqueta marca o commit que foi mesmo para o servidor: é o registo de que «a versão N é isto». Falhar aqui não desfaz o envio.
+      - name: Etiquetar a versão publicada (novo-v<N> ou raiz-v<N>)
+        if: ${{ env.DRY_RUN == '0' }}
+        run: |
+          set -uo pipefail
+          if git rev-parse -q --verify "refs/tags/$ETIQUETA" > /dev/null; then echo "a etiqueta $ETIQUETA já existe (mesmo conteúdo): nada a etiquetar"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$ETIQUETA" -m "Versão $VERSAO do site publicada em $SITE_URL · deploy n.º $GITHUB_RUN_NUMBER · $(date -u +%F)" "$GITHUB_SHA"
+          if git push -q origin "refs/tags/$ETIQUETA"; then
+            echo "etiqueta $ETIQUETA criada em ${GITHUB_SHA:0:7} (versão $VERSAO, deploy n.º $GITHUB_RUN_NUMBER)"
+          else
+            echo "::warning::o envio correu bem mas a etiqueta $ETIQUETA não ficou criada; cria-se à mão: git tag $ETIQUETA ${GITHUB_SHA:0:7} && git push origin $ETIQUETA"
+          fi
 
       - name: Apagar a chave
         if: always()

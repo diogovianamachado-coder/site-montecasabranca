@@ -240,3 +240,34 @@ ensaio. O que não se conseguiu ver daqui: o Open-Meteo a sério (a rede da sess
 (`destino` novo, `dry_run`; nada enviado): face ao que está no servidor (commit `17198b1`, de 8/11) mudam 16 ficheiros, entram 63 (32 da
 Quinta, 28 de Montemor e três partes da página) e saem 18 (as partes antigas, as quatro miniaturas do «antes e depois» que lá estavam, as
 repetidas e as duas pequenas); 41,6 MB no total. O envio a sério espera o «Lança» do Diogo.
+
+## 5. Respostas do Diogo na noite de 15/11 e o que mudou
+
+O Diogo respondeu às perguntas que o Claude lhe fez na conversa (a numeração é a da resposta dele) e fez um pedido novo. Tudo em
+`main`, como rascunho; nada foi para o servidor.
+
+| Pergunta | Resposta do Diogo | O que se fez |
+|---|---|---|
+| 1 · Capa | «no "novo" live consigo ver as 3 opções para escolher depois?» | Sim: depois do «Lança», `novo.montecasabranca.pt/?capa=1`, `?capa=2` e `?capa=3`, com três botões no cimo para trocar. Fica a 1 até ele escolher |
+| 2 · Menu | «qual é a tua sugestão nisto? acho que não entrou mais nada ou fomos atualizando ao longo do processo, não foi?» | Confirmado: o menu foi sendo atualizado (notas 3, 4, 5, 10 e 16, e o nome novo da galeria). Recomendação do Claude: não mexer mais até ver a V2 ao vivo; nessa altura, ver se «Passear pelo Monte» deve subir para logo a seguir à casa |
+| 3 · Saída tardia | «18h» | `inc/factos.php` → `saida_tardia` = «18h»: vale para «Antes de chegar», para o painel das datas e para o `llms.txt` |
+| 4 · «Tarifas de 2028» | «sim era erro. queria dizer 2027» | Nada a mudar: o site tem 2026 e 2027 |
+| 5 · Marca de água | «não coloque. não é prática corrente, pois não?» | Não se aplica. Não é prática corrente em sites de casas de férias (as plataformas também não a usam). A ferramenta e as amostras ficam no repositório, sem uso |
+| 6 · Avaliações | «sim, podes fazer uma infografia ligeira com essas 3 notas: booking, airbnb e google» | As dez frases ficam. Por baixo, três anéis finos: **Booking 10** (11 comentários) · **Airbnb 4,95** (21 avaliações) · **Google 5,0** (21 críticas), cada um a abrir o anúncio ou a ficha. Rodapé «Recebemos hóspedes desde 2022 · notas de novembro de 2026». Fora dos dados estruturados. **A nota do Airbnb é a média das 21 avaliações que ele enviou; falta ele confirmá-la no anúncio** |
+| 7 · Fotografias 34, 51 e 52 | «sim mas antes mostra as fotos desses números que não sei quais são» | Trazidas do Dropbox pelo workflow (corrida n.º 10) para `design/fotos/galeria/06-verao-por-decidir/`, com a `40.0` e a `4`, e mostradas ao Diogo (`docs/fotografia/2026-11-15_pasta_do_verao/`). A 51 e a 52 são as duas fachadas que faltavam ao álbum «O Monte» do Zenfolio; a 34 é a casa ao longe, vista do campo; a 40.0 e a 4 são quase iguais a duas que já estão no site. **Não entraram no site: esperam a palavra dele** |
+| 8 · Casas de banho | «isso, casas de banho não fazer parte desta mensagem. nem das fotos de destaque. só na galeria» | Saiu a fotografia da casa de banho da régua (ficam 19). Nos três momentos e na capa não havia nenhuma. Continuam na galeria e na resposta sobre os quartos de «Antes de chegar» |
+| 9 · Nome da galeria | «no menu, na secção das fotos/galeria vamos passar a chamar "passear pelo monte"» | «Passear pelo Monte» no menu de cima, no menu completo, no título da secção e na ligação da régua. Para não haver dois «Passear…» parecidos, a ligação de Montemor passou de «Passear por Montemor» a «Visitar Montemor-o-Novo» |
+
+**Pedido novo: registar as versões que vão para o `novo.`** («para sabermos onde fomos melhores. Eu quero poder dizer que quero manter X
+parte da versão anterior»). Feito em `docs/versoes/`:
+- **`REGISTO.md`**: como se usa, os nomes das doze partes da página e onde está cada uma no código, e a ficha de cada versão (o que mudou
+  em cada parte e o que o Diogo achou). **V1** = a que está no ar desde 8/11 (commit `17198b1`); **V2** = este rascunho.
+- **`v1/` e `v2/`**: cada versão fotografada parte a parte, no computador e no telemóvel, como está no ensaio (sem as portas da app).
+- **O número à vista:** no fundo da página do ensaio, «Ensaio · versão 2 · 15/11/2026» (`site/versao.json`); o site a sério não o mostra.
+- **Ferramentas** (`demo/ferramentas/site/versao/`): `fotografar.sh <N> [ref]` e `comparar.py <A> <B> [--pdf …]` (duas versões lado a lado).
+- **O deploy** pára se a versão não tiver número e ficha, ou se o número já tiver sido publicado com outro conteúdo; no fim de um envio a
+  sério cria a etiqueta `novo-v<N>`. A etiqueta da V1 cria-se pelo workflow «Etiqueta de versão do site» (a sessão não envia etiquetas).
+
+**Continua por confirmar pelo Diogo:** a capa (1, 2 ou 3) · a nota do Airbnb · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
+a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 · os originais das quatro frases traduzidas
+pelo Airbnb · os textos novos.
