@@ -731,3 +731,16 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   os textos novos. **Em aberto, de antes:** «Lança» (o servidor tem o commit `17198b1` de 8/11) · «sim» à passagem do GPT (v1.3) · as 23
   do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN ·
   repositório público · S31–S33. **Próxima sugestão: S37.**
+  **15/11 (19h20–19h30 UTC) · commit `ffd0ecf` em `main`; «Capturas» n.º 36 VERDE; ENSAIO A SECO DO DEPLOY n.º 9 (run 43751965846)
+  LIDO, nada enviado.** Face ao servidor (`17198b1`): 16 ficheiros alterados (`<fcst`), 63 novos (`fotos/quinta/` 32, `fotos/montemor/`
+  28, `partes/antes.php`, `momentos.php`, `regua.php`; `galeria.php` vem por renomeação), 18 apagados (as partes antigas, as quatro
+  miniaturas antigas do antes/depois, `montemor-rua`, as repetidas e as duas pequenas); 41,6 MB. **O deploy real (será o n.º 10) espera o
+  «Lança»** e precisa do «Capturas» verde do commit que estiver em `main` nesse momento. Capturas do rascunho para o Diogo em
+  `docs/integracao-app/revisao-2026-11-15/` (seis folhas, feitas no ensaio local com dados de exemplo) e enviadas na conversa.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8 ensaio · 9 ensaio. **Lições de ferramenta:** o
+  `esperar_capturas.py` precisa do identificador completo do commit (com o curto diz «sem corrida»); o registo de uma corrida não se
+  descarrega daqui (o endereço do armazenamento do GitHub é recusado pela rede): ler com a ferramenta do GitHub, só o fim, e tirar a
+  lista de mudanças do `git diff --name-status <commit do servidor> HEAD -- site/`; não há `rsync` na máquina da sessão; servidores de
+  ensaio em segundo plano morrem ao fim do tempo limite (voltar a lançar com `run_in_background` e limite maior); `cd` numa chamada muda
+  a pasta das seguintes (usar sempre caminhos absolutos).
+

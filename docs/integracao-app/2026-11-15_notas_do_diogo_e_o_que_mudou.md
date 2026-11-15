@@ -8,6 +8,10 @@ Este documento diz, nota a nota, o que ficou feito em `site/` (rascunho em `main
 lado do que havia ou do que ele deu como referência, e junta no fim o que está por confirmar. As referências que ele mostrou vêm de um
 estudo do ChatGPT posterior a 24/10 que não chegou ao repositório: os textos foram lidos nas capturas.
 
+Capturas do rascunho (feitas num servidor de ensaio local, com tempo e calendário de exemplo), em `docs/integracao-app/revisao-2026-11-15/`:
+`1-capas-computador.jpg` e `1-capas-telemovel.jpg` (as três opções da capa) · `2-a-casa-computador.jpg` · `3-montemor-e-resto-computador.jpg` ·
+`4-telemovel.jpg` (a página de cima a baixo) · `5-menu-e-datas.jpg` (menu completo e painel das datas, com o tempo nos três casos).
+
 ## 1. A página, de cima a baixo (como ficou)
 
 | N.º | Secção | Âncora | O que tem |
@@ -231,3 +235,8 @@ ligações internas sem «#» no endereço; as fotografias do primeiro momento r
 (1 160 € com a app; fluxo do preço atualizado); o tempo de uma estadia distante mostra as médias com a nota; o estudo da capa só aparece no
 ensaio. O que não se conseguiu ver daqui: o Open-Meteo a sério (a rede da sessão não o deixa; no servidor a previsão já funciona desde
 8/11; as médias dos anos anteriores estreiam-se no próximo deploy) e as três ligações para fora.
+
+**No GitHub (15/11, 19h20 UTC):** commit `ffd0ecf`; «Capturas» n.º 36 verde (os dois trabalhos); **ensaio a seco do deploy n.º 9**
+(`destino` novo, `dry_run`; nada enviado): face ao que está no servidor (commit `17198b1`, de 8/11) mudam 16 ficheiros, entram 63 (32 da
+Quinta, 28 de Montemor e três partes da página) e saem 18 (as partes antigas, as quatro miniaturas do «antes e depois» que lá estavam, as
+repetidas e as duas pequenas); 41,6 MB no total. O envio a sério espera o «Lança» do Diogo.
