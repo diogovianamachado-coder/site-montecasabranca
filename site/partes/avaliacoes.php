@@ -11,7 +11,7 @@
       </li>
       <?php endforeach; ?>
     </ul>
-    <?php if ($NOTAS['lista']): // as três notas (inc/factos.php → 'notas'): um anel que se enche até à nota, a plataforma e em quantas opiniões assenta.
+    <?php if ($NOTAS['lista']): // as três notas (inc/factos.php → 'notas'): um anel que se enche até à nota e o nome da plataforma. Sem o número de avaliações (Diogo, 15/11/2026).
       // Só as notas: não abrem os anúncios nem levam a lado nenhum (Diogo, 15/11/2026: «não quero links para as plataformas»). ?>
     <ul class="notas" aria-label="<?= e($A['notas_titulo']) ?>">
       <?php foreach ($NOTAS['lista'] as $n): $escala = str_replace('{escala}', $n['escala'], $A['nota_escala']);
@@ -23,7 +23,6 @@
           <span class="nota-escala"><?= e($escala) ?></span>
         </span>
         <span class="nota-onde"><?= e($n['plataforma']) ?></span>
-        <span class="nota-base"><?= e($n['base']) ?></span>
       </li>
       <?php endforeach; ?>
     </ul>

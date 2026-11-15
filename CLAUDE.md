@@ -817,3 +817,8 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **Por confirmar pelo Diogo:** a capa (1, 2 ou 3) · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) · a ligação de
   «Partilhar» da ficha do Google Maps · as ligações da ecopista e da N2 por olho · os originais das quatro frases traduzidas pelo
   Airbnb · os textos novos · o que achou de cada parte da V2. **Próxima sugestão: S37.**
+  **15/11 (22h40 UTC) · «Não precisas dizer o número de avaliações.»** Saiu a linha de baixo de cada nota («11 comentários», «21
+  avaliações», «21 críticas»): cada anel mostra só a nota, a escala («em 10», «em 5») e o nome da plataforma (`partes/avaliacoes.php`,
+  `inc/factos.php` → `notas` sem `base`, `site.css`). Os números ficam no FACTOS como facto. V2 fotografada outra vez; ficha da V2
+  (parte 8), documento das notas e FACTOS atualizados; bateria local verde. **O envio a sério (será o n.º 12) continua à espera do
+  «Lança»**; antes dele, ensaio a seco lido, como sempre.

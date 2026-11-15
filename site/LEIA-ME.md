@@ -26,8 +26,9 @@ Página única em PHP + CSS + JavaScript nativo (sem Node, sem build, sem base d
    - `'sem_schema' => true` deixa um álbum fora das imagens da casa que os motores de busca recebem (o de Montemor-o-Novo).
    - Conferir: `php demo/ferramentas/site/conferir-fotos.php` (todas as fotografias referidas existem, nenhuma repetida no mesmo conjunto, todas com descrição e, nos rolos, com legenda).
 4. Quem já ficou: cada frase é `['frase', 'plataforma', 'mês e ano', true se for tradução]` em `'avaliacoes' → 'citacoes'`. Curtas, sem nomes.
-   As três notas (Booking, Airbnb, Google) estão em `inc/factos.php` → `'notas'`: o número, a escala, em quantas opiniões assenta e o mês
-   em que foram lidas. Quando uma mudar, muda-se aí o número e a data. Não vão para os dados estruturados.
+   As três notas (Booking, Airbnb, Google) estão em `inc/factos.php` → `'notas'`: o número, a escala e o mês em que foram lidas.
+   Quando uma mudar, muda-se aí o número e a data. Só as notas: sem ligações para as plataformas e sem o número de avaliações.
+   Não vão para os dados estruturados.
 5. Regras: factos só de `FACTOS.md`; «Reguengo» só na morada postal; nada de tabelas de preços ou KPI no site; tom do Diogo (frases curtas, na segunda pessoa do plural).
 
 ## Pôr no servidor (Amen)

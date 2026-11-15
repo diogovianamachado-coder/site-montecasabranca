@@ -274,6 +274,8 @@ ser ligações (são só as notas); e saíram do rodapé as três ligações peq
 página deixa de ter qualquer ligação para as plataformas; um teste falha se voltar a aparecer alguma). O que não se vê continua: os
 dados estruturados dizem aos motores de busca que os três anúncios são da mesma casa (`sameAs`), e o `llms.txt` diz que também se pode
 reservar por eles. O Instagram, o WhatsApp, o email, o mapa, o Visit Montemor, a ecopista e a Rota da N2 não são plataformas e ficam.
+**E logo a seguir:** «Não precisas dizer o número de avaliações.» Saiu a linha de baixo de cada nota («11 comentários», «21
+avaliações», «21 críticas»): cada anel mostra só a nota, a escala («em 10», «em 5») e o nome da plataforma.
 
 **Continua por confirmar pelo Diogo:** a capa (1, 2 ou 3) · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
 a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 · os originais das quatro frases traduzidas

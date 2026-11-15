@@ -330,7 +330,8 @@ Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo
 - ✓ **As três notas no site** (Diogo, 15/11, noite: «uma infografia ligeira com essas 3 notas: booking, airbnb e google»): **Booking 10**
   (11 comentários) e **Google 5,0** (21 críticas), das capturas dele de 15/11; **Airbnb 4,95** (21 avaliações), confirmado por ele na
   mesma noite com a captura da aplicação de anfitrião («Airbnb está certo»). No site: `inc/factos.php` → `notas` (com a data, «novembro
-  de 2026»); não vão para os dados estruturados (são notas de terceiros).
+  de 2026»); não vão para os dados estruturados (são notas de terceiros). **No site mostra-se só a nota, não o número de
+  avaliações** («não precisas dizer o número de avaliações», Diogo, 15/11, noite); os números ficam aqui como facto.
 - ✓ **Sem ligações para as plataformas no site** (Diogo, 15/11, noite: «não quero links para as plataformas. Só notas da avaliação»):
   as três notas não abrem nada e o rodapé deixou de ter as ligações para o Airbnb, o Booking e o Vrbo. As ligações oficiais da secção 8
   continuam a valer para os dados estruturados (`sameAs`), que não se vêem na página.

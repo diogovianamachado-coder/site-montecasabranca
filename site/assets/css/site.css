@@ -298,7 +298,6 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .nota-valor { font-size: clamp(1.5rem, 6.4vw, 1.9rem); line-height: 1; }
 .nota-escala { margin-top: .3rem; font-size: .6875rem; letter-spacing: .05em; color: var(--suave); }
 .nota-onde { font-size: .75rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
-.nota-base { margin-top: .2rem; font-size: .8125rem; color: var(--suave); }
 .avaliacoes-rodape { margin-top: 2.75rem; text-align: center; font-size: .8125rem; color: var(--suave); }
 @media (min-width: 768px) { .avaliacoes { padding: 8rem 0; } }
 
