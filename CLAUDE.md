@@ -803,3 +803,17 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   traduzidas pelo Airbnb · os textos novos · o que achou de cada parte da V2 (coluna do REGISTO). **Em aberto, de antes:** «Lança» ·
   cópia do FACTOS para a app (secção 11) · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo ·
   versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**
+  **15/11 (22h–22h30 UTC) · «Airbnb está certo. Mas não quero links para as plataformas. Só notas da avaliação.»** O Diogo mandou a
+  captura da aplicação de anfitrião do Airbnb («21 avaliações · 4,95»): **a nota do Airbnb fica confirmada.** **Regra nova: o site não
+  tem ligações para as plataformas.** Feito em `main` (commit `48a82e7`): os três anéis de «Quem já ficou» deixaram de ser ligações
+  (são só as notas; a variável passou a `$NOTAS`, porque `$N` é da Nacional 2 em `montemor.php`) e **saíram do rodapé as três ligações
+  pequenas para o Airbnb, o Booking e o Vrbo**, que vinham da V1 (decisão do Claude a partir da frase dele, dita ao Diogo; se as quiser
+  de volta é a parte 9 da V1). O que não se vê fica: `sameAs` nos dados estruturados (os anúncios são da mesma casa) e a linha do
+  `llms.txt`. Instagram, WhatsApp, email, mapa, Visit Montemor, ecopista e Rota da N2 não são plataformas e ficam. `testar-site.sh`
+  falha se voltar a aparecer uma ligação para o Airbnb, o Booking ou o Vrbo, ou se as notas forem ligações (provado com um caso
+  errado). V2 fotografada outra vez (`docs/versoes/v2/`); ficha da V2 atualizada nas partes 8 e 9; FACTOS com a nota ✓ e a regra.
+  «Capturas» n.º 43 verde; **ensaio a seco do deploy n.º 11** (run 43773845512, `48a82e7`): passou, nada enviado. **O envio a sério
+  (será o n.º 12) espera o «Lança».** **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–11 ensaios.
+  **Por confirmar pelo Diogo:** a capa (1, 2 ou 3) · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) · a ligação de
+  «Partilhar» da ficha do Google Maps · as ligações da ecopista e da N2 por olho · os originais das quatro frases traduzidas pelo
+  Airbnb · os textos novos · o que achou de cada parte da V2. **Próxima sugestão: S37.**
