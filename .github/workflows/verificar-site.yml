@@ -1,0 +1,90 @@
+name: Verificar o site (só lê)
+
+# Manual. NÃO envia nada e NÃO entra no servidor: faz pedidos ao site publicado, como um visitante faria, e escreve o que encontrou.
+# Serve para confirmar um envio mais tarde, ou para perceber uma falha sem mexer em nada (nasceu a 16/11/2026, quando a verificação
+# do deploy n.º 14 avisou que as médias do tempo não tinham respondido no servidor).
+# Os avisos (amarelo) são coisas a ver; só fica vermelho se a página não responder.
+
+on:
+  workflow_dispatch:
+    inputs:
+      destino:
+        description: "Que site verificar: novo = novo.montecasabranca.pt (ensaio) · raiz = montecasabranca.pt"
+        type: choice
+        options: [novo, raiz]
+        default: novo
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Verificar ${{ inputs.destino }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      SITE_URL: ${{ inputs.destino == 'raiz' && 'https://montecasabranca.pt' || 'https://novo.montecasabranca.pt' }}
+    steps:
+      - name: Obter o código (para saber que versão devia estar no ar)
+        uses: actions/checkout@v4
+
+      - name: A página responde? que versão mostra?
+        run: |
+          set +e; set -u   # o GitHub corre os passos com «bash -e»: aqui um pedido falhado não pára o passo, fica escrito
+          R=$(curl -s -o /tmp/pagina.html --max-time 30 -w '%{http_code} %{time_total}' "$SITE_URL/"); rc=$?
+          echo "página → HTTP ${R% *} em ${R#* } s (curl $rc)"
+          if [ "${R% *}" != "200" ] || ! grep -q 'Monte Casa Branca' /tmp/pagina.html; then echo "::error::a página não respondeu em $SITE_URL"; exit 1; fi
+          echo "tamanho da página: $(wc -c < /tmp/pagina.html) bytes"
+          NO_AR=$(grep -o 'Ensaio · versão [0-9]* · [0-9/]*' /tmp/pagina.html | head -1 || true)
+          EM_MAIN=$(jq -r '"versão \(.versao) · \(.data)"' site/versao.json)
+          echo "no ar: ${NO_AR:-sem linha de versão (normal fora do ensaio)} · em main: $EM_MAIN"
+          if [[ "$SITE_URL" == *"://novo."* ]]; then
+            grep -q 'name="robots" content="noindex' /tmp/pagina.html && echo "noindex no ensaio OK" || echo "::warning::a página do ensaio não leva noindex"
+            curl -s --max-time 20 "$SITE_URL/robots.txt" | grep -q '^Disallow: /$' && echo "robots.txt do ensaio bloqueia tudo OK" || echo "::warning::o robots.txt do ensaio não bloqueia tudo"
+          fi
+          if grep -Eqi 'href="https?://[^"]*(airbnb|booking|vrbo)\.' /tmp/pagina.html; then echo "::warning::há ligações para as plataformas na página"; else echo "sem ligações para as plataformas OK"; fi
+
+      - name: As fotografias da página existem todas no servidor?
+        run: |
+          set +e; set -u   # o GitHub corre os passos com «bash -e»: aqui um pedido falhado não pára o passo, fica escrito
+          grep -o 'fotos/[a-z0-9/_-]*\.jpg' /tmp/pagina.html | sort -u > /tmp/fotos.txt
+          echo "fotografias referidas na página: $(wc -l < /tmp/fotos.txt)"
+          falhas=0
+          while read -r f; do
+            c=$(curl -s -o /dev/null -I --max-time 20 -w '%{http_code}' "$SITE_URL/$f")
+            if [ "$c" != "200" ]; then echo "::warning::$f → HTTP $c"; falhas=$((falhas + 1)); fi
+          done < /tmp/fotos.txt
+          echo "fotografias que não responderam: $falhas"
+
+      - name: As portas respondem? (tempo, conta, calendário e médias do tempo, com os segundos de cada uma)
+        run: |
+          set +e; set -u   # o GitHub corre os passos com «bash -e»: aqui um pedido falhado não pára o passo, fica escrito
+          pedir() { # pedir <rótulo> <caminho>
+            local R; R=$(curl -s -o /tmp/r.json --max-time 45 -w '%{http_code} %{time_total}' "$SITE_URL/$2")
+            echo "$1 → HTTP ${R% *} em ${R#* } s → $(head -c 200 /tmp/r.json)"
+          }
+          pedir "previsão"   "api/tempo.php"
+          pedir "conta"      "api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6"
+          pedir "calendário" "api/ocupacao.php"
+          DE=$(date -d '+200 days' +%F); ATE=$(date -d '+203 days' +%F)
+          pedir "médias (1.ª vez)" "api/tempo.php?de=$DE&ate=$ATE"
+          pedir "médias (2.ª vez)" "api/tempo.php?de=$DE&ate=$ATE"
+          grep -q '"modo":"media"' /tmp/r.json && echo "médias do tempo OK" || echo "::warning::as médias do tempo para datas longe não respondem no servidor"
+          DE=$(date -d '+10 days' +%F); ATE=$(date -d '+20 days' +%F)
+          pedir "previsão + médias (estadia a meio)" "api/tempo.php?de=$DE&ate=$ATE"
+
+      - name: O arquivo do Open-Meteo responde daqui? (o mesmo pedido que o site faz, para comparar)
+        run: |
+          set +e; set -u   # o GitHub corre os passos com «bash -e»: aqui um pedido falhado não pára o passo, fica escrito
+          ANO=$(date +%Y)
+          U="https://archive-api.open-meteo.com/v1/archive?latitude=38.6142917&longitude=-8.211253&start_date=$((ANO - 5))-01-01&end_date=$((ANO - 1))-12-31&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe%2FLisbon"
+          for i in 1 2; do
+            R=$(curl -s -o /tmp/arquivo.json --max-time 90 -w '%{http_code} %{time_total} %{size_download}' "$U"); rc=$?
+            echo "arquivo, pedido $i → HTTP $(cut -d' ' -f1 <<<"$R") em $(cut -d' ' -f2 <<<"$R") s · $(cut -d' ' -f3 <<<"$R") bytes (curl $rc)"
+          done
+          if jq -e '.daily.time | length > 0' /tmp/arquivo.json > /dev/null 2>&1; then
+            jq -r '"dias: \(.daily.time | length) · de \(.daily.time[0]) a \(.daily.time[-1]) · campos: \(.daily | keys | join(", "))"' /tmp/arquivo.json
+            jq -r '"valores em falta → máx: \([.daily.temperature_2m_max[] | select(. == null)] | length) · mín: \([.daily.temperature_2m_min[] | select(. == null)] | length) · chuva: \([.daily.precipitation_sum[] | select(. == null)] | length) · código: \([.daily.weather_code[] | select(. == null)] | length)"' /tmp/arquivo.json
+          else
+            echo "::warning::o arquivo do Open-Meteo não devolveu dias; resposta: $(head -c 400 /tmp/arquivo.json)"
+          fi

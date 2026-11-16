@@ -41,10 +41,13 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
-### V2 · revisão do Diogo de 15/11/2026 · rascunho, por publicar
+### V2 · 16/11/2026 · a revisão do Diogo de 15/11
 
-- **Estado:** em `main`, à espera do «Lança». Quando for publicada: a data, o n.º do deploy, o commit e a etiqueta `novo-v2` ficam
-  escritos aqui.
+- **Publicada:** 16/11/2026, às 00h49 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 14 (o n.º 13 foi o ensaio a seco),
+  commit `37c9ca0`, **etiqueta `novo-v2`**. É a que está no ar em `novo.`. Face à V1: 15 ficheiros mudaram, 71 entraram, 18 saíram.
+- **Verificação depois do envio:** a página responde, mostra «Ensaio · versão 2», continua fora dos motores de busca, a previsão do
+  tempo e a conta respondem. **Um ponto falhou:** as médias do tempo para datas longe (para lá dos 16 dias da previsão) não responderam
+  no servidor; no painel das datas esse bloco simplesmente não aparece, o resto funciona. A corrigir na versão seguinte.
 - **Capturas:** `docs/versoes/v2/` · **De onde vem:** as 17 notas do Diogo de 15/11 e as respostas da mesma noite
   (`docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`).
 - **Ordem da página:** capa → a casa → por fora → sem pressa → por dentro → fecho e régua → Montemor, N2 e onde estamos → Passear pelo
@@ -70,7 +73,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 - **Publicada:** 8/11/2026, deploys do site n.º 5 (20h12 UTC, commit `3c73fd9`) e n.º 7 (20h30 UTC, commit `17198b1`: o mesmo site com o
   nosso ícone e fora dos motores de busca). **Referência:** o commit `17198b1` (sem etiqueta: é anterior a este registo e o GitHub não
-  deixa etiquetar commits antigos). Esteve no ar de 8/11 até à publicação da V2.
+  deixa etiquetar commits antigos). Esteve no ar de 8/11 a 16/11/2026.
 - **Capturas:** `docs/versoes/v1/` · **De onde vem:** o site em PHP feito a partir do desenho do Lovable (7/11), verificado e corrigido.
 - **Ordem da página:** capa → «O dia é vosso / A casa também» → descobrir a casa (lá fora, alpendre, sala e cozinha, quartos e banho) →
   «A casa, num relance» → quem cá esteve → perguntas frequentes → fotografias → onde estamos (Montemor e N2) → contactos.

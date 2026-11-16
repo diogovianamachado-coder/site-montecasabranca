@@ -207,7 +207,7 @@ jobs:
       - name: Verificar que o site responde
         if: ${{ env.DRY_RUN == '0' }}
         run: |
-          set -u
+          set +e; set -u   # o GitHub corre os passos com «bash -e»: sem o «+e», um pedido falhado (rede, DNS) parava o passo à primeira, com o envio já feito
           K=""   # passa a "-k" se o certificado HTTPS ainda não tiver sido emitido (subdomínio acabado de criar na Amen)
           for i in 1 2 3 4 5 6; do
             code=$(curl -s $K -o /tmp/pagina.html --max-time 20 -w '%{http_code}' "$SITE_URL/"); rc=$?
