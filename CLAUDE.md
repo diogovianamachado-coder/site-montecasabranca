@@ -822,3 +822,33 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `inc/factos.php` → `notas` sem `base`, `site.css`). Os números ficam no FACTOS como facto. V2 fotografada outra vez; ficha da V2
   (parte 8), documento das notas e FACTOS atualizados; bateria local verde. **O envio a sério (será o n.º 12) continua à espera do
   «Lança»**; antes dele, ensaio a seco lido, como sempre.
+  **15/11 (23h) → 16/11 (00h30 UTC) · SETE NOTAS DO DIOGO SOBRE A V2, vistas no PDF «V1 ao lado da V2» e nas folhas da tarde.** Ele
+  perguntou «se as fotos que me deste são o que vem na V2 podes alterar; se preferires que veja em ambiente live antes das tuas
+  alterações, diz-me»: respondido que são a V2 e que se alterava já, para ver tudo de uma vez. **Feito em `main` (commit `db3f265`):**
+  **(1) Capa: a 1, no computador e no telemóvel** («capa: 1 · capa telemóvel: 1»). Saiu o estudo: `inicio.capas` só tem a opção 1 e o
+  `index.php` só mostra botões de estudo se houver mais do que uma (o mecanismo `?capa=N` fica, adormecido). **(2) «Por fora · Sem
+  pressa · Por dentro»** («esta mensagem é forte. deveria ficar mais visível e enquadrável no ecrã com alguma estilização»): **o cartaz**
+  (`#a-casa`) ocupa um ecrã (`min-height: calc(100svh - var(--dock))`, com `--dock: 4.25rem` = a barra de baixo), as três palavras em
+  degraus também no telemóvel (esquerda · centro · direita) e a entrar uma a seguir à outra; **cada momento ocupa um ecrã e abre com a
+  sua palavra em grande**, no desenho do cartaz (`.palavra`: «Por fora» branca sobre a fotografia, «Sem pressa» em itálico e na cor
+  primária, «Por dentro»), com «1 / 3» e um traço por cima (`.momento-num`) e a frase que era o título por baixo (`h3.momento-frase`).
+  `partes/momentos.php` refeito (a palavra é o `h2`; `momento-grelha` com fotografias 7 partes e texto 5; no telemóvel a ordem é
+  palavra, fotografias, frase e texto; fotografias a 37svh no telemóvel e a `min(58svh, 460px)` no computador; a banda do primeiro
+  momento enche o ecrã no computador). Medido em 1280×800, 1024×700, 768×1024, 390×844 e 390×664: a secção tem a altura do ecrã
+  visível (só «Por dentro» passa 3 px no telemóvel com as barras do Safari). **(3) Pedido de datas no telemóvel** («as pessoas não
+  querem ver um ecrã inteiro com 3 botões e 4 caixas de texto. rearranja para poder ficar mais leve»): abre só com nome e email; o
+  telefone e a mensagem estão num `<details id="pedido-mais">` que o `site.js` fecha abaixo de 640 px («Juntar telefone ou mensagem»;
+  sem JavaScript e no computador fica aberto e sem a linha do toque); «Pedir estas datas» a toda a largura, WhatsApp e Email lado a
+  lado; o bloco desceu de cerca de 560 para 323 px. **(4) Marca de água: «retiramos»**: `marca_de_agua.py` e as sete amostras saíram
+  do repositório. **(5) Já estavam feitos e foram confirmados por medição:** rodapé sem Airbnb/Booking/Vrbo e «Passear pelo Monte» no
+  menu do telemóvel (as capturas dele eram do PDF e das folhas da tarde); não sobra «Galeria» à vista em lado nenhum. **Mais:**
+  `<noscript>` no cabeçalho para a página se ver inteira sem JavaScript; teste da capa refeito (uma opção, sem botões). Bateria local
+  verde, treze larguras sem rolagem horizontal. V2 fotografada outra vez; ficha da V2 atualizada (partes 1, 2, 3, 9, 10, 11); folhas
+  novas enviadas ao Diogo: `docs/integracao-app/revisao-2026-11-15/7-a-mensagem-computador.jpg`, `8-a-mensagem-telemovel.jpg`,
+  `9-pedido-de-datas-telemovel.jpg`. «Capturas» n.º 46 verde; **ensaio a seco do deploy n.º 12** (run 43778592970, `db3f265`): passou,
+  nada enviado. **O envio a sério (será o n.º 13) espera o «Lança».** **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio ·
+  7 real · 8–12 ensaios. **Lição:** as capturas de telemóvel do Playwright desenham uma barra de rolagem cinzenta que não existe no
+  telemóvel parado; escondê-la com um `addStyleTag` antes de fotografar para mostrar ao Diogo. **Por confirmar pelo Diogo:** se a 34, a
+  51 e a 52 entram na galeria (e a 40.0 e a 4) · a ligação de «Partilhar» da ficha do Google Maps · as ligações da ecopista e da N2 por
+  olho · os originais das quatro frases traduzidas pelo Airbnb · os textos novos · o que achou de cada parte da V2 ao vivo.
+  **Próxima sugestão: S37.**
