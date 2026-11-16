@@ -76,8 +76,15 @@
         <div class="campos">
           <label>Nome<input type="text" name="nome" required maxlength="120" autocomplete="name"></label>
           <label>Email<input type="email" name="email" required maxlength="160" autocomplete="email"></label>
-          <label>Telefone <span class="suave">(opcional)</span><input type="tel" name="telefone" maxlength="40" autocomplete="tel"></label>
-          <label class="largo">Mensagem <span class="suave">(opcional)</span><textarea name="mensagem" rows="3" maxlength="1000"></textarea></label>
+          <!-- O que é opcional fica recolhido no telemóvel, para o pedido ser leve: abre com um toque (Diogo, 15/11/2026: «as pessoas
+               não querem ver um ecrã inteiro com 3 botões e 4 caixas de texto»). No computador está sempre aberto (site.js e site.css). -->
+          <details class="campos-mais largo" id="pedido-mais" open>
+            <summary><?= icone('mais', 'ico ico-mais') ?><span><?= e($Dp['mais_campos']) ?></span></summary>
+            <div class="campos-mais-dentro">
+              <label>Telefone <span class="suave">(opcional)</span><input type="tel" name="telefone" maxlength="40" autocomplete="tel"></label>
+              <label class="largo">Mensagem <span class="suave">(opcional)</span><textarea name="mensagem" rows="2" maxlength="1000"></textarea></label>
+            </div>
+          </details>
           <input type="text" name="armadilha" class="armadilha" tabindex="-1" autocomplete="off" aria-hidden="true">
         </div>
         <p class="pedido-estado" id="pedido-estado" aria-live="polite"></p>

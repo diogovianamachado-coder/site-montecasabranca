@@ -30,10 +30,15 @@ echo "== ensaio: noindex só quando o Host é novo.*"
 P=$(curl -sS -H 'Host: novo.montecasabranca.pt' http://127.0.0.1:8791/); grep -q 'name="robots" content="noindex' <<<"$P" || { echo "FALHOU: a página não leva noindex com Host novo.montecasabranca.pt"; exit 1; }
 P=$(curl -sS http://127.0.0.1:8791/); if grep -q 'name="robots" content="noindex' <<<"$P"; then echo "FALHOU: noindex fora do ensaio"; exit 1; fi
 echo "noindex no ensaio OK · sem noindex na raiz OK"
-echo "== estudo da capa: ?capa= só no ensaio"
-P=$(curl -sS -H 'Host: novo.montecasabranca.pt' 'http://127.0.0.1:8791/?capa=3'); grep -q 'class="estudo-capa"' <<<"$P" && grep -q 'piscina-chapeu-sol' <<<"$P" || { echo "FALHOU: ?capa=3 não mostrou a opção 3 no ensaio"; exit 1; }
-P=$(curl -sS -H 'Host: montecasabranca.pt' 'http://127.0.0.1:8791/?capa=3'); if grep -q 'class="estudo-capa"' <<<"$P"; then echo "FALHOU: o estudo da capa apareceu fora do ensaio"; exit 1; fi
-echo "estudo da capa no ensaio OK · ignorado fora do ensaio OK"
+echo "== capa: a opção escolhida, sem estudo à vista"
+# O Diogo escolheu a capa 1 (15/11/2026): com uma só opção, ?capa= não faz nada, nem no ensaio. (Com várias opções em conteudo.php,
+# o ensaio volta a mostrar os botões do estudo; fora do ensaio nunca.)
+for H in novo.montecasabranca.pt montecasabranca.pt; do
+  P=$(curl -sS -H "Host: $H" 'http://127.0.0.1:8791/?capa=3')
+  if grep -q 'class="estudo-capa"' <<<"$P"; then echo "FALHOU: os botões do estudo da capa apareceram em $H"; exit 1; fi
+  grep -q 'hero-titulo-ceu' <<<"$P" && grep -q 'piscina-dia' <<<"$P" || { echo "FALHOU: a capa em $H não é a opção 1 (fotografia 1, título no céu)"; exit 1; }
+done
+echo "capa 1 no ensaio e fora dele OK · sem botões de estudo OK"
 echo "== versão: número, ficha no registo e «Ensaio · versão N» só no ensaio"
 N=$(php -r '$v=json_decode((string)file_get_contents("site/versao.json"),true); echo is_array($v)&&isset($v["versao"])&&is_int($v["versao"])?$v["versao"]:"";')
 [ -n "$N" ] || { echo "FALHOU: site/versao.json não tem o número da versão"; exit 1; }

@@ -213,6 +213,16 @@
   var painelArrancado = false, ocupadas = {}, ocupacaoExemplo = false, semApp = false, mesBase = new Date(hoje().getFullYear(), hoje().getMonth(), 1), ultimaConta = null, inicioPreenchimento = null;
   var elEntrada = $('#entrada'), elSaida = $('#saida'), elPax = $('#pax'), elConta = $('#conta'), elAvisos = $('#avisos'), formPedido = $('#form-pedido');
 
+  // O telefone e a mensagem (opcionais) ficam recolhidos no telemóvel, para o pedido ser leve; no computador estão sempre abertos
+  // (a linha que os abre nem aparece). Sem JavaScript ficam abertos em todo o lado.
+  var pedidoMais = $('#pedido-mais');
+  if (pedidoMais && window.matchMedia) {
+    var estreito = window.matchMedia('(max-width: 639px)');
+    var acertarMais = function () { pedidoMais.open = !estreito.matches; };
+    acertarMais();
+    if (estreito.addEventListener) estreito.addEventListener('change', acertarMais); else if (estreito.addListener) estreito.addListener(acertarMais);
+  }
+
   function arrancarPainel() {
     if (painelArrancado) return; painelArrancado = true;
     var h = hoje(); elEntrada.min = iso(h); elSaida.min = iso(addDias(h, 1));

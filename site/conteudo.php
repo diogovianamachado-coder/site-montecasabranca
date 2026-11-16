@@ -47,19 +47,14 @@ return [
         'etiquetas' => [['pessoas', 'Até 8 pessoas'], ['cama', '4 quartos'], ['ondas', 'Piscina 10 × 5 m']],
         'botao' => ['Entrar pela casa', '#a-casa'],
         'nota' => 'Sem receção, sem pressa',
-        // A capa que fica: a chave de uma das opções de baixo.
+        // A capa: escolhida pelo Diogo a 15/11/2026, para o computador e para o telemóvel («capa: 1 · capa telemóvel: 1»).
+        // Fotografia 1, com o título no céu e quase sem máscara (o texto leva sombra própria); a casa fica toda à vista.
+        // As opções 2 e 3 do estudo saíram (estão no histórico do repositório, commit 5f23bdc). Se um dia houver outro estudo,
+        // basta juntar opções a 'capas': no ensaio, ?capa=N mostra cada uma, com botões para trocar.
         'capa' => '1',
-        // Estudo da capa (nota 2 do Diogo, 15/11/2026): no ensaio (novo.montecasabranca.pt), ?capa=1, ?capa=2 ou ?capa=3 mostra cada opção.
-        // 'titulo': 'ceu' (o título sobe para o céu da fotografia e a casa fica toda à vista) ou 'baixo' (tudo em baixo, sobre a água).
-        // 'mascara': 'minima' (quase nada: o texto leva sombra própria), 'leve' (sombra só em cima e em baixo) ou 'media' (mais sombra
-        // em baixo: é o que a fotografia 2 pede, porque o texto cai sobre o chão claro e a espreguiçadeira).
         'capas' => [
             '1' => ['nome' => 'Fotografia 1 · título no céu · quase sem máscara', 'titulo' => 'ceu', 'mascara' => 'minima',
                 'foto' => ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'A piscina sob o céu azul do Alentejo, com a casa branca de telhado vermelho ao fundo', 'pos' => '50% 0%', 'pos_m' => '22% 50%']],
-            '2' => ['nome' => 'Fotografia 1 · título em baixo · máscara leve', 'titulo' => 'baixo', 'mascara' => 'leve',
-                'foto' => ['src' => 'exterior/piscina-dia.jpg', 'alt' => 'A piscina sob o céu azul do Alentejo, com a casa branca de telhado vermelho ao fundo', 'pos' => '50% 30%', 'pos_m' => '22% 50%']],
-            '3' => ['nome' => 'Fotografia 2 · título em baixo · máscara média', 'titulo' => 'baixo', 'mascara' => 'media',
-                'foto' => ['src' => 'exterior/piscina-chapeu-sol.jpg', 'alt' => 'Espreguiçadeiras e chapéu-de-sol à beira da piscina, com a casa ao fundo', 'pos' => '50% 30%', 'pos_m' => '30% 50%']],
         ],
     ],
 
@@ -71,6 +66,8 @@ return [
     ],
 
     // ---- 3. Os três momentos ------------------------------------------------------
+    // 'eyebrow' é a palavra do momento: é o título grande, com o desenho do cartaz (a do meio em itálico) e «1 / 3» por cima.
+    // 'titulo' é a frase que vem por baixo da palavra; 'texto' o parágrafo. Cada momento ocupa um ecrã (Diogo, 15/11/2026).
     // Em cada um, a primeira fotografia é a principal; as seguintes vêm atrás, a rolar devagar (o dedo ou o rato aceleram ou param).
     'momentos' => [
         [
@@ -381,6 +378,7 @@ return [
         'estimativa' => 'Valor calculado pelo site. O Diogo confirma no pedido',
         'pedir_titulo' => 'Gostam destas datas? Falem com o Diogo',
         'pedir' => 'Pedir estas datas',
+        'mais_campos' => 'Juntar telefone ou mensagem',   // no telemóvel, o que é opcional abre com um toque
         'nota_preco' => 'Sem reserva automática e sem pagamentos aqui: o Diogo confirma as datas e o valor',
         'tempo' => 'O tempo no Monte',
         'tempo_proximos' => 'Os próximos dias',

@@ -9,12 +9,12 @@ $C = mcb_conteudo();
 $SITE = rtrim($cfg['SITE_URL'], '/');
 $versao = (string)@filemtime(__DIR__ . '/assets/css/site.css');
 
-// Capa: a opção escolhida em conteudo.php. No ensaio (novo.montecasabranca.pt ou o servidor local dos testes), ?capa=N mostra
-// as outras opções do estudo da capa (nota 2 do Diogo, 15/11/2026); fora do ensaio o parâmetro é ignorado.
+// Capa: a opção escolhida em conteudo.php (a 1, desde 15/11/2026). Se houver mais do que uma opção em 'capas', no ensaio
+// (novo.montecasabranca.pt ou o servidor local dos testes) ?capa=N mostra as outras; fora do ensaio o parâmetro é ignorado.
 $anfitriao = (string)($_SERVER['HTTP_HOST'] ?? '');
 $capaChave = (string)$C['inicio']['capa'];
 $capaEstudo = false;
-if (preg_match('/^(novo\.|127\.0\.0\.1|localhost)/i', $anfitriao) && isset($_GET['capa']) && is_string($_GET['capa']) && isset($C['inicio']['capas'][$_GET['capa']])) {
+if (count($C['inicio']['capas']) > 1 && preg_match('/^(novo\.|127\.0\.0\.1|localhost)/i', $anfitriao) && isset($_GET['capa']) && is_string($_GET['capa']) && isset($C['inicio']['capas'][$_GET['capa']])) {
     $capaChave = $_GET['capa'];
     $capaEstudo = true;
 }
@@ -89,6 +89,7 @@ $jsonld = [
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Sans+3:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css?v=<?= e($versao) ?>">
+<noscript><style>.reveal, .trio a { opacity: 1 !important; transform: none !important; } .nota-arco { stroke-dashoffset: 0 !important; }</style></noscript>
 <?php if ($capaM): // a fotografia da capa: a variante de telemóvel até 767 px, a grande daí para cima ?>
 <link rel="preload" as="image" href="<?= e($capaM) ?>" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="<?= e(foto_url($CAPA['foto']['src'])) ?>" media="(min-width: 768px)" fetchpriority="high">

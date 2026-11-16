@@ -252,7 +252,7 @@ O Diogo respondeu às perguntas que o Claude lhe fez na conversa (a numeração 
 | 2 · Menu | «qual é a tua sugestão nisto? acho que não entrou mais nada ou fomos atualizando ao longo do processo, não foi?» | Confirmado: o menu foi sendo atualizado (notas 3, 4, 5, 10 e 16, e o nome novo da galeria). Recomendação do Claude: não mexer mais até ver a V2 ao vivo; nessa altura, ver se «Passear pelo Monte» deve subir para logo a seguir à casa |
 | 3 · Saída tardia | «18h» | `inc/factos.php` → `saida_tardia` = «18h»: vale para «Antes de chegar», para o painel das datas e para o `llms.txt` |
 | 4 · «Tarifas de 2028» | «sim era erro. queria dizer 2027» | Nada a mudar: o site tem 2026 e 2027 |
-| 5 · Marca de água | «não coloque. não é prática corrente, pois não?» | Não se aplica. Não é prática corrente em sites de casas de férias (as plataformas também não a usam). A ferramenta e as amostras ficam no repositório, sem uso |
+| 5 · Marca de água | «não coloque. não é prática corrente, pois não?» | Não se aplica. Não é prática corrente em sites de casas de férias (as plataformas também não a usam). A ferramenta e as amostras saíram do repositório mais tarde, na mesma noite («marca de água: retiramos») |
 | 6 · Avaliações | «sim, podes fazer uma infografia ligeira com essas 3 notas: booking, airbnb e google» | As dez frases ficam. Por baixo, três anéis finos: **Booking 10** (11 comentários) · **Airbnb 4,95** (21 avaliações) · **Google 5,0** (21 críticas), sem ligações (ver a nota de baixo). Rodapé «Recebemos hóspedes desde 2022 · notas de novembro de 2026». Fora dos dados estruturados. A nota do Airbnb era a média das 21 avaliações que ele enviou; **ele confirmou-a na mesma noite** |
 | 7 · Fotografias 34, 51 e 52 | «sim mas antes mostra as fotos desses números que não sei quais são» | Trazidas do Dropbox pelo workflow (corrida n.º 10) para `design/fotos/galeria/06-verao-por-decidir/`, com a `40.0` e a `4`, e mostradas ao Diogo (`docs/fotografia/2026-11-15_pasta_do_verao/`). A 51 e a 52 são as duas fachadas que faltavam ao álbum «O Monte» do Zenfolio; a 34 é a casa ao longe, vista do campo; a 40.0 e a 4 são quase iguais a duas que já estão no site. **Não entraram no site: esperam a palavra dele** |
 | 8 · Casas de banho | «isso, casas de banho não fazer parte desta mensagem. nem das fotos de destaque. só na galeria» | Saiu a fotografia da casa de banho da régua (ficam 19). Nos três momentos e na capa não havia nenhuma. Continuam na galeria e na resposta sobre os quartos de «Antes de chegar» |
@@ -277,6 +277,22 @@ reservar por eles. O Instagram, o WhatsApp, o email, o mapa, o Visit Montemor, a
 **E logo a seguir:** «Não precisas dizer o número de avaliações.» Saiu a linha de baixo de cada nota («11 comentários», «21
 avaliações», «21 críticas»): cada anel mostra só a nota, a escala («em 10», «em 5») e o nome da plataforma.
 
-**Continua por confirmar pelo Diogo:** a capa (1, 2 ou 3) · se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
+**Às 23h, depois de ver o PDF «V1 ao lado da V2» e as folhas da tarde, o Diogo deixou mais sete notas** (e a pergunta «se as fotos
+que me deste são o que vem na V2 podes alterar; se preferires que veja ao vivo antes, diz»: respondido que sim, são a V2, e que as
+alterações se faziam já, para ele ver tudo de uma vez):
+
+| Nota do Diogo | O que se fez |
+|---|---|
+| «capa: 1» · «capa telemóvel: 1» | A capa 1 fica (fotografia 1, título no céu, quase sem máscara), nos dois aparelhos. O estudo saiu: sem opções 2 e 3 e sem botões |
+| «por fora…: não sei o que estás a pensar mas esta mensagem é forte. deveria ficar mais visível e enquadrável no ecrã com alguma estilização» | **O cartaz** («A casa») ocupa um ecrã, com as três palavras em degraus também no telemóvel, a entrar uma a seguir à outra. **Cada momento ocupa um ecrã** e abre com a sua palavra em grande, no desenho do cartaz («Por fora» sobre a fotografia, «Sem pressa» em itálico e na cor da casa, «Por dentro»), com «1 / 3» e um traço por cima; a frase que era o título («O melhor lugar é cá fora», «A mesa pode esperar por todos», «Entrar sem deixar o exterior para trás») passa para baixo da palavra. No telemóvel a ordem é palavra, fotografias, frase e texto |
+| «contactos e rodapé: retirar airbnb, vrbo, booking» | Já estava feito às 22h (a captura dele era do PDF, anterior) |
+| «mobile: não se chama galeria» | Já dizia «Passear pelo Monte» (a captura era das folhas da tarde); confirmado que não sobra «Galeria» à vista em lado nenhum |
+| «disponibilidade: tenta redimensionar esta secção no mobile. as pessoas não querem ver um ecrã inteiro com 3 botões e 4 caixas de texto. rearranja para poder ficar mais leve» | No telemóvel o pedido abre só com o nome e o email; o telefone e a mensagem (opcionais) abrem com um toque em «Juntar telefone ou mensagem»; «Pedir estas datas» a toda a largura e o WhatsApp e o Email lado a lado, mais baixos; menos espaço entre as coisas. O bloco passou de cerca de 560 para 323 píxeis de altura. No computador fica como estava |
+| «marca de água: retiramos» | A ferramenta e as sete amostras saíram do repositório |
+
+Folhas para ele ver como ficou: `docs/integracao-app/revisao-2026-11-15/7-a-mensagem-computador.jpg`, `8-a-mensagem-telemovel.jpg` e
+`9-pedido-de-datas-telemovel.jpg`. Sem JavaScript a página passa a mostrar-se inteira (uma linha de `<noscript>` no cabeçalho).
+
+**Continua por confirmar pelo Diogo:** se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
 a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 · os originais das quatro frases traduzidas
 pelo Airbnb · os textos novos.

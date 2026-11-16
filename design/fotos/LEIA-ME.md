@@ -148,6 +148,5 @@ largura). As descrições e as legendas escrevem-se em `site/conteudo.php`.
 **Pasta do verão** (`7. Fotos/3. anuncios/V2_verão/`, 69 ficheiros, listada pelo conector a 15/11/2026): estão na galeria todas menos a
 `34`, a `51` e a `52` (as duas últimas devem ser as fachadas laterais do fim de «O Monte») e uma das duas `40` (`40.JPG` e `40.0.JPG`).
 
-**Marca de água** (pergunta do Diogo, 15/11): `demo/ferramentas/fotos/marca_de_agua.py` grava o logótipo na imagem em três modos (canto,
-centro, repetida); amostras em `docs/fotografia/2026-11-15_marca_de_agua/`. Não foi aplicada: espera a escolha dele. Com o repositório
-público só protege as cópias do servidor; as limpas continuam aqui à vista.
+**Marca de água: não se usa** (decisão do Diogo, 15/11/2026: «não coloque»; «marca de água: retiramos»). A ferramenta e as amostras que
+se fizeram para ele escolher saíram do repositório nessa noite (ficam no histórico do git, até ao commit `5f23bdc`).

@@ -338,6 +338,9 @@ Registo completo, nota a nota, em `docs/integracao-app/2026-11-15_notas_do_diogo
 - ✓ **Casas de banho só na galeria** (Diogo, 15/11, noite): não fazem parte da mensagem dos três momentos nem das fotografias de destaque
   (capa, momentos, régua). Continuam na resposta sobre os quartos em «Antes de chegar», que é informação.
 - ✓ **A galeria chama-se «Passear pelo Monte»** no menu e na secção (Diogo, 15/11, noite).
+- ✓ **Capa: a opção 1** (fotografia da piscina com a casa, título no céu), no computador e no telemóvel (Diogo, 15/11, 23h).
+- ✓ **«Por fora · Sem pressa · Por dentro» é a mensagem forte** e tem de se ver: cartaz de ecrã inteiro e a palavra em grande a abrir
+  cada um dos três momentos (Diogo, 15/11, 23h).
 - ✓ **Marca de água: não se põe** (Diogo, 15/11, noite). As fotografias do site já são cópias em tamanho web, sem metadados.
 - ✓ **«Tarifas de 2028» era engano: queria dizer 2027** (Diogo, 15/11, noite). O site tem 2026 e 2027; nada a mudar.
 - **Cópia da app por sincronizar:** `appmontecasabranca/docs/temas/site/FACTOS.md` não leva estas linhas (a sessão SITE de 15/11 não tem
