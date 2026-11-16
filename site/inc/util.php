@@ -94,26 +94,53 @@ function foto_dim(string $src): array
     return $cache[$src];
 }
 
-/**
- * Um «rolo»: fotografias lado a lado que rolam devagar sozinhas e em círculo (site.js, «Rolos»); o dedo ou o rato aceleram ou param.
- * Não leva setas, pontos nem contagens: o movimento mostra que há mais. Cada fotografia abre a galeria do conjunto.
- * $op: 'classe' (classes extra) · 'principal' (true: a primeira é a principal, mais larga no computador) · 'legendas' (true: mostra
- * 'legenda' de cada fotografia) · 'acaso' (true: ordem ao acaso em cada visita) · 'vel' (píxeis por segundo; por omissão 22).
- */
-function rolo(string $nome, array $fotos, array $op = []): string
+/** O interior de uma caixa de fotografia: a imagem e, se houver, a legenda escrita sobre ela, em baixo. */
+function foto_caixa(array $f, bool $legenda = false): string
 {
-    $h = '<div class="rolo' . (!empty($op['classe']) ? ' ' . e($op['classe']) : '') . '" data-rolo data-vel="' . (int)($op['vel'] ?? 22) . '"'
-        . (!empty($op['acaso']) ? ' data-acaso' : '') . '>';
-    $h .= '<ul class="rolo-faixa" data-galeria="' . galeria_json($nome, $fotos) . '">';
+    $h = foto_img($f, ['draggable' => 'false']);
+    if ($legenda && !empty($f['legenda'])) $h .= '<span class="foto-legenda">' . e($f['legenda']) . '</span>';
+    return $h;
+}
+
+/**
+ * Uma «sequência»: as fotografias de um capítulo, uma de cada vez, em fila (desenho feito com o Lovable, 16/11/2026).
+ * A rolagem é a do próprio browser (o dedo leva as fotografias; scroll-snap pára-as no sítio); por cima vão a contagem «01 / 04» e
+ * duas setas. Avançam sozinhas, um passo de poucos em poucos segundos e em círculo, até ao primeiro toque (site.js, «Sequências»).
+ * Cada caixa tem largura e altura escritas na folha de estilos (site.css, «Sequências»): nada depende do tamanho da fotografia.
+ * Foi isso que falhou no iPhone na versão 2 (caixas mais largas do que a fotografia). As fotografias não dependem de JavaScript:
+ * estão sempre à vista; «data-entra» só pede ao site.js uma entrada suave quando o bloco chega ao ecrã.
+ */
+function sequencia(string $nome, array $fotos): string
+{
+    $n = count($fotos);
+    $h = '<div class="seq" data-seq data-entra>';
+    $h .= '<div class="contentor seq-cabeca">';
+    $h .= '<p class="seq-conta" aria-hidden="true"><span data-seq-atual>01</span> / ' . sprintf('%02d', $n) . '</p>';
+    $h .= '<div class="seq-setas">';
+    $h .= '<button type="button" class="btn-redondo btn-seta" data-seq-ir="-1" aria-label="' . e('Fotografia anterior em ' . $nome) . '">' . icone('esq') . '</button>';
+    $h .= '<button type="button" class="btn-redondo btn-seta" data-seq-ir="1" aria-label="' . e('Fotografia seguinte em ' . $nome) . '">' . icone('dir') . '</button>';
+    $h .= '</div></div>';
+    $h .= '<ul class="seq-faixa" data-galeria="' . galeria_json($nome, $fotos) . '" aria-label="' . e($nome . ': deslizar para ver as fotografias') . '">';
     foreach ($fotos as $i => $f) {
-        [$l, $a] = foto_dim($f['src']);
-        $h .= '<li class="rolo-item' . ($i === 0 && !empty($op['principal']) ? ' rolo-principal' : '') . '" style="--r:' . round($l / $a, 4) . '">';
-        $h .= '<button type="button" class="abrir-galeria" data-inicio="' . $i . '" aria-label="' . e(($f['alt'] ?? '') . ' · abrir a fotografia') . '">';
-        $h .= foto_img($f, ['draggable' => 'false']) . '</button>';
-        if (!empty($op['legendas']) && !empty($f['legenda'])) $h .= '<span class="rolo-legenda">' . e($f['legenda']) . '</span>';
-        $h .= '</li>';
+        $h .= '<li class="seq-item"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '" aria-label="' . e(($f['legenda'] ?? $f['alt'] ?? '') . ' · abrir a fotografia') . '">';
+        $h .= foto_caixa($f, true) . '</button></li>';
     }
     return $h . '</ul></div>';
+}
+
+/**
+ * Uma «fila»: fotografias mais pequenas, lado a lado, para levar com o dedo (o fecho da casa). Sem contagem, sem setas e sem avanço
+ * sozinho. As fotografias ao alto ficam mais altas e estreitas (vê-se pelo ficheiro); todas com largura e altura escritas no CSS.
+ */
+function fila(string $nome, array $fotos): string
+{
+    $h = '<ul class="fila" data-entra data-galeria="' . galeria_json($nome, $fotos) . '" aria-label="' . e($nome . ': deslizar para ver as fotografias') . '">';
+    foreach ($fotos as $i => $f) {
+        [$l, $a] = foto_dim($f['src']);
+        $h .= '<li class="fila-item' . ($a > $l ? ' ao-alto' : '') . '"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '" aria-label="' . e(($f['alt'] ?? '') . ' · abrir a fotografia') . '">';
+        $h .= foto_caixa($f) . '</button></li>';
+    }
+    return $h . '</ul>';
 }
 
 /** Ícones SVG (traço, estilo lucide), por nome. */

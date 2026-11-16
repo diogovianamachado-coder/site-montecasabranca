@@ -1,11 +1,15 @@
 <?php $S = $C['casa']; ?>
-<!-- A casa: a mensagem «Por fora · Sem pressa · Por dentro»; cada palavra leva ao seu momento -->
-<section id="a-casa" class="manifesto contentor">
-  <div class="reveal">
-    <p class="eyebrow centro"><?= e($S['eyebrow']) ?></p>
-    <h2 class="manifesto-titulo trio">
-      <?php foreach ($S['titulo'] as $i => [$t, $h]): ?><a href="<?= e($h) ?>" class="trio-<?= $i + 1 ?>"><?= e($t) ?></a> <?php endforeach; ?>
-    </h2>
-    <p class="manifesto-texto"><?= e($S['texto']) ?></p>
+<!-- A casa: o cartaz «Por fora · Sem pressa · Por dentro». Enche o ecrã; cada palavra leva ao seu capítulo. -->
+<section id="a-casa" class="cartaz" aria-label="<?= e($S['eyebrow']) ?>">
+  <div class="contentor">
+    <div class="reveal">
+      <p class="eyebrow"><?= e($S['eyebrow']) ?></p>
+      <h2 class="cartaz-linhas">
+        <?php foreach ($S['titulo'] as [$t, $h]): ?>
+        <a href="<?= e($h) ?>"><span><?= e($t) ?></span><?= icone('fora', 'ico ico-seta') ?></a>
+        <?php endforeach; ?>
+      </h2>
+      <p class="cartaz-texto"><?= e($S['texto']) ?></p>
+    </div>
   </div>
 </section>

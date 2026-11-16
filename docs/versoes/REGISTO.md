@@ -8,7 +8,7 @@ para cada uma, quando foi publicada, o que mudou em cada parte da página, onde 
 
 ## Como se usa (Diogo)
 
-1. **Saber que versão estás a ver.** No fundo da página do ensaio, em letra pequena, está escrito «Ensaio · versão 2 · 16/11/2026».
+1. **Saber que versão estás a ver.** No fundo da página do ensaio, em letra pequena, está escrito, por exemplo, «Ensaio · versão 2 · 16/11/2026».
    O site a sério (`montecasabranca.pt`) não mostra isto.
 2. **Ver uma versão antiga.** Depois de uma versão nova ser publicada, a anterior deixa de estar no ar, mas fica fotografada parte a parte
    em `docs/versoes/v<N>/` (no computador e no telemóvel). As folhas «lado a lado» de duas versões pedem-se ao Claude a qualquer altura
@@ -25,10 +25,10 @@ para cada uma, quando foi publicada, o que mudou em cada parte da página, onde 
 | N.º | Parte | O que é | Onde está no código da versão atual (pasta `site/`) |
 |---|---|---|---|
 | 1 | **Capa** | A primeira imagem, o título, as etiquetas e o menu de cima | `partes/inicio.php` · `conteudo.php` → `inicio`, `menu_topo` |
-| 2 | **A casa** (a mensagem) | A frase grande que abre a casa | `partes/casa.php` · `conteudo.php` → `casa` |
-| 3 | **Os espaços** | Por fora, sem pressa, por dentro: as fotografias e os textos de cada um | `partes/momentos.php` · `conteudo.php` → `momentos` |
-| 4 | **O fecho e a régua** | A frase que fecha a casa e a fila de fotografias pequenas | `partes/regua.php` · `conteudo.php` → `fecho`, `regua` |
-| 5 | **Montemor, N2 e onde estamos** | A vila, a ecopista, a Nacional 2, as distâncias e o mapa | `partes/montemor.php` · `conteudo.php` → `montemor` · `inc/factos.php` → `distancias`, `ligacoes` |
+| 2 | **A casa** (a mensagem) | O cartaz «Por fora · Sem pressa · Por dentro» | `partes/casa.php` · `conteudo.php` → `casa` |
+| 3 | **Os espaços** | Por fora, sem pressa, por dentro: um capítulo cada, com o texto e as fotografias em sequência | `partes/momentos.php` · `conteudo.php` → `momentos` · `inc/util.php` → `sequencia()` |
+| 4 | **O fecho e a régua** | A frase que fecha a casa e a fila de fotografias pequenas | `partes/regua.php` · `conteudo.php` → `fecho`, `regua` · `inc/util.php` → `fila()` |
+| 5 | **Montemor, N2 e onde estamos** | Três capítulos: a vila e a ecopista · a Nacional 2 e o programa de duas noites · as distâncias e o mapa | `partes/montemor.php`, `partes/nacional2.php`, `partes/onde.php` · `conteudo.php` → `montemor`, `n2`, `onde` · `inc/factos.php` → `distancias`, `ligacoes` |
 | 6 | **A galeria** | Os álbuns de fotografias («Passear pelo Monte») | `partes/galeria.php` · `conteudo.php` → `galeria` |
 | 7 | **Antes de chegar** | As perguntas e respostas | `partes/antes.php` · `conteudo.php` → `antes`, `perguntas` |
 | 8 | **Quem já ficou** | As frases dos hóspedes e as três notas | `partes/avaliacoes.php` · `conteudo.php` → `avaliacoes` · `inc/factos.php` → `notas` |
@@ -41,10 +41,56 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
+### V3 · 16/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
+
+- **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V2.
+- **De onde vem:** o que o Diogo viu da V2 no iPhone a 16/11 («muito mau»: ver a ficha da V2) e o pedido «Trabalha com o Lovable para
+  que o conteúdo passe a estar harmonioso». O Claude levou ao Lovable o conteúdo novo e as queixas (pedido de 16/11, 08h27, no projeto
+  «Monte Casa Branca» do Lovable); o Lovable compôs a página lá (para ver no telemóvel:
+  `https://id-preview--96fa8399-2585-4338-bf69-b63411871178.lovable.app`, com dados de exemplo); o Claude passou essa composição para
+  o site em PHP, capítulo a capítulo. A capa não mudou de desenho: é a opção 1 que o Diogo escolheu a 15/11.
+- **A construção, por causa do iPhone** (o que falhou na V2 e como ficou; pormenor no cimo de `site/assets/css/site.css` e de
+  `site/assets/js/site.js`):
+  - *Fotografias em caixas meio vazias.* Na V2 a largura de cada caixa era tirada da própria fotografia e o Safari do iPhone fazia
+    essa conta de outra maneira. Agora cada caixa tem largura e altura escritas e a fotografia enche-a; nada depende do ficheiro.
+  - *Menus presos.* Na V2 o site empurrava cinco filas de fotografias a cada instante, bloqueava a rolagem da página ao abrir o menu e
+    mandava-a deslizar no mesmo momento em que a desbloqueava. Agora as fotografias rolam com a rolagem do próprio telemóvel (o dedo
+    leva-as), o menu e o painel já não bloqueiam a página (cobrem-na e rolam por dentro) e escolher um destino no menu leva lá de
+    imediato, sem animação, com a chegada conferida.
+  - *Campos «Chegada» e «Partida» fora do ecrã.* Os campos de data do iPhone não encolhiam; agora estão presos à largura do painel.
+  - Saíram todos os desfoques (pesam no telemóvel) e o botão em forma de rato que acompanhava a página e tapava texto.
+- **O que os testes veem e o que não veem:** a bateria corre no Chromium e, desde 16/11, a geometria da página também no WebKit (o
+  motor do Safari) em cada push. O WebKit dos testes **não reproduziu** as falhas que o iPhone do Diogo mostrou na V2; por isso a
+  prova final desta versão é o telemóvel dele, depois do «Lança».
+- **Capturas:** `docs/versoes/v3/`.
+- **Ordem da página:** capa → a casa (o cartaz) → por fora → sem pressa → por dentro → fecho → Montemor-o-Novo → Nacional 2 → onde
+  estamos → Passear pelo Monte → Antes de chegar → Quem já ficou → contactos.
+
+| Parte | O que mudou face à V2 | O que o Diogo achou |
+|---|---|---|
+| 1 Capa | O desenho é o mesmo (a opção 1). «Sem receção, sem pressa» passou para o lado do botão «Entrar pela casa»; o botão de descer fica só na capa (já não acompanha a página); sem desfoques. No computador, a fotografia fica presa e a página passa-lhe por cima | por dizer |
+| 2 A casa | O cartaz do Lovable: «Por fora», «Sem pressa» e «Por dentro» em três linhas, cada uma com a sua seta, entre traços finos; a frase à direita, por baixo. Era em degraus, com a do meio em itálico | por dizer |
+| 3 Os espaços | Três capítulos com abertura própria: «A casa» em cima, a palavra em grande, a frase a cor e o texto; depois as fotografias **uma de cada vez**, grandes, com a legenda escrita sobre cada uma, a contagem «01 / 04» e duas setas. O dedo leva-as; avançam sozinhas, um passo de 5 em 5 segundos, em círculo, até se lhes tocar. «Sem pressa» tem o fundo pálido, para os três não se colarem. Eram filas a rolar sem parar, com a palavra sobre a fotografia | por dizer |
+| 4 Fecho e régua | A frase «Há dias em que não é preciso mais nada» em grande, à esquerda; «Há mais casa para descobrir» com a ligação «Passear pelo Monte»; 18 fotografias mais pequenas para levar com o dedo, pela ordem escolhida (as ao alto mais altas e estreitas). Já não rolam sozinhas nem mudam de ordem. A casa ao entardecer saiu daqui: é a fotografia da Nacional 2 | por dizer |
+| 5 Montemor, N2 e onde estamos | Passam a ser **três capítulos**. *Montemor-o-Novo*: fundo pálido e um traço a separá-lo da casa; «A 1 h de Lisboa», o título, o texto e a ligação; as dez fotografias em sequência; a Ecopista do Montado por baixo, com título próprio, separada por um traço. *Nacional 2*: capítulo igual em peso, com a casa ao entardecer («A mesma casa à vossa espera ao fim do dia») e o programa em três linhas (Sexta · Sábado · Domingo). *Onde estamos*: faixa cor de oliva, com as distâncias e o botão do mapa. Era uma só secção: as fotografias coladas ao fecho da casa, a N2 numa caixa ao lado do texto e as distâncias numa coluna | por dizer |
+| 6 A galeria | Sobretítulo «Fotografias»; os quatro separadores à vista (em duas linhas no telemóvel); as mesmas 93 fotografias nos mesmos álbuns, em duas colunas no telemóvel e três no computador | por dizer |
+| 7 Antes de chegar | Coluna estreita, ao centro, com o título por cima das perguntas (eram duas colunas); abre-se uma pergunta de cada vez | por dizer |
+| 8 Quem já ficou | As frases maiores, com a origem por baixo («Airbnb · julho de 2026») e a contagem «01 / 10»; as três notas em anéis finos; fundo liso (era cor de areia) | por dizer |
+| 9 Contactos e rodapé | Mais compacto: o logótipo, a linha do registo e a letra pequena ficam todos à esquerda, por baixo dos contactos | por dizer |
+| 10 Menu completo | As entradas em linhas com traços finos; por baixo de «A casa», Por fora · Sem pressa · Por dentro. Escolher uma entrada fecha o menu e a página está lá de imediato | por dizer |
+| 11 Painel das datas | Ordem nova: calendário → as contas → o tempo → o pedido. A conta em três linhas com o valor à direita («Estadia · 3 noites · 330 € por noite», «Limpeza final · uma vez por estadia», «Total da casa» a cor). Os campos das datas já não saem do ecrã. O escuro por trás deixou de ter desfoque | por dizer |
+| 12 Barra de baixo | Menu · Contacto · Verificar disponibilidade, os três com texto e espaçados; fundo liso, sem desfoque | por dizer |
+| Toda a página | Os blocos de texto aparecem ao rolar; as fotografias estão sempre à vista e não dependem de JavaScript. Nenhuma fotografia de destaque aparece em dois sítios | por dizer |
+
 ### V2 · 16/11/2026 · a revisão do Diogo de 15/11
 
 - **Publicada:** 16/11/2026, às 00h49 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 14 (o n.º 13 foi o ensaio a seco),
   commit `37c9ca0`, **etiqueta `novo-v2`**. É a que está no ar em `novo.`. Face à V1: 15 ficheiros mudaram, 71 entraram, 18 saíram.
+- **O que o Diogo achou, ao vivo, no iPhone (16/11, 01h10, com doze capturas):** «Acho que está muito mau. Não tem fotos, os menus
+  prendem e não tem a dinâmica da versão anterior. A secção de Montemor aparece quase sem separador nem introdução e o da N2 coloca
+  como se fosse um apêndice. Trabalha com o Lovable para que o conteúdo passe a estar harmonioso.» Nas capturas: as filas de
+  fotografias (partes 3, 4 e 5) com caixas meio vazias ou vazias; Montemor colado ao fecho da casa; os campos «Chegada» e «Partida»
+  do painel a sair do ecrã. Os testes não o tinham visto: corriam só no Chromium. A resposta é a V3.
 - **Verificação depois do envio:** a página responde, mostra «Ensaio · versão 2 · 16/11/2026», continua fora dos motores de busca e sem
   ligações para as plataformas; **as 190 fotografias da página existem todas no servidor**; a previsão do tempo, a conta e o calendário de
   exemplo respondem. No próprio envio, as médias do tempo para datas longe não responderam à primeira (o arquivo do Open-Meteo demorou

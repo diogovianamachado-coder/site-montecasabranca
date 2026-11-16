@@ -16,3 +16,18 @@ repositório; até lá vivem aqui, prontas e verificadas (`node --experimental-s
 
 Regras: factos só do `FACTOS.md` com ✓; «Reguengo» só na morada postal; a conta do site é pré-visualização (a app confirma no pedido);
 a linha «Dados: Open-Meteo» é obrigatória onde o tempo aparece; a chave da porta #191 nunca sai do servidor.
+
+## O Lovable como tela de desenho (desde 1/11/2026: o site é em PHP, na Amen)
+
+O site a sério é a pasta `site/` (PHP). O projeto do Lovable ficou para desenhar: quando o conteúdo muda de forma, compõe-se lá e passa-se
+a composição para o `site/`.
+
+- **`composicao-2026-11-16/`** · a composição que deu origem à **versão 3** do site. Pedido do Diogo de 16/11/2026, depois de ver a
+  versão 2 no iPhone: «Trabalha com o Lovable para que o conteúdo passe a estar harmonioso.»
+  - `pedido-ao-lovable.md`: o pedido que o Claude enviou ao agente do Lovable (o conteúdo novo, as queixas e as regras técnicas).
+  - `index.tsx` e `styles.css`: o que o Lovable devolveu (a página inteira e os estilos), tal e qual, para consulta. Não é código do
+    site: foi passado à mão para `site/partes/`, `site/assets/css/site.css` e `site/assets/js/site.js`, com outra construção por baixo
+    (ver o cimo desses dois ficheiros) e com a capa que o Diogo escolheu a 15/11 em vez da do Lovable.
+- **`capturas/2026-11-16/`** · essa composição fotografada, no telemóvel e no computador (montada na sessão com as fotografias reais).
+- Para a ver ao vivo, com dados de exemplo: a pré-visualização do projeto no Lovable (a ligação está em `docs/versoes/REGISTO.md`, ficha
+  da V3). O Lovable não foi publicado nem ligado a serviços, e não se compraram créditos.

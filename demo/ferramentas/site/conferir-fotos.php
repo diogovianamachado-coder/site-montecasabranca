@@ -1,8 +1,9 @@
 <?php
 // Confere as fotografias do site (site/conteudo.php contra site/fotos/). Uso: php demo/ferramentas/site/conferir-fotos.php
-// Falha (sai com 1) se: uma fotografia referida não existe · a mesma fotografia aparece duas vezes no mesmo álbum ou no mesmo rolo ·
-// uma fotografia não tem descrição (alt) · um rolo com legendas tem uma fotografia sem legenda. Avisa (sem falhar) dos ficheiros
-// que ninguém usa.
+// Falha (sai com 1) se: uma fotografia referida não existe · a mesma fotografia aparece duas vezes no mesmo álbum, na mesma sequência
+// ou em dois sítios de destaque da página (capítulos, fila do fecho, Montemor, Nacional 2) · uma fotografia não tem descrição (alt) ·
+// uma sequência tem uma fotografia sem legenda · falta a variante de telemóvel (-m) de uma fotografia referida.
+// Avisa (sem falhar) dos ficheiros que ninguém usa.
 declare(strict_types=1);
 
 $raiz = dirname(__DIR__, 3) . '/site';
@@ -18,7 +19,7 @@ foreach (array_keys($referidas) as $src) {
     if (!is_file("$raiz/fotos/$src")) $erros[] = "fotografia referida que não existe: fotos/$src";
 }
 
-/** Um conjunto de fotografias (álbum ou rolo): sem repetidas, todas com descrição; $legendas = todas com legenda. */
+/** Um conjunto de fotografias (álbum, sequência ou fila): sem repetidas, todas com descrição; $legendas = todas com legenda. */
 $conferir = function (string $nome, array $fotos, bool $legendas = false) use (&$erros): void {
     $vistas = [];
     foreach ($fotos as $f) {
@@ -30,9 +31,26 @@ $conferir = function (string $nome, array $fotos, bool $legendas = false) use (&
     printf("  %-34s %3d\n", $nome, count($fotos));
 };
 foreach ($C['galeria']['albuns'] as $al) $conferir('álbum ' . $al['nome'], $al['fotos']);
-foreach ($C['momentos'] as $m) $conferir('momento ' . $m['eyebrow'], $m['fotos'], true);
-$conferir('régua', $C['regua']['fotos']);
-$conferir('rolo de Montemor-o-Novo', $C['montemor']['fotos'], true);
+foreach ($C['momentos'] as $m) $conferir('capítulo ' . $m['palavra'], $m['fotos'], true);
+$conferir('fila do fecho', $C['regua']['fotos']);
+$conferir('sequência de Montemor-o-Novo', $C['montemor']['fotos'], true);
+if (trim((string)($C['n2']['foto']['legenda'] ?? '')) === '') $erros[] = 'Nacional 2: a fotografia do capítulo não tem legenda';
+// Os sítios de destaque (fora da galeria): a mesma fotografia não aparece em dois.
+$destaque = [];
+$juntar = function (string $onde, array $fotos) use (&$destaque, &$erros): void {
+    foreach ($fotos as $f) {
+        if (isset($destaque[$f['src']])) $erros[] = "{$f['src']} aparece em dois sítios de destaque: {$destaque[$f['src']]} e $onde";
+        $destaque[$f['src']] = $onde;
+    }
+};
+foreach ($C['momentos'] as $m) $juntar('capítulo ' . $m['palavra'], $m['fotos']);
+$juntar('fila do fecho', $C['regua']['fotos']);
+$juntar('Montemor-o-Novo', $C['montemor']['fotos']);
+$juntar('Nacional 2', [$C['n2']['foto']]);
+foreach (array_keys($referidas) as $src) {
+    $m = preg_replace('/\.(jpe?g|png|webp)$/i', '-m.$1', $src);
+    if (is_file("$raiz/fotos/$src") && !is_file("$raiz/fotos/$m")) $erros[] = "falta a variante de telemóvel: fotos/$m";
+}
 foreach ($C['inicio']['capas'] as $k => $c) if (!is_file("$raiz/fotos/" . $c['foto']['src'])) $erros[] = "capa $k: falta fotos/{$c['foto']['src']}";
 
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("$raiz/fotos", FilesystemIterator::SKIP_DOTS));

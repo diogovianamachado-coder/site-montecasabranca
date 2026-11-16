@@ -7,7 +7,8 @@
 //  Tom (Diogo, 15/11/2026): frases curtas, calorosas, na segunda pessoa do plural; nunca literal, nunca um testamento.
 //  Fotografias: ficheiro em fotos/<álbum>/; 'pos' é o ponto de foco (object-position, ex. '20% 70%'); 'pos_m' o mesmo, só no telemóvel.
 //  Se existir um ficheiro com o mesmo nome e sufixo -m (ex. piscina-dia-m.jpg) é usado no telemóvel.
-//  'legenda' é a frase curta que acompanha a fotografia nos três momentos e em Montemor; 'alt' descreve a imagem a quem não a vê.
+//  'legenda' é a frase curta escrita sobre a fotografia nos três capítulos da casa e em Montemor; 'alt' descreve a imagem a quem não a vê.
+//  Composição (versão 3, 16/11/2026): feita com o Lovable a pedido do Diogo; cada capítulo abre com sobretítulo, título e uma frase.
 //  Álbuns: 'sem_schema' => true deixa o álbum fora das imagens que os motores de busca recebem como «fotografias da casa».
 // ============================================================================
 declare(strict_types=1);
@@ -61,18 +62,17 @@ return [
     // ---- 2. A casa: a mensagem «Por fora · Sem pressa · Por dentro» ----------------
     'casa' => [
         'eyebrow' => 'A casa',
-        'titulo' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']],   // três linhas; a do meio em itálico
+        'titulo' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']],   // três linhas, cada uma com a sua seta
         'texto' => 'Uma casa inteira, só vossa, para abrir as portas e deixar o dia acontecer',
     ],
 
-    // ---- 3. Os três momentos ------------------------------------------------------
-    // 'eyebrow' é a palavra do momento: é o título grande, com o desenho do cartaz (a do meio em itálico) e «1 / 3» por cima.
-    // 'titulo' é a frase que vem por baixo da palavra; 'texto' o parágrafo. Cada momento ocupa um ecrã (Diogo, 15/11/2026).
-    // Em cada um, a primeira fotografia é a principal; as seguintes vêm atrás, a rolar devagar (o dedo ou o rato aceleram ou param).
+    // ---- 3. Os três capítulos da casa -----------------------------------------------
+    // 'palavra' é o título grande do capítulo (a mesma do cartaz); 'frase' vem por baixo, a cor; 'texto' é o parágrafo e 'nota' a linha pequena.
+    // As fotografias passam uma de cada vez, em sequência e em círculo: o dedo leva-as, as setas também, e avançam sozinhas devagar.
     'momentos' => [
         [
-            'id' => 'por-fora', 'eyebrow' => 'Por fora',
-            'titulo' => 'O melhor lugar é cá fora',
+            'id' => 'por-fora', 'palavra' => 'Por fora',
+            'frase' => 'O melhor lugar é cá fora',
             'texto' => 'Da água à sombra do alpendre, o dia vive-se de portas abertas',
             'fotos' => [
                 ['src' => 'exterior/piscina-agua.jpg', 'alt' => 'A água da piscina em primeiro plano, com a casa e o chapéu-de-sol ao fundo', 'legenda' => 'A piscina, a casa e a luz do Alentejo'],
@@ -82,8 +82,8 @@ return [
             ],
         ],
         [
-            'id' => 'sem-pressa', 'eyebrow' => 'Sem pressa',
-            'titulo' => 'A mesa pode esperar por todos',
+            'id' => 'sem-pressa', 'palavra' => 'Sem pressa',
+            'frase' => 'A mesa pode esperar por todos',
             'texto' => 'Sombra para os dias quentes, uma mesa para as conversas longas e o campo sempre por perto',
             'fotos' => [
                 ['src' => 'exterior/alpendre-por-do-sol.jpg', 'alt' => 'Mesa posta no alpendre, com o sol a pôr-se atrás do pinheiro', 'legenda' => 'O alpendre, ao fim da tarde'],
@@ -93,8 +93,8 @@ return [
             ],
         ],
         [
-            'id' => 'por-dentro', 'eyebrow' => 'Por dentro',
-            'titulo' => 'Entrar sem deixar o exterior para trás',
+            'id' => 'por-dentro', 'palavra' => 'Por dentro',
+            'frase' => 'Entrar sem deixar o exterior para trás',
             'texto' => 'O salão abre-se à piscina. A cozinha, a mesa e a sala dão lugar a cozinhar, conversar e ficar mais um pouco',
             'nota' => 'Quatro quartos, lareira na biblioteca e ar condicionado em todas as divisões',
             'fotos' => [
@@ -110,8 +110,9 @@ return [
     // A frase que fecha o dia.
     'fecho' => 'Há dias em que não é preciso mais nada',
 
-    // ---- 4. Régua de fotografias (como a galeria das plataformas: pequenas, ao acaso, a rolar) -------
+    // ---- 4. Fecho da casa: a frase e a fila de fotografias mais pequenas, para levar com o dedo -------
     // Sem casas de banho (Diogo, 15/11/2026: não fazem parte da mensagem nem das fotografias de destaque; só na galeria).
+    // As fotografias ao alto ficam mais altas e estreitas do que as outras (o site vê-o pelo ficheiro).
     'regua' => [
         'titulo' => 'Há mais casa para descobrir',
         'ligacao' => ['Passear pelo Monte', '#galeria'],
@@ -128,7 +129,6 @@ return [
             ['src' => 'exterior/piscina-noite.jpg', 'alt' => 'A piscina iluminada, à noite'],
             ['src' => 'quinta/olival.jpg', 'alt' => 'O olival'],
             ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno'],
-            ['src' => 'exterior/casa-ceu-rosa.jpg', 'alt' => 'A casa ao entardecer, com o céu cor-de-rosa'],
             ['src' => 'interior/sala-mesa.jpg', 'alt' => 'A mesa de refeições na sala'],
             ['src' => 'quinta/cao-campo.jpg', 'alt' => 'Um cão à solta no campo'],
             ['src' => 'exterior/casa-tronco-oliveira.jpg', 'alt' => 'A casa e a piscina por entre a oliveira'],
@@ -138,7 +138,7 @@ return [
         ],
     ],
 
-    // ---- 5. Montemor-o-Novo, a Nacional 2 e onde estamos ---------------------------------
+    // ---- 5. Montemor-o-Novo (capítulo com abertura própria) ------------------------------------
     // As ligações ('visit_montemor', 'ecopista', 'rota_n2', 'maps') estão em inc/factos.php → 'ligacoes'.
     'montemor' => [
         'eyebrow' => 'A 1 h de Lisboa',
@@ -146,10 +146,11 @@ return [
         'texto' => 'Subir ao castelo, descobrir as ruas e escolher onde parar à mesa. A casa fica a 3 km do centro e Évora a 25 minutos',
         'ligacao' => ['Visitar Montemor-o-Novo', 'visit_montemor'],   // não «Passear por…»: «Passear pelo Monte» é a galeria
         'ecopista' => [
+            'titulo' => 'Ecopista do Montado',
             'texto' => 'A Ecopista do Montado passa à nossa porta: a antiga linha de comboio, hoje caminho entre sobreiros, para fazer a pé ou de bicicleta',
             'ligacao' => ['Conhecer a ecopista', 'ecopista'],
         ],
-        // As fotografias rolam aqui mesmo, na secção (não levam a outra página).
+        // As fotografias passam aqui mesmo, em sequência (não levam a outra página).
         'fotos' => [
             ['src' => 'montemor/castelo-ruinas.jpg', 'alt' => 'As ruínas no alto do castelo de Montemor-o-Novo', 'legenda' => 'O castelo, lá no alto', 'pos' => '50% 100%'],
             ['src' => 'montemor/vila-muralha.jpg', 'alt' => 'Os telhados de Montemor-o-Novo vistos da muralha', 'legenda' => 'A vila, vista da muralha'],
@@ -162,26 +163,33 @@ return [
             ['src' => 'montemor/montado-bicicleta.jpg', 'alt' => 'Uma bicicleta parada junto ao montado', 'legenda' => 'O montado, logo ali'],
             ['src' => 'montemor/miradouro-candeeiros.jpg', 'alt' => 'A vila vista de um miradouro, entre dois candeeiros', 'legenda' => 'Parar no miradouro'],
         ],
-        'n2' => [
-            'eyebrow' => 'Nacional 2 · No caminho, uma casa',
-            'titulo' => 'Dois dias no coração do Alentejo',
-            'texto' => 'Na viagem pela Nacional 2, façam de Montemor uma pausa de duas noites. Um dia para a vila, outro para Évora, e a mesma casa à vossa espera ao fim do dia',
-            // O programa é nosso (Diogo, 15/11/2026): castelo e mercado de sábado de manhã.
-            'programa' => [
-                ['Sexta', 'Chegar, abrir as portas e deixar a estrada lá fora'],
-                ['Sábado', 'O mercado de manhã, a subida ao castelo e o fim da tarde entre a piscina e o alpendre'],
-                ['Domingo', 'Évora a 25 minutos e, se ninguém entrar a seguir, a casa é vossa até ao fim da tarde'],
-            ],
-            'nota' => 'Estadia mínima de duas noites. No verão, de sábado a sábado',
-            'ligacao' => ['Montemor-o-Novo na Rota da N2', 'rota_n2'],
-        ],
-        'onde' => ['eyebrow' => 'Onde estamos', 'botao_mapa' => 'Abrir no Google Maps'],
     ],
+
+    // ---- 5b. Nacional 2 (capítulo próprio, com o mesmo peso do de Montemor) --------------------------
+    // Não há fotografia da estrada: a do capítulo é a casa ao entardecer, «a mesma casa à vossa espera ao fim do dia».
+    'n2' => [
+        'eyebrow' => 'Nacional 2 · No caminho, uma casa',
+        'titulo' => 'Dois dias no coração do Alentejo',
+        'texto' => 'Na viagem pela Nacional 2, façam de Montemor uma pausa de duas noites. Um dia para a vila, outro para Évora, e a mesma casa à vossa espera ao fim do dia',
+        'foto' => ['src' => 'exterior/casa-ceu-rosa.jpg', 'alt' => 'A casa ao entardecer, com o céu cor-de-rosa', 'legenda' => 'A mesma casa à vossa espera ao fim do dia', 'pos_m' => '88% 50%'],
+        // O programa é nosso (Diogo, 15/11/2026): castelo e mercado de sábado de manhã.
+        'programa' => [
+            ['Sexta', 'Chegar, abrir as portas e deixar a estrada lá fora'],
+            ['Sábado', 'O mercado de manhã, a subida ao castelo e o fim da tarde entre a piscina e o alpendre'],
+            ['Domingo', 'Évora a 25 minutos e, se ninguém entrar a seguir, a casa é vossa até ao fim da tarde'],
+        ],
+        'nota' => 'Estadia mínima de duas noites. No verão, de sábado a sábado',
+        'ligacao' => ['Montemor-o-Novo na Rota da N2', 'rota_n2'],
+    ],
+
+    // ---- 5c. Onde estamos (as distâncias vêm de inc/factos.php → 'distancias') -------------------------
+    'onde' => ['titulo' => 'Onde estamos', 'botao_mapa' => 'Abrir no Google Maps'],
 
     // ---- 6. Galeria, com o nome «Passear pelo Monte» (os álbuns do Zenfolio, pela mesma ordem) ----------
     // Para juntar fotografias novas: copiar o ficheiro para fotos/<álbum>/ e acrescentar a linha aqui.
     // Álbuns sem fotografias não aparecem.
     'galeria' => [
+        'eyebrow' => 'Fotografias',
         'titulo' => 'Passear pelo Monte',
         'albuns' => [
             [
@@ -363,6 +371,7 @@ return [
         'texto' => 'Juntem as pessoas de quem gostam e escolham os dias. Das contas tratamos nós',
         'legenda_livre' => 'Livre',
         'legenda_ocupado' => 'Ocupado',
+        'legenda_escolhido' => 'Os vossos dias',
         'nota_calendario' => 'O calendário mostra o que está livre hoje · o Diogo confirma no pedido',
         'nota_exemplo' => 'Calendário de exemplo · a disponibilidade real é confirmada no pedido',
         'nota_sem_calendario' => 'Calendário indisponível de momento · confirmamos as datas no pedido',
@@ -376,7 +385,8 @@ return [
         'conta_falha' => 'Não conseguimos fazer as contas agora. Falem connosco por WhatsApp ou email',
         'conta_ocupado' => 'Estes dias já têm dono. Experimentem outros ou falem connosco',
         'linha_estadia' => 'Estadia',
-        'linha_limpeza' => 'Limpeza final · uma vez por estadia',
+        'linha_limpeza' => 'Limpeza final',
+        'linha_limpeza_nota' => 'uma vez por estadia',
         'linha_total' => 'Total da casa',
         'depois_conta' => 'Quatro quartos, piscina e a casa inteira só para o vosso grupo',
         'saida_tardia' => 'No dia da saída, se ninguém entrar a seguir, podem ficar até às {hora} e aproveitar o dia até ao fim',

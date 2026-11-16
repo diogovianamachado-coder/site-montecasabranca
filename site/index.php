@@ -7,7 +7,7 @@ $cfg = mcb_config();
 $F = mcb_factos();
 $C = mcb_conteudo();
 $SITE = rtrim($cfg['SITE_URL'], '/');
-$versao = (string)@filemtime(__DIR__ . '/assets/css/site.css');
+$versao = (string)max((int)@filemtime(__DIR__ . '/assets/css/site.css'), (int)@filemtime(__DIR__ . '/assets/js/site.js'));
 
 // Capa: a opção escolhida em conteudo.php (a 1, desde 15/11/2026). Se houver mais do que uma opção em 'capas', no ensaio
 // (novo.montecasabranca.pt ou o servidor local dos testes) ?capa=N mostra as outras; fora do ensaio o parâmetro é ignorado.
@@ -89,7 +89,6 @@ $jsonld = [
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Sans+3:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css?v=<?= e($versao) ?>">
-<noscript><style>.reveal, .trio a { opacity: 1 !important; transform: none !important; } .nota-arco { stroke-dashoffset: 0 !important; }</style></noscript>
 <?php if ($capaM): // a fotografia da capa: a variante de telemóvel até 767 px, a grande daí para cima ?>
 <link rel="preload" as="image" href="<?= e($capaM) ?>" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="<?= e(foto_url($CAPA['foto']['src'])) ?>" media="(min-width: 768px)" fetchpriority="high">
@@ -106,12 +105,15 @@ $jsonld = [
 <?php require __DIR__ . '/partes/inicio.php'; ?>
 <main>
 <?php
-// A ordem da página é a do menu de cima: a casa (os três momentos e a régua) · Montemor-o-Novo e a Nacional 2 · galeria ·
-// antes de chegar · quem já ficou. Os contactos fecham a página.
+// A ordem da página é a do menu: a casa (o cartaz, os três capítulos e o fecho) · Montemor-o-Novo · a Nacional 2 · onde estamos ·
+// passear pelo Monte (a galeria) · antes de chegar · quem já ficou. Os contactos fecham a página.
+// Composição da versão 3 (16/11/2026), feita com o Lovable a pedido do Diogo: cada capítulo tem abertura própria.
 require __DIR__ . '/partes/casa.php';
 require __DIR__ . '/partes/momentos.php';
 require __DIR__ . '/partes/regua.php';
 require __DIR__ . '/partes/montemor.php';
+require __DIR__ . '/partes/nacional2.php';
+require __DIR__ . '/partes/onde.php';
 require __DIR__ . '/partes/galeria.php';
 require __DIR__ . '/partes/antes.php';
 require __DIR__ . '/partes/avaliacoes.php';

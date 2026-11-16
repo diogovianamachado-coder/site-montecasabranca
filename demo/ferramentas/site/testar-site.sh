@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Teste do site em PHP (site/): sintaxe, fotografias (todas as referidas existem, sem repetidas, com descrição), arranque com uma app de
-# ensaio e cenário com capturas a 390/1280 (com app e sem app): ligações internas, fotografias a rolar, painel das datas, tempo, pedido;
-# e a geometria da página em cada motor de MOTORES (por omissão só chromium; no GitHub, chromium e webkit).
+# Teste do site em PHP (site/): sintaxe, regras de construção (o que não pode voltar à folha de estilos nem ao JavaScript, por causa do
+# iPhone), fotografias (todas as referidas existem, sem repetidas, com descrição), arranque com uma app de ensaio e cenário com capturas
+# a 390/1280 (com app e sem app): ligações internas, sequências de fotografias (com os gestos de dedo), painel das datas, tempo, pedido,
+# menu; e a geometria da página em cada motor de MOTORES (por omissão só chromium; no GitHub, chromium e webkit).
 # Uso: bash demo/ferramentas/site/testar-site.sh [pasta-saída]   (precisa de php 8.1+, node 22 e playwright instalado)
 set -euo pipefail
 RAIZ="$(cd "$(dirname "$0")/../../.." && pwd)"; SAIDA="${1:-$RAIZ/demo/_saida/capturas-site}"; mkdir -p "$SAIDA"
@@ -9,6 +10,23 @@ cd "$RAIZ"
 echo "== sintaxe"; ERROS=0; while IFS= read -r -d '' f; do php -l "$f" > /dev/null 2>&1 || { php -l "$f"; ERROS=$((ERROS+1)); }; done < <(find site -name '*.php' -print0)
 [ "$ERROS" -eq 0 ] || { echo "FALHOU: $ERROS ficheiro(s) PHP com erros de sintaxe"; exit 1; }
 node --check site/assets/js/site.js && echo "site.js OK · $(find site -name '*.php' | wc -l) PHP OK"
+# Regras de construção (versão 3, 16/11/2026). No iPhone do Diogo a versão 2 mostrou as fotografias em caixas meio vazias e os menus
+# presos, e nenhum teste o viu (nem o motor do Safari dos testes o reproduz). O que as causou não pode voltar sem se dar por isso:
+# larguras tiradas de aspect-ratio, unidades de contentor, position: sticky em faixas, desfoques, color-mix (cores translúcidas que os
+# browsers mais antigos não desenham), rolagem suave em toda a página, JavaScript a mexer na rolagem a cada instante e o bloqueio da
+# rolagem da página no <body>. Os comentários não contam: só as regras.
+echo "== regras de construção"
+php -r '
+$css = preg_replace("#/\\*.*?\\*/#s", "", (string)file_get_contents("site/assets/css/site.css"));
+$js = preg_replace("#/\\*.*?\\*/#s", "", (string)file_get_contents("site/assets/js/site.js")); $js = preg_replace("#(?<![:\"\x27])//[^\n]*#", "", $js);
+$mau = [];
+foreach (["aspect-ratio", "cqw", "container-type", "backdrop-filter", "color-mix("] as $p) if (stripos($css, $p) !== false) $mau[] = "site.css usa «{$p}»";
+if (preg_match("#position:\\s*sticky#i", $css)) $mau[] = "site.css usa «position: sticky»";
+if (preg_match("#(?<![a-z-])scroll-behavior#i", $css)) $mau[] = "site.css usa «scroll-behavior»";
+foreach (["requestAnimationFrame", "sem-scroll", "body.style.overflow", "documentElement.style.overflow"] as $p) if (stripos($js, $p) !== false) $mau[] = "site.js usa «{$p}»";
+foreach ($mau as $m) echo "FALHOU: $m\n";
+exit($mau ? 1 : 0);' || exit 1
+echo "folha de estilos e JavaScript dentro das regras OK"
 echo "== fotografias"; php demo/ferramentas/site/conferir-fotos.php
 if python3 -c "import PIL" 2>/dev/null; then python3 demo/ferramentas/fotos/para_o_site.py --conferir; else echo "(sem Pillow nesta máquina: a comparação de site/fotos com a galeria fica para o computador de quem monta)"; fi
 echo "== servidores"; rm -rf /tmp/site-ensaio-app /tmp/site-ensaio-semapp; cp -r site /tmp/site-ensaio-app; cp -r site /tmp/site-ensaio-semapp
@@ -54,7 +72,7 @@ if grep -q 'aggregateRating' <<<"$P"; then echo "FALHOU: as notas das plataforma
 echo "três notas na página OK · sem aggregateRating OK"
 echo "== sem ligações para as plataformas (Diogo, 15/11/2026): nem nas notas, nem no rodapé"
 if grep -Eiq '<a [^>]*href="https?://[^"]*(airbnb|booking|vrbo)\.' <<<"$P"; then echo "FALHOU: a página tem uma ligação para uma plataforma (Airbnb, Booking ou Vrbo)"; exit 1; fi
-php -r '$p = stream_get_contents(STDIN); if (!preg_match("#<ul class=\"notas\".*?</ul>#s", $p, $m)) exit(2); exit(stripos($m[0], "<a ") === false ? 0 : 1);' <<<"$P" || { echo "FALHOU: as três notas não podem ser ligações (ou a lista das notas não está na página)"; exit 1; }
+php -r '$p = stream_get_contents(STDIN); if (!preg_match("#<ul class=\"notas[ \"].*?</ul>#s", $p, $m)) exit(2); exit(stripos($m[0], "<a ") === false ? 0 : 1);' <<<"$P" || { echo "FALHOU: as três notas não podem ser ligações (ou a lista das notas não está na página)"; exit 1; }
 echo "sem ligações para as plataformas OK"
 echo "== capturas"; node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8791 "$SAIDA" app
 node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8792 "$SAIDA" semapp

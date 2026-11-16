@@ -15,8 +15,8 @@ const PARTES = [
   ['03-espacos-2-sem-pressa', ['#sem-pressa']],
   ['03-espacos-3-por-dentro', ['#por-dentro']],
   ['03-espacos', ['#descobrir']],                                   // V1: os espaços vinham numa só secção
-  ['04-fecho-e-regua', ['section.relance']],
-  ['05-montemor', ['#montemor']],
+  ['04-fecho-e-regua', ['#fecho', 'section.relance']],
+  ['05-montemor', ['#montemor'], '#onde'],                         // V3: a parte vai até ao fim de «Onde estamos» (três capítulos seguidos)
   ['06-galeria', ['section#galeria', 'section#fotografias']],
   ['07-antes-de-chegar', ['#antes-de-chegar', '#perguntas']],
   ['08-quem-ja-ficou', ['#avaliacoes']],
@@ -47,14 +47,17 @@ const ALTURA_MAX = { '1280': 4600, '390': 6400 }; const ALTURA_GALERIA = { '1280
     const semBarra = await page.addStyleTag({ content: '.dock{visibility:hidden!important}' });
     // As frases de quem já ficou trocam-se com um esbatido: sem ele, a captura nunca apanha duas frases sobrepostas
     await page.addStyleTag({ content: '.citacao{transition:none!important}' });
+    // V3: as sequências de fotografias voltam ao princípio (podem ter avançado sozinhas enquanto a página era percorrida)
+    await page.evaluate(() => { document.querySelectorAll('.seq-faixa, .fila').forEach((f) => { f.scrollLeft = 0; }); }); await page.waitForTimeout(300);
     // 0. A página inteira, pequena, para se ver a ordem das partes
     if (nome === '1280') { await foto('00-pagina-inteira', { fullPage: true, quality: 60 }); registar('00-pagina-inteira'); }
     // 2. Cada parte
-    for (const [parte, alternativas] of PARTES) {
+    for (const [parte, alternativas, ate] of PARTES) {
       let el = null; for (const s of alternativas) { el = await page.$(s); if (el) break; }
       if (!el) continue;
       await el.scrollIntoViewIfNeeded(); await page.waitForTimeout(1300);
-      const r = await el.evaluate((e) => { const b = e.getBoundingClientRect(); return { x: 0, y: Math.round(b.top + window.scrollY), width: document.documentElement.clientWidth, height: Math.round(b.height) }; });
+      // «ate»: um seletor de outra secção, mais abaixo, onde a parte acaba (se existir como secção à parte e não dentro desta)
+      const r = await el.evaluate((e, fim) => { const b = e.getBoundingClientRect(); let baixo = b.bottom; const f = fim ? document.querySelector(fim) : null; if (f && !e.contains(f)) baixo = Math.max(baixo, f.getBoundingClientRect().bottom); return { x: 0, y: Math.round(b.top + window.scrollY), width: document.documentElement.clientWidth, height: Math.round(baixo - b.top) }; }, ate || null);
       if (r.height < 20) continue;
       r.height = Math.min(r.height, (parte === '06-galeria' ? ALTURA_GALERIA : ALTURA_MAX)[nome]);
       await foto(parte, { fullPage: true, clip: r }); registar(parte);

@@ -1,12 +1,14 @@
 <?php $R = $C['regua']; ?>
-<!-- A frase que fecha o dia e, a seguir, a régua de fotografias (pequenas, ao acaso, a rolar: como a galeria das plataformas) -->
-<section class="relance" aria-labelledby="regua-titulo">
-  <div class="contentor reveal">
-    <p class="fecho serif"><?= e($C['fecho']) ?></p>
+<!-- O fecho da casa: a frase grande e, a seguir, «Há mais casa para descobrir», com a fila de fotografias para levar com o dedo -->
+<section id="fecho" class="fecho" aria-labelledby="fecho-titulo">
+  <div class="contentor">
+    <div class="reveal">
+      <h2 id="fecho-titulo" class="fecho-frase"><?= e($C['fecho']) ?></h2>
+    </div>
+    <div class="fecho-cabeca reveal">
+      <h3><?= e($R['titulo']) ?></h3>
+      <a href="<?= e($R['ligacao'][1]) ?>" class="ligacao-seta"><?= e($R['ligacao'][0]) ?><?= icone('fora') ?></a>
+    </div>
   </div>
-  <div class="contentor relance-cabeca">
-    <h2 id="regua-titulo" class="t-pequeno"><?= e($R['titulo']) ?></h2>
-    <a href="<?= e($R['ligacao'][1]) ?>" class="ligacao-primaria"><?= e($R['ligacao'][0]) ?></a>
-  </div>
-  <?= rolo($R['titulo'], $R['fotos'], ['classe' => 'rolo-regua', 'acaso' => true, 'vel' => 26]) ?>
+  <?= fila($R['titulo'], $R['fotos']) ?>
 </section>
