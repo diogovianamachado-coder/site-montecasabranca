@@ -896,3 +896,75 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   antes:** cópia do FACTOS (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do
   Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33.
   **Próxima sugestão: S37.**
+
+- **16/11/2026 (01h10–11h, hora de Lisboa) · O DIOGO VIU A V2 NO IPHONE: «MUITO MAU» · TRABALHO COM O LOVABLE · VERSÃO 3 EM `main`,
+  POR PUBLICAR (espera o «Lança»).** Mensagem dele, com doze capturas do iPhone (01h03–01h09): «Acho que está muito mau. Não tem
+  fotos, os menus prendem e não tem a dinâmica da versão anterior. A secção de Montemor aparece quase sem separador nem introdução e
+  o da N2 coloca como se fosse um apêndice. Trabalha com o Lovable para que o conteúdo passe a estar harmonioso.»
+  **(1) O que as capturas mostram** (guardadas só na conversa): as filas de fotografias dos três momentos, da régua e de Montemor com
+  as caixas meio vazias ou vazias; Montemor colado ao fecho da casa; os campos «Chegada» e «Partida» do painel a sair do ecrã; o botão
+  em forma de rato a tapar texto. O ecrã dele tem 393 × 852 pontos, sem barras do Safari à vista (o conteúdo passa por baixo da barra
+  de estado, com desfoque; os elementos fixos começam abaixo dela).
+  **(2) Porquê, e porque os testes não viram.** *Fotografias:* a largura de cada caixa vinha de `aspect-ratio` dentro de uma grelha
+  dentro de um flex; o Safari do iPhone deu à caixa a largura natural do ficheiro (1 000 px) e à fotografia só a altura × proporção.
+  *Menus presos:* cinco filas empurradas por JavaScript a cada instante (`requestAnimationFrame` a escrever `scrollLeft`), o bloqueio
+  da rolagem no `<body>` (`overflow: hidden`) e, ao escolher um destino, o desbloqueio e a rolagem suave no mesmo instante.
+  *Campos das datas:* grelha `1fr 1fr` sem `minmax(0, …)`; os campos de data do iOS não encolhem. A bateria corria só no Chromium.
+  Desde o commit `87b2b11` o «Capturas» instala também o **WebKit** e corre `demo/ferramentas/site/geometria.cjs` nos dois motores
+  (corrida n.º 51 verde): **o WebKit dos testes não reproduz as falhas do iPhone**; a sessão só tem Chromium. Por isso a V3 foi
+  construída sem as técnicas que falharam, e a prova final é o telemóvel do Diogo.
+  **(3) Lovable.** Pedido enviado ao agente do projeto «Monte Casa Branca» às 08h27 (uma só mensagem; guardada em
+  `lovable/composicao-2026-11-16/pedido-ao-lovable.md`): o conteúdo novo, as queixas, as regras técnicas e os «não fazer» (não
+  publicar, não ligar serviços, **não comprar créditos**, sem ligações para as plataformas). O agente acabou às 08h33 (versão
+  `088eae5`): cartaz em três linhas com setas, um capítulo por palavra com as fotografias uma de cada vez (contagem e setas),
+  Montemor-o-Novo e Nacional 2 como capítulos de peso igual, «Onde estamos» em faixa cor de oliva, galeria, perguntas, avaliações e
+  contactos no mesmo desenho. Ele próprio deixou por confirmar o arrastar das fotografias com o dedo num iPhone. A composição
+  (`index.tsx`, `styles.css`) e as capturas (montada na sessão com `bun run build`, fotografias a virem do ensaio local) estão em
+  `lovable/composicao-2026-11-16/` e `lovable/capturas/2026-11-16/`. Para o Diogo ver no telemóvel, com dados de exemplo:
+  `https://id-preview--96fa8399-2585-4338-bf69-b63411871178.lovable.app` (a sessão não a abre). A capa do Lovable tem o título em
+  baixo; **no site a capa continua a ser a opção 1 que o Diogo escolheu a 15/11**.
+  **(4) A versão 3 (`site/`), passada à mão a partir dessa composição.** Partes: `inicio.php` (capa 1; «Sem receção, sem pressa» ao
+  lado do botão; o botão de descer só na capa) · `casa.php` (o cartaz) · `momentos.php` (três capítulos: sobretítulo «A casa», a
+  palavra, a frase a cor, o texto e a sequência; o do meio com fundo pálido) · `regua.php` (o fecho: frase grande e a fila de 18
+  fotografias) · `montemor.php` · **`nacional2.php`** e **`onde.php`** (novas) · `galeria.php` · `antes.php` · `avaliacoes.php` ·
+  `contactos.php` · `dock.php` (barra, menu, painel, fotografia em grande). `conteudo.php`: `momentos` com `palavra`/`frase`;
+  `montemor` (com `ecopista → titulo`), **`n2`** (com `foto`) e **`onde`** como chaves próprias; `galeria → eyebrow`; a casa ao
+  entardecer saiu da fila do fecho e é a fotografia da N2. `inc/util.php`: `sequencia()`, `fila()`, `foto_caixa()` (o `rolo()` saiu).
+  **Regras de construção (cimo de `site.css` e de `site.js`; a bateria falha se voltarem):** caixas de fotografia com largura e
+  altura escritas e a imagem em posição absoluta lá dentro; sem `aspect-ratio`, unidades de contentor, `position: sticky`,
+  `backdrop-filter`, `color-mix` nem `scroll-behavior`; as faixas rolam com a rolagem do browser (`scroll-snap`), sem
+  `requestAnimationFrame`; o menu, o painel e a fotografia em grande **não bloqueiam a rolagem da página** (cobrem-na;
+  `overscroll-behavior`, véu com `touch-action: none`, `touchmove`/`wheel` travados só neles); escolher um destino no menu fecha-o e a
+  página vai lá **de imediato**, com a chegada conferida (`irPara()`); as outras ligações deslizam e também são conferidas; os campos
+  das datas com `minmax(0, 1fr)`, `min-width: 0` e `appearance: none`; os blocos de texto revelam-se ao rolar só com o JavaScript a
+  correr (classe `js`) e as **fotografias nunca ficam à espera de nada** (`data-entra` dá-lhes só uma entrada suave); cada bloco do
+  `site.js` arranca dentro de `seguro()`. As sequências avançam sozinhas um passo de 5 em 5 s, em círculo, com a página parada há
+  1,6 s e sem dedos no ecrã, e param de vez quando a pessoa leva a faixa, abre uma fotografia ou usa as setas. No computador a
+  fotografia da capa fica presa e a página passa-lhe por cima (só CSS); no telemóvel fica parada.
+  **Decisões do Claude ao passar (ditas ao Diogo):** a capa não muda; a galeria fica em duas colunas no telemóvel (com 49 fotografias,
+  uma coluna dava 17 000 px); os separadores dos álbuns em duas linhas, todos à vista; «· tradução» mantém-se na origem das frases; a
+  conta escreve «3 noites · 330 € por noite» (com o ponto do site, não um travessão); a ordem do painel é calendário → contas → tempo
+  → pedido; o botão em forma de rato saiu.
+  **(5) Testes.** `testar-site.sh`: regras de construção · `conferir-fotos.php` (sem repetidas entre os sítios de destaque; todas com
+  `-m`) · `captura-site.cjs` reescrito (capítulos pela ordem; caixas do tamanho da fotografia; avanço sozinho; setas em círculo;
+  **gestos de dedo a sério pelo protocolo do Chromium**: rolar a página por cima da faixa, levar a faixa, o véu do painel; campos
+  dentro da largura; menu com chegada imediata) · `geometria.cjs` em cada motor. `versao/fotografar.cjs`: a parte 5 vai de Montemor ao
+  fim de «Onde estamos». Bateria local verde; doze larguras (320 a 1920) sem rolagem lateral; sem JavaScript tudo à vista.
+  **(6) Registo e mostra.** `docs/versoes/REGISTO.md`: ficha da V3 e, na da V2, o que o Diogo achou; `docs/versoes/v3/` (30
+  capturas); `docs/integracao-app/revisao-2026-11-16/` (quatro folhas); `site/versao.json` = 3. O PDF «V2 ao lado da V3» (23 páginas)
+  foi enviado na conversa (não fica no repositório).
+  **(7) No GitHub.** Commits `75affc3` (a versão 3) e `f58b428` (o relógio das sequências); «Capturas» n.º 52 e n.º 53 verdes, com a geometria no Chromium e no WebKit. **Ensaio a seco do deploy n.º 15** (run 43845102630, `f58b428`) lido de ponta a ponta: a versão 3 é reconhecida como nova; mudam de conteúdo 16 ficheiros (`conteudo.php`, `index.php`, `versao.json`, `site.css`, `site.js`, `inc/util.php` e dez partes), entram 2 (`partes/nacional2.php` e `partes/onde.php`), não sai nenhum; as 190 fotografias ficam como estão; 42,6 MB; nada enviado.
+  **O envio a sério espera o «Lança».** A seguir a ele: escrever na ficha da V3 a data, o n.º do deploy e o commit; em
+  `versoes.json`, o commit completo, a etiqueta `novo-v3` e o estado (e a V2 passa a «esteve no ar de 16/11 a …»); acertar a data de
+  `site/versao.json` antes, se o dia já for outro; correr «Verificar o site (só lê)».
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15 ensaio.
+  **Lições:** um teste que passa num motor não diz nada sobre outro (e o WebKit do Playwright não é o Safari do iPhone): o que
+  conta é construir sem depender de contas que cada motor faz à sua maneira; as fotografias nunca dependem de JavaScript; comandos
+  com heredocs cheios de aspas são recusados pela verificação de segurança da sessão (editar com a ferramenta de edição); o rato
+  parado em cima das frases de «Quem já ficou» faz o teste julgar que elas não rodam (afastá-lo antes de medir).
+  **Por dizer pelo Diogo:** «Lança» · o que achou da V3 no iPhone, parte a parte (coluna do REGISTO): sobretudo se as fotografias
+  se deixam levar com o dedo, se os menus já não prendem e se os campos das datas cabem · se a pré-visualização do Lovable lhe
+  agrada · o resto de antes (a 34 em «A Quinta», a ligação de partilha do Google Maps, as ligações da ecopista e da N2, os originais
+  das quatro frases traduzidas, os textos). **Em aberto, de antes:** melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a
+  app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px ·
+  `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**

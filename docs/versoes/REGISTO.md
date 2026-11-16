@@ -44,6 +44,9 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V3 · 16/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
 
 - **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V2.
+  Commits `75affc3` e `f58b428`; testes «Capturas» n.º 52 e 53 verdes (Chromium e WebKit); ensaio a seco do deploy n.º 15 lido
+  (16/11, 10h02): face à V2 mudam 16 ficheiros, entram 2 (`partes/nacional2.php`, `partes/onde.php`), não sai nenhum e as 190
+  fotografias ficam como estão. Nada foi enviado.
 - **De onde vem:** o que o Diogo viu da V2 no iPhone a 16/11 («muito mau»: ver a ficha da V2) e o pedido «Trabalha com o Lovable para
   que o conteúdo passe a estar harmonioso». O Claude levou ao Lovable o conteúdo novo e as queixas (pedido de 16/11, 08h27, no projeto
   «Monte Casa Branca» do Lovable); o Lovable compôs a página lá (para ver no telemóvel:
