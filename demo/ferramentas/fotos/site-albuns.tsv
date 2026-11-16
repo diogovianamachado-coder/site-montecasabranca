@@ -1,11 +1,13 @@
 # Da galeria (design/fotos/galeria/) para o site (site/fotos/): que ficheiro da galeria é cada fotografia dos álbuns do site.
 # Álbuns 03 e 05, montados no site a 12/11/2026 (o 04, «Antes e depois», saiu do site a 15/11/2026 por decisão do Diogo; as
-# fotografias continuam na galeria). Aplica-se com: python3 demo/ferramentas/fotos/para_o_site.py
+# fotografias continuam na galeria), e as três da pasta do verão que entraram a 16/11/2026 («sim entram»): a 34 no álbum 03,
+# a 51 e a 52 no álbum 01. Aplica-se com: python3 demo/ferramentas/fotos/para_o_site.py
 # colunas: ficheiro na galeria · ficheiro no site (a variante -m, 1 000 px de largura, é criada ao lado)
 03-a-quinta/01_img_0268.jpg	quinta/casa-pinheiro-terreno.jpg
 03-a-quinta/02_pkbl4474.jpg	quinta/casa-piscina-campo.jpg
 03-a-quinta/03_img_0295.jpg	quinta/piscina-por-do-sol.jpg
 03-a-quinta/04_pdhe2533.jpg	quinta/piscina-alpendre-entardecer.jpg
+03-a-quinta/04a_34.jpg	quinta/casa-ao-longe-campo.jpg
 03-a-quinta/05_35.jpg	quinta/casa-ervas-altas.jpg
 03-a-quinta/06_36-0.jpg	quinta/ovelhas.jpg
 # 03-a-quinta/07_36-1.jpg já está no site como exterior/campo-verde.jpg (a mesma fotografia); o álbum usa esse ficheiro
@@ -36,6 +38,7 @@
 #
 # Álbuns 01 e 02 (só para consulta; estas linhas são comentários e o guião não as aplica): os ficheiros do site vieram do pacote
 # de 7/11/2026 com nomes descritivos e são a mesma fotografia da galeria, noutra gravação (não são iguais byte a byte).
+# Exceção: as duas fachadas que entraram a 16/11/2026 (46a_51 e 46b_52) são regras a sério, copiadas da galeria como as dos álbuns 03 e 05.
 # A galeria do site segue esta ordem, que é a do Zenfolio (com a troca 39/40: no Zenfolio o pôr do sol vem antes da piscina à noite).
 # 01-o-monte/01_img_0264.jpg	exterior/casa-campo-entardecer.jpg
 # 01-o-monte/02_2.jpg	exterior/piscina-pinheiro-manha.jpg
@@ -83,6 +86,8 @@
 # 01-o-monte/44_44.jpg	exterior/alpendre-pinheiro.jpg
 # 01-o-monte/45_49.jpg	exterior/chamine-alentejana.jpg
 # 01-o-monte/46_50.jpg	exterior/casao-pergola.jpg
+01-o-monte/46a_51.jpg	exterior/fachada-lateral-chamine.jpg
+01-o-monte/46b_52.jpg	exterior/fachada-folhas-entardecer.jpg
 # 01-o-monte/47_53.jpg	exterior/chamine-arvore.jpg
 # 02-os-quartos/01_22.jpg	quartos/quarto-2.jpg
 # 02-os-quartos/02_a16.jpg	quartos/quarto-casal-comoda.jpg

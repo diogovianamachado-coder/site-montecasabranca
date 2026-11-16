@@ -12,19 +12,26 @@ exceção pedida pelo Diogo.
 
 | Pasta | Álbum | Fotografias | Quem trouxe | Quando |
 |---|---|---:|---|---|
-| `01-o-monte/` | O Monte (exteriores e áreas comuns) | 47 | ChatGPT (commit `0820f8a`) | 7/11/2026 |
+| `01-o-monte/` | O Monte (exteriores e áreas comuns) | 49 | ChatGPT (commit `0820f8a`), 47 · Claude, 2 (as duas fachadas) | 7/11 e 16/11/2026 |
 | `02-os-quartos/` | Os Quartos | 12 | ChatGPT (commit `79c2c07`) | 7/11/2026 |
-| `03-a-quinta/` | A Quinta | 17 | Claude, pelo workflow (corridas n.º 1 a 3) | 12/11/2026 |
+| `03-a-quinta/` | A Quinta | 18 | Claude, pelo workflow (corridas n.º 1 a 3; a 18.ª pela n.º 10) | 12/11 e 16/11/2026 |
 | `04-antes-e-depois/` | Antes e Depois (11 pares) | 22 | Claude, pelo workflow (corridas n.º 4 a 6 e 9) | 12/11/2026 |
 | `05-montemor-o-novo/` | Montemor-o-Novo | 14 | Claude, pelo workflow (corridas n.º 7 e 8) | 12/11/2026 |
-| | **Total** | **112** | | |
-| `06-verao-por-decidir/` | Pasta do verão · por decidir (não é um álbum do Zenfolio) | 5 | Claude, pelo workflow (corrida n.º 10) | 15/11/2026 |
+| | **Total** | **115** | 112 da coleção v2 e 3 da pasta do verão | |
+| `06-verao-por-decidir/` | Pasta do verão · as duas que ficaram de fora (não é um álbum do Zenfolio) | 2 | Claude, pelo workflow (corrida n.º 10) | 15/11/2026 |
 
-A pasta `06-verao-por-decidir/` são as cinco fotografias de `3. anuncios/V2_verão/` que não estavam aqui, trazidas a 15/11/2026 para o
-Diogo as ver («mostra as fotos desses números que não sei quais são»): **`34`** (a casa ao longe, vista do campo), **`51`** e **`52`**
-(as duas fachadas laterais que faltavam ao álbum «O Monte» do Zenfolio: confirmado por olho), **`40-0`** e **`4`** (quase iguais a
-`01-o-monte/40_img_0255.jpg` e `01_img_0264.jpg`: a mesma cena, um pouco mais fechada). **Não estão no site**: só entram na galeria, e
-em que álbum, quando ele disser. Sem pessoas nem matrículas. Folhas para as ver: `docs/fotografia/2026-11-15_pasta_do_verao/`.
+**A pasta do verão (15 e 16/11/2026).** Cinco fotografias de `3. anuncios/V2_verão/` não estavam aqui e foram trazidas a 15/11 para o
+Diogo as ver («mostra as fotos desses números que não sei quais são»). A 16/11 ele decidiu: **«sim entram»**.
+
+| Fotografia | O que é | Para onde foi | No site |
+|---|---|---|---|
+| `34` | A casa ao longe, vista do campo | `03-a-quinta/04a_34.jpg` (antes da `35`, que é a que se lhe segue na pasta do verão; não está no Zenfolio) | `quinta/casa-ao-longe-campo.jpg` |
+| `51` | O lado da casa, com a barra azul e a chaminé | `01-o-monte/46a_51.jpg` | `exterior/fachada-lateral-chamine.jpg` |
+| `52` | A fachada ao fim da tarde, por entre as folhas | `01-o-monte/46b_52.jpg` | `exterior/fachada-folhas-entardecer.jpg` |
+| `40-0` e `4` | Quase iguais a `01-o-monte/40_img_0255.jpg` e `01_img_0264.jpg` (a mesma cena, um pouco mais fechada) | ficam em `06-verao-por-decidir/` | não entram |
+
+A `51` e a `52` são as duas fachadas que faltavam ao álbum «O Monte» do Zenfolio (confirmado por olho na captura do álbum): ficam antes
+da última, como lá. Sem pessoas nem matrículas. Folhas com que o Diogo as viu: `docs/fotografia/2026-11-15_pasta_do_verao/`.
 
 Vê-se tudo de uma vez nas folhas de contacto: `docs/fotografia/2026-11-12_folhas_de_contacto/` (uma imagem por álbum, com o nome e as
 dimensões por baixo de cada fotografia).
@@ -33,6 +40,8 @@ dimensões por baixo de cada fotografia).
 
 - **Nome:** número de ordem no álbum + nome original, em minúsculas, só `a-z 0-9 _ -`, extensão `.jpg` (ex.: `05_35.jpg`,
   `12_img_5927.jpg`). No «Antes e Depois»: `adNN_<espaço>_antes.jpg` e `adNN_<espaço>_depois.jpg`.
+  **Uma fotografia que entra num álbum já numerado** leva o número da que fica antes dela e uma letra (`04a_34.jpg`, `46a_51.jpg`,
+  `46b_52.jpg`): a ordem do álbum mantém-se e nenhum nome antigo muda (os nomes estão escritos em lotes, folhas e documentos).
 - **Tamanho:** 1 600 px no lado maior. **Nunca se aumenta:** quatro originais são mais pequenos e ficaram como eram
   (`03-a-quinta/02_pkbl4474.jpg` e `04_pdhe2533.jpg`, 1 440 × 1 080; `04-antes-e-depois/ad02_salao_depois.jpg`, 1 440 × 1 081;
   `ad03_fachada_depois.jpg`, 1 440 × 1 085).
@@ -50,7 +59,7 @@ no repositório e pasta do original em `7. Fotos/`. Em resumo:
 
 | Álbum | Origem em `7. Fotos/` |
 |---|---|
-| A Quinta | `4. telemovel/` (8) · `5. dvm canon/` (6) · `3. anuncios/V2_verão/` (3: `35`, `36.0`, `36.1`) |
+| A Quinta | `4. telemovel/` (8) · `5. dvm canon/` (6) · `3. anuncios/V2_verão/` (4: `34`, `35`, `36.0`, `36.1`; a `34` está no lote `06-verao-por-decidir.tsv`) |
 | Antes e Depois | `6. Antes e Depois/` (`a1` a `a22`; quatro eram HEIC, convertidos a JPG pelo ChatGPT a 25/10) |
 | Montemor-o-Novo | `3. anuncios/V2_verão/` (10: `54` a `63`) · `3. anuncios/V3_inverno/` (4: `42`, `44`, `50`, `54`) |
 
@@ -91,19 +100,19 @@ para `3. anuncios/`, `4. telemovel/` nem `5. dvm canon/`**, de onde vêm os álb
 
 ## 7. O que falta face ao Zenfolio
 
-Contado fotografia a fotografia nas 23 capturas do Zenfolio do Diogo (25/10/2026, reenviadas a 12/11): **o Zenfolio tem 135, aqui
-estão 112, faltam 23.** (A nota do ChatGPT de 25/10 dizia «cerca de 20».)
+Contado fotografia a fotografia nas 23 capturas do Zenfolio do Diogo (25/10/2026, reenviadas a 12/11): **o Zenfolio tem 135; aqui
+estão 114 dessas (e mais uma que lá não está, a `34`); faltam 21.** (A 12/11 faltavam 23; a nota do ChatGPT de 25/10 dizia «cerca de 20».)
 
 | Álbum | Zenfolio | Aqui | Faltam |
 |---|---:|---:|---|
-| O Monte | 49 | 47 | As duas fachadas laterais que vêm antes da última fotografia. E duas estão trocadas entre si: no Zenfolio o pôr do sol na piscina vem antes da piscina à noite (aqui `40_img_0255` e `39_40`) |
+| O Monte | 49 | 49 | Nenhuma desde 16/11/2026 (as duas fachadas que vêm antes da última eram a `51` e a `52` da pasta do verão). Duas estão trocadas entre si: no Zenfolio o pôr do sol na piscina vem antes da piscina à noite (aqui `40_img_0255` e `39_40`) |
 | Os Quartos | 12 | 12 | Nenhuma |
-| A Quinta | 25 | 17 | As três do alpendre com o sofá (as primeiras do álbum) · o pôr do sol atrás dos pinheiros, com a casa · a piscina iluminada à noite · a piscina com as oliveiras · a lua e a casa iluminada · a do quadrado azul, que no Zenfolio também não abre |
+| A Quinta | 25 | 17 (e a `34`, que não é do Zenfolio) | As três do alpendre com o sofá (as primeiras do álbum) · o pôr do sol atrás dos pinheiros, com a casa · a piscina iluminada à noite · a piscina com as oliveiras · a lua e a casa iluminada · a do quadrado azul, que no Zenfolio também não abre |
 | Antes e Depois | 22 | 22 | Nenhuma. No Zenfolio cada par aparece «depois, antes» (só o quarto está ao contrário); aqui os nomes ordenam «antes, depois» |
 | Montemor o Novo | 27 | 14 | A estação do Paião de perto · a bicicleta junto ao tanque · o túnel de árvores sem bicicleta · as vacas no montado · a torre com a muralha · o interior da igreja · três vistas ao longe (a colina com casas, o castelo, o vale com a ponte) · o passadiço · o monte com o castelo · duas do miradouro com o banco |
 
-**As duas fachadas de «O Monte» já cá estão** (15/11/2026): eram mesmo `3. anuncios/V2_verão/51.JPG` e `52.JPG`, e estão em
-`06-verao-por-decidir/` à espera da palavra do Diogo; com elas, «O Monte» fica com 49 e passam a faltar 21.
+**As duas fachadas de «O Monte» já cá estão**: eram mesmo `3. anuncios/V2_verão/51.JPG` e `52.JPG`; vieram a 15/11/2026 e entraram no
+álbum a 16/11, com a palavra do Diogo. «O Monte» fica completo, com 49, e passam a faltar 21 (8 de A Quinta e 13 de Montemor).
 Pistas para as outras (não são certezas, só se confirma vendo-as): as de Montemor devem estar entre os números 40 e 62 de
 `3. anuncios/V3_inverno/`; as da quinta, em `4. telemovel/` ou `1. todas/`.
 
@@ -126,27 +135,29 @@ isso que a via é esta.
 ## 9. No site (`site/fotos/`)
 
 Desde 15/11/2026 (revisão do Diogo) a galeria do site segue os álbuns do Zenfolio, pela mesma ordem, **sem o «Antes e Depois»**, que saiu
-do site por decisão dele (as 22 fotografias continuam aqui, em `04-antes-e-depois/`). Em `main`; no servidor só depois do «Lança».
+do site por decisão dele (as 22 fotografias continuam aqui, em `04-antes-e-depois/`). É a galeria da versão 2 do ensaio
+(`docs/versoes/REGISTO.md`), com o nome «Passear pelo Monte».
 
 | Álbum da galeria | No site | Separador do site |
 |---|---|---|
-| `01-o-monte/` | `site/fotos/exterior/` e `interior/` (montadas com o site, a 7/11) | O Monte · 47, pela ordem do Zenfolio (com a troca 39/40: lá o pôr do sol vem antes da piscina à noite) |
+| `01-o-monte/` | `site/fotos/exterior/` e `interior/` (47 montadas com o site, a 7/11; as duas fachadas a 16/11) | O Monte · 49, pela ordem do Zenfolio (com a troca 39/40: lá o pôr do sol vem antes da piscina à noite) |
 | `02-os-quartos/` | `site/fotos/quartos/` | Os Quartos · 12 |
-| `03-a-quinta/` | `site/fotos/quinta/` (16 ficheiros; a 7.ª do álbum é `exterior/campo-verde.jpg`, que o site já tinha) | A Quinta · 17 |
+| `03-a-quinta/` | `site/fotos/quinta/` (17 ficheiros; a `07_36-1` do álbum é `exterior/campo-verde.jpg`, que o site já tinha) | A Quinta · 18 (as 17 do Zenfolio e a casa ao longe, em 5.º lugar) |
 | `04-antes-e-depois/` | fora do site desde 15/11 | — |
 | `05-montemor-o-novo/` | `site/fotos/montemor/` (14) | Montemor-o-Novo · 14; dez delas rolam também na secção de Montemor |
 
-Fora da galeria, o site usa as mesmas fotografias na capa (duas, em estudo), nos três momentos da casa (13), na régua (20) e na secção de
-Montemor (10), e ainda `interior/sala-mesa.jpg` e `quartos/quarto.jpg`, que não estão no Zenfolio. As duas miniaturas pequenas que restavam
-(`piscina-entardecer`, 600 px, e o recorte `piscina-espreguicadeira`) saíram. São 92 fotografias, todas usadas.
+Fora da galeria, o site usa as mesmas fotografias na capa (uma, desde que o Diogo escolheu a 1), nos três momentos da casa (13), na régua
+(19) e na secção de Montemor (10), e ainda `interior/sala-mesa.jpg` e `quartos/quarto.jpg`, que não estão no Zenfolio. As duas miniaturas
+pequenas que restavam (`piscina-entardecer`, 600 px, e o recorte `piscina-espreguicadeira`) saíram. São 95 fotografias, todas usadas.
 
-Que ficheiro da galeria é cada ficheiro do site está em `demo/ferramentas/fotos/site-albuns.tsv` (os álbuns 03 e 05 como regras que o
-guião aplica; os 01 e 02 em comentário, só para consulta, porque esses ficheiros são a mesma fotografia noutra gravação);
+Que ficheiro da galeria é cada ficheiro do site está em `demo/ferramentas/fotos/site-albuns.tsv` (os álbuns 03 e 05 e as duas fachadas
+de 16/11 como regras que o guião aplica; o resto dos 01 e 02 em comentário, só para consulta, porque esses ficheiros são a mesma
+fotografia noutra gravação);
 `python3 demo/ferramentas/fotos/para_o_site.py` copia os primeiros tal e qual e cria ao lado a variante de telemóvel (`-m`, 1 000 px de
 largura). As descrições e as legendas escrevem-se em `site/conteudo.php`.
 
-**Pasta do verão** (`7. Fotos/3. anuncios/V2_verão/`, 69 ficheiros, listada pelo conector a 15/11/2026): estão na galeria todas menos a
-`34`, a `51` e a `52` (as duas últimas devem ser as fachadas laterais do fim de «O Monte») e uma das duas `40` (`40.JPG` e `40.0.JPG`).
+**Pasta do verão** (`7. Fotos/3. anuncios/V2_verão/`, 69 ficheiros, listada pelo conector a 15/11/2026): está toda na galeria desde
+16/11/2026, menos as duas gémeas que ficaram de fora (`40.0` e `4`, guardadas em `06-verao-por-decidir/`).
 
 **Marca de água: não se usa** (decisão do Diogo, 15/11/2026: «não coloque»; «marca de água: retiramos»). A ferramenta e as amostras que
 se fizeram para ele escolher saíram do repositório nessa noite (ficam no histórico do git, até ao commit `5f23bdc`).

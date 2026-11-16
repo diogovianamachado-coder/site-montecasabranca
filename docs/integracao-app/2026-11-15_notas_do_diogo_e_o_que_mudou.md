@@ -254,7 +254,7 @@ O Diogo respondeu às perguntas que o Claude lhe fez na conversa (a numeração 
 | 4 · «Tarifas de 2028» | «sim era erro. queria dizer 2027» | Nada a mudar: o site tem 2026 e 2027 |
 | 5 · Marca de água | «não coloque. não é prática corrente, pois não?» | Não se aplica. Não é prática corrente em sites de casas de férias (as plataformas também não a usam). A ferramenta e as amostras saíram do repositório mais tarde, na mesma noite («marca de água: retiramos») |
 | 6 · Avaliações | «sim, podes fazer uma infografia ligeira com essas 3 notas: booking, airbnb e google» | As dez frases ficam. Por baixo, três anéis finos: **Booking 10** (11 comentários) · **Airbnb 4,95** (21 avaliações) · **Google 5,0** (21 críticas), sem ligações (ver a nota de baixo). Rodapé «Recebemos hóspedes desde 2022 · notas de novembro de 2026». Fora dos dados estruturados. A nota do Airbnb era a média das 21 avaliações que ele enviou; **ele confirmou-a na mesma noite** |
-| 7 · Fotografias 34, 51 e 52 | «sim mas antes mostra as fotos desses números que não sei quais são» | Trazidas do Dropbox pelo workflow (corrida n.º 10) para `design/fotos/galeria/06-verao-por-decidir/`, com a `40.0` e a `4`, e mostradas ao Diogo (`docs/fotografia/2026-11-15_pasta_do_verao/`). A 51 e a 52 são as duas fachadas que faltavam ao álbum «O Monte» do Zenfolio; a 34 é a casa ao longe, vista do campo; a 40.0 e a 4 são quase iguais a duas que já estão no site. **Não entraram no site: esperam a palavra dele** |
+| 7 · Fotografias 34, 51 e 52 | «sim mas antes mostra as fotos desses números que não sei quais são» | Trazidas do Dropbox pelo workflow (corrida n.º 10) para `design/fotos/galeria/06-verao-por-decidir/`, com a `40.0` e a `4`, e mostradas ao Diogo (`docs/fotografia/2026-11-15_pasta_do_verao/`). A 51 e a 52 são as duas fachadas que faltavam ao álbum «O Monte» do Zenfolio; a 34 é a casa ao longe, vista do campo; a 40.0 e a 4 são quase iguais a duas que já estão no site. **16/11: «sim entram»** → a 51 e a 52 fecham o álbum «O Monte» (49, como no Zenfolio) e a 34 entra em «A Quinta», antes da 35; a 40.0 e a 4 ficam de fora |
 | 8 · Casas de banho | «isso, casas de banho não fazer parte desta mensagem. nem das fotos de destaque. só na galeria» | Saiu a fotografia da casa de banho da régua (ficam 19). Nos três momentos e na capa não havia nenhuma. Continuam na galeria e na resposta sobre os quartos de «Antes de chegar» |
 | 9 · Nome da galeria | «no menu, na secção das fotos/galeria vamos passar a chamar "passear pelo monte"» | «Passear pelo Monte» no menu de cima, no menu completo, no título da secção e na ligação da régua. Para não haver dois «Passear…» parecidos, a ligação de Montemor passou de «Passear por Montemor» a «Visitar Montemor-o-Novo» |
 
@@ -263,7 +263,7 @@ parte da versão anterior»). Feito em `docs/versoes/`:
 - **`REGISTO.md`**: como se usa, os nomes das doze partes da página e onde está cada uma no código, e a ficha de cada versão (o que mudou
   em cada parte e o que o Diogo achou). **V1** = a que está no ar desde 8/11 (commit `17198b1`); **V2** = este rascunho.
 - **`v1/` e `v2/`**: cada versão fotografada parte a parte, no computador e no telemóvel, como está no ensaio (sem as portas da app).
-- **O número à vista:** no fundo da página do ensaio, «Ensaio · versão 2 · 15/11/2026» (`site/versao.json`); o site a sério não o mostra.
+- **O número à vista:** no fundo da página do ensaio, «Ensaio · versão 2 · 16/11/2026», o dia em que foi publicada (`site/versao.json`); o site a sério não o mostra.
 - **Ferramentas** (`demo/ferramentas/site/versao/`): `fotografar.sh <N> [ref]` e `comparar.py <A> <B> [--pdf …]` (duas versões lado a lado).
 - **O deploy** pára se a versão não tiver número e ficha, ou se o número já tiver sido publicado com outro conteúdo; no fim de um envio a
   sério cria a etiqueta `novo-v<N>`. A etiqueta da V1 cria-se pelo workflow «Etiqueta de versão do site» (a sessão não envia etiquetas).
@@ -293,6 +293,12 @@ alterações se faziam já, para ele ver tudo de uma vez):
 Folhas para ele ver como ficou: `docs/integracao-app/revisao-2026-11-15/7-a-mensagem-computador.jpg`, `8-a-mensagem-telemovel.jpg` e
 `9-pedido-de-datas-telemovel.jpg`. Sem JavaScript a página passa a mostrar-se inteira (uma linha de `<noscript>` no cabeçalho).
 
-**Continua por confirmar pelo Diogo:** se a 34, a 51 e a 52 entram na galeria (e a 40.0 e a 4) ·
-a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 · os originais das quatro frases traduzidas
-pelo Airbnb · os textos novos.
+**16/11/2026 (00h30) · «sim entram. lança».** As três fotografias entraram na galeria: a 51 e a 52 no álbum «O Monte», antes da última,
+como no Zenfolio (o álbum fica com 49, completo); a 34 no álbum «A Quinta», em 5.º lugar, antes da 35, que é a que se lhe segue na pasta
+do verão (o álbum fica com 18). A 40.0 e a 4, gémeas de duas que já lá estão, ficam de fora. Legendas: «O branco e o azul da casa, com a
+chaminé ao fundo» · «A casa ao fim da tarde, vista por entre as folhas» · «A casa ao longe, vista do campo, sob o céu azul». E o «Lança»:
+a publicação da versão 2 em `novo.montecasabranca.pt` fica registada na ficha da V2, em `docs/versoes/REGISTO.md`, com a data, o commit
+e o n.º do deploy.
+
+**Continua por confirmar pelo Diogo:** a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 ·
+os originais das quatro frases traduzidas pelo Airbnb · os textos novos · o que achou de cada parte da V2 ao vivo.

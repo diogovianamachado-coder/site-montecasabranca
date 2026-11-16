@@ -185,7 +185,8 @@ return [
         'titulo' => 'Passear pelo Monte',
         'albuns' => [
             [
-                // Álbum «O Monte» do Zenfolio (design/fotos/galeria/01-o-monte/).
+                // Álbum «O Monte» do Zenfolio (design/fotos/galeria/01-o-monte/). Completo desde 16/11/2026: as duas fachadas do
+                // fim (a 51 e a 52 da pasta do verão) entraram por decisão do Diogo («sim entram»).
                 'nome' => 'O Monte',
                 'fotos' => [
                     ['src' => 'exterior/casa-campo-entardecer.jpg', 'alt' => 'A casa e a piscina vistas do campo, ao fim da tarde'],
@@ -234,6 +235,8 @@ return [
                     ['src' => 'exterior/alpendre-pinheiro.jpg', 'alt' => 'O alpendre e o pinheiro grande'],
                     ['src' => 'exterior/chamine-alentejana.jpg', 'alt' => 'A chaminé alentejana contra o céu azul'],
                     ['src' => 'exterior/casao-pergola.jpg', 'alt' => 'O casão e a pérgula'],
+                    ['src' => 'exterior/fachada-lateral-chamine.jpg', 'alt' => 'O branco e o azul da casa, com a chaminé ao fundo'],
+                    ['src' => 'exterior/fachada-folhas-entardecer.jpg', 'alt' => 'A casa ao fim da tarde, vista por entre as folhas'],
                     ['src' => 'exterior/chamine-arvore.jpg', 'alt' => 'A chaminé entre as árvores'],
                 ],
             ],
@@ -256,13 +259,15 @@ return [
                 ],
             ],
             [
-                // Álbum «A Quinta» do Zenfolio, pela mesma ordem (design/fotos/galeria/03-a-quinta/).
+                // Álbum «A Quinta» do Zenfolio, pela mesma ordem (design/fotos/galeria/03-a-quinta/). A 5.ª, a casa ao longe, não está
+                // no Zenfolio: é a 34 da pasta do verão, que entrou a 16/11/2026 («sim entram») antes da 35, a que se lhe segue lá.
                 'nome' => 'A Quinta',
                 'fotos' => [
                     ['src' => 'quinta/casa-pinheiro-terreno.jpg', 'alt' => 'O pinheiro e a casa, vistos do terreno'],
                     ['src' => 'quinta/casa-piscina-campo.jpg', 'alt' => 'A casa e a piscina vistas do campo'],
                     ['src' => 'quinta/piscina-por-do-sol.jpg', 'alt' => 'O céu do pôr do sol refletido na piscina'],
                     ['src' => 'quinta/piscina-alpendre-entardecer.jpg', 'alt' => 'A piscina vista do alpendre, ao entardecer'],
+                    ['src' => 'quinta/casa-ao-longe-campo.jpg', 'alt' => 'A casa ao longe, vista do campo, sob o céu azul'],
                     ['src' => 'quinta/casa-ervas-altas.jpg', 'alt' => 'A casa vista do campo, por entre as ervas altas'],
                     ['src' => 'quinta/ovelhas.jpg', 'alt' => 'Ovelhas a pastar no campo'],
                     ['src' => 'exterior/campo-verde.jpg', 'alt' => 'O campo verde à volta da casa'],
