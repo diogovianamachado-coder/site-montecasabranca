@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Teste do site em PHP (site/): sintaxe, fotografias (todas as referidas existem, sem repetidas, com descrição), arranque com uma app de
-# ensaio e cenário com capturas a 390/1280 (com app e sem app): ligações internas, fotografias a rolar, painel das datas, tempo, pedido.
+# ensaio e cenário com capturas a 390/1280 (com app e sem app): ligações internas, fotografias a rolar, painel das datas, tempo, pedido;
+# e a geometria da página em cada motor de MOTORES (por omissão só chromium; no GitHub, chromium e webkit).
 # Uso: bash demo/ferramentas/site/testar-site.sh [pasta-saída]   (precisa de php 8.1+, node 22 e playwright instalado)
 set -euo pipefail
 RAIZ="$(cd "$(dirname "$0")/../../.." && pwd)"; SAIDA="${1:-$RAIZ/demo/_saida/capturas-site}"; mkdir -p "$SAIDA"
@@ -57,4 +58,10 @@ php -r '$p = stream_get_contents(STDIN); if (!preg_match("#<ul class=\"notas\".*
 echo "sem ligações para as plataformas OK"
 echo "== capturas"; node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8791 "$SAIDA" app
 node demo/ferramentas/site/captura-site.cjs http://127.0.0.1:8792 "$SAIDA" semapp
+# Geometria (16/11/2026): o que o iPhone do Diogo mostrou e os testes em Chromium não viam (fotografias em caixas meio vazias, campos das
+# datas a sair do ecrã, menus presos). Corre em cada motor de MOTORES; no GitHub são «chromium webkit» (o WebKit é o motor do Safari e de
+# todos os browsers do iPhone). Na máquina da sessão só há Chromium. Corre os motores todos antes de falhar, para se ver cada resultado.
+echo "== geometria em: ${MOTORES:-chromium}"; GEO=0
+for M in ${MOTORES:-chromium}; do node demo/ferramentas/site/geometria.cjs http://127.0.0.1:8792 "$SAIDA" "$M" || GEO=1; done
 echo "== avisos PHP nos registos"; if grep -hE 'Warning|Notice|Fatal|Deprecated' /tmp/site-app.log /tmp/site-semapp.log; then echo "FALHOU: avisos PHP"; exit 1; fi; echo "sem avisos PHP"
+[ "$GEO" = "0" ] || { echo "FALHOU: geometria (ver acima em que motor e porquê)"; exit 1; }

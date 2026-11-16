@@ -137,7 +137,8 @@ jobs:
   site:
     # 7/11/2026 · o site em PHP (site/): php -l, node --check, servidor PHP embutido + app de ensaio (demo/ferramentas/site/app-ensaio.php),
     # capturas e cenário a 390/1280 com a app e sem a app (demo/ferramentas/site/captura-site.cjs). Falha com erro JS, rolagem horizontal
-    # ou aviso PHP. O deploy-site.yml só envia com este workflow verde.
+    # ou aviso PHP. Desde 16/11 corre também a geometria da página em Chromium e em WebKit (demo/ferramentas/site/geometria.cjs).
+    # O deploy-site.yml só envia com este workflow verde.
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -147,11 +148,14 @@ jobs:
           node-version: "22"
       - name: Versões
         run: php --version | head -1 && node --version
-      - name: Instalar Playwright e Chromium
+      - name: Instalar Playwright, Chromium e WebKit
+        # WebKit (16/11/2026): é o motor do Safari e de todos os browsers do iPhone. A versão 2 passou em Chromium e falhou no iPhone.
         run: |
           npm install --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium
-      - name: Testar o site (sintaxe · portas · capturas 390/1280 com e sem app)
+          npx playwright install --with-deps chromium webkit
+      - name: Testar o site (sintaxe · portas · capturas 390/1280 com e sem app · geometria em Chromium e WebKit)
+        env:
+          MOTORES: chromium webkit
         run: bash demo/ferramentas/site/testar-site.sh demo/_saida/capturas-site
       - name: Guardar capturas do site
         if: always()
