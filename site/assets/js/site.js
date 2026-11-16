@@ -176,9 +176,12 @@
       contar();
       seqs.push(s);
     });
+    // O relógio das sequências: uma vez por segundo vê se alguma tem de dar um passo. Só com a página parada há mais de 1,6 s
+    // (depois de um toque numa faixa, ela fica «tocada» durante 1,5 s: assim o passo dado aqui nunca é tomado por um gesto da pessoa).
     if (seqs.length && !reduz) setInterval(function () {
-      if (d.hidden || abertas.length || dedos) return;
-      var agora = Date.now(); if (agora - ultimoGesto < 900) return;
+      var agora = Date.now();
+      if (dedos && agora - ultimoGesto > 8000) dedos = false;      // um fim de toque que não chegou não pára as sequências para sempre
+      if (d.hidden || abertas.length || dedos || agora - ultimoGesto < 1600) return;
       for (var i = 0; i < seqs.length; i++) { var s = seqs[i]; if (s.visivel && !s.parado && agora - s.ultimo >= 5200) { s.ultimo = agora; s.passo(1); } }
     }, 1000);
   }
