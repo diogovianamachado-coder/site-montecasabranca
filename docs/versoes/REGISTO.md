@@ -45,9 +45,13 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 - **Publicada:** 16/11/2026, às 00h49 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 14 (o n.º 13 foi o ensaio a seco),
   commit `37c9ca0`, **etiqueta `novo-v2`**. É a que está no ar em `novo.`. Face à V1: 15 ficheiros mudaram, 71 entraram, 18 saíram.
-- **Verificação depois do envio:** a página responde, mostra «Ensaio · versão 2», continua fora dos motores de busca, a previsão do
-  tempo e a conta respondem. **Um ponto falhou:** as médias do tempo para datas longe (para lá dos 16 dias da previsão) não responderam
-  no servidor; no painel das datas esse bloco simplesmente não aparece, o resto funciona. A corrigir na versão seguinte.
+- **Verificação depois do envio:** a página responde, mostra «Ensaio · versão 2 · 16/11/2026», continua fora dos motores de busca e sem
+  ligações para as plataformas; **as 190 fotografias da página existem todas no servidor**; a previsão do tempo, a conta e o calendário de
+  exemplo respondem. No próprio envio, as médias do tempo para datas longe não responderam à primeira (o arquivo do Open-Meteo demorou
+  mais do que os 12 segundos que o site espera); quatro minutos depois, na verificação só de leitura (workflow «Verificar o site», corrida
+  n.º 1), responderam em 3,7 s e ficaram guardadas no servidor por 30 dias. **Está tudo a funcionar.**
+- **Para a versão seguinte (técnico, não se vê):** as médias são de anos completos e só mudam em janeiro: guardá-las até lá e, se o
+  arquivo não responder numa renovação, não voltar a tentar em cada visita (`api/tempo.php` → `tempo_clima()`).
 - **Capturas:** `docs/versoes/v2/` · **De onde vem:** as 17 notas do Diogo de 15/11 e as respostas da mesma noite
   (`docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`).
 - **Ordem da página:** capa → a casa → por fora → sem pressa → por dentro → fecho e régua → Montemor, N2 e onde estamos → Passear pelo
@@ -99,7 +103,8 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 **Fechar uma versão (antes do «Lança»):**
 1. Subir o número e a data em `site/versao.json` e juntar a versão a `docs/versoes/versoes.json` (data e estado, para as legendas;
-   o `commit` fica vazio até ser publicada).
+   o `commit` fica vazio até ser publicada). A data é a do dia em que vai para o ar: acerta-se antes do «Lança» (a V2 nasceu a 15/11 e
+   foi publicada a 16/11; é esta que a página mostra).
 2. Escrever a ficha `### V<N> · …` neste ficheiro, por cima das outras: o que mudou em cada parte face à anterior.
 3. Fotografar: `bash demo/ferramentas/site/versao/fotografar.sh <N>` (grava `docs/versoes/v<N>/`, computador e telemóvel).
 4. Lado a lado com a anterior, para mostrar ao Diogo: `python3 demo/ferramentas/site/versao/comparar.py <N-1> <N> <pasta>`.
@@ -112,6 +117,11 @@ cria a etiqueta `novo-v<N>` no commit enviado (`raiz-v<N>` quando for para `mont
 **Depois de um envio a sério (à mão, logo a seguir):** escrever na ficha a data, o n.º do deploy e o commit; em `versoes.json`, o
 identificador **completo** do commit em `commit` (`commit_raiz` quando for o site a sério), a etiqueta e o estado. É por esse commit
 (ou pela etiqueta) que o deploy sabe que a versão já foi publicada e que se vai buscar uma parte mais tarde.
+
+**Confirmar o que está no ar sem enviar nada:** workflow manual «Verificar o site (só lê)» (`.github/workflows/verificar-site.yml`).
+Faz pedidos ao site como um visitante: a página e a versão que mostra, a proteção do ensaio, cada fotografia referida na página, as
+portas (previsão, conta, calendário, médias do tempo) com os segundos de cada uma, e o mesmo pedido ao arquivo do Open-Meteo feito do
+GitHub, para comparar. A sessão do Claude não chega ao site (a rede dela não deixa); os computadores do GitHub chegam.
 
 **Etiquetas: o que se pode e o que não se pode.** A sessão do Claude não consegue enviar etiquetas para o GitHub (403; só commits em
 `main`), por isso é o deploy que as cria. O GitHub só deixa um workflow etiquetar um commit cujos ficheiros de `.github/workflows` sejam

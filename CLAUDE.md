@@ -852,3 +852,47 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   51 e a 52 entram na galeria (e a 40.0 e a 4) · a ligação de «Partilhar» da ficha do Google Maps · as ligações da ecopista e da N2 por
   olho · os originais das quatro frases traduzidas pelo Airbnb · os textos novos · o que achou de cada parte da V2 ao vivo.
   **Próxima sugestão: S37.**
+
+- **16/11/2026 (00h30–01h, hora de Lisboa) · «sim entram. lança» · A VERSÃO 2 ESTÁ NO AR EM `novo.montecasabranca.pt` (deploy n.º 14,
+  commit `37c9ca0`, etiqueta `novo-v2`).** Resposta do Diogo às duas coisas que faltavam: as fotografias 34, 51 e 52 entram, e «Lança».
+  **(1) Fotografias.** A **51** e a **52** (as duas fachadas) fecham o álbum **«O Monte»**, antes da última, como no Zenfolio: fica
+  com **49**, completo (`exterior/fachada-lateral-chamine.jpg` · `exterior/fachada-folhas-entardecer.jpg`). A **34** (a casa ao longe,
+  vista do campo) não está no Zenfolio: entrou em **«A Quinta»**, em 5.º lugar, antes da 35, que é a que se lhe segue na pasta do verão;
+  o álbum fica com **18** (`quinta/casa-ao-longe-campo.jpg`). Foi escolha do Claude, dita ao Diogo (se a quiser em «O Monte», muda-se
+  uma linha). A **40.0** e a **4**, gémeas de duas que já lá estão, ficam de fora, em `06-verao-por-decidir/`. Legendas (vêem-se ao
+  abrir a fotografia): «O branco e o azul da casa, com a chaminé ao fundo» · «A casa ao fim da tarde, vista por entre as folhas» ·
+  «A casa ao longe, vista do campo, sob o céu azul». **Na galeria** (`design/fotos/galeria/`): `01-o-monte/46a_51.jpg`, `46b_52.jpg`
+  e `03-a-quinta/04a_34.jpg`; **regra nova:** uma fotografia que entra num álbum já numerado leva o número da anterior e uma letra,
+  para a ordem se manter sem mudar nomes antigos (estão escritos em lotes, folhas e documentos). `site-albuns.tsv` com as três como
+  regras; `para_o_site.py` criou as variantes de telemóvel. O site usa **95 fotografias** (190 ficheiros). `design/fotos/LEIA-ME.md`
+  atualizado: a galeria tem 115 (112 da coleção v2 e 3 da pasta do verão); face ao Zenfolio **faltam 21** (8 de A Quinta, 13 de
+  Montemor). **(2) A data da versão é a do dia em que vai para o ar:** `site/versao.json` passou a 16/11/2026 antes do «Lança» (a
+  página mostra «Ensaio · versão 2 · 16/11/2026»). **(3) O envio.** Commit `37c9ca0` → «Capturas» n.º 48 verde → **ensaio a seco
+  n.º 13** (run 43782456970), lido de ponta a ponta: 15 ficheiros mudam, 71 entram (as 34 da Quinta, as 28 de Montemor, as 4 das
+  fachadas, `partes/antes|galeria|momentos|regua.php` e `versao.json`), 18 saem (as partes antigas, as miniaturas do antes/depois, as
+  repetidas e as pequenas) e a pasta `fotos/antes-depois/`; `config.php` e `cache/` de fora; o total do rsync (42 622 321 bytes) bate
+  ao byte com `site/` → **envio a sério n.º 14** (run 43782595584), às 00h49: `config.php` ficou como estava; HTTP 200 à primeira;
+  «Ensaio · versão 2», `noindex` e `robots.txt` de bloqueio confirmados; previsão e conta a responder; **a etiqueta `novo-v2` foi
+  criada pelo próprio deploy** (a primeira etiqueta de versão; o mecanismo funciona). **(4) Um aviso, visto e esclarecido.** No envio,
+  as médias do tempo para datas longe devolveram lista vazia ao fim de 12 s. Para ver sem mexer no servidor nasceu o workflow manual
+  **«Verificar o site (só lê)»** (`.github/workflows/verificar-site.yml`: página e versão, proteção do ensaio, cada fotografia da
+  página, as portas com os segundos de cada uma, e o mesmo pedido ao arquivo do Open-Meteo feito do GitHub). Corrida n.º 1, às 00h54:
+  **as 190 fotografias respondem todas**; as médias responderam em 3,7 s e ficaram guardadas no servidor por 30 dias; o arquivo,
+  pedido do GitHub, demora 4 a 5 s (1 826 dias, sem valores em falta). Conclusão: foi o primeiro pedido, frio, a passar dos 12 s que
+  o site espera; **está tudo a funcionar**. Acertos que não tocam no site: o deploy passa a tentar as médias três vezes (e assim
+  deixa a tabela guardada logo a seguir ao envio) e o passo «Verificar que o site responde» ganhou `set +e` (o GitHub corre os passos
+  com `bash -e`; uma falha de rede parava-o à primeira, com o envio já feito). **Para a versão seguinte (técnico, não se vê):**
+  `tempo_clima()` deve guardar as médias até janeiro (são de anos completos) e, se o arquivo não responder numa renovação, não voltar
+  a tentar em cada visita. **(5) Registo.** Ficha da V2 em `docs/versoes/REGISTO.md` com a data, o deploy, o commit, a etiqueta e a
+  verificação; `versoes.json` com o commit completo (`37c9ca050a7217ff424b3d03e30a19c141b70c27`) e a etiqueta; a V1 esteve no ar de
+  8/11 a 16/11. **A partir daqui qualquer mudança em `site/` é a versão 3:** subir o número em `site/versao.json` e abrir a ficha
+  `### V3 · …` (o deploy recusa a V2 com outro conteúdo). **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real ·
+  8–13 ensaios · **14 real**. **Lições de ferramenta:** tocar num separador da galeria com uma rolagem suave ainda em curso dá
+  capturas no sítio errado (é do guião de teste, não do site: medir com a página parada); `git pull --rebase` recusa com alterações
+  preparadas (primeiro o commit); o registo de um ensaio a seco tem cerca de 700 linhas e as últimas 440 trazem a lista toda do rsync;
+  `esperar_wf.py <ficheiro.yml> <n.º mínimo>` no scratchpad espera por qualquer workflow manual. **Por dizer pelo Diogo:** o que achou
+  de cada parte da V2 ao vivo (coluna do REGISTO) · se a 34 fica em «A Quinta» · a ligação de «Partilhar» da ficha do Google Maps ·
+  as ligações da ecopista e da N2 por olho · os originais das quatro frases traduzidas pelo Airbnb · os textos novos. **Em aberto, de
+  antes:** cópia do FACTOS (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do
+  Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33.
+  **Próxima sugestão: S37.**

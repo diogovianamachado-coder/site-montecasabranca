@@ -221,9 +221,15 @@ jobs:
               T=$(curl -s $K --max-time 20 "$SITE_URL/api/tempo.php" | head -c 120); echo "api/tempo.php → $T"
               C=$(curl -s $K --max-time 20 "$SITE_URL/api/tarifa.php?entrada=2027-05-14&saida=2027-05-17&pax=6" | head -c 160); echo "api/tarifa.php → $C"
               grep -q '"ok":true' <<<"$C" || { echo "::warning::a conta não respondeu com ok:true (a app pode não ter a porta #190 ainda; o site devia cair para o recurso)"; }
-              # O tempo de uma estadia para lá da previsão: médias dos últimos anos, do arquivo do Open-Meteo (só informa; se falhar, o painel esconde o bloco)
-              M=$(curl -s $K --max-time 40 "$SITE_URL/api/tempo.php?de=$(date -d '+200 days' +%F)&ate=$(date -d '+203 days' +%F)" | head -c 220); echo "api/tempo.php (estadia daqui a 200 dias) → $M"
-              grep -q '"modo":"media"' <<<"$M" || echo "::warning::o tempo de uma estadia distante não devolveu as médias dos anos anteriores (o arquivo do Open-Meteo pode não ter respondido)"
+              # O tempo de uma estadia para lá da previsão: médias dos últimos anos, do arquivo do Open-Meteo (só informa; se falhar, o painel esconde o bloco).
+              # Tenta três vezes: o arquivo costuma demorar 4 a 5 s e a primeira resposta pode passar dos 12 s que o site espera (aconteceu no deploy
+              # n.º 14, a 16/11/2026: falhou à primeira e respondeu minutos depois). Quando responde, o servidor guarda a tabela 30 dias e os visitantes
+              # deixam de esperar por ela: esta verificação serve também para a deixar guardada logo a seguir ao envio.
+              for t in 1 2 3; do
+                M=$(curl -s $K --max-time 40 "$SITE_URL/api/tempo.php?de=$(date -d '+200 days' +%F)&ate=$(date -d '+203 days' +%F)" | head -c 220); echo "api/tempo.php (estadia daqui a 200 dias), tentativa $t → $M"
+                if grep -q '"modo":"media"' <<<"$M"; then echo "médias do tempo OK"; break; fi
+                if [ "$t" = "3" ]; then echo "::warning::o tempo de uma estadia distante não devolveu as médias dos anos anteriores em três tentativas (o arquivo do Open-Meteo pode não estar a responder); confirma mais tarde com o workflow «Verificar o site (só lê)»"; else sleep 6; fi
+              done
               # No ensaio (novo.*): a página tem de levar noindex e o robots.txt tem de bloquear tudo
               if [[ "$SITE_URL" == *"://novo."* ]]; then
                 if grep -q 'name="robots" content="noindex' /tmp/pagina.html; then echo "noindex no ensaio OK"; else echo "::warning::a página do ensaio não leva noindex"; fi
