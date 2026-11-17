@@ -7,6 +7,9 @@
 //   3. Todas as fotografias que passam pelo ecrã ao rolar a página acabam carregadas.
 //   4. Painel das datas: nenhum campo nem botão sai da largura do painel.
 //   5. Menu: escolher um destino fecha o menu, leva lá e deixa a página a rolar.
+//   6. Movimento (versão 4, 17/11/2026: «As fotos estão estáticas … A régua das fotos não anda», Diogo, com a versão 3 no iPhone):
+//      cada rolo de fotografias, posto no ecrã, anda sozinho, SEM ESPERAR POR NADA; anda também com o JavaScript desligado e com
+//      «reduzir movimento» pedido ao sistema (mais devagar); o dedo parado segura-o e o dedo para o lado leva-o.
 // Uso: node geometria.cjs <base> <pasta-saída> [motor: chromium|webkit|firefox]      Sai com 1 se houver falhas.
 const pw = require('playwright');
 const fs = require('fs');
@@ -30,6 +33,7 @@ async function percorrer() {
     return null;
   };
   const faixas = () => Array.from(document.querySelectorAll('*')).filter((el) => {
+    if (el.hasAttribute('data-rolo')) return true;          // os rolos deslizam por transform dentro de uma caixa que não rola
     const s = getComputedStyle(el);
     return (s.overflowX === 'auto' || s.overflowX === 'scroll') && el.scrollWidth > el.clientWidth + 8 && el.querySelector('img');
   });
@@ -72,6 +76,21 @@ async function percorrer() {
     fotografiasVistas: vistas.size, porCarregar: Array.from(new Set(porCarregar)),
     faixas: Array.from(cobertura, ([faixa, coberto]) => ({ faixa, coberto })), caixasMas: Array.from(caixasMas.values()),
   };
+}
+
+// Corre dentro da página: onde está a pista do rolo n.º k (px, pelo transform) e quanto mede uma volta.
+function lerRolo(k) {
+  const el = document.querySelectorAll('[data-rolo]')[k], p = el.querySelector('.rolo-pista'), t = getComputedStyle(p).transform;
+  return { x: t && t !== 'none' ? new DOMMatrixReadOnly(t).m41 : 0, volta: p.scrollWidth / 2, nome: (el.closest('section[id]') || {}).id || '?', topo: Math.round(el.getBoundingClientRect().top), altura: Math.round(el.getBoundingClientRect().height) };
+}
+// Quanto andou para a esquerda entre duas leituras (conta com a volta: a pista recomeça ao fim de cada série).
+function andou(a, b) { let d = a.x - b.x; if (d < -a.volta / 2) d += a.volta; if (d > a.volta / 2) d -= a.volta; return Math.round(d * 10) / 10; }
+// Põe o rolo n.º k a meio do ecrã e mede quanto anda sozinho em 1,5 s.
+async function medirRolo(page, k) {
+  await page.evaluate((i) => { const el = document.querySelectorAll('[data-rolo]')[i], r = el.getBoundingClientRect(); window.scrollTo(0, Math.max(0, Math.round(r.top + scrollY - (innerHeight - r.height) / 2))); }, k);
+  await page.waitForTimeout(700);
+  const a = await page.evaluate(lerRolo, k); await page.waitForTimeout(1500); const b = await page.evaluate(lerRolo, k);
+  return { rolo: a.nome, px: andou(a, b) };
 }
 
 (async () => {
@@ -122,6 +141,38 @@ async function percorrer() {
         await page.screenshot({ path: `${out}/geo-${motor}-${nome}-depois-do-menu.jpg`, type: 'jpeg', quality: 70 }).catch(() => {});
       }
     }
+    // 7 · a capa: ao rolar 200 px, a fotografia fica para trás. No telemóvel é a paralaxe da versão 2 (sobe 150 px em vez de 200:
+    //     desce um quarto do que a página sobe); no computador com rato está presa ao ecrã (não sobe). Na versão 3 a fotografia saiu
+    //     do ecrã com a página, «em modo estático», e o Diogo deu por isso no iPhone (17/11/2026); a bateria passa a dar primeiro.
+    await page.keyboard.press('Escape').catch(() => {});
+    r.capa = await page.evaluate(async () => {
+      const esperar = (ms) => new Promise((ok) => setTimeout(ok, ms));
+      const f = document.querySelector('.hero-fundo picture') || document.querySelector('.hero-fundo'); if (!f) return null;
+      window.scrollTo({ top: 0, behavior: 'instant' }); await esperar(400); const a = f.getBoundingClientRect().top;
+      window.scrollTo({ top: 200, behavior: 'instant' }); await esperar(400); const b = f.getBoundingClientRect().top;
+      window.scrollTo({ top: 0, behavior: 'instant' }); await esperar(300);
+      return { subiu: Math.round((a - b) * 10) / 10 };
+    });
+    // 6 · movimento: cada rolo, posto no ecrã, anda sozinho; o dedo parado segura-o, o dedo para o lado leva-o e, largado, continua
+    await page.keyboard.press('Escape').catch(() => {}); await page.mouse.move(2, 2).catch(() => {});
+    const nRolos = await page.locator('[data-rolo]').count();
+    r.movimento = { rolos: nRolos, sozinhos: [], gesto: null };
+    for (let k = 0; k < nRolos; k++) r.movimento.sozinhos.push(await medirRolo(page, k));
+    if (nRolos) {
+      await medirRolo(page, 0);
+      // Os gestos são acontecimentos de ponteiro fabricados dentro da página (um «dedo» com o número 71): servem em qualquer motor.
+      r.movimento.gesto = await page.evaluate(async (ler) => {
+        const lerRolo = new Function('return (' + ler + ')')();
+        const esperar = (ms) => new Promise((ok) => setTimeout(ok, ms));
+        const el = document.querySelector('[data-rolo]'), cx = el.getBoundingClientRect(), y = cx.top + Math.min(cx.height / 2, 150);
+        const ponteiro = (tipo, x) => el.dispatchEvent(new PointerEvent(tipo, { pointerId: 71, pointerType: 'touch', isPrimary: true, clientX: x, clientY: y, bubbles: true, cancelable: true }));
+        const dif = (a, b) => { let d = a.x - b.x; if (d < -a.volta / 2) d += a.volta; if (d > a.volta / 2) d -= a.volta; return Math.round(d * 10) / 10; };
+        ponteiro('pointerdown', 300); await esperar(150); const p1 = lerRolo(0); await esperar(900); const p2 = lerRolo(0);      // dedo parado: a faixa espera
+        for (let i = 1; i <= 10; i++) { ponteiro('pointermove', 300 - i * 20); await esperar(16); } const p3 = lerRolo(0);                // dedo 200 px para a esquerda: leva-a
+        ponteiro('pointerup', 100); await esperar(1300); const p4 = lerRolo(0); await esperar(1200); const p5 = lerRolo(0);                // largada: continua
+        return { parado: dif(p1, p2), levou: dif(p2, p3), depois: dif(p4, p5), abriuFotografia: !document.getElementById('galeria-ecra').hidden };
+      }, lerRolo.toString());
+    }
     r.erros = Array.from(new Set(erros)).slice(0, 6);
     res.push(r); await ctx.close();
 
@@ -133,10 +184,48 @@ async function percorrer() {
     if (r.painel && (!r.painel.aberto || r.painel.fora.length || r.painel.transbordo > 1)) falhas.push(`${q}: painel das datas ${!r.painel.aberto ? 'não abriu' : 'com campos fora da largura: ' + (r.painel.fora.slice(0, 4).join(' · ') || 'transbordo de ' + r.painel.transbordo + ' px')}`);
     if (r.menu && (!r.menu.menuFechado || Math.abs(r.menu.topoDoAlvo) > 160 || !r.menu.paginaRola || r.menu.endereco)) falhas.push(`${q}: o menu não levou a ${r.menu.destino} como deve (fechado: ${r.menu.menuFechado}, topo do destino: ${r.menu.topoDoAlvo}, a página rola: ${r.menu.paginaRola}, endereço: «${r.menu.endereco}»)`);
     if (r.erros.length) falhas.push(`${q}: erros de JavaScript: ${r.erros.join(' | ')}`);
+    if (!r.capa) falhas.push(`${q}: não encontrei a fotografia da capa`);
+    else if (nome === 'telemovel' && !(r.capa.subiu >= 140 && r.capa.subiu <= 160)) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; com a paralaxe da versão 2 sobe 150 (fica para trás um quarto da rolagem)`);
+    else if (nome === 'computador' && Math.abs(r.capa.subiu) > 6) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; no computador está presa ao ecrã e não sobe`);
+    const m = r.movimento;
+    if (!m.rolos) falhas.push(`${q}: a página não tem rolos de fotografias`);
+    m.sozinhos.filter((s) => !(s.px >= 20)).forEach((s) => falhas.push(`${q}: as fotografias de «${s.rolo}» não andam sozinhas (${s.px} px em 1,5 s; têm de andar pelo menos 20)`));
+    if (m.gesto) {
+      if (Math.abs(m.gesto.parado) > 1) falhas.push(`${q}: com o dedo parado em cima, as fotografias continuaram a andar (${m.gesto.parado} px)`);
+      if (!(m.gesto.levou > 150 && m.gesto.levou < 260)) falhas.push(`${q}: o dedo 200 px para a esquerda não levou as fotografias (${m.gesto.levou} px)`);
+      if (!(m.gesto.depois >= 15)) falhas.push(`${q}: depois de largadas, as fotografias não continuaram a andar (${m.gesto.depois} px em 1,2 s)`);
+      if (m.gesto.abriuFotografia) falhas.push(`${q}: levar as fotografias com o dedo abriu uma fotografia em grande`);
+    }
+  }
+
+  // 6 (continuação) · o movimento não pode depender do JavaScript nem ficar parado com «reduzir movimento»
+  {
+    const telemovelSem = { ...telemovel, javaScriptEnabled: false };
+    const ctx = await browser.newContext({ ...telemovelSem, locale: 'pt-PT' }); const page = await ctx.newPage();
+    await page.goto(base + '/#por-fora', { waitUntil: 'load' }); await page.waitForTimeout(1200);
+    const sem = { caixa: null, mexeu: false };
+    const cx = await page.locator('[data-rolo]').first().boundingBox().catch(() => null);
+    if (cx) {
+      const vp = page.viewportSize(), topo = Math.max(0, Math.round(cx.y)), recorte = { x: 0, y: topo, width: vp.width, height: Math.max(40, Math.min(Math.round(cx.height), vp.height - topo)) };
+      sem.caixa = recorte;
+      if (cx.y < vp.height - 40) { const f1 = await page.screenshot({ clip: recorte }); await page.waitForTimeout(2000); const f2 = await page.screenshot({ clip: recorte }); sem.mexeu = Buffer.compare(f1, f2) !== 0; }
+    }
+    await ctx.close();
+    const ctx2 = await browser.newContext({ ...telemovel, locale: 'pt-PT', reducedMotion: 'reduce' }); const page2 = await ctx2.newPage();
+    await page2.goto(base + '/', { waitUntil: 'load' }); await page2.waitForTimeout(1200);
+    const calmo = await medirRolo(page2, 0);
+    const texto = await page2.evaluate(() => { const e = document.querySelector('#por-fora .reveal'); return e ? { opacidade: getComputedStyle(e).opacity, deslocado: getComputedStyle(e).transform } : null; });
+    await ctx2.close();
+    res.push({ motor, nome: 'movimento sem JavaScript e com «reduzir movimento»', semJavaScript: sem, reduzirMovimento: { ...calmo, texto } });
+    const q = `${motor} · telemóvel`;
+    if (!sem.caixa) falhas.push(`${q} sem JavaScript: não encontrei as fotografias de «Por fora»`);
+    else if (!sem.mexeu) falhas.push(`${q} sem JavaScript: as fotografias não andam (duas imagens com 2 s de intervalo saíram iguais). O movimento tem de ser da folha de estilos`);
+    if (!(calmo.px >= 8)) falhas.push(`${q} com «reduzir movimento»: as fotografias ficaram paradas (${calmo.px} px em 1,5 s); nesta versão continuam a andar, mais devagar`);
+    if (calmo.px > 40) falhas.push(`${q} com «reduzir movimento»: as fotografias andam depressa de mais (${calmo.px} px em 1,5 s)`);
   }
   await browser.close();
   fs.writeFileSync(`${out}/geometria-${motor}.json`, JSON.stringify(res, null, 1));
   console.log(JSON.stringify(res, null, 1));
   if (falhas.length) { console.error(`GEOMETRIA FALHOU (${motor}):\n  ` + falhas.join('\n  ')); process.exit(1); }
-  console.log(`geometria OK em ${motor}: sem rolagem horizontal, fotografias a encher as caixas e carregadas, painel dentro da largura, menu a levar ao destino`);
+  console.log(`geometria OK em ${motor}: sem rolagem horizontal, fotografias a encher as caixas e carregadas, painel dentro da largura, menu a levar ao destino, a fotografia da capa a ficar para trás ao rolar, fotografias a andar sozinhas (também sem JavaScript e com «reduzir movimento») e a deixarem-se levar`);
 })().catch((e) => { console.error(e); process.exit(1); });

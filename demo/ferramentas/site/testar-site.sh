@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Teste do site em PHP (site/): sintaxe, regras de construção (o que não pode voltar à folha de estilos nem ao JavaScript, por causa do
 # iPhone), fotografias (todas as referidas existem, sem repetidas, com descrição), arranque com uma app de ensaio e cenário com capturas
-# a 390/1280 (com app e sem app): ligações internas, sequências de fotografias (com os gestos de dedo), painel das datas, tempo, pedido,
-# menu; e a geometria da página em cada motor de MOTORES (por omissão só chromium; no GitHub, chromium e webkit).
+# a 390/1280 (com app e sem app): ligações internas, rolos de fotografias (o movimento e os gestos de dedo e de rato), painel das datas,
+# tempo, pedido, menu; e a geometria e o movimento da página em cada motor de MOTORES (por omissão só chromium; no GitHub, chromium e webkit).
 # Uso: bash demo/ferramentas/site/testar-site.sh [pasta-saída]   (precisa de php 8.1+, node 22 e playwright instalado)
 set -euo pipefail
 RAIZ="$(cd "$(dirname "$0")/../../.." && pwd)"; SAIDA="${1:-$RAIZ/demo/_saida/capturas-site}"; mkdir -p "$SAIDA"
@@ -15,6 +15,9 @@ node --check site/assets/js/site.js && echo "site.js OK · $(find site -name '*.
 # larguras tiradas de aspect-ratio, unidades de contentor, position: sticky em faixas, desfoques, color-mix (cores translúcidas que os
 # browsers mais antigos não desenham), rolagem suave em toda a página, JavaScript a mexer na rolagem a cada instante e o bloqueio da
 # rolagem da página no <body>. Os comentários não contam: só as regras.
+# Versão 4 (17/11/2026): o movimento das fotografias é da folha de estilos (@keyframes rolar na .rolo-pista, sem fim), para andar em
+# qualquer telemóvel sem depender do JavaScript. Na versão 3 dependia de temporizadores e de a página estar parada, e o Diogo viu no
+# iPhone «zero movimento». Se essa animação sair da folha de estilos, a bateria falha aqui (e o geometria.cjs confirma-o a correr).
 echo "== regras de construção"
 php -r '
 $css = preg_replace("#/\\*.*?\\*/#s", "", (string)file_get_contents("site/assets/css/site.css"));
@@ -23,18 +26,21 @@ $mau = [];
 foreach (["aspect-ratio", "cqw", "container-type", "backdrop-filter", "color-mix("] as $p) if (stripos($css, $p) !== false) $mau[] = "site.css usa «{$p}»";
 if (preg_match("#position:\\s*sticky#i", $css)) $mau[] = "site.css usa «position: sticky»";
 if (preg_match("#(?<![a-z-])scroll-behavior#i", $css)) $mau[] = "site.css usa «scroll-behavior»";
-foreach (["requestAnimationFrame", "sem-scroll", "body.style.overflow", "documentElement.style.overflow"] as $p) if (stripos($js, $p) !== false) $mau[] = "site.js usa «{$p}»";
+foreach (["requestAnimationFrame", "sem-scroll", "body.style.overflow", "documentElement.style.overflow", "scrollLeft"] as $p) if (stripos($js, $p) !== false) $mau[] = "site.js usa «{$p}»";
+if (!preg_match("#@keyframes\\s+rolar\\s*\\{[^}]*translate3d\\(\\s*0#", $css) || !preg_match("#\\.rolo-pista\\s*\\{[^}]*animation-name:\\s*rolar[^}]*animation-iteration-count:\\s*infinite#", $css)) $mau[] = "site.css já não tem o movimento das fotografias (@keyframes rolar na .rolo-pista, sem fim)";
 foreach ($mau as $m) echo "FALHOU: $m\n";
 exit($mau ? 1 : 0);' || exit 1
 echo "folha de estilos e JavaScript dentro das regras OK"
 # Notas do Diogo (15/11/2026) que a composição de 16/11 tinha desfeito e que não podem voltar sem se dar por isso:
 # · nota 8, «não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte»: sem contagens («01 / 04») nas fotografias;
 # · «não precisas dizer o número de avaliações»: sem contagem («02 / 10») por baixo das frases de quem já ficou.
-# (O cenário das capturas confere o resto na página a correr: setas só com rato, fila do fecho ao acaso e a andar, «Antes de chegar»
-# em duas colunas no computador, a galeria sem sobretítulo.)
+# · 17/11, com a versão 3 no iPhone: «As fotos estão estáticas … A régua das fotos não anda»: as fotografias andam sozinhas e levam-se
+#   com o dedo ou o rato, por isso também não há setas.
+# (O cenário das capturas e a geometria conferem o resto na página a correr: as fotografias a andar sozinhas, também sem JavaScript; a
+# régua do fecho ao acaso; «Antes de chegar» em duas colunas no computador; a galeria sem sobretítulo.)
 echo "== notas do Diogo que não podem voltar atrás"
-if grep -rnE 'seq-conta|data-seq-atual|citacoes-conta|citacoes-atual|citacoes-total' site --include='*.php' --include='*.js' --include='*.css'; then echo "FALHOU: voltou uma contagem às fotografias ou às frases (ver as linhas acima)"; exit 1; fi
-echo "sem contagens nas fotografias nem nas frases OK"
+if grep -rnE 'seq-conta|data-seq-atual|citacoes-conta|citacoes-atual|citacoes-total|seq-setas|data-seq-ir' site --include='*.php' --include='*.js' --include='*.css'; then echo "FALHOU: voltou uma contagem ou voltaram as setas às fotografias ou às frases (ver as linhas acima)"; exit 1; fi
+echo "sem contagens nem setas nas fotografias e nas frases OK"
 echo "== fotografias"; php demo/ferramentas/site/conferir-fotos.php
 if python3 -c "import PIL" 2>/dev/null; then python3 demo/ferramentas/fotos/para_o_site.py --conferir; else echo "(sem Pillow nesta máquina: a comparação de site/fotos com a galeria fica para o computador de quem monta)"; fi
 echo "== servidores"; rm -rf /tmp/site-ensaio-app /tmp/site-ensaio-semapp; cp -r site /tmp/site-ensaio-app; cp -r site /tmp/site-ensaio-semapp

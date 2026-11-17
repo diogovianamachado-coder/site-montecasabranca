@@ -55,6 +55,9 @@ const ALTURA_MAX = { '1280': 4600, '390': 6400 }; const ALTURA_GALERIA = { '1280
     // princípio: assim cada parte sai sempre com a primeira fotografia à frente, e não a meio de um passo
     await page.evaluate(() => { document.querySelectorAll('.seq-faixa, .fila').forEach((f) => { f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Shift', bubbles: true })); f.scrollLeft = 0; }); }); await page.waitForTimeout(600);
     await page.evaluate(() => { document.querySelectorAll('.seq-faixa, .fila').forEach((f) => { f.scrollLeft = 0; }); }); await page.waitForTimeout(300);
+    // V4: as fotografias deslizam sem parar. Para o registo ficam quietas, com a primeira fotografia à frente (o movimento vê-se no
+    // site e no vídeo que acompanha a versão); a capa também fica quieta e as miniaturas dos álbuns já entradas.
+    await page.addStyleTag({ content: '.rolo-pista{animation-name:none!important}.hero-foto,.hero-fundo,.hero-texto,.album li{animation:none!important}' }); await page.waitForTimeout(300);
     // 0. A página inteira, pequena, para se ver a ordem das partes
     if (nome === '1280') { await foto('00-pagina-inteira', { fullPage: true, quality: 60 }); registar('00-pagina-inteira'); }
     // 2. Cada parte

@@ -1085,3 +1085,91 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   das quatro frases traduzidas, os textos). **Em aberto, de antes:** melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para
   a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px ·
   `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**
+
+- **17/11/2026 (22h15) → 18/11 (00h, hora de Lisboa) · O DIOGO VIU A V3 NO IPHONE: «ZERO MOVIMENTO» · VERSÃO 4 EM `main`, POR
+  PUBLICAR (espera o «Lança»).** Mensagem dele: «Não quero ver mais e ainda não vou falar das alterações. O site voltou a não ter vida e
+  tem zero movimento. As fotos estão estáticas, não têm movimento, e isso já tinha sido amplamente falado. A régua das fotos não anda.
+  As fotos não estão a andar sozinhas no movimento lento como já tinha sido decidido. Refaz o que é necessário para que esse movimento
+  seja fluente. E que o site tenha vida. Se não consegues fazer diz.» E, a meio do trabalho: «E nas fotos de cima elas aparecem em
+  modo estático e sem aquele movimento suave que já tinha sido implementado na v2» + «Podes continuar».
+  **(1) Porquê (erro meu, de desenho, não do iPhone).** Na V3 cada faixa de fotografias dava um passo de 5,2 em 5,2 s (a régua, de 3,6
+  em 3,6 s), e só com a faixa 60 % à vista, a página parada há mais de 1,6 s, sem dedos no ecrã e nenhuma camada aberta; o primeiro
+  passo vinha 3 s depois de ficar à vista. Quem desce a página nunca via nada mexer. Eu tinha trocado o «rolar devagar» da nota 8 por
+  passos, por medo do que prendeu a V2, e disse-o ao Diogo só como pergunta («aos passos ou a rolar?»). Além disso tudo dependia de
+  JavaScript e, com «reduzir movimento» ligado no aparelho, a página ficava completamente parada (entradas, frases e fotografias). Não
+  sei se o iPhone dele tem essa opção ligada: a V4 mexe-se nos dois casos.
+  **(2) A V4: o movimento é da folha de estilos.** `inc/util.php` → `rolo()` (a `sequencia()` e a `fila()` passam a chamá-la): a pista
+  (`.rolo-pista`) leva as fotografias duas vezes (duas `.rolo-serie` iguais; a segunda com `aria-hidden` e `tabindex="-1"`) e
+  desloca-se meia pista sem parar (`@keyframes rolar`: `translate3d(0)` → `translate3d(-50%)`, linear, infinita): a volta não tem
+  costura. Corre no browser **sem JavaScript**, sem temporizadores e sem esperar que a página pare. A duração vai escrita em cada
+  pista, calculada no servidor (`--dur` telemóvel, `--dur-l` computador, `--dur-c`/`--dur-lc` para «reduzir movimento»; sem `calc()`):
+  12 s por fotografia nos capítulos no telemóvel (cerca de 29 px/s; a V1 andava a 25 e a V2 a 22) e 19 s no computador (41 px/s); na
+  régua, 10,5 s por fotografia (as ao alto contam 0,66). Cada caixa tem a sua camada (`translateZ(0)`), para o iPhone não deixar
+  fotografias por desenhar numa pista comprida. A faixa vai de um lado ao outro do ecrã (até 3000 px). **Saíram as setas** (e
+  continuam a não existir contagens).
+  **(3) O que a pessoa faz** (`site.js`, bloco «Rolos», pegando na própria animação da folha de estilos com `getAnimations()`; nada
+  mexe na rolagem): o dedo parado em cima segura a faixa (e esse toque demorado não abre a fotografia); o dedo para os lados leva-a,
+  para a frente ou para trás (`touch-action: pan-y`: para cima e para baixo rola a página) e, largada, continua com o balanço até
+  voltar à sua velocidade; um toque rápido abre a fotografia em grande, e com ela (ou o menu, ou o painel) aberta as faixas esperam.
+  Com rato: pára enquanto o rato se mexe por cima (o rato quieto não a pára: assim não fica parada só por a página rolar por baixo do
+  cursor), arrasta-se, a roda para o lado leva-a. Com a tecla Tab, a fotografia com o foco vem para a frente e a faixa espera. As
+  faixas a mais de um ecrã de distância ficam sem animação e sem camadas («longe») e recomeçam na primeira fotografia ao chegar; as
+  fotografias que faltam começam a carregar a dois ecrãs de distância. **Uma faixa nunca fica presa** (`largarSempre()`): o fim de
+  qualquer toque, em qualquer sítio da janela, larga-a (o rato largado fora da faixa; um toque que o telemóvel acaba sem avisar; a
+  janela que perde o foco; a página que fica escondida), e um toque novo esquece o anterior. Nos browsers sem `getAnimations()` fica
+  só o parar (classe `parado`).
+  **(4) A capa: a paralaxe da V2 reposta («as fotos de cima … em modo estático»).** A V1 e a V2 tinham, no `site.js`, a fotografia da
+  capa a descer um quarto do que a página sobe (`translateY(scrollY × 0,25)` a cada passo da rolagem; a V1 com a fotografia ampliada
+  8 %, a V2 sem ampliação). A V3 tirou-a do telemóvel (ficou só a fotografia presa ao ecrã no computador) e o Diogo deu por isso. Na
+  V4 voltou, igual à V2: `site.js` → `capa()`, com a mesma velocidade, sem `requestAnimationFrame`, aplicada à caixa `.hero-fundo`
+  (a fotografia tem a animação «respirar», que passaria por cima de uma posição escrita no `<img>`), nunca no computador com rato
+  (aí a fotografia é `position: fixed` e um `transform` na caixa estragava-a) e nunca com «reduzir movimento»; no «elástico» do topo
+  do iPhone não sobe. Experimentei antes uma versão só em CSS (`animation-timeline: scroll()`) e retirei-a: só existe no Safari 26 e
+  não sei a versão do iPhone dele; a da V2 é a que ele viu a funcionar. `geometria.cjs` ponto 7 (Chromium e WebKit): ao rolar 200 px,
+  a fotografia sobe 140–160 px no telemóvel e 0 no computador. **Leitura minha:** como a paralaxe da V2 não corria com «reduzir
+  movimento» e o Diogo a viu, o iPhone dele não deve ter essa opção ligada.
+  **Vida no resto da página.** A capa respira (a fotografia cresce 3,5 % em 18 s e volta; em repouso, o enquadramento da capa 1 é o
+  mesmo) e, nos browsers com animações ligadas à rolagem (`animation-timeline: scroll()`; Safari 26, Chrome 115), o texto vai-se
+  apagando enquanto ela sai. A fotografia grande da Nacional 2 passa devagar por trás da sua caixa enquanto a página rola (`view()`; o
+  desvio é de poucos píxeis; a caixa leva `overflow: clip`, porque com `hidden` seria ela a zona de rolagem e nada mexia). As miniaturas dos álbuns entram em cadeia ao abrir
+  um álbum. Os blocos de texto sobem 34 px ao aparecer. As frases rodam sempre.
+  **(5) «Reduzir movimento» (decisão desta versão, dita ao Diogo):** o site não fica parado. As fotografias continuam a deslizar, 1,7
+  vezes mais devagar (cerca de 17 px/s), e o resto entra só a aparecer, sem deslocações; a capa não respira. No
+  ensaio, a linha da versão no rodapé diz quando o aparelho está nesse modo (`.so-reduz`). Para as parar de todo nesse modo:
+  `animation-name: none` na regra da `.rolo-pista` do bloco «Menos movimento» do `site.css`.
+  **(6) Testes.** `geometria.cjs` (corre no Chromium e, no GitHub, no WebKit): ponto 6 novo, o movimento: cada um dos cinco rolos,
+  posto no ecrã, tem de andar pelo menos 20 px em 1,5 s; com o JavaScript desligado, duas imagens da faixa com 2 s de intervalo têm de
+  sair diferentes; com «reduzir movimento» anda entre 8 e 40 px; um dedo fabricado (acontecimentos de ponteiro) parado segura a
+  faixa, 200 px para a esquerda leva-a, e largada continua. `captura-site.cjs` (Chromium, dedos a sério pelo protocolo): velocidade
+  (40–80 px em 2 s no telemóvel, 60–110 no computador), dedo para cima rola a página e a faixa continua, dedo parado, dedo para os
+  dois lados, toque que abre, rato a mexer/quieto, arrastar, roda para o lado, tecla Tab, cinco rolos, sem setas nem contagens, as
+  duas séries da régua pela mesma ordem. `testar-site.sh`: a bateria falha se o `@keyframes rolar` sair da folha de estilos, se o
+  `site.js` voltar a mexer em `scrollLeft`, ou se voltarem setas ou contagens. `versao/fotografar.cjs`: para o registo, as faixas
+  ficam paradas na primeira fotografia. Bateria local verde quatro vezes seguidas (depois de cada acerto: a faixa que podia ficar
+  presa; a capa).
+  **(7) O que não consigo ver daqui:** um iPhone a sério. A V2 e a V3 passaram nos testes e falharam no telemóvel dele. Desta vez o
+  movimento não depende de código meu a correr (é uma animação simples da folha de estilos, o mecanismo mais antigo e mais usado para
+  isto) e o WebKit dos testes confirma-o; o que os testes não provam no iPhone é o levar a faixa com o dedo (no pior caso a faixa só
+  salta para o sítio ao largar; andar sozinha e parar não dependem disso). A prova é o telemóvel do Diogo depois do «Lança».
+  **(8) Registo e mostra.** Ficha da V4 em `docs/versoes/REGISTO.md` e, na da V3, o que o Diogo achou; `versoes.json` com a 4;
+  `docs/versoes/v4/`; `site/versao.json` = 4; `site/LEIA-ME.md` (o movimento e onde se muda a velocidade). Enviado ao Diogo na
+  conversa um vídeo de minuto e meio do telemóvel a percorrer a página, da capa à galeria (`versao-4-telemovel.mp4`, gravado em
+  Chromium; fica só na pasta de trabalho).
+  **No GitHub:** o commit da V4 e o ensaio a seco (será o n.º 20) ficam escritos no parágrafo seguinte, quando acabarem.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real.
+  **Ferramenta:** `site/config.php` local (ignorado pelo git; apaga-se no fim) + `php -S 127.0.0.1:8796 -t site` para ver o site na
+  sessão; `ver/rolos.cjs`, `ver/gestos.cjs`, `ver/vida.cjs`, `ver/passeio.cjs` na pasta de trabalho; **vídeo:** o Playwright grava
+  (`recordVideo`) e, para sair nítido no tamanho de um telemóvel (780 × 1688), o Chromium arranca com
+  `--force-device-scale-factor=2` (sem isso a página ocupa um quarto do quadro); `ffmpeg` passa-o a MP4; `locator.click()` não serve
+  numa faixa que anda (espera que o elemento pare): clicar por coordenadas ou com `el.click()`; comandos com `rm` de caminhos
+  relativos ou com heredocs cheios de aspas são recusados pela verificação de segurança (pastas novas com outro nome; editar com a
+  ferramenta de edição).
+  **Se o «Lança» vier noutro dia:** acertar a data da versão 4 em `site/versao.json`, no título da ficha `### V4 · …` e em
+  `versoes.json`, e refazer as duas capturas do rodapé (`docs/versoes/v4/09-contactos-*.jpg`).
+  **Por dizer pelo Diogo:** «Lança» da V4 · depois, no iPhone: se as fotografias andam sozinhas e fluidas, se a régua anda, se o site
+  tem vida, se o dedo as leva · se o iPhone dele tem «Reduzir movimento» ligado (o rodapé do ensaio di-lo) · o resto fica para quando
+  ele quiser falar das alterações (disse que ainda não). **Em aberto, de antes:** a ideia do menu (nota 6a) · a 34 em «A Quinta» · a
+  ligação de partilha do Google Maps · as ligações da ecopista e da N2 · os originais das quatro frases traduzidas · os textos ·
+  melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta
+  · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público ·
+  S31–S33 · o Lovable continua com a composição aos passos (não foi pedido mexer-lhe). **Próxima sugestão: S37.**

@@ -19,7 +19,7 @@
       <p class="legal"><?= e($F['firma']) ?> · <?= e($m['rua']) ?>, <?= e($m['localidade']) ?>, <?= e($m['codigo_postal']) ?> <?= e($m['concelho']) ?></p>
       <?php if (!empty($ENSAIO_VERSAO)): // só no ensaio: o número da versão publicada (docs/versoes/REGISTO.md)
         $dv = DateTimeImmutable::createFromFormat('!Y-m-d', $ENSAIO_VERSAO['data']); ?>
-      <p class="legal versao-ensaio" id="versao-ensaio">Ensaio · versão <?= (int)$ENSAIO_VERSAO['numero'] ?><?= $dv ? ' · ' . e($dv->format('d/m/Y')) : '' ?></p>
+      <p class="legal versao-ensaio" id="versao-ensaio">Ensaio · versão <?= (int)$ENSAIO_VERSAO['numero'] ?><?= $dv ? ' · ' . e($dv->format('d/m/Y')) : '' ?><span class="so-reduz"> · este aparelho pede menos movimento: as fotografias andam mais devagar</span></p>
       <?php endif; ?>
     </div>
   </div>

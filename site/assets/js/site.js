@@ -1,10 +1,11 @@
-/* Monte Casa Branca · interação (JavaScript nativo, sem dependências). Versão 3, 16/11/2026.
-   Blocos: ligações internas · revelar ao rolar · barra de baixo · sequências de fotografias · camadas (menu, painel, fotografia) ·
+/* Monte Casa Branca · interação (JavaScript nativo, sem dependências). Versão 4, 17/11/2026.
+   Blocos: ligações internas · a capa (a fotografia fica para trás ao rolar) · revelar ao rolar · barra de baixo · rolos de fotografias · camadas (menu, painel, fotografia) ·
    álbuns · fotografia em ecrã inteiro · frases de quem já ficou · painel das datas (calendário via api/ocupacao.php, conta via
    api/tarifa.php, tempo via api/tempo.php, pedido via api/prereserva.php).
-   Regras desta versão, por causa do Safari do iPhone (na versão 2 a página prendia):
-   · nada aqui mexe na rolagem a cada instante: as fotografias rolam com a rolagem do próprio browser; quando avançam sozinhas é um
-     passo de poucos em poucos segundos, e só com a página parada e sem dedos no ecrã;
+   Regras, por causa do Safari do iPhone (na versão 2 a página prendia; na 3 as fotografias quase não se mexiam):
+   · o movimento das fotografias é da folha de estilos (site.css, «Rolos»): uma animação que o browser corre sozinho. Aqui só se
+     trata do que a pessoa faz (parar, levar, abrir). Nada aqui mexe na rolagem da página nem empurra nada a cada instante; a única
+     coisa que acompanha a rolagem é a posição da fotografia da capa (a paralaxe da versão 2, só com o que a rolagem já mudou);
    · o menu, o painel e a fotografia em grande não bloqueiam a rolagem da página (nada de overflow: hidden no body);
    · ao escolher um destino no menu, o menu fecha e a página vai direta para lá, sem animação; a chegada é sempre conferida;
    · cada bloco arranca dentro de «seguro()»: se um falhar, os outros continuam a funcionar. */
@@ -21,24 +22,19 @@
   function seguro(nome, fn) { try { fn(); } catch (e) { if (window.console && console.error) console.error('site.js · ' + nome + ': ' + (e && e.message ? e.message : e)); } }
   function alturaRolada() { return window.pageYOffset || raiz.scrollTop || 0; }
 
-  /* ---- A página está parada? (as fotografias só avançam sozinhas com a página quieta e sem dedos no ecrã) ---- */
-  var ultimoGesto = 0, dedos = false;
-  function gesto() { ultimoGesto = Date.now(); }
-  window.addEventListener('scroll', gesto, { passive: true });
-  d.addEventListener('touchstart', function () { dedos = true; gesto(); }, { passive: true });
-  ['touchend', 'touchcancel'].forEach(function (n) { d.addEventListener(n, function (ev) { dedos = !!(ev.touches && ev.touches.length); gesto(); }, { passive: true }); });
-
   /* ---- Camadas (menu, painel, fotografia): abrir e fechar ----
-     Abrir é só mostrar o elemento; fechar é só escondê-lo. Nada é posto nem tirado do <body>. */
+     Abrir é só mostrar o elemento; fechar é só escondê-lo. Nada é posto nem tirado do <body>. Com uma camada aberta, as fotografias
+     por trás ficam paradas (aoMudarCamadas → «Rolos»). */
+  function aoMudarCamadas() { for (var i = 0; i < rolos.length; i++) acertarRolo(rolos[i]); }
   function abrir(id) {
     var el = d.getElementById(id); if (!el || !el.hidden) return;
-    el._antes = d.activeElement; el.hidden = false; abertas.push(id);
+    el._antes = d.activeElement; el.hidden = false; abertas.push(id); aoMudarCamadas();
     if (id === 'menu') el.scrollTop = 0;
     var f = $('button[data-fechar]', el); if (f) { try { f.focus({ preventScroll: true }); } catch (e) {} }
   }
   function fechar(id, semFoco) {
     var el = d.getElementById(id); if (!el || el.hidden) return;
-    el.hidden = true; abertas = abertas.filter(function (x) { return x !== id; });
+    el.hidden = true; abertas = abertas.filter(function (x) { return x !== id; }); aoMudarCamadas();
     var a = el._antes; el._antes = null;
     if (!semFoco && a && a.focus && d.contains(a)) { try { a.focus({ preventScroll: true }); } catch (e) {} }
   }
@@ -87,11 +83,11 @@
   /* ---- Revelar ao rolar ----
      Os blocos de texto (.reveal) esperam escondidos e aparecem ao chegar ao ecrã. A classe «js» no <html> é o que os esconde: só é
      posta aqui, com o observador já pronto. Além do observador, uma conferência simples ao rolar garante que nada fica por aparecer.
+     Com «reduzir movimento» ligado no aparelho aparecem na mesma, mas só a aparecer, sem subir (site.css, «Menos movimento»).
      Os blocos de fotografias (data-entra) nunca esperam escondidos: ao chegarem ao ecrã ganham «entrou» e fazem uma entrada suave. */
   function revelar() {
     var els = $$('.reveal'); if (!els.length) return;
     var mostrar = function (el) { el.classList.add(el.hasAttribute('data-entra') ? 'entrou' : 'is-in'); };
-    if (reduz) { els.forEach(mostrar); return; }
     raiz.classList.add('js');
     var io = null;
     if ('IntersectionObserver' in window) {
@@ -127,79 +123,189 @@
     else mostrar(true);
   }
 
-  /* ---- Sequências e filas: as fotografias que passam sozinhas ----
-     Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no
-     mobile ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.» E, para o fecho
-     da casa: «as fotos em régua … a rolar random». Por isso não há contagens nem rótulos; o movimento mostra que há mais.
-     A faixa rola com a rolagem do browser (o dedo leva-a; o scroll-snap pára cada fotografia no sítio). Aqui só se faz duas coisas:
-     · o avanço sozinho: um passo de poucos em poucos segundos enquanto a faixa está à vista, a página está parada e ninguém lhe
-       pegou. Uma sequência (as fotografias de um capítulo) anda em círculo; uma fila (o fecho da casa) vai até ao fim e volta para
-       trás, passo a passo. O rato em cima das fotografias suspende o avanço («parar»); quando a pessoa leva a faixa com o dedo,
-       abre uma fotografia ou usa as setas, deixa de avançar sozinha de vez;
-     · as setas das sequências, que só existem com rato (site.css): um passo para cada lado, em círculo («acelerar»).
-     Com «reduzir movimento» ligado nada avança sozinho. */
-  var vivas = [];
-  var comRato = !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
-  function faixaViva(caixa, faixa, itens, op) {
-    var n = itens.length; if (n < 2) return;
-    var s = { visivel: false, parado: reduz, rato: false, ultimo: 0, cada: op.cada, dir: 1 };
-    var margem = function () { return parseFloat(window.getComputedStyle(faixa).paddingLeft) || 0; };
-    var maximo = function () { return Math.max(0, faixa.scrollWidth - faixa.clientWidth); };
-    var lugar = function (i) { return Math.min(Math.max(0, itens[i].offsetLeft - margem()), maximo()); };   // onde a faixa pára para a fotografia i
-    var indice = function () {
-      var x = faixa.scrollLeft, max = maximo(), m = margem(), melhor = 0, dist = Infinity;
-      if (max > 0 && x >= max - 2) return n - 1;
-      for (var i = 0; i < n; i++) { var di = Math.abs(itens[i].offsetLeft - m - x); if (di < dist) { dist = di; melhor = i; } }
-      return melhor;
+  /* ---- A capa: ao rolar, a fotografia fica para trás ----
+     A paralaxe da versão 2, com a mesma velocidade (um quarto da rolagem). O Diogo viu-a suave no iPhone e pediu-a de volta a
+     17/11/2026: «nas fotos de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na
+     v2» (a versão 3 tinha-a tirado do telemóvel). Mexe-se a caixa da fotografia (.hero-fundo), porque a fotografia tem a sua
+     própria animação (respirar), que passaria por cima de uma posição escrita aqui. No computador com rato a fotografia já está
+     presa ao ecrã (site.css, «Capa») e aqui não se faz nada; com «reduzir movimento», também não. Só muda a posição da
+     fotografia: a página rola como o telemóvel a rola. */
+  function capa() {
+    var fundo = $('.hero-fundo'); if (!fundo || reduz) return;
+    var presa = window.matchMedia ? window.matchMedia('(min-width: 900px) and (hover: hover) and (pointer: fine)') : null;
+    var ultimo = null;
+    var acertar = function () {
+      if (presa && presa.matches) { if (ultimo !== null) { fundo.style.transform = ''; ultimo = null; } return; }
+      var h = window.innerHeight || raiz.clientHeight || 800;
+      // (no «elástico» do topo do iPhone a fotografia não sobe; depois de a capa sair do ecrã fica onde ficou)
+      var t = Math.round(Math.min(Math.max(alturaRolada(), 0), h) * 0.25 * 10) / 10;
+      if (t === ultimo) return; ultimo = t;
+      fundo.style.transform = 'translate3d(0, ' + t + 'px, 0)';
     };
-    // As fotografias a seguir à que está à frente começam logo a carregar, para não aparecerem vazias ao chegar a vez delas.
-    var adiantar = function (i) { for (var k = 1; k <= op.adiante; k++) { var im = $('img', itens[(i + k) % n]); if (im && im.getAttribute('loading') === 'lazy') im.setAttribute('loading', 'eager'); } };
-    var ir = function (x) {
-      if (!reduz && faixa.scrollTo) { try { faixa.scrollTo({ left: x, top: 0, behavior: 'smooth' }); return; } catch (e) {} }
-      faixa.scrollLeft = x;
-    };
-    var seguinte = function (x) { for (var i = 0; i < n; i++) { if (lugar(i) > x + 4) return lugar(i); } return null; };
-    var anterior = function (x) { for (var i = n - 1; i >= 0; i--) { if (lugar(i) < x - 4) return lugar(i); } return null; };
-    s.passo = function (dir) {                                  // um passo para um lado, em círculo (as setas e as sequências)
-      var x = faixa.scrollLeft, alvo = dir > 0 ? seguinte(x) : anterior(x);
-      if (alvo === null) alvo = dir > 0 ? 0 : maximo();
-      ir(alvo);
-    };
-    s.sozinha = function () {                                   // o passo que a faixa dá sem ninguém lhe tocar
-      if (!op.vaivem) { s.passo(1); return; }
-      var x = faixa.scrollLeft, alvo = s.dir > 0 ? seguinte(x) : anterior(x);
-      if (alvo === null) { s.dir = -s.dir; alvo = s.dir > 0 ? seguinte(x) : anterior(x); }   // chegou a uma ponta: volta para trás
-      if (alvo !== null) ir(alvo);
-    };
-    var parar = function () { s.parado = true; };
-    // «Pegar na faixa» quer dizer: levá-la mesmo com o dedo (ela rola enquanto está tocada), abrir uma fotografia ou usar as setas.
-    // Passar o dedo por cima para rolar a página não conta: a faixa não se mexe e continua a avançar.
-    var tocada = false, largada = null, espera = null;
-    faixa.addEventListener('touchstart', function () { tocada = true; clearTimeout(largada); }, { passive: true });
-    ['touchend', 'touchcancel'].forEach(function (nome) { faixa.addEventListener(nome, function () { clearTimeout(largada); largada = setTimeout(function () { tocada = false; }, 1500); }, { passive: true }); });
-    faixa.addEventListener('scroll', function () { if (tocada) parar(); if (!espera) espera = setTimeout(function () { espera = null; if (s.visivel) adiantar(indice()); }, 120); }, { passive: true });
-    faixa.addEventListener('click', parar);
-    faixa.addEventListener('keydown', parar);
-    faixa.addEventListener('wheel', function (ev) { if (Math.abs(ev.deltaX) > Math.abs(ev.deltaY)) parar(); }, { passive: true });
-    if (comRato) {                                              // num ecrã de toque um toque também «entra» e nunca mais «sai»
-      caixa.addEventListener('mouseenter', function () { s.rato = true; });
-      caixa.addEventListener('mouseleave', function () { s.rato = false; s.ultimo = Date.now() - Math.max(0, s.cada - 2200); });   // retoma pouco depois de o rato sair
-    }
-    $$('[data-seq-ir]', caixa).forEach(function (b) { b.addEventListener('click', function () { parar(); s.passo(parseInt(b.getAttribute('data-seq-ir'), 10) < 0 ? -1 : 1); }); });
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { var v = en[0].isIntersecting; if (v && !s.visivel) { s.ultimo = Date.now() - Math.max(0, s.cada - 3000); adiantar(indice()); } s.visivel = v; }, { threshold: 0.6 }).observe(faixa);
-    vivas.push(s);
+    acertar();
+    window.addEventListener('scroll', acertar, { passive: true });
+    window.addEventListener('resize', acertar);
+    if (presa) { if (presa.addEventListener) presa.addEventListener('change', acertar); else if (presa.addListener) presa.addListener(acertar); }
   }
-  function sequencias() {
-    $$('[data-seq]').forEach(function (el) { var f = $('.seq-faixa', el); if (f) faixaViva(el, f, $$('.seq-item', f), { cada: 5200, adiante: 2, vaivem: false }); });
-    $$('[data-fila]').forEach(function (f) { faixaViva(f, f, $$('.fila-item', f), { cada: 3600, adiante: 4, vaivem: true }); });
-    // O relógio: uma vez por segundo vê se alguma faixa tem de dar um passo. Só com a página parada há mais de 1,6 s (depois de um
-    // toque numa faixa, ela fica «tocada» durante 1,5 s: assim o passo dado aqui nunca é tomado por um gesto da pessoa).
-    if (vivas.length && !reduz) setInterval(function () {
-      var agora = Date.now();
-      if (dedos && agora - ultimoGesto > 8000) dedos = false;      // um fim de toque que não chegou não pára as faixas para sempre
-      if (d.hidden || abertas.length || dedos || agora - ultimoGesto < 1600) return;
-      for (var i = 0; i < vivas.length; i++) { var s = vivas[i]; if (s.visivel && !s.parado && !s.rato && agora - s.ultimo >= s.cada) { s.ultimo = agora; s.sozinha(); } }
-    }, 1000);
+
+  /* ---- Rolos: as fotografias que deslizam sozinhas ----
+     Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no
+     mobile ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.»
+     O movimento NÃO é feito aqui: é uma animação da folha de estilos (site.css, «Rolos»), que o browser corre sozinho e que anda
+     mesmo que este ficheiro falhe. Aqui só se trata do que a pessoa faz, pegando nessa mesma animação (getAnimations()):
+     · «parar»: enquanto o dedo ou o botão do rato estão em cima da faixa, ela fica parada; ao largar, continua. Com rato, pára
+       também enquanto o rato se mexe por cima das fotografias (para se conseguir escolher uma) e retoma pouco depois;
+     · «acelerar»: arrastar para um lado ou para o outro leva a faixa (anda-se com o tempo da animação para a frente ou para trás);
+       ao largar, a faixa continua com o balanço do gesto até voltar à sua velocidade. O dedo para cima e para baixo rola a página
+       (touch-action: pan-y na folha de estilos); a roda ou o trackpad para os lados também levam a faixa;
+     · um toque sem arrastar abre a fotografia em grande (bloco «Fotografia»);
+     · as faixas afastadas do ecrã ficam paradas e sem camadas («longe»); ao aproximarem-se recomeçam na primeira fotografia, que é
+       a principal do capítulo, e as fotografias que faltam começam logo a carregar;
+     · com o menu, o painel ou uma fotografia abertos, as faixas por trás ficam paradas.
+     Nos browsers sem getAnimations() fica só o «parar» (classe «parado»). */
+  var comRato = !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  var rolos = [], ultimoTab = 0;
+  d.addEventListener('keydown', function (ev) { if (ev.key === 'Tab') ultimoTab = Date.now(); }, true);
+  function mod(a, n) { return ((a % n) + n) % n; }
+  function animacaoDe(r) {
+    if (!r.api) return null;
+    var l = r.pista.getAnimations();
+    for (var i = 0; i < l.length; i++) if (l[i].animationName === 'rolar') return l[i];
+    return l.length === 1 && l[0].animationName === undefined ? l[0] : null;   // browsers antigos não dizem o nome: a pista só tem esta
+  }
+  function medidasDe(r, a) {                              // a duração de uma volta (ms) e o comprimento de uma série (px)
+    var dur = 0; try { dur = +a.effect.getComputedTiming().duration || 0; } catch (e) { dur = 0; }
+    var per = r.pista.scrollWidth / 2;
+    return dur > 0 && per > 0 ? { dur: dur, per: per } : null;
+  }
+  function acertarRolo(r) {                               // anda ou está parada?
+    var anda = r.perto && !r.preso && !r.rato && !r.foco && !abertas.length;
+    var a = r.api && r.perto ? animacaoDe(r) : null;
+    // Sem a animação à mão (browser antigo, ou faixa longe), o «parar» faz-se pela folha de estilos (classe «parado»).
+    if (!a) { if (anda) r.el.classList.remove('parado'); else r.el.classList.add('parado'); return; }
+    r.el.classList.remove('parado');
+    try { if (anda) a.play(); else a.pause(); } catch (e) {}
+  }
+  function pararBalanco(r) { if (r.balanco) { clearInterval(r.balanco); r.balanco = null; } }
+  function soltar(r) { pararBalanco(r); r.preso = false; acertarRolo(r); }
+  function balanco(r) {                                   // depois de largar: a faixa continua com a velocidade do gesto e abranda
+    var dt = r.tb - r.ta, v = dt > 0 && dt < 120 ? (r.xb - r.xa) / dt : 0;   // px por ms; negativo = para a esquerda (o sentido da faixa)
+    var a = animacaoDe(r), m = a ? medidasDe(r, a) : null;
+    if (!m || Math.abs(v) < 0.25) { soltar(r); return; }
+    var natural = m.per / m.dur, ultimo = Date.now();
+    v = Math.max(-3.5, Math.min(3.5, v)); r.preso = true;
+    r.balanco = setInterval(function () {
+      var agora = Date.now(), passo = Math.min(48, agora - ultimo); ultimo = agora;
+      v *= Math.pow(0.94, passo / 16);
+      if ((v < 0 && -v <= natural * 1.2) || (v >= 0 && v < 0.02)) { soltar(r); return; }
+      try { a.currentTime = mod((+a.currentTime || 0) - v * passo / m.per * m.dur, m.dur); } catch (e) { soltar(r); }
+    }, 16);
+  }
+  function umRolo(el) {
+    var pista = $('.rolo-pista', el); if (!pista) return;
+    var r = { el: el, pista: pista, api: !!pista.getAnimations, perto: true, preso: false, rato: false, foco: false, levou: false,
+      id: null, toque: false, largar: null, x0: 0, t0: 0, m: null, xa: 0, xb: 0, ta: 0, tb: 0, ta0: 0, semClique: 0, balanco: null, tRato: null, rx: -1, ry: -1 };
+    el._rolo = r; rolos.push(r);
+    var largar = function (ev) {
+      if (r.id === null || ev.pointerId !== r.id) return;
+      var levou = r.levou; r.id = null; r.levou = false; el.classList.remove('a-levar');
+      // Depois de levar a faixa, ou de a segurar parada (um toque demorado), o toque que sobra não abre a fotografia.
+      if (levou || ev.timeStamp - r.ta0 > 450) r.semClique = Date.now();
+      if (levou) balanco(r); else soltar(r);
+    };
+    r.largar = largar;
+    el.addEventListener('pointerdown', function (ev) {
+      if (ev.pointerType === 'mouse' && ev.button !== 0) return;
+      // Já havia um dedo (ou o rato) a segurar a faixa: um segundo dedo não conta. Mas se quem chega é o primeiro dedo, ou o rato,
+      // o toque anterior acabou sem o browser avisar: esquece-se, para a faixa nunca ficar presa a um toque que já não existe.
+      if (r.id !== null) { if (!ev.isPrimary) return; r.id = null; r.levou = false; el.classList.remove('a-levar'); }
+      pararBalanco(r);
+      var a = animacaoDe(r);
+      r.id = ev.pointerId; r.toque = ev.pointerType === 'touch'; r.x0 = ev.clientX; r.levou = false; r.preso = true;
+      r.t0 = a ? (+a.currentTime || 0) : 0; r.m = a ? medidasDe(r, a) : null;
+      r.xa = r.xb = ev.clientX; r.ta = r.tb = r.ta0 = ev.timeStamp;
+      acertarRolo(r);
+    });
+    el.addEventListener('pointermove', function (ev) {
+      if (ev.pointerId !== r.id || !r.m) return;
+      var dx = ev.clientX - r.x0;
+      if (!r.levou) { if (Math.abs(dx) < 8) return; r.levou = true; el.classList.add('a-levar'); try { el.setPointerCapture(ev.pointerId); } catch (e) {} }
+      r.xa = r.xb; r.ta = r.tb; r.xb = ev.clientX; r.tb = ev.timeStamp;
+      var a = animacaoDe(r); if (!a) return;
+      try { a.currentTime = mod(r.t0 - dx / r.m.per * r.m.dur, r.m.dur); } catch (e) {}
+    });
+    el.addEventListener('pointerup', largar);
+    el.addEventListener('pointercancel', largar);
+    el.addEventListener('click', function (ev) { if (Date.now() - r.semClique < 450) { ev.preventDefault(); ev.stopPropagation(); } }, true);
+    el.addEventListener('dragstart', function (ev) { ev.preventDefault(); });
+    el.addEventListener('wheel', function (ev) {
+      if (Math.abs(ev.deltaX) <= Math.abs(ev.deltaY) || Math.abs(ev.deltaX) < 2) return;
+      var a = animacaoDe(r), m = a ? medidasDe(r, a) : null; if (!m) return;
+      ev.preventDefault();
+      try { a.currentTime = mod((+a.currentTime || 0) + (ev.deltaMode === 1 ? ev.deltaX * 32 : ev.deltaX) / m.per * m.dur, m.dur); } catch (e) {}
+    }, { passive: false });
+    if (comRato) {                                        // num ecrã de toque um toque também «entra» e nunca mais «sai»
+      el.addEventListener('mousemove', function (ev) {
+        if (ev.clientX === r.rx && ev.clientY === r.ry) return;   // a página a rolar por baixo do rato parado não conta
+        r.rx = ev.clientX; r.ry = ev.clientY;
+        clearTimeout(r.tRato); r.tRato = setTimeout(function () { r.rato = false; acertarRolo(r); }, 1400);
+        if (!r.rato) { r.rato = true; acertarRolo(r); }
+      });
+      el.addEventListener('mouseleave', function () { clearTimeout(r.tRato); r.rx = r.ry = -1; if (r.rato) { r.rato = false; acertarRolo(r); } });
+    }
+    // Com o teclado (a tecla Tab): a fotografia que recebe o foco vem para a frente e a faixa espera enquanto o foco lá estiver.
+    // O foco que volta sozinho a uma fotografia (ao fechar a fotografia em grande) não conta: a faixa continua a andar.
+    el.addEventListener('focusin', function (ev) {
+      var b = ev.target;
+      if (!b || !b.closest || Date.now() - ultimoTab > 700) return;
+      r.foco = true; acertarRolo(r);
+      var a = animacaoDe(r), m = a ? medidasDe(r, a) : null, item = b.closest('.rolo-item'); if (!m || !item) return;
+      // (a primeira fotografia fica encostada à esquerda: com a margem de 16 px seria a sua cópia, na segunda série, a ficar à vista)
+      try { a.currentTime = mod(Math.max(0, item.getBoundingClientRect().left - pista.getBoundingClientRect().left - 16) / m.per * m.dur, m.dur); } catch (e) {}
+    });
+    el.addEventListener('focusout', function () { if (r.foco) { r.foco = false; acertarRolo(r); } });
+  }
+  function rolar() {
+    $$('[data-rolo]').forEach(umRolo);
+    if (!rolos.length) return;
+    largarSempre();
+    if (!('IntersectionObserver' in window)) return;
+    // Perto do ecrã (a menos de um ecrã de distância): anda. Longe: parada, sem camadas, de volta à primeira fotografia.
+    var ioPerto = new IntersectionObserver(function (ens) {
+      ens.forEach(function (en) {
+        var r = en.target._rolo; if (!r) return;
+        r.perto = en.isIntersecting;
+        if (r.perto) { r.el.classList.remove('longe'); r.el.classList.remove('parado'); }
+        else { pararBalanco(r); r.id = null; r.preso = false; r.levou = false; r.rato = false; r.el.classList.remove('a-levar'); r.el.classList.add('longe'); }
+        acertarRolo(r);
+      });
+    }, { rootMargin: '100% 0px 100% 0px', threshold: 0 });
+    // A dois ecrãs de distância as fotografias que faltam começam a carregar, para chegarem antes de a faixa se ver.
+    var ioFotos = new IntersectionObserver(function (ens) {
+      ens.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        $$('img[loading="lazy"]', en.target).forEach(function (im) { im.setAttribute('loading', 'eager'); });
+        ioFotos.unobserve(en.target);
+      });
+    }, { rootMargin: '200% 0px 200% 0px', threshold: 0 });
+    rolos.forEach(function (r) { ioPerto.observe(r.el); ioFotos.observe(r.el); });
+  }
+  /* Uma faixa nunca fica presa: o rato pode largar o botão fora dela, e um telemóvel pode acabar um toque sem avisar a faixa
+     (um gesto do sistema, uma chamada, a mudança de aplicação). Tudo o que acaba um toque, em qualquer sítio, larga-a. */
+  function largarSempre() {
+    var desistir = function (r) {                         // o toque acabou sem aviso: larga, sem balanço
+      if (r.id === null) return;
+      if (r.levou) r.semClique = Date.now();
+      r.id = null; r.levou = false; r.el.classList.remove('a-levar'); soltar(r);
+    };
+    var fim = function (ev) { rolos.forEach(function (r) { if (r.id !== null && r.id === ev.pointerId && r.largar) r.largar(ev); }); };
+    window.addEventListener('pointerup', fim, true);
+    window.addEventListener('pointercancel', fim, true);
+    var semDedos = function (ev) { if (!ev.touches || !ev.touches.length) rolos.forEach(function (r) { if (r.toque) desistir(r); }); };
+    window.addEventListener('touchend', semDedos, { passive: true });
+    window.addEventListener('touchcancel', semDedos, { passive: true });
+    window.addEventListener('blur', function () { rolos.forEach(desistir); });
+    d.addEventListener('visibilitychange', function () { if (d.hidden) rolos.forEach(desistir); });
   }
 
   /* ---- Camadas: botões de abrir e de fechar, Escape, e os gestos que não podem passar para a página por trás ---- */
@@ -281,7 +387,7 @@
     var lista = $('#citacoes'); if (!lista) return;
     var cits = $$('.citacao', lista), ci = 0, vista = !('IntersectionObserver' in window), quieta = false, relogio = null;
     var ir = function (n) { if (cits.length < 2) return; cits[ci].classList.remove('ativa'); ci = (n + cits.length) % cits.length; cits[ci].classList.add('ativa'); };
-    var arrancar = function () { clearInterval(relogio); if (reduz) return; relogio = setInterval(function () { if (vista && !quieta && !d.hidden && !abertas.length) ir(ci + 1); }, 6000); };
+    var arrancar = function () { clearInterval(relogio); relogio = setInterval(function () { if (vista && !quieta && !d.hidden && !abertas.length) ir(ci + 1); }, 6000); };
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { vista = en[0].isIntersecting; }, { threshold: 0.3 }).observe(lista);
     lista.addEventListener('click', function () { ir(ci + 1); arrancar(); });
     if (comRato) {                                              // só com rato: num ecrã de toque um toque «entra» e nunca mais «sai»
@@ -507,9 +613,10 @@
   }
 
   seguro('ligações internas', ligacoes);
+  seguro('capa', capa);
   seguro('revelar', revelar);
   seguro('barra de baixo', barra);
-  seguro('sequências', sequencias);
+  seguro('rolos de fotografias', rolar);
   seguro('camadas', camadas);
   seguro('álbuns', albuns);
   seguro('fotografia', fotografia);

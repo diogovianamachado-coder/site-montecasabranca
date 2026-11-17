@@ -1,9 +1,13 @@
 /* Monte Casa Branca · folha de estilos (sem Tailwind, sem build). Cores e tipografia da versão do Lovable.
-   Versão 3 (16/11/2026): composição feita com o Lovable a pedido do Diogo. Regras de construção, por causa do Safari do iPhone
-   (na versão 2 as fotografias ficaram em caixas meio vazias, os campos das datas saíram do ecrã e os menus prendiam):
+   Versão 4 (17/11/2026): o movimento. A composição é a da versão 3 (feita com o Lovable); o que muda é que a página mexe-se:
+   as fotografias deslizam sozinhas, devagar e sem parar. Regras de construção, por causa do Safari do iPhone (na versão 2 as
+   fotografias ficaram em caixas meio vazias, os campos das datas saíram do ecrã e os menus prendiam; na versão 3 as fotografias
+   só davam um passo de 5 em 5 segundos, com a página parada, e o Diogo viu um site sem vida):
    · cada caixa de fotografia tem largura e altura escritas aqui; a imagem enche a caixa (posição absoluta) e nunca lhe dá o tamanho;
-   · nada usa aspect-ratio, unidades de contentor, position: sticky dentro de faixas nem backdrop-filter;
-   · as faixas de fotografias rolam com a rolagem do próprio browser (scroll-snap); o JavaScript nunca mexe nela a cada instante;
+   · nada usa aspect-ratio, unidades de contentor, position: sticky nem backdrop-filter;
+   · O MOVIMENTO É DA FOLHA DE ESTILOS: as faixas de fotografias andam por uma animação (@keyframes rolar, só transform), que o
+     browser corre sozinho. Não depende de JavaScript, de temporizadores nem de a página estar parada. O JavaScript só acrescenta o
+     que a pessoa faz com o dedo ou o rato, e nunca mexe na rolagem da página;
    · o menu, o painel e a fotografia em grande não bloqueiam a rolagem da página: cobrem-na e seguram os gestos por dentro;
    · os tons translúcidos são rgba() simples (sem color-mix), para qualquer browser os desenhar. */
 
@@ -69,8 +73,8 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: -.02em; font-wei
 /* ---- Movimento ----
    Revelar ao rolar: só os blocos de texto. Ficam escondidos apenas quando o JavaScript está mesmo a correr (classe «js» no <html>,
    posta pelo site.js); sem ele, ou se ele falhar, tudo está à vista. As fotografias nunca entram nisto: estão sempre lá. */
-.reveal { transition: opacity 1s ease, transform 1s var(--ease); }
-.js .reveal:not(.is-in) { opacity: 0; transform: translateY(28px); }
+.reveal { transition: opacity 1.1s ease, transform 1.1s var(--ease); }
+.js .reveal:not(.is-in) { opacity: 0; -webkit-transform: translate3d(0, 34px, 0); transform: translate3d(0, 34px, 0); }
 /* Os blocos de fotografias (data-entra) nunca ficam à espera de nada: quando chegam ao ecrã, o site.js junta-lhes «entrou» e eles
    fazem esta entrada uma vez. Antes dela, depois dela, ou se ela não acontecer, estão à vista como sempre. */
 .entrou { animation: entrar 1s var(--ease) backwards; }
@@ -80,6 +84,8 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: -.02em; font-wei
 @keyframes da-direita { from { opacity: 0; transform: translateX(2rem); } to { opacity: 1; transform: none; } }
 @keyframes saltar { 0%, 100% { transform: translateY(-18%); animation-timing-function: cubic-bezier(.8, 0, 1, 1); } 50% { transform: none; animation-timing-function: cubic-bezier(0, 0, .2, 1); } }
 @keyframes assentar { from { transform: scale(1.05); } to { transform: none; } }
+@keyframes respirar { from { transform: scale(1); } to { transform: scale(1.035); } }
+@keyframes entrar-leve { from { opacity: 0; transform: translate3d(0, .75rem, 0); } to { opacity: 1; transform: none; } }
 .entrada { animation: entrar 1s var(--ease) both; }
 .hero-titulo .l2 { animation-delay: .12s; }
 .hero-sub { animation-delay: .24s; }
@@ -120,7 +126,7 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: -.02em; font-wei
 /* ---- Caixas de fotografia ----
    Quem dá o tamanho é sempre a caixa de fora (li, div), com largura e altura escritas. O botão enche-a e a imagem enche o botão:
    os dois em posição absoluta, para as suas medidas virem só da caixa e de mais nada. */
-.seq-item, .fila-item, .album li { position: relative; }
+.album li { position: relative; }
 .foto-botao { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 2px; background: var(--areia); text-align: left; }
 .foto-botao picture, .foto-larga-caixa picture, .hero-fundo picture { display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none; }
 .foto-botao img, .foto-larga-caixa img { display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; -webkit-user-drag: none; -webkit-user-select: none; user-select: none; }
@@ -136,9 +142,20 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 34rem; overflow: hidden; background: #8497a4; color: var(--sobre-foto); }
 .hero-fundo { position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow: hidden; }
 .hero-foto { display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
-@media (prefers-reduced-motion: no-preference) { .hero-foto { animation: assentar 2.4s var(--ease) both; } }
-/* No computador a fotografia fica presa ao ecrã e a página passa-lhe por cima (só CSS: a caixa recorta a fotografia fixa).
-   No telemóvel fica parada na capa, que é o que nunca falha. */
+/* A fotografia assenta ao abrir e depois respira muito devagar (3,5 % em 18 s, a ir e a voltar): a capa nunca está parada e o
+   enquadramento escolhido pelo Diogo (capa 1, sem ampliação) mantém-se. */
+@media (prefers-reduced-motion: no-preference) { .hero-foto { animation: assentar 2.4s var(--ease) both, respirar 18s ease-in-out 2.4s infinite alternate; } }
+/* Ao rolar, a fotografia fica para trás: no telemóvel e no tablet desce um quarto do que a página sobe (a paralaxe da versão 2,
+   que o Diogo viu suave no iPhone e pediu de volta a 17/11/2026; site.js, «A capa», na caixa .hero-fundo); no computador com rato
+   fica presa ao ecrã (aqui em baixo). O texto vai-se apagando enquanto a capa sai, nos browsers que têm animações ligadas à rolagem
+   (o próprio browser corre-as, sem JavaScript; nos outros o texto sai como está). */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-texto { animation: capa-apaga linear both; animation-timeline: scroll(root block); animation-range: 20vh 90vh; }
+    @keyframes capa-apaga { from { opacity: 1; } to { opacity: 0; } }
+  }
+}
+/* No computador a fotografia fica presa ao ecrã e a página passa-lhe por cima (só CSS: a caixa recorta a fotografia fixa). */
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   .hero-fundo { overflow: visible; -webkit-clip-path: inset(0); clip-path: inset(0); }
   .hero-fundo picture, .hero-fundo > .hero-foto { position: fixed; height: 100vh; }
@@ -241,55 +258,56 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .abertura-lado .abertura-ligacao { text-align: right; }
 }
 
-/* ---- Sequências ---- (as fotografias de um capítulo, uma de cada vez; inc/util.php → sequencia())
-   A faixa rola com a rolagem do browser: o dedo leva as fotografias e o scroll-snap pára cada uma no sítio.
-   Cada caixa (li) tem a largura e a altura escritas aqui: a fotografia enche-a, nunca lhe dá o tamanho. */
-.seq { position: relative; margin-top: 2.5rem; }
-/* Sem contagem («01 / 04»): «não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte» (Diogo, 15/11/2026).
-   As duas setas só existem com rato, que não arrasta a faixa; num ecrã de toque o dedo leva as fotografias e as setas não se vêem.
-   Com rato ficam pousadas sobre a faixa, em cima à direita (como o Lovable as pôs a 17/11): assim não ocupam uma linha própria e,
-   tal como no telemóvel, o texto do capítulo é seguido logo pelas fotografias. */
-.seq-setas { display: none; }
-.seq-setas .btn-redondo + .btn-redondo { margin-left: .5rem; }
-@media (hover: hover) and (pointer: fine) {
-  .seq-setas { display: flex; position: absolute; top: 1rem; right: 2rem; z-index: 2; pointer-events: none; }
-  .seq-setas .btn-redondo { pointer-events: auto; border-color: rgba(var(--texto-rgb), .18); background: rgba(var(--claro-rgb), .9); }
-  .seq-setas .btn-redondo:hover { background: rgb(var(--claro-rgb)); }
-}
-@media (hover: hover) and (pointer: fine) and (min-width: 768px) { .seq-setas { right: 3.5rem; } }
-/* --borda-faixa: a margem de cada lado da faixa. Até à largura da página é a margem normal; em ecrãs mais largos cresce, para a
-   primeira fotografia começar alinhada com o texto (a faixa continua a ir de um lado ao outro do ecrã). */
-.seq, .fecho { --borda-faixa: var(--pad); }
-@supports (width: max(1px, 2px)) { .seq, .fecho { --borda-faixa: max(var(--pad), calc((100vw - var(--larg)) / 2 + var(--pad))); } }
-.seq-faixa, .fila { position: relative; display: flex; overflow-x: auto; overflow-y: hidden; padding: 0 0 .75rem var(--borda-faixa); -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-width: none; scroll-padding-left: var(--borda-faixa); scroll-padding-right: var(--borda-faixa); }
-/* A margem do fim é um elemento vazio e não o «padding» da direita: há browsers que não contam esse padding numa faixa que rola. */
-.seq-faixa::after, .fila::after { content: ""; flex: 0 0 auto; width: var(--borda-faixa); height: 1px; }
-.seq-faixa::-webkit-scrollbar, .fila::-webkit-scrollbar { display: none; }
-.seq-faixa { scroll-snap-type: x mandatory; }
-.seq-item { flex: 0 0 auto; width: 86vw; max-width: 430px; height: 360px; margin-right: .75rem; scroll-snap-align: start; }
-.seq-item:last-child, .fila-item:last-child { margin-right: 0; }
+/* ---- Rolos ---- (as fotografias que deslizam sozinhas; inc/util.php → rolo(); site.js → «Rolos»)
+   Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no mobile
+   ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.»
+   A pista leva as fotografias duas vezes (duas séries iguais) e desloca-se exatamente meia pista, sem parar: quando a primeira série
+   acaba de sair, a segunda está no sítio onde a primeira começou. É uma animação de transform, que o browser corre sozinho: não
+   precisa de JavaScript, de temporizadores nem de a página estar parada, e não mexe na rolagem.
+   · A duração vem escrita em cada pista (--dur no telemóvel, --dur-l no computador; --dur-c e --dur-lc para quem pede menos
+     movimento ao sistema), calculada no servidor para a velocidade ser sempre a mesma: cerca de 29 px por segundo no telemóvel.
+   · Cada caixa (li) tem a largura e a altura escritas aqui: a fotografia enche-a, nunca lhe dá o tamanho.
+   · Cada caixa tem a sua própria camada (translateZ): é o que evita, no iPhone, fotografias por desenhar numa pista comprida.
+   · touch-action: pan-y — o dedo para cima e para baixo rola a página; para os lados, leva a faixa (site.js).
+   · «longe»: posta pelo site.js nas faixas afastadas do ecrã, que ficam paradas e sem camadas; ao aproximarem-se recomeçam na
+     primeira fotografia. Sem JavaScript andam sempre.
+   · A faixa vai de um lado ao outro do ecrã (até 3000 px: uma série de quatro fotografias grandes mede 3120). */
+.rolo { position: relative; overflow: hidden; max-width: 3000px; margin: 2.5rem auto 0; touch-action: pan-y; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.rolo-pista { display: flex; width: -webkit-max-content; width: max-content; animation-name: rolar; animation-duration: 60s; animation-duration: var(--dur, 60s); animation-timing-function: linear; animation-iteration-count: infinite; }
+.rolo-serie { display: flex; flex: none; align-items: flex-end; }
+.rolo-item { position: relative; flex: none; -webkit-transform: translateZ(0); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.rolo img { -webkit-touch-callout: none; }
+@keyframes rolar { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+.rolo.longe .rolo-pista { animation-name: none; }
+.rolo.longe .rolo-item { -webkit-transform: none; transform: none; }
+.rolo.parado .rolo-pista { -webkit-animation-play-state: paused; animation-play-state: paused; }   /* só nos browsers sem getAnimations() */
+.rolo.a-levar, .rolo.a-levar .foto-botao { cursor: grabbing; }
+/* As fotografias de um capítulo: grandes, com a legenda escrita sobre cada uma; vê-se sempre a seguinte a chegar. */
+.rolo-seq .rolo-item { width: 86vw; max-width: 430px; height: 360px; margin-right: .75rem; }
+/* As do fecho da casa: mais pequenas (as ao alto, mais altas e estreitas), alinhadas por baixo. */
+.rolo-fila { margin-top: 1.5rem; }
+.rolo-fila .rolo-item { width: 290px; height: 220px; margin-right: .75rem; }
+.rolo-fila .rolo-item.ao-alto { width: 190px; height: 290px; }
 @media (min-width: 768px) {
-  .seq { margin-top: 3.5rem; }
-  .seq-item { width: 760px; width: min(760px, calc(100vw - 2 * var(--pad) - 4rem)); max-width: none; height: 560px; height: clamp(380px, 68vh, 560px); margin-right: 1.25rem; }
+  .rolo { margin-top: 3.5rem; }
+  .rolo-pista { animation-duration: var(--dur-l, 90s); }
+  .rolo-seq .rolo-item { width: 760px; width: min(760px, calc(100vw - 2 * var(--pad) - 4rem)); max-width: none; height: 560px; height: clamp(380px, 68vh, 560px); margin-right: 1.25rem; }
+  .rolo-fila { margin-top: 2rem; }
+  .rolo-fila .rolo-item { width: 380px; height: 280px; margin-right: 1rem; }
+  .rolo-fila .rolo-item.ao-alto { width: 240px; height: 360px; }
 }
 
-/* ---- Fecho da casa ---- (a frase grande e a fila de fotografias mais pequenas, numa ordem diferente em cada visita e a avançar
-   devagar, como a galeria das plataformas; o dedo leva-a; inc/util.php → fila()) */
+/* ---- Fecho da casa ---- (a frase grande e o rolo de fotografias mais pequenas, numa ordem diferente em cada visita e sempre a
+   andar, como a galeria das plataformas; o dedo leva-o; inc/util.php → fila()) */
 .fecho { padding: 6rem 0; }
 .fecho-frase { max-width: 64rem; font-size: 2.25rem; line-height: 1.25; }
 .fecho-cabeca { margin-top: 4rem; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; }
 .fecho-cabeca h3 { margin-right: 1rem; font-size: 1.5rem; line-height: 1.3; }
-.fila { margin-top: 1.5rem; align-items: flex-end; scroll-snap-type: x proximity; }
-.fila-item { flex: 0 0 auto; width: 290px; height: 220px; margin-right: .75rem; scroll-snap-align: start; }
-.fila-item.ao-alto { width: 190px; height: 290px; }
 @media (min-width: 768px) {
   .fecho { padding: 9rem 0; }
   .fecho-frase { font-size: 4.5rem; line-height: 1.2; }
   .fecho-cabeca { margin-top: 6rem; }
   .fecho-cabeca h3 { font-size: 1.875rem; }
-  .fila { margin-top: 2rem; }
-  .fila-item { width: 380px; height: 280px; margin-right: 1rem; }
-  .fila-item.ao-alto { width: 240px; height: 360px; }
 }
 
 /* ---- Montemor-o-Novo: a Ecopista do Montado, separada por uma linha ---- */
@@ -307,6 +325,15 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .foto-larga { margin-top: 3rem; }
 .foto-larga-caixa { position: relative; width: 100%; height: 340px; overflow: hidden; border-radius: 2px; background: var(--areia); }
 .foto-larga figcaption { margin-top: .75rem; font-size: .875rem; color: rgba(var(--texto-rgb), .62); }
+/* Enquanto a página rola, a fotografia passa devagar por trás da sua caixa (ligado à rolagem, pelo próprio browser; onde não
+   existe, a fotografia fica parada na caixa, como sempre). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .foto-larga-caixa { overflow: clip; }   /* «clip» e não «hidden»: com «hidden» a caixa seria ela própria a zona de rolagem e a fotografia não se mexia */
+    .foto-larga-caixa img { top: -10%; height: 120%; animation: foto-passa linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+    @keyframes foto-passa { from { transform: translate3d(0, -7%, 0); } to { transform: translate3d(0, 7%, 0); } }
+  }
+}
 .programa { margin-top: 4rem; border-top: 1px solid var(--borda); }
 .programa li { border-bottom: 1px solid var(--borda); padding: 1.75rem 0; }
 .programa h3 { font-size: 1.875rem; line-height: 1.2; color: var(--primario); }
@@ -353,6 +380,12 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 /* Duas colunas no telemóvel, três no computador. A altura de cada caixa é escrita (largura da coluna × 3/4), sem aspect-ratio. */
 .album { margin-top: 1.5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-gap: .625rem; gap: .625rem; }
 .album.escondido { display: none; }
+/* Ao abrir um álbum, as miniaturas entram umas a seguir às outras (as doze primeiras em cadeia; as restantes juntas). */
+.album li { animation: entrar-leve .7s var(--ease) both; animation-delay: .5s; }
+.album li:nth-child(1) { animation-delay: 0s; } .album li:nth-child(2) { animation-delay: .04s; } .album li:nth-child(3) { animation-delay: .08s; }
+.album li:nth-child(4) { animation-delay: .12s; } .album li:nth-child(5) { animation-delay: .16s; } .album li:nth-child(6) { animation-delay: .2s; }
+.album li:nth-child(7) { animation-delay: .24s; } .album li:nth-child(8) { animation-delay: .28s; } .album li:nth-child(9) { animation-delay: .32s; }
+.album li:nth-child(10) { animation-delay: .36s; } .album li:nth-child(11) { animation-delay: .4s; } .album li:nth-child(12) { animation-delay: .44s; }
 .album li { height: 34vw; height: calc((100vw - 2 * var(--pad) - .625rem) * .375); }
 @media (min-width: 768px) {
   .passear { padding: 9rem 0; }
@@ -606,9 +639,20 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .galeria-legenda { flex: 1 1 auto; min-width: 0; padding: 0 1rem; text-align: center; font-size: .875rem; line-height: 1.4; opacity: .85; }
 @media (min-width: 768px) { .galeria-topo { padding-left: 2rem; padding-right: 2rem; } .galeria-contador { font-size: .875rem; } .galeria-corpo { margin: 0 2rem; } .galeria-pe { padding-left: 2rem; padding-right: 2rem; } .galeria-legenda { font-size: 1rem; } }
 
-/* ---- Menos movimento, para quem o pede ao sistema ---- */
+/* ---- Menos movimento, para quem o pede ao sistema («Reduzir movimento», nas definições do telemóvel ou do computador) ----
+   Decisão desta versão: o site não fica parado. As fotografias continuam a deslizar, mas bem mais devagar (--dur-c), porque são a
+   mensagem da página («a dinâmica do site mostra essa parte»); o dedo ou o rato param-nas. Tudo o resto deixa de se deslocar: o que
+   entra, entra só a aparecer; a capa não respira; nada salta nem amplia. (Para as parar de todo: animation-name:
+   none nesta regra da .rolo-pista.) */
+.so-reduz { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
-  .js .reveal:not(.is-in), .js .reveal:not(.is-in) .cartaz-linhas a { opacity: 1; transform: none; }
-  .js .reveal:not(.is-in) .nota-arco { stroke-dashoffset: 0; }
+  .so-reduz { display: inline; }
+  .rolo-pista { animation-duration: var(--dur-c, 100s); }
+  .reveal { transition: opacity .9s ease; }
+  .js .reveal:not(.is-in), .js .reveal:not(.is-in) .cartaz-linhas a { -webkit-transform: none; transform: none; }
+  .cartaz-linhas a { transition: color .3s, opacity .9s ease; }
+  .entrada, .entrou, .album li, .painel { animation-name: aparecer; }
+  .hero-foto, .hero-texto, .hero-descer .ico { animation: none; }
+  .foto-botao img, .ligacao-seta .ico, .ico-seta, .dock { transition-property: opacity, background-color; }
 }
+@media (prefers-reduced-motion: reduce) and (min-width: 768px) { .rolo-pista { animation-duration: var(--dur-lc, 150s); } }

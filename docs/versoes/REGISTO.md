@@ -41,6 +41,50 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
+### V4 · 17/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
+
+- **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V3.
+- **De onde vem:** o que o Diogo viu da V3 no iPhone a 17/11 (ver a ficha da V3): «zero movimento», «as fotos estão estáticas»,
+  «a régua das fotos não anda», «refaz o que é necessário para que esse movimento seja fluente e que o site tenha vida»; e «nas fotos
+  de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na v2». A composição da página
+  (feita com o Lovable) não muda; o que muda é que a página se mexe.
+- **O que estava mal e como ficou:**
+  - *Na V3* cada faixa de fotografias dava um passo de 5 em 5 segundos, e só se estivesse quase toda no ecrã, com a página parada há
+    mais de segundo e meio e sem dedos no ecrã. Quem desce a página nunca via esse passo. Além disso dependia de JavaScript e de
+    temporizadores.
+  - *Na V4* as fotografias **deslizam sem parar**, devagar, da direita para a esquerda (cerca de 29 px por segundo no telemóvel e 41
+    no computador; a V1 andava a 25). O movimento é uma animação da folha de estilos, que o próprio browser corre: **não depende de
+    JavaScript**, de temporizadores nem de a página estar parada. As fotografias vão duas vezes na faixa, por isso a volta não tem
+    costura. O dedo parado em cima segura a faixa; o dedo para os lados leva-a (para a frente ou para trás) e, largada, continua com
+    o balanço; um toque rápido abre a fotografia em grande. Com rato: pára enquanto o rato se mexe por cima (para se escolher uma
+    fotografia), arrasta-se, e a roda para o lado também a leva. **Sem setas e sem contagens.**
+  - Cada faixa começa na primeira fotografia (a principal do capítulo) quando se chega a ela.
+- **«Reduzir movimento» (definições do telemóvel):** se o aparelho pedir menos movimento, as fotografias continuam a andar, bem mais
+  devagar (cerca de 17 px por segundo), e tudo o resto entra só a aparecer, sem deslocações. Decisão desta versão: o site não fica
+  parado. No ensaio, o rodapé diz quando o aparelho está nesse modo.
+- **O que os testes veem e o que não veem:** em cada push, no Chromium e no WebKit (o motor do Safari), a bateria põe cada faixa no
+  ecrã e mede se anda sozinha; repete com o JavaScript desligado e com «reduzir movimento»; segura-a e leva-a com um dedo fabricado.
+  No Chromium usam-se ainda dedos a sério (protocolo do browser). **Um iPhone a sério continua a não se conseguir testar daqui:**
+  a prova final é o telemóvel do Diogo, depois do «Lança».
+- **Capturas:** `docs/versoes/v4/` (as fotografias ficam paradas na captura; o movimento vê-se no site).
+- **Ordem da página:** a mesma da V3.
+
+| Parte | O que mudou face à V3 | O que o Diogo achou |
+|---|---|---|
+| 1 Capa | **Ao rolar, a fotografia fica para trás, como na V2** (desce um quarto do que a página sobe): a V3 tinha tirado este movimento do telemóvel e o Diogo pediu-o de volta a 17/11 («nas fotos de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na v2»). No computador a fotografia continua presa ao ecrã, com a página a passar-lhe por cima. Parada, a fotografia respira muito devagar (cresce 3,5 % em 18 segundos e volta; em repouso, o enquadramento da capa 1 é o mesmo); nos browsers mais recentes o texto vai-se apagando enquanto a capa sai | por dizer |
+| 2 A casa | Igual | por dizer |
+| 3 Os espaços | As fotografias de cada capítulo **deslizam sozinhas, sem parar**; vê-se sempre a seguinte a chegar. Saem as duas setas do computador (o rato arrasta a faixa). A faixa vai de um lado ao outro do ecrã | por dizer |
+| 4 Fecho e régua | A régua **anda sozinha, sem parar**, numa ordem diferente em cada visita; o dedo ou o rato levam-na | por dizer |
+| 5 Montemor, N2 e onde estamos | As dez fotografias de Montemor deslizam sozinhas, como as dos capítulos. Na Nacional 2, a fotografia grande passa devagar por trás da sua caixa enquanto a página rola (nos browsers mais recentes) | por dizer |
+| 6 A galeria | Ao abrir um álbum, as miniaturas entram umas a seguir às outras | por dizer |
+| 7 Antes de chegar | Igual | por dizer |
+| 8 Quem já ficou | Igual (as frases continuam a rodar de 6 em 6 segundos) | por dizer |
+| 9 Contactos e rodapé | Igual. No ensaio, a linha da versão diz quando o aparelho pede menos movimento | por dizer |
+| 10 Menu completo | Igual | por dizer |
+| 11 Painel das datas | Igual | por dizer |
+| 12 Barra de baixo | Igual | por dizer |
+| Toda a página | Os blocos de texto sobem um pouco mais ao aparecer. Com o menu, o painel ou uma fotografia abertos, as faixas por trás esperam | por dizer |
+
 ### V3 · 17/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
 
 - **Publicada:** 17/11/2026, às 22h06 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 19 (os n.º 15 a 18 foram
@@ -53,7 +97,12 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
   existem todas no servidor**; a previsão do tempo, a conta, o calendário de exemplo e as médias do tempo respondem em cerca de
   0,3 s cada («Verificar o site (só lê)», corrida n.º 2, às 22h08). No envio apareceu um aviso amarelo sobre as médias do tempo que era
   falso: as médias vieram, a verificação é que cortava a resposta antes de a ler toda; ficou corrigido no `deploy-site.yml`.
-- **O que o Diogo achou, ao vivo, no iPhone:** por dizer (as partes estão no quadro, em baixo).
+- **O que o Diogo achou, ao vivo, no iPhone (17/11, cerca das 22h15):** «Não quero ver mais e ainda não vou falar das alterações.
+  O site voltou a não ter vida e tem zero movimento. As fotos estão estáticas, não têm movimento, e isso já tinha sido amplamente
+  falado. A régua das fotos não anda. As fotos não estão a andar sozinhas no movimento lento como já tinha sido decidido. Refaz o que
+  é necessário para que esse movimento seja fluente. E que o site tenha vida.» Tinha razão: nesta versão as fotografias davam um
+  passo de 5 em 5 segundos e só com a página parada há mais de segundo e meio; para quem desce a página, é um site parado. A
+  resposta é a V4. (As outras partes ficam por comentar: ele não quis ver mais.)
 - **De onde vem:** o que o Diogo viu da V2 no iPhone a 16/11 («muito mau»: ver a ficha da V2) e o pedido «Trabalha com o Lovable para
   que o conteúdo passe a estar harmonioso». O Claude levou ao Lovable o conteúdo novo e as queixas (pedido de 16/11, 08h27, no projeto
   «Monte Casa Branca» do Lovable); o Lovable compôs a página lá (para ver no telemóvel:
@@ -91,8 +140,8 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 |---|---|---|
 | 1 Capa | O desenho é o mesmo (a opção 1). «Sem receção, sem pressa» passou para o lado do botão «Entrar pela casa»; o botão de descer fica só na capa (já não acompanha a página); sem desfoques. No computador, a fotografia fica presa e a página passa-lhe por cima | por dizer |
 | 2 A casa | O cartaz do Lovable: «Por fora», «Sem pressa» e «Por dentro» em três linhas, cada uma com a sua seta, entre traços finos; a frase à direita, por baixo. Era em degraus, com a do meio em itálico | por dizer |
-| 3 Os espaços | Três capítulos com abertura própria: «A casa» em cima, a palavra em grande, a frase a cor e o texto; depois as fotografias **uma de cada vez**, grandes, com a legenda escrita sobre cada uma e a seguinte a espreitar. **Sem contagem** («não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte», nota 8). O dedo leva-as; avançam sozinhas, um passo de 5 em 5 segundos, em círculo, até se lhes pegar. No telemóvel não há setas; no computador ficam duas setas pequenas, pousadas sobre as fotografias, em cima à direita (o rato não arrasta), e o rato em cima das fotografias pára o avanço. «Sem pressa» tem o fundo pálido, para os três não se colarem. Eram filas a rolar sem parar, com a palavra sobre a fotografia | por dizer |
-| 4 Fecho e régua | A frase «Há dias em que não é preciso mais nada» em grande, à esquerda; «Há mais casa para descobrir» com a ligação «Passear pelo Monte»; 18 fotografias mais pequenas (as ao alto mais altas e estreitas), **numa ordem diferente em cada visita e a avançar sozinhas, devagar**, um passo de cada vez, para um lado e depois para o outro («a rolar random», nota 8); o dedo leva-as e, a partir daí, deixam de avançar. A casa ao entardecer saiu daqui: é a fotografia da Nacional 2 | por dizer |
+| 3 Os espaços | Três capítulos com abertura própria: «A casa» em cima, a palavra em grande, a frase a cor e o texto; depois as fotografias **uma de cada vez**, grandes, com a legenda escrita sobre cada uma e a seguinte a espreitar. **Sem contagem** («não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte», nota 8). O dedo leva-as; avançam sozinhas, um passo de 5 em 5 segundos, em círculo, até se lhes pegar. No telemóvel não há setas; no computador ficam duas setas pequenas, pousadas sobre as fotografias, em cima à direita (o rato não arrasta), e o rato em cima das fotografias pára o avanço. «Sem pressa» tem o fundo pálido, para os três não se colarem. Eram filas a rolar sem parar, com a palavra sobre a fotografia | **Não.** «As fotos estão estáticas, não têm movimento … não estão a andar sozinhas no movimento lento como já tinha sido decidido» (17/11) → V4 |
+| 4 Fecho e régua | A frase «Há dias em que não é preciso mais nada» em grande, à esquerda; «Há mais casa para descobrir» com a ligação «Passear pelo Monte»; 18 fotografias mais pequenas (as ao alto mais altas e estreitas), **numa ordem diferente em cada visita e a avançar sozinhas, devagar**, um passo de cada vez, para um lado e depois para o outro («a rolar random», nota 8); o dedo leva-as e, a partir daí, deixam de avançar. A casa ao entardecer saiu daqui: é a fotografia da Nacional 2 | **Não.** «A régua das fotos não anda» (17/11) → V4 |
 | 5 Montemor, N2 e onde estamos | Passam a ser **três capítulos**. *Montemor-o-Novo*: fundo pálido e um traço a separá-lo da casa; «A 1 h de Lisboa», o título, o texto e a ligação; as dez fotografias em sequência; a Ecopista do Montado por baixo, com título próprio, separada por um traço. *Nacional 2*: capítulo igual em peso, com a casa ao entardecer («A mesma casa à vossa espera ao fim do dia») e o programa em três linhas (Sexta · Sábado · Domingo). *Onde estamos*: faixa cor de oliva, com as distâncias e o botão do mapa. Era uma só secção: as fotografias coladas ao fecho da casa, a N2 numa caixa ao lado do texto e as distâncias numa coluna | por dizer |
 | 6 A galeria | Só o título «Passear pelo Monte», sem sobretítulo; os quatro separadores à vista (em duas linhas no telemóvel); as mesmas 93 fotografias nos mesmos álbuns, em duas colunas no telemóvel e três no computador | por dizer |
 | 7 Antes de chegar | Como na referência do Diogo (nota 10) e na V2: no computador, o título à esquerda, em três linhas, e as perguntas à direita, com um «+» que passa a «−»; no telemóvel, uma coluna. Fundo pálido. Abre-se uma pergunta de cada vez | por dizer |

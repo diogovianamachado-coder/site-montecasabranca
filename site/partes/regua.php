@@ -11,5 +11,5 @@
       <a href="<?= e($R['ligacao'][1]) ?>" class="ligacao-seta"><?= e($R['ligacao'][0]) ?><?= icone('fora') ?></a>
     </div>
   </div>
-  <?= fila($R['titulo'], $R['fotos'], ['acaso' => true, 'rola' => true]) ?>
+  <?= fila($R['titulo'], $R['fotos'], ['acaso' => true]) ?>
 </section>
