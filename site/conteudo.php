@@ -112,7 +112,8 @@ return [
 
     // ---- 4. Fecho da casa: a frase e a fila de fotografias mais pequenas, para levar com o dedo -------
     // Sem casas de banho (Diogo, 15/11/2026: não fazem parte da mensagem nem das fotografias de destaque; só na galeria).
-    // As fotografias ao alto ficam mais altas e estreitas do que as outras (o site vê-o pelo ficheiro).
+    // Todas do mesmo tamanho na faixa (Diogo, 17/11/2026). As que estão ao alto são recortadas na caixa: 'pos' diz que parte fica
+    // à vista (horizontal e vertical, em %; por omissão o centro).
     'regua' => [
         'titulo' => 'Há mais casa para descobrir',
         'ligacao' => ['Passear pelo Monte', '#galeria'],
@@ -128,7 +129,7 @@ return [
             ['src' => 'interior/sala-poltronas.jpg', 'alt' => 'As poltronas da sala'],
             ['src' => 'exterior/piscina-noite.jpg', 'alt' => 'A piscina iluminada, à noite'],
             ['src' => 'quinta/olival.jpg', 'alt' => 'O olival'],
-            ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno'],
+            ['src' => 'interior/lareira-acesa.jpg', 'alt' => 'A lareira acesa, no inverno', 'pos' => '50% 56%'],
             ['src' => 'interior/sala-mesa.jpg', 'alt' => 'A mesa de refeições na sala'],
             ['src' => 'quinta/cao-campo.jpg', 'alt' => 'Um cão à solta no campo'],
             ['src' => 'exterior/casa-tronco-oliveira.jpg', 'alt' => 'A casa e a piscina por entre a oliveira'],

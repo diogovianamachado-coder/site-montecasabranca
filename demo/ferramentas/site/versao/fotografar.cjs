@@ -58,6 +58,8 @@ const ALTURA_MAX = { '1280': 4600, '390': 6400 }; const ALTURA_GALERIA = { '1280
     // V4: as fotografias deslizam sem parar. Para o registo ficam quietas, com a primeira fotografia à frente (o movimento vê-se no
     // site e no vídeo que acompanha a versão); a capa também fica quieta e as miniaturas dos álbuns já entradas.
     await page.addStyleTag({ content: '.rolo-pista{animation-name:none!important}.hero-foto,.hero-fundo,.hero-texto,.album li{animation:none!important}' }); await page.waitForTimeout(300);
+    // (com JavaScript, o movimento das faixas é uma animação criada pelo site.js, que a folha de estilos não pára: pára-se aqui)
+    await page.evaluate(() => document.querySelectorAll('.rolo-pista').forEach((p) => (p.getAnimations ? p.getAnimations() : []).forEach((a) => { try { a.pause(); a.currentTime = 0; } catch (e) {} }))); await page.waitForTimeout(200);
     // 0. A página inteira, pequena, para se ver a ordem das partes
     if (nome === '1280') { await foto('00-pagina-inteira', { fullPage: true, quality: 60 }); registar('00-pagina-inteira'); }
     // 2. Cada parte

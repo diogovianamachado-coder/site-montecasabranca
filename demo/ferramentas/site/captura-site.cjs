@@ -55,11 +55,14 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     const hashAntigo = await p3.evaluate(() => ({ url: location.href, y: Math.round(window.scrollY) })); await p3.close();
 
     // Rolos de fotografias (o capítulo «Por fora»). A posição da faixa lê-se pelo transform da pista; «andou» conta com a volta.
-    const lerRolo = (sel) => page.evaluate((s) => { const el = document.querySelector(s + ' [data-rolo]'), p = el.querySelector('.rolo-pista'), t = getComputedStyle(p).transform; return { x: t && t !== 'none' ? new DOMMatrixReadOnly(t).m41 : 0, volta: p.scrollWidth / 2, y: Math.round(window.scrollY), topo: Math.round(el.getBoundingClientRect().top), aberta: !document.getElementById('galeria-ecra').hidden }; }, sel);
+    const lerRolo = (sel) => page.evaluate((s) => { const el = document.querySelector(s + ' [data-rolo]'), p = el.querySelector('.rolo-pista'), t = getComputedStyle(p).transform; return { x: t && t !== 'none' ? new DOMMatrixReadOnly(t).m41 : 0, volta: p.scrollWidth / 2, y: Math.round(window.scrollY), topo: Math.round(el.getBoundingClientRect().top), aberta: !document.getElementById('galeria-ecra').hidden, estado: (el.classList.contains('rolo-js') ? 'js' : 'css') + ':' + (p.getAnimations ? p.getAnimations().map((a) => a.playState).join('/') : '?') }; }, sel);
     const andou = (a, b) => { let d = a.x - b.x; if (d < -a.volta / 2) d += a.volta; if (d > a.volta / 2) d -= a.volta; return Math.round(d * 10) / 10; };
     const ler = () => lerRolo('#por-fora');
     // 1) cada caixa tem o tamanho da sua fotografia (o que falhou no iPhone na versão 2 foi a caixa ficar mais larga)
     const caixas = await page.evaluate(() => Array.from(document.querySelectorAll('.rolo-item, .album:not(.escondido) li')).map((li) => { const i = li.querySelector('img'), a = li.getBoundingClientRect(), b = i ? i.getBoundingClientRect() : { width: 0, height: 0 }; return Math.abs(a.width - b.width) > 1 || Math.abs(a.height - b.height) > 1 || a.width < 100 || a.height < 100 ? (i ? (i.currentSrc || i.src).split('/').pop() : 'sem imagem') + ' caixa ' + Math.round(a.width) + '×' + Math.round(a.height) + ' fotografia ' + Math.round(b.width) + '×' + Math.round(b.height) : null; }).filter(Boolean));
+    // 1b) numa faixa todas as fotografias têm o mesmo tamanho (Diogo, 17/11/2026: «há uma foto que tem dimensão diferente; tens de
+    //     enquadrar essa foto no mosaico que estamos a passar»): uma fotografia ao alto é recortada na caixa, não fica mais alta
+    const tamanhos = await page.evaluate(() => Array.from(document.querySelectorAll('[data-rolo]')).map((el) => { const s = new Set(Array.from(el.querySelectorAll('.rolo-item')).map((li) => { const r = li.getBoundingClientRect(); return Math.round(r.width) + '×' + Math.round(r.height); })); return s.size > 1 ? (el.getAttribute('aria-label') || 'faixa') + ': ' + Array.from(s).join(', ') : null; }).filter(Boolean));
     // 2) logo que chega ao ecrã, anda sozinho (sem esperar que a página pare, nem por nada)
     await page.evaluate(() => { const f = document.querySelector('#por-fora [data-rolo]'); window.scrollTo(0, f.getBoundingClientRect().top + window.scrollY - 150); }); await page.waitForTimeout(500);
     if (!movel) await page.mouse.move(4, 4);          // o rato longe das fotografias
@@ -80,7 +83,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
       const t0 = await ler(); await page.waitForTimeout(900); const t1 = await ler();
       const foco = await page.evaluate(() => { const b = document.activeElement, r = b.getBoundingClientRect(); return { noRolo: !!b.closest('#por-fora [data-rolo]'), esq: Math.round(r.left) }; });
       await page.evaluate(() => document.activeElement.blur()); await page.waitForTimeout(200);
-      rato = { emCima: andou(r1, r2), quieto: andou(r3, r4), arrastou: andou(a0, a1), abriuAoLargar: a2.aberta, roda: andou(w0, w1), rodaPagina: w1.y - w0.y, tab: { ...foco, andou: andou(t0, t1) } };
+      rato = { estadoEmCima: r1.estado, emCima: andou(r1, r2), quieto: andou(r3, r4), arrastou: andou(a0, a1), abriuAoLargar: a2.aberta, roda: andou(w0, w1), rodaPagina: w1.y - w0.y, tab: { ...foco, andou: andou(t0, t1) } };
     }
     let dedo = null;
     if (movel) {
@@ -98,11 +101,11 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
       const q0 = await ler(); await page.touchscreen.tap(150, q0.topo + 150); await page.waitForTimeout(700); const q1 = await ler(); await page.waitForTimeout(900); const q2 = await ler();
       if (q1.aberta) { await page.click('#galeria-ecra [data-fechar]'); await page.waitForTimeout(400); }
       const q3 = await ler(); await page.waitForTimeout(1200); const q4 = await ler();
-      dedo = { vertical: { paginaRolou: b.y - a.y, continuou: andou(b, c) }, parado: { enquanto: andou(h1, h2), abriu: h3.aberta, depois: andou(h3, h4) },
+      dedo = { vertical: { paginaRolou: b.y - a.y, continuou: andou(b, c) }, parado: { estado: h1.estado, enquanto: andou(h1, h2), abriu: h3.aberta, depois: andou(h3, h4) },
         esquerda: { levou: andou(e0, e1), paginaRolou: e1.y - e0.y, abriu: e1.aberta, depois: andou(e2, e3) }, direita: { levou: andou(d0, d1) },
-        toque: { abriu: q1.aberta, comElaAberta: andou(q1, q2), depoisDeFechar: andou(q3, q4) } };
+        toque: { abriu: q1.aberta, estado: q1.estado, comElaAberta: andou(q1, q2), depoisDeFechar: andou(q3, q4) } };
     }
-    const sequencia = { caixas, sozinha: andou(s0, s1), rato, dedo };
+    const sequencia = { caixas, tamanhos, sozinha: andou(s0, s1), rato, dedo };
 
     // A régua do fecho: anda sozinha («a rolar»)
     await page.evaluate(() => { const f = document.querySelector('#fecho [data-rolo]'); window.scrollTo(0, f.getBoundingClientRect().top + window.scrollY - 220); }); await page.waitForTimeout(500);
@@ -195,6 +198,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (r.comHash.url.includes('#') || r.comHash.y < 500) falhas.push(q + 'abrir com #galeria não levou à galeria ou não limpou o endereço');
     if (r.hashAntigo.url.includes('#') || r.hashAntigo.y > 5) falhas.push(q + 'abrir com #casa (endereço antigo) não ficou na capa');
     if (s.caixas.length) falhas.push(q + s.caixas.length + ' caixa(s) de fotografia com tamanho diferente do da fotografia, p. ex. ' + s.caixas.slice(0, 3).join(' · '));
+    if (s.tamanhos && s.tamanhos.length) falhas.push(q + 'há faixas com fotografias de tamanhos diferentes (todas têm de ter o mesmo; as ao alto são recortadas): ' + s.tamanhos.join(' · '));
     // 17/11/2026, o Diogo com a versão 3 no iPhone: «As fotos estão estáticas … não estão a andar sozinhas no movimento lento como já
     // tinha sido decidido.» As fotografias andam sempre, devagar: cerca de 29 px por segundo no telemóvel e 41 no computador.
     const min2s = r.movel ? 40 : 60, max2s = r.movel ? 80 : 110;

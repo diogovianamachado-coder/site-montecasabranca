@@ -110,8 +110,9 @@ function foto_caixa(array $f, bool $legenda = false, bool $lazy = true): string
  * tinha sido decidido.» (Na versão 3 davam um passo de 5 em 5 segundos e só com a página parada: para quem desce a página, é um
  * site parado.)
  * Como é feito, para andar em qualquer telemóvel:
- * · o movimento é uma animação da folha de estilos (site.css, «Rolos»: a pista desloca-se com transform). Quem a corre é o browser,
- *   sem JavaScript, sem temporizadores e sem depender de a página estar parada: anda logo que a página abre;
+ * · o movimento é uma animação que o browser corre sozinho (a pista desloca-se com transform): a da folha de estilos (site.css,
+ *   «Rolos»), que anda sem JavaScript, ou uma igual criada pelo site.js, que o dedo e o rato conseguem parar e levar. Sem
+ *   temporizadores e sem depender de a página estar parada: anda logo que a página abre;
  * · as fotografias vão duas vezes na pista (a segunda série é a cópia da primeira, escondida dos leitores de ecrã): quando a primeira
  *   série acaba de sair, a segunda está exatamente no sítio onde a primeira começou, e a volta não tem costura;
  * · a duração vai escrita aqui (segundos por fotografia × número de fotografias), para a velocidade ser a mesma seja qual for o
@@ -119,23 +120,20 @@ function foto_caixa(array $f, bool $legenda = false, bool $lazy = true): string
  * · o JavaScript só acrescenta o que a pessoa faz (site.js, «Rolos»): o dedo ou o rato param a faixa enquanto lhe tocam e levam-na
  *   para um lado ou para o outro (com o balanço do gesto); um toque abre a fotografia em grande.
  * Sem contagens e sem setas. Cada caixa tem largura e altura escritas na folha de estilos: nada depende do tamanho da fotografia.
+ * Numa faixa todas as caixas têm o mesmo tamanho (Diogo, 17/11/2026: «há uma foto que tem dimensão diferente; tens de enquadrar
+ * essa foto no mosaico que estamos a passar»): uma fotografia ao alto é recortada na caixa, com o ponto de foco de 'pos'.
  * $op: 'tipo' => 'seq' (as fotografias grandes de um capítulo, com a legenda escrita sobre cada uma) ou 'fila' (as mais pequenas
- * do fecho da casa; as fotografias ao alto ficam mais altas e estreitas); 'acaso' => true baralha a ordem em cada visita (aqui, no
- * servidor: a lista da fotografia em grande segue a mesma ordem).
+ * do fecho da casa); 'acaso' => true baralha a ordem em cada visita (aqui, no servidor: a lista da fotografia em grande segue a
+ * mesma ordem).
  */
 function rolo(string $nome, array $fotos, array $op = []): string
 {
     $fotos = array_values($fotos);
     if (!empty($op['acaso'])) shuffle($fotos);
     $fila = ($op['tipo'] ?? 'seq') === 'fila';
-    // Segundos que cada fotografia leva a passar: [telemóvel, computador]. Na fila, uma fotografia ao alto conta menos (é mais estreita).
+    // Segundos que cada fotografia leva a passar: [telemóvel, computador].
     [$seg, $segLargo] = $fila ? [10.5, 10.5] : [12.0, 19.0];
-    $conta = 0.0; $alto = [];
-    foreach ($fotos as $i => $f) {
-        $alto[$i] = false;
-        if ($fila) { [$l, $a] = foto_dim($f['src']); $alto[$i] = $a > $l; }
-        $conta += $alto[$i] ? 0.66 : 1.0;
-    }
+    $conta = (float)count($fotos);
     $s = fn(float $x): string => rtrim(rtrim(number_format($x, 1, '.', ''), '0'), '.') . 's';
     $dur = '--dur:' . $s($conta * $seg) . ';--dur-l:' . $s($conta * $segLargo) . ';--dur-c:' . $s($conta * $seg * 1.7) . ';--dur-lc:' . $s($conta * $segLargo * 1.7);
     $h = '<div class="rolo rolo-' . ($fila ? 'fila' : 'seq') . '" data-rolo data-entra data-galeria="' . galeria_json($nome, $fotos) . '" role="group" aria-label="' . e($nome . ': fotografias') . '">';
@@ -144,7 +142,7 @@ function rolo(string $nome, array $fotos, array $op = []): string
         $h .= '<ul class="rolo-serie"' . ($copia ? ' aria-hidden="true"' : '') . '>';
         foreach ($fotos as $i => $f) {
             $rotulo = ($fila ? ($f['alt'] ?? '') : ($f['legenda'] ?? $f['alt'] ?? '')) . ' · abrir a fotografia';
-            $h .= '<li class="rolo-item' . ($alto[$i] ? ' ao-alto' : '') . '"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '"'
+            $h .= '<li class="rolo-item"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '"'
                 . ($copia ? ' tabindex="-1"' : ' aria-label="' . e($rotulo) . '"') . '>';
             // As duas primeiras são pedidas logo (são as que se vêem ao chegar); as outras quando o rolo se aproxima do ecrã.
             $h .= foto_caixa($copia ? array_merge($f, ['alt' => '']) : $f, !$fila, !(!$copia && $i < 2)) . '</button></li>';

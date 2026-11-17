@@ -1104,11 +1104,13 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   costura. Corre no browser **sem JavaScript**, sem temporizadores e sem esperar que a página pare. A duração vai escrita em cada
   pista, calculada no servidor (`--dur` telemóvel, `--dur-l` computador, `--dur-c`/`--dur-lc` para «reduzir movimento»; sem `calc()`):
   12 s por fotografia nos capítulos no telemóvel (cerca de 29 px/s; a V1 andava a 25 e a V2 a 22) e 19 s no computador (41 px/s); na
-  régua, 10,5 s por fotografia (as ao alto contam 0,66). Cada caixa tem a sua camada (`translateZ(0)`), para o iPhone não deixar
-  fotografias por desenhar numa pista comprida. A faixa vai de um lado ao outro do ecrã (até 3000 px). **Saíram as setas** (e
-  continuam a não existir contagens).
-  **(3) O que a pessoa faz** (`site.js`, bloco «Rolos», pegando na própria animação da folha de estilos com `getAnimations()`; nada
-  mexe na rolagem): o dedo parado em cima segura a faixa (e esse toque demorado não abre a fotografia); o dedo para os lados leva-a,
+  régua, 10,5 s por fotografia. **Numa faixa todas as caixas têm o mesmo tamanho** (ver o ponto 9). Cada caixa tem a sua camada
+  (`translateZ(0)`), para o iPhone não deixar fotografias por desenhar numa pista comprida. A faixa vai de um lado ao outro do ecrã
+  (até 3000 px). **Saíram as setas** (e continuam a não existir contagens). **Com JavaScript, o `site.js` troca a animação da folha
+  de estilos por uma igual criada por ele** (`criarAnimacao()`: `element.animate`, à mesma velocidade e no mesmo sítio; classe
+  `rolo-js` → `animation-name: none` na da folha de estilos); sem JavaScript fica a da folha de estilos (ver o ponto 9).
+  **(3) O que a pessoa faz** (`site.js`, bloco «Rolos», com a animação criada pelo próprio `site.js`; nada mexe na rolagem): o dedo
+  parado em cima segura a faixa (e esse toque demorado não abre a fotografia); o dedo para os lados leva-a,
   para a frente ou para trás (`touch-action: pan-y`: para cima e para baixo rola a página) e, largada, continua com o balanço até
   voltar à sua velocidade; um toque rápido abre a fotografia em grande, e com ela (ou o menu, ou o painel) aberta as faixas esperam.
   Com rato: pára enquanto o rato se mexe por cima (o rato quieto não a pára: assim não fica parada só por a página rolar por baixo do
@@ -1116,8 +1118,8 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   faixas a mais de um ecrã de distância ficam sem animação e sem camadas («longe») e recomeçam na primeira fotografia ao chegar; as
   fotografias que faltam começam a carregar a dois ecrãs de distância. **Uma faixa nunca fica presa** (`largarSempre()`): o fim de
   qualquer toque, em qualquer sítio da janela, larga-a (o rato largado fora da faixa; um toque que o telemóvel acaba sem avisar; a
-  janela que perde o foco; a página que fica escondida), e um toque novo esquece o anterior. Nos browsers sem `getAnimations()` fica
-  só o parar (classe `parado`).
+  janela que perde o foco; a página que fica escondida), e um toque novo esquece o anterior. Nos browsers sem `element.animate` fica a
+  animação da folha de estilos e só o parar (classe `parado`). Ao rodar o telemóvel, a duração acerta-se sem salto.
   **(4) A capa: a paralaxe da V2 reposta («as fotos de cima … em modo estático»).** A V1 e a V2 tinham, no `site.js`, a fotografia da
   capa a descer um quarto do que a página sobe (`translateY(scrollY × 0,25)` a cada passo da rolagem; a V1 com a fotografia ampliada
   8 %, a V2 sem ampliação). A V3 tirou-a do telemóvel (ficou só a fotografia presa ao ecrã no computador) e o Diogo deu por isso. Na
@@ -1155,7 +1157,8 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `docs/versoes/v4/`; `site/versao.json` = 4; `site/LEIA-ME.md` (o movimento e onde se muda a velocidade). Enviado ao Diogo na
   conversa um vídeo de minuto e meio do telemóvel a percorrer a página, da capa à galeria (`versao-4-telemovel.mp4`, gravado em
   Chromium; fica só na pasta de trabalho).
-  **No GitHub:** o commit da V4 e o ensaio a seco (será o n.º 20) ficam escritos no parágrafo seguinte, quando acabarem.
+  **No GitHub:** commit `be0646d` (a V4 com a memória até aqui); o «Capturas» n.º 60 desse commit **falhou** (ponto 9, b). O commit
+  com as correções do ponto 9, o «Capturas» dele e o ensaio a seco (será o n.º 20) ficam escritos no fim do ponto 9.
   **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real.
   **Ferramenta:** `site/config.php` local (ignorado pelo git; apaga-se no fim) + `php -S 127.0.0.1:8796 -t site` para ver o site na
   sessão; `ver/rolos.cjs`, `ver/gestos.cjs`, `ver/vida.cjs`, `ver/passeio.cjs` na pasta de trabalho; **vídeo:** o Playwright grava
@@ -1173,3 +1176,21 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta
   · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público ·
   S31–S33 · o Lovable continua com a composição aos passos (não foi pedido mexer-lhe). **Próxima sugestão: S37.**
+  **18/11 (00h, hora de Lisboa) · depois do vídeo: «Não estou a perceber porque é que esta questão não foi acautelada e estou há 3
+  dias para conseguir ver o site a funcionar. Há uma foto que tem dimensão diferente. Tens de enquadrar essa foto no mosaico que
+  estamos a passar.»** **(9) Duas correções na mesma versão 4, antes de qualquer envio.** (a) **A régua do fecho** tinha as
+  fotografias ao alto mais altas e estreitas do que as outras (herança da composição do Lovable, na V3, que eu mantive sem a
+  confrontar com uma faixa em movimento). Eram duas: `exterior/por-do-sol.jpg` e `interior/lareira-acesa.jpg` (1200 × 1600). Agora
+  todas as caixas de uma faixa têm o mesmo tamanho (290 × 220 no telemóvel, 380 × 280 no computador) e as ao alto são recortadas
+  (`object-fit: cover`); a lareira com `'pos' => '50% 56%'` (`conteudo.php`), para se ver a moldura inteira; o pôr do sol fica ao
+  centro (sol, árvores, o cão e o reflexo). A duração da régua conta todas por igual (18 × 10,5 s = 189 s). O `captura-site.cjs`
+  falha se uma faixa tiver caixas de tamanhos diferentes. (b) **O «Capturas» n.º 60 (commit `be0646d`) falhou:** no Chromium dos
+  testes do GitHub (Playwright 1.56.1, Chromium 141; aqui é o Playwright 1.63 com o Chromium 153) as faixas andavam, mas o dedo e o
+  rato não as conseguiam parar nem levar (`pause()` e `currentTime` na animação da folha de estilos, apanhada com `getAnimations()`,
+  sem efeito). Causa exata não apurada: não consigo correr esse Chromium aqui (o servidor dos browsers do Playwright está fechado à
+  sessão). Correção: com JavaScript, o `site.js` cria a sua própria animação (`criarAnimacao()`, `element.animate`, Web Animations
+  padrão, Safari 13.1+), igual à da folha de estilos e a começar no mesmo sítio, e é nessa que o dedo e o rato mexem; a da folha de
+  estilos fica para quando o JavaScript não corre (classe `rolo-js`). Faixa longe: a animação é cancelada e recomeça na primeira
+  fotografia. O `captura-site.cjs` passa a dizer, em cada falha, que animação movia a faixa e em que estado estava. **Lição:** a
+  bateria local não chega para mudanças de movimento: só se mostra ao Diogo ou se pede o «Lança» depois de o «Capturas» (Chromium
+  antigo e WebKit) estar verde.

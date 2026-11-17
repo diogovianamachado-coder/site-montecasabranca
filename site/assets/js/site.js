@@ -151,8 +151,11 @@
   /* ---- Rolos: as fotografias que deslizam sozinhas ----
      Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no
      mobile ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.»
-     O movimento NÃO é feito aqui: é uma animação da folha de estilos (site.css, «Rolos»), que o browser corre sozinho e que anda
-     mesmo que este ficheiro falhe. Aqui só se trata do que a pessoa faz, pegando nessa mesma animação (getAnimations()):
+     O movimento é sempre uma animação que o browser corre sozinho (só transform, sem temporizadores, sem esperar que a página
+     pare). A folha de estilos tem uma (site.css, «Rolos»), que anda mesmo que este ficheiro não corra. Quando este ficheiro corre,
+     troca-a por uma igual criada aqui (element.animate), à mesma velocidade e no mesmo sítio: é a que o dedo e o rato conseguem
+     parar e levar em qualquer browser. (Na primeira versão pegava-se na animação da folha de estilos com getAnimations(); num
+     Chromium mais antigo, o dos testes do GitHub, o dedo e o rato deixaram de lhe conseguir tocar.) O que a pessoa faz:
      · «parar»: enquanto o dedo ou o botão do rato estão em cima da faixa, ela fica parada; ao largar, continua. Com rato, pára
        também enquanto o rato se mexe por cima das fotografias (para se conseguir escolher uma) e retoma pouco depois;
      · «acelerar»: arrastar para um lado ou para o outro leva a faixa (anda-se com o tempo da animação para a frente ou para trás);
@@ -162,29 +165,43 @@
      · as faixas afastadas do ecrã ficam paradas e sem camadas («longe»); ao aproximarem-se recomeçam na primeira fotografia, que é
        a principal do capítulo, e as fotografias que faltam começam logo a carregar;
      · com o menu, o painel ou uma fotografia abertos, as faixas por trás ficam paradas.
-     Nos browsers sem getAnimations() fica só o «parar» (classe «parado»). */
+     Nos browsers sem element.animate fica a animação da folha de estilos e só o «parar» (classe «parado»). */
   var comRato = !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
   var rolos = [], ultimoTab = 0;
   d.addEventListener('keydown', function (ev) { if (ev.key === 'Tab') ultimoTab = Date.now(); }, true);
   function mod(a, n) { return ((a % n) + n) % n; }
-  function animacaoDe(r) {
-    if (!r.api) return null;
-    var l = r.pista.getAnimations();
-    for (var i = 0; i < l.length; i++) if (l[i].animationName === 'rolar') return l[i];
-    return l.length === 1 && l[0].animationName === undefined ? l[0] : null;   // browsers antigos não dizem o nome: a pista só tem esta
+  function duracaoCss(pista) {                            // a duração da volta na folha de estilos (com os tamanhos e o «reduzir movimento»), em ms
+    var v = String(getComputedStyle(pista).animationDuration || '').split(',')[0].trim(), n = parseFloat(v);
+    if (!(n > 0)) return 0;
+    return /ms$/.test(v) ? n : n * 1000;
   }
+  function animacaoDe(r) { return r.anim || null; }
   function medidasDe(r, a) {                              // a duração de uma volta (ms) e o comprimento de uma série (px)
     var dur = 0; try { dur = +a.effect.getComputedTiming().duration || 0; } catch (e) { dur = 0; }
     var per = r.pista.scrollWidth / 2;
     return dur > 0 && per > 0 ? { dur: dur, per: per } : null;
   }
+  // Troca a animação da folha de estilos por uma igual, criada aqui, a começar no sítio onde a outra ia (sem salto).
+  function criarAnimacao(r) {
+    var pista = r.pista, dur = duracaoCss(pista);
+    if (!pista.animate || !(dur > 0)) return;
+    var inicio = 0;
+    try { var t = getComputedStyle(pista).transform, per = pista.scrollWidth / 2; if (t && t !== 'none' && per > 0 && window.DOMMatrixReadOnly) inicio = mod(-new DOMMatrixReadOnly(t).m41 / per, 1) * dur; } catch (e) { inicio = 0; }
+    var a = null;
+    try { a = pista.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(-50%, 0, 0)' }], { duration: dur, iterations: Infinity, easing: 'linear' }); } catch (e) { a = null; }
+    if (!a) return;
+    try { a.currentTime = inicio; } catch (e) {}
+    r.anim = a; r.el.classList.add('rolo-js');           // site.css: .rolo-js .rolo-pista { animation-name: none }
+  }
   function acertarRolo(r) {                               // anda ou está parada?
-    var anda = r.perto && !r.preso && !r.rato && !r.foco && !abertas.length;
-    var a = r.api && r.perto ? animacaoDe(r) : null;
-    // Sem a animação à mão (browser antigo, ou faixa longe), o «parar» faz-se pela folha de estilos (classe «parado»).
+    var anda = r.perto && !r.preso && !r.rato && !r.foco && !abertas.length, a = r.anim;
+    // Sem animação criada aqui (browser antigo), o «parar» faz-se pela folha de estilos (classe «parado»).
     if (!a) { if (anda) r.el.classList.remove('parado'); else r.el.classList.add('parado'); return; }
-    r.el.classList.remove('parado');
-    try { if (anda) a.play(); else a.pause(); } catch (e) {}
+    try {
+      if (!r.perto) { if (a.playState !== 'idle') a.cancel(); return; }      // longe: sem animação; ao voltar, recomeça na primeira fotografia
+      if (anda) { if (a.playState !== 'running') a.play(); }
+      else if (a.playState !== 'paused') a.pause();
+    } catch (e) {}
   }
   function pararBalanco(r) { if (r.balanco) { clearInterval(r.balanco); r.balanco = null; } }
   function soltar(r) { pararBalanco(r); r.preso = false; acertarRolo(r); }
@@ -203,9 +220,10 @@
   }
   function umRolo(el) {
     var pista = $('.rolo-pista', el); if (!pista) return;
-    var r = { el: el, pista: pista, api: !!pista.getAnimations, perto: true, preso: false, rato: false, foco: false, levou: false,
+    var r = { el: el, pista: pista, anim: null, perto: true, preso: false, rato: false, foco: false, levou: false,
       id: null, toque: false, largar: null, x0: 0, t0: 0, m: null, xa: 0, xb: 0, ta: 0, tb: 0, ta0: 0, semClique: 0, balanco: null, tRato: null, rx: -1, ry: -1 };
     el._rolo = r; rolos.push(r);
+    criarAnimacao(r);
     var largar = function (ev) {
       if (r.id === null || ev.pointerId !== r.id) return;
       var levou = r.levou; r.id = null; r.levou = false; el.classList.remove('a-levar');
@@ -269,6 +287,18 @@
     $$('[data-rolo]').forEach(umRolo);
     if (!rolos.length) return;
     largarSempre();
+    // Ao rodar o telemóvel (ou mudar a largura da janela) a folha de estilos pode pedir outra duração: acerta-se sem saltar.
+    var largura = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === largura) return;          // no iPhone a barra do Safari muda a altura a cada rolagem: isso não conta
+      largura = window.innerWidth;
+      rolos.forEach(function (r) {
+        var a = r.anim; if (!a) return;
+        var nova = duracaoCss(r.pista), velha = 0; try { velha = +a.effect.getComputedTiming().duration || 0; } catch (e) { velha = 0; }
+        if (!(nova > 0) || !(velha > 0) || Math.abs(nova - velha) < 1) return;
+        try { var p = a.currentTime === null ? null : (+a.currentTime) / velha; a.effect.updateTiming({ duration: nova }); if (p !== null) a.currentTime = p * nova; } catch (e) {}
+      });
+    });
     if (!('IntersectionObserver' in window)) return;
     // Perto do ecrã (a menos de um ecrã de distância): anda. Longe: parada, sem camadas, de volta à primeira fotografia.
     var ioPerto = new IntersectionObserver(function (ens) {

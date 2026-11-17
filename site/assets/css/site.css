@@ -278,23 +278,22 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .rolo-item { position: relative; flex: none; -webkit-transform: translateZ(0); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 .rolo img { -webkit-touch-callout: none; }
 @keyframes rolar { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
-.rolo.longe .rolo-pista { animation-name: none; }
+.rolo.longe .rolo-pista, .rolo-js .rolo-pista { animation-name: none; }   /* rolo-js: o site.js trocou-a por uma igual, que o dedo consegue levar */
 .rolo.longe .rolo-item { -webkit-transform: none; transform: none; }
 .rolo.parado .rolo-pista { -webkit-animation-play-state: paused; animation-play-state: paused; }   /* só nos browsers sem getAnimations() */
 .rolo.a-levar, .rolo.a-levar .foto-botao { cursor: grabbing; }
 /* As fotografias de um capítulo: grandes, com a legenda escrita sobre cada uma; vê-se sempre a seguinte a chegar. */
 .rolo-seq .rolo-item { width: 86vw; max-width: 430px; height: 360px; margin-right: .75rem; }
-/* As do fecho da casa: mais pequenas (as ao alto, mais altas e estreitas), alinhadas por baixo. */
+/* As do fecho da casa: mais pequenas, todas do mesmo tamanho (Diogo, 17/11/2026: «há uma foto que tem dimensão diferente; tens de
+   enquadrar essa foto no mosaico que estamos a passar»). As fotografias ao alto são recortadas na caixa (conteudo.php, 'pos'). */
 .rolo-fila { margin-top: 1.5rem; }
 .rolo-fila .rolo-item { width: 290px; height: 220px; margin-right: .75rem; }
-.rolo-fila .rolo-item.ao-alto { width: 190px; height: 290px; }
 @media (min-width: 768px) {
   .rolo { margin-top: 3.5rem; }
   .rolo-pista { animation-duration: var(--dur-l, 90s); }
   .rolo-seq .rolo-item { width: 760px; width: min(760px, calc(100vw - 2 * var(--pad) - 4rem)); max-width: none; height: 560px; height: clamp(380px, 68vh, 560px); margin-right: 1.25rem; }
   .rolo-fila { margin-top: 2rem; }
   .rolo-fila .rolo-item { width: 380px; height: 280px; margin-right: 1rem; }
-  .rolo-fila .rolo-item.ao-alto { width: 240px; height: 360px; }
 }
 
 /* ---- Fecho da casa ---- (a frase grande e o rolo de fotografias mais pequenas, numa ordem diferente em cada visita e sempre a
