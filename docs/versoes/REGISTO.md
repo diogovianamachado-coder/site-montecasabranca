@@ -44,10 +44,10 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V3 · 17/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
 
 - **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V2.
-  Commits `75affc3` e `f58b428` (16/11: a composição e a construção nova) e `303baa4` e `43d3673` (17/11: as notas de 15/11
-  repostas); testes «Capturas» n.º 52, 53, 55 e 56 verdes (Chromium e WebKit); ensaios a seco do deploy n.º 15 (16/11), 16 e
-  17 (17/11) lidos: face à V2 mudam 16 ficheiros, entram 2 (`partes/nacional2.php`, `partes/onde.php`), não sai nenhum e as
-  190 fotografias ficam como estão. Nada foi enviado.
+  Commits `75affc3` e `f58b428` (16/11: a composição e a construção nova), `303baa4` e `43d3673` (17/11: as notas de 15/11
+  repostas) e `5aa49b7` (17/11: a data); testes «Capturas» n.º 52, 53 e 55 a 57 verdes (Chromium e WebKit); ensaios a seco do
+  deploy n.º 15 (16/11) e 16 a 18 (17/11) lidos: face à V2 mudam 16 ficheiros, entram 2 (`partes/nacional2.php`,
+  `partes/onde.php`), não sai nenhum e as 190 fotografias ficam como estão. Nada foi enviado.
   A data desta ficha (17/11) é a do dia em que a versão ficou fechada como está. Se o «Lança» for noutro dia, a data acerta-se
   para esse dia aqui, em `versoes.json` e em `site/versao.json`, antes do envio.
 - **De onde vem:** o que o Diogo viu da V2 no iPhone a 16/11 («muito mau»: ver a ficha da V2) e o pedido «Trabalha com o Lovable para

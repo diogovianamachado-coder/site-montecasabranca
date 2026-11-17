@@ -76,6 +76,20 @@ def legenda(versoes, n):
     return f'V{n}' + (f' · {v["data"]}' if v.get('data') else '') + (f' · {v["estado"]}' if v.get('estado') else '')
 
 
+def partir(medir, texto, letra, largura):
+    """Parte um texto em linhas que caibam na largura dada (as legendas compridas escreviam-se por cima da coluna do lado)."""
+    linhas, atual = [], ''
+    for palavra in texto.split(' '):
+        tentativa = (atual + ' ' + palavra).strip()
+        if not atual or medir.textlength(tentativa, font=letra) <= largura:
+            atual = tentativa
+        else:
+            linhas.append(atual); atual = palavra
+    if atual:
+        linhas.append(atual)
+    return linhas
+
+
 def main():
     args = sys.argv[1:]
     pdf = None
@@ -92,6 +106,8 @@ def main():
     except OSError:
         versoes = {}
     f_titulo, f_legenda, f_falta = fonte(30, True), fonte(21, True), fonte(20)
+    medir = ImageDraw.Draw(Image.new('RGB', (1, 1)))
+    ALT_TITULO, ALT_LEGENDA = 40, 28          # altura de cada linha do título e de cada linha das legendas
     feitas = 0
     folhas = []
     for prefixo, titulo in PARTES.items():
@@ -102,13 +118,19 @@ def main():
             if ca is None and cb is None:
                 continue
             alt = max((c.height for c in (ca, cb) if c is not None), default=200)
-            cabeca = M + 44 + 14 + 30 + 12
+            # O título e as legendas partem-se em linhas que caibam: no telemóvel as colunas são estreitas.
+            l_titulo = partir(medir, f'{titulo} · {"no computador" if aparelho == "1280" else "no telemóvel"}', f_titulo, largura * 2 + M)
+            l_legendas = [partir(medir, legenda(versoes, n), f_legenda, largura) for n in (a, b)]
+            y_legendas = M + ALT_TITULO * len(l_titulo) + 14
+            cabeca = y_legendas + ALT_LEGENDA * max(len(l) for l in l_legendas) + 14
             folha = Image.new('RGB', (M * 3 + largura * 2, cabeca + alt + M), FUNDO)
             d = ImageDraw.Draw(folha)
-            d.text((M, M), f'{titulo} · {"no computador" if aparelho == "1280" else "no telemóvel"}', font=f_titulo, fill=TINTA)
+            for j, linha in enumerate(l_titulo):
+                d.text((M, M + ALT_TITULO * j), linha, font=f_titulo, fill=TINTA)
             for k, (n, c) in enumerate(((a, ca), (b, cb))):
                 x = M + k * (largura + M)
-                d.text((x, M + 44 + 14), legenda(versoes, n), font=f_legenda, fill=SUAVE)
+                for j, linha in enumerate(l_legendas[k]):
+                    d.text((x, y_legendas + ALT_LEGENDA * j), linha, font=f_legenda, fill=SUAVE)
                 if c is None:
                     d.rectangle((x, cabeca, x + largura - 1, cabeca + 160), outline=LINHA)
                     d.text((x + 18, cabeca + 18), 'Esta parte não existia nesta versão', font=f_falta, fill=SUAVE)

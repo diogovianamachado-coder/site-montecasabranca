@@ -1039,3 +1039,17 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   os originais das quatro frases traduzidas, os textos). **Em aberto, de antes:** melhoria de `tempo_clima()` · cópia do FACTOS
   (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400
   px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**
+  **17/11 (01h–01h20) · fecho.** Commit `5aa49b7` (esta memória, a data da versão 3 e as duas capturas do rodapé); bateria local
+  verde antes do push; «Capturas» n.º 57 verde (Chromium e WebKit); **ensaio a seco do deploy n.º 18** (run 43993461581): versão 3,
+  etiqueta `novo-v3`, a lista de sempre (`inc/util.php` e dez partes mudam, `partes/nacional2.php` e `partes/onde.php` entram),
+  42 640 929 bytes, nada enviado; os passos de escrever a configuração, verificar o site e etiquetar ficaram saltados, como em
+  qualquer ensaio. **O envio a sério (será o n.º 19) espera o «Lança».** Enviados ao Diogo na conversa: as duas folhas «antes e
+  agora» e o PDF «Versão 2 ao lado da versão 3» refeito (23 páginas; fica só na pasta de trabalho, como os anteriores).
+  `comparar.py`: o título e as legendas de cada folha passam a partir-se em linhas que caibam na coluna (no telemóvel a legenda da
+  V2 escrevia-se por cima da da V3). O commit que junta este parágrafo só mexe no `CLAUDE.md`, na ficha da V3 e no `comparar.py`:
+  `site/` fica igual ao do ensaio n.º 18.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios.
+  **No dia do «Lança»:** conferir a data (hoje 17/11; noutro dia, acertá-la nos três sítios e refazer as duas capturas do rodapé) ·
+  «Capturas» verde do commit que estiver em `main` · envio a sério para `novo.` · ler o registo · correr «Verificar o site (só lê)» ·
+  escrever na ficha da V3 e em `versoes.json` a data, o n.º do deploy, o commit completo e a etiqueta `novo-v3` (a V2 passa a
+  «esteve no ar de 16/11 a …») · pedir ao Diogo o iPhone, parte a parte.
