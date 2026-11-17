@@ -41,7 +41,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
-### V4 · 17/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
+### V4 · 18/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
 
 - **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V3.
 - **De onde vem:** o que o Diogo viu da V3 no iPhone a 17/11 (ver a ficha da V3): «zero movimento», «as fotos estão estáticas»,
