@@ -244,12 +244,19 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 /* ---- Sequências ---- (as fotografias de um capítulo, uma de cada vez; inc/util.php → sequencia())
    A faixa rola com a rolagem do browser: o dedo leva as fotografias e o scroll-snap pára cada uma no sítio.
    Cada caixa (li) tem a largura e a altura escritas aqui: a fotografia enche-a, nunca lhe dá o tamanho. */
-.seq { margin-top: 2.5rem; }
+.seq { position: relative; margin-top: 2.5rem; }
 /* Sem contagem («01 / 04»): «não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte» (Diogo, 15/11/2026).
-   As duas setas só existem com rato, que não arrasta a faixa; num ecrã de toque o dedo leva as fotografias e as setas não se vêem. */
+   As duas setas só existem com rato, que não arrasta a faixa; num ecrã de toque o dedo leva as fotografias e as setas não se vêem.
+   Com rato ficam pousadas sobre a faixa, em cima à direita (como o Lovable as pôs a 17/11): assim não ocupam uma linha própria e,
+   tal como no telemóvel, o texto do capítulo é seguido logo pelas fotografias. */
 .seq-setas { display: none; }
 .seq-setas .btn-redondo + .btn-redondo { margin-left: .5rem; }
-@media (hover: hover) and (pointer: fine) { .seq-setas { display: flex; justify-content: flex-end; margin-bottom: 1rem; } }
+@media (hover: hover) and (pointer: fine) {
+  .seq-setas { display: flex; position: absolute; top: 1rem; right: 2rem; z-index: 2; pointer-events: none; }
+  .seq-setas .btn-redondo { pointer-events: auto; border-color: rgba(var(--texto-rgb), .18); background: rgba(var(--claro-rgb), .9); }
+  .seq-setas .btn-redondo:hover { background: rgb(var(--claro-rgb)); }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) { .seq-setas { right: 3.5rem; } }
 /* --borda-faixa: a margem de cada lado da faixa. Até à largura da página é a margem normal; em ecrãs mais largos cresce, para a
    primeira fotografia começar alinhada com o texto (a faixa continua a ir de um lado ao outro do ecrã). */
 .seq, .fecho { --borda-faixa: var(--pad); }

@@ -1,21 +1,24 @@
-# Seguimento ao Lovable: as notas do Diogo que não foram no pedido de 16/11 de manhã
+# Seguimento ao Lovable: as notas do Diogo que não tinham ido no pedido de 16/11
 
-**Estado: POR ENVIAR.** A 16/11/2026, às 23h40, o Lovable recusou a mensagem: «Your workspace is out of credits» (plano gratuito do
-espaço «MONTE's Lovable»; os créditos do dia foram gastos com o pedido da manhã). Não se compram créditos sem ordem do Diogo. O texto
-fica aqui, pronto: envia-se quando os créditos voltarem (o plano gratuito repõe alguns por dia) ou quando o Diogo disser para pôr créditos.
+**Estado: ENVIADO a 17/11/2026, às 00h20, e concluído pelo agente do Lovable às 00h28** (versão `df8161a` do projeto «Monte Casa
+Branca»; a anterior era a `088eae5`, de 16/11). Nada foi publicado, nenhum serviço foi ligado e não se compraram créditos.
+A primeira tentativa, a 16/11 às 23h40, foi recusada («Your workspace is out of credits»: o plano gratuito tinha gasto os créditos do
+dia com o pedido da manhã); depois da meia-noite os créditos do dia seguinte já lá estavam.
 
 **Porquê este seguimento.** O Diogo perguntou, a 16/11: «Espero que estejas a considerar e tenhas passado ao Lovable as notas que
 estivemos a fazer ontem.» A conferência nota a nota (`docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`, secção 6) mostrou
 que o pedido da manhã levou os textos, a ordem e as regras, mas não levou a decisão da capa (dizia «mantém a tua») nem as palavras
 dele sobre as fotografias («não precisa de dizer que tem fotos», «a rolar random»), e que a composição devolvida mudou o desenho de
-«Antes de chegar» em relação à referência que ele deu. **No site (`site/`, versão 3) isto já está reposto**; o que falta é a
-pré-visualização do Lovable ficar igual, para o Diogo ver a mesma coisa nos dois sítios.
+«Antes de chegar» em relação à referência que ele deu. No site (`site/`, versão 3) isso ficou reposto a 17/11; este pedido pôs a
+pré-visualização do Lovable igual, para o Diogo ver a mesma coisa nos dois sítios.
 
-## O texto a enviar (uma só mensagem, ao agente do projeto «Monte Casa Branca»)
+**O que o Lovable respondeu e fez** está em `LEIA-ME.md`, nesta pasta.
 
-Seguimento do pedido desta manhã (16/11/2026), enviado pelo Claude em nome do Diogo. Palavras dele: «Espero que estejas a considerar e tenhas passado ao Lovable as notas que estivemos a fazer ontem.»
+## O texto enviado (uma só mensagem, ao agente do projeto «Monte Casa Branca»)
 
-A composição que fizeste esta manhã fica. Faltou passar-te algumas decisões que o Diogo tomou a 15/11. Ajusta só os sete pontos abaixo, sem mexer em mais nada (textos, fotografias, ordem, cores e o resto da composição ficam como estão).
+Seguimento do pedido de 16/11/2026, enviado pelo Claude em nome do Diogo. Palavras dele: «Espero que estejas a considerar e tenhas passado ao Lovable as notas que estivemos a fazer ontem.»
+
+A composição que fizeste a 16/11 fica. Faltou passar-te algumas decisões que o Diogo tomou a 15/11. Ajusta só os sete pontos abaixo, sem mexer em mais nada (textos, fotografias, ordem, cores e o resto da composição ficam como estão).
 
 1 · CAPA. Decisão dele, por olho, entre três opções: «capa: 1», no computador e no telemóvel. A queixa era o brilho: «por causa da máscara inicial a foto parece muito escura» e via-se pouco da casa. A capa 1 é assim:
 - O título vai para cima, sobre o céu, logo por baixo do logótipo (a cerca de 6rem do topo no telemóvel e 6,75rem no computador, alinhado à esquerda com o logótipo). Dois degraus: «Uma casa inteira» e, por baixo, mais pequena, em itálico e afastada da margem, «O Alentejo à vossa porta».
@@ -40,7 +43,7 @@ A composição que fizeste esta manhã fica. Faltou passar-te algumas decisões 
 
 7 · LIGAÇÕES INTERNAS. Ao clicar no menu ou nos botões, a página vai à secção sem deixar «#secção» no endereço. Foi a primeira nota dele: com o «#» no endereço, ao reabrir a página ela saltava logo para essa secção.
 
-REGRAS TÉCNICAS (as mesmas desta manhã): movimento só com CSS e IntersectionObserver; nada de JavaScript a mexer no scroll a cada frame; caixas das fotografias com largura e altura explícitas; tem de correr bem no Safari do iPhone, sem prender a rolagem da página.
+REGRAS TÉCNICAS (as mesmas de 16/11): movimento só com CSS e IntersectionObserver; nada de JavaScript a mexer no scroll a cada frame; caixas das fotografias com largura e altura explícitas; tem de correr bem no Safari do iPhone, sem prender a rolagem da página.
 
 NÃO FAZER: não publicar, não mudar domínio nem serviços, não comprar créditos.
 

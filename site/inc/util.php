@@ -109,7 +109,8 @@ function foto_caixa(array $f, bool $legenda = false): string
  * Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no mobile
  * ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.» Por isso não há contagem
  * («01 / 04») nem rótulos: vê-se a fotografia seguinte a espreitar e o movimento. Nos ecrãs de toque também não há setas (o dedo
- * leva-as); com rato há duas setas pequenas, porque o rato não arrasta, e o rato em cima das fotografias pára o avanço.
+ * leva-as); com rato há duas setas pequenas, pousadas sobre a faixa (em cima, à direita), porque o rato não arrasta, e o rato em
+ * cima das fotografias pára o avanço.
  * Cada caixa tem largura e altura escritas na folha de estilos (site.css, «Sequências»): nada depende do tamanho da fotografia.
  * Foi isso que falhou no iPhone na versão 2 (caixas mais largas do que a fotografia). As fotografias não dependem de JavaScript:
  * estão sempre à vista; «data-entra» só pede ao site.js uma entrada suave quando o bloco chega ao ecrã.
@@ -117,7 +118,7 @@ function foto_caixa(array $f, bool $legenda = false): string
 function sequencia(string $nome, array $fotos): string
 {
     $h = '<div class="seq" data-seq data-entra>';
-    $h .= '<div class="contentor seq-setas">';
+    $h .= '<div class="seq-setas">';
     $h .= '<button type="button" class="btn-redondo btn-seta" data-seq-ir="-1" aria-label="' . e('Fotografia anterior em ' . $nome) . '">' . icone('esq') . '</button>';
     $h .= '<button type="button" class="btn-redondo btn-seta" data-seq-ir="1" aria-label="' . e('Fotografia seguinte em ' . $nome) . '">' . icone('dir') . '</button>';
     $h .= '</div>';

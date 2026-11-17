@@ -1,0 +1,140 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Source Sans 3", system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--primary);
+  --color-terra: var(--terra);
+  --color-areia: var(--areia);
+  --color-oliva: var(--oliva);
+  --color-pale: var(--pale);
+  --color-on-photo: var(--on-photo);
+}
+
+:root {
+  --background: oklch(0.966 0.01 85);      /* cal #F7F4ED */
+  --foreground: oklch(0.355 0.03 40);      /* ink #49362E */
+  --primary: oklch(0.55 0.13 45);          /* terracota #A75532 */
+  --primary-foreground: oklch(0.985 0.006 85);
+  --card: oklch(0.985 0.006 85);
+  --secondary: oklch(0.88 0.03 65);        /* areia */
+  --accent: oklch(0.88 0.03 65);
+  --muted: oklch(0.94 0.012 75);           /* pale #F0EBE3 */
+  --muted-foreground: oklch(0.65 0.02 60); /* cinza quente #9D9186 */
+  --terra: oklch(0.79 0.045 60);           /* #D1B69E */
+  --areia: oklch(0.88 0.03 65);            /* #E6D6C4 */
+  --oliva: oklch(0.43 0.025 120);          /* #555A48 */
+  --pale: oklch(0.94 0.012 75);
+  --on-photo: oklch(0.99 0.004 85);
+  --border: oklch(0.86 0.02 65);
+  --shade: oklch(0.2 0.02 40);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .serif { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+@utility hero-shade {
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--shade) 16%, transparent) 0%, transparent 12%, transparent 60%, color-mix(in oklab, var(--shade) 30%, transparent) 100%);
+}
+
+@utility hero-copy {
+  text-shadow: 0 1px 3px color-mix(in oklab, var(--shade) 55%, transparent), 0 2px 28px color-mix(in oklab, var(--shade) 65%, transparent);
+}
+
+@utility logo-mask {
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: left center;
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  &.is-in { opacity: 1; transform: none; }
+}
+
+@utility zoom {
+  overflow: hidden;
+  & img { transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  &:hover img { transform: scale(1.05); }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+@layer base {
+  body { overflow-x: clip; }
+  a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  a, button { touch-action: manipulation; }
+}
+
+/* A fixed photograph clipped by the hero gives CSS-only parallax, also on iOS. */
+.hero-parallax { clip-path: inset(0); }
+.hero-parallax picture { position: absolute; inset: 0; }
+.hero-photo { position: fixed; inset: 0; height: 100svh; width: 100%; }
+
+.photo-sequence {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+}
+.photo-sequence::-webkit-scrollbar { display: none; }
+
+.sequence-controls { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .sequence-controls { display: flex; }
+}
+
+.rating-arc { stroke-dashoffset: 100; }
+.is-in .rating-arc { animation: rating-fill 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+@keyframes rating-fill { to { stroke-dashoffset: var(--ring-offset); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .hero-photo { transform: none; }
+  .rating-arc { stroke-dashoffset: var(--ring-offset); animation: none; }
+}

@@ -28,12 +28,16 @@ a composição para o `site/`.
   - `index.tsx` e `styles.css`: o que o Lovable devolveu (a página inteira e os estilos), tal e qual, para consulta. Não é código do
     site: foi passado à mão para `site/partes/`, `site/assets/css/site.css` e `site/assets/js/site.js`, com outra construção por baixo
     (ver o cimo desses dois ficheiros) e com a capa que o Diogo escolheu a 15/11 em vez da do Lovable.
-  - `pedido-seguinte-por-enviar.md`: **por enviar.** A 16/11 o Diogo perguntou se as notas de 15/11 tinham sido passadas ao Lovable.
-    A conferência (documento das notas de 15/11, secção 6) mostrou que o pedido da manhã não levou a decisão da capa («capa: 1»)
-    nem as palavras dele sobre as fotografias («não precisa de dizer que tem fotos», «a rolar random»), e que a composição mudou
-    o desenho de «Antes de chegar». No site (`site/`) isso ficou reposto a 17/11; este ficheiro é o pedido para a pré-visualização
-    do Lovable ficar igual. O Lovable recusou-o por falta de créditos (plano gratuito); envia-se quando voltarem ou quando o Diogo
-    mandar pôr créditos. Até lá, **a pré-visualização do Lovable não é a referência: a referência é o site em `novo.`**
+- **`composicao-2026-11-17/`** · o seguimento: as notas do Diogo de 15/11 que não tinham ido no pedido de 16/11. O Diogo perguntou
+  se as notas tinham sido passadas ao Lovable; a conferência (documento das notas de 15/11, secção 6) mostrou que o pedido de 16/11
+  não levou a decisão da capa («capa: 1») nem as palavras dele sobre as fotografias («não precisa de dizer que tem fotos», «a rolar
+  random»), e que a composição mudou o desenho de «Antes de chegar». No site (`site/`) isso ficou reposto a 17/11; o pedido de
+  17/11 pôs a pré-visualização do Lovable igual (capa 1, sem contagens, setas só com rato, fila ao acaso e a andar, «Antes de
+  chegar» em duas colunas, sem «Fotografias», ligações sem «#»).
+  - `pedido-ao-lovable.md`: o pedido (enviado às 00h20; a primeira tentativa, às 23h40 de 16/11, foi recusada por falta de créditos).
+  - `LEIA-ME.md`: a resposta do Lovable, o que mudou no código dele e o que passou daí para o site (as setas pousadas sobre as
+    fotografias, só com rato). `styles.css`: a folha de estilos dele, inteira.
+  - **A referência do que vai para o ar é sempre o site (`site/`, visto em `novo.`), não a pré-visualização do Lovable.**
 - **`capturas/2026-11-16/`** · essa composição fotografada, no telemóvel e no computador (montada na sessão com as fotografias reais).
 - Para a ver ao vivo, com dados de exemplo: a pré-visualização do projeto no Lovable (a ligação está em `docs/versoes/REGISTO.md`, ficha
   da V3). O Lovable não foi publicado nem ligado a serviços, e não se compraram créditos.
