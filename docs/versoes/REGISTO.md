@@ -43,13 +43,17 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ### V3 · 17/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
 
-- **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V2.
-  Commits `75affc3` e `f58b428` (16/11: a composição e a construção nova), `303baa4` e `43d3673` (17/11: as notas de 15/11
-  repostas) e `5aa49b7` (17/11: a data); testes «Capturas» n.º 52, 53 e 55 a 57 verdes (Chromium e WebKit); ensaios a seco do
-  deploy n.º 15 (16/11) e 16 a 18 (17/11) lidos: face à V2 mudam 16 ficheiros, entram 2 (`partes/nacional2.php`,
-  `partes/onde.php`), não sai nenhum e as 190 fotografias ficam como estão. Nada foi enviado.
-  A data desta ficha (17/11) é a do dia em que a versão ficou fechada como está. Se o «Lança» for noutro dia, a data acerta-se
-  para esse dia aqui, em `versoes.json` e em `site/versao.json`, antes do envio.
+- **Publicada:** 17/11/2026, às 22h06 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 19 (os n.º 15 a 18 foram
+  ensaios a seco), commit `9840ad5`, **etiqueta `novo-v3`**. É a que está no ar em `novo.`. Face à V2: 16 ficheiros mudaram,
+  2 entraram (`partes/nacional2.php`, `partes/onde.php`), nenhum saiu e as 190 fotografias ficaram como estavam.
+  Commits do site: `75affc3` e `f58b428` (16/11: a composição e a construção nova), `303baa4` e `43d3673` (17/11: as notas de
+  15/11 repostas) e `5aa49b7` (17/11: a data); testes «Capturas» n.º 52, 53 e 55 a 58 verdes (Chromium e WebKit).
+- **Verificação depois do envio:** a página responde (HTTP 200 em 0,8 s) e mostra «Ensaio · versão 3 · 17/11/2026»; continua fora
+  dos motores de busca (`noindex` e `robots.txt` de bloqueio) e sem ligações para as plataformas; **as 190 fotografias da página
+  existem todas no servidor**; a previsão do tempo, a conta, o calendário de exemplo e as médias do tempo respondem em cerca de
+  0,3 s cada («Verificar o site (só lê)», corrida n.º 2, às 22h08). No envio apareceu um aviso amarelo sobre as médias do tempo que era
+  falso: as médias vieram, a verificação é que cortava a resposta antes de a ler toda; ficou corrigido no `deploy-site.yml`.
+- **O que o Diogo achou, ao vivo, no iPhone:** por dizer (as partes estão no quadro, em baixo).
 - **De onde vem:** o que o Diogo viu da V2 no iPhone a 16/11 («muito mau»: ver a ficha da V2) e o pedido «Trabalha com o Lovable para
   que o conteúdo passe a estar harmonioso». O Claude levou ao Lovable o conteúdo novo e as queixas (pedido de 16/11, 08h27, no projeto
   «Monte Casa Branca» do Lovable); o Lovable compôs a página lá (para ver no telemóvel:
@@ -102,7 +106,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V2 · 16/11/2026 · a revisão do Diogo de 15/11
 
 - **Publicada:** 16/11/2026, às 00h49 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 14 (o n.º 13 foi o ensaio a seco),
-  commit `37c9ca0`, **etiqueta `novo-v2`**. É a que está no ar em `novo.`. Face à V1: 15 ficheiros mudaram, 71 entraram, 18 saíram.
+  commit `37c9ca0`, **etiqueta `novo-v2`**. Esteve no ar em `novo.` de 16/11 a 17/11/2026. Face à V1: 15 ficheiros mudaram, 71 entraram, 18 saíram.
 - **O que o Diogo achou, ao vivo, no iPhone (16/11, 01h10, com doze capturas):** «Acho que está muito mau. Não tem fotos, os menus
   prendem e não tem a dinâmica da versão anterior. A secção de Montemor aparece quase sem separador nem introdução e o da N2 coloca
   como se fosse um apêndice. Trabalha com o Lovable para que o conteúdo passe a estar harmonioso.» Nas capturas: as filas de

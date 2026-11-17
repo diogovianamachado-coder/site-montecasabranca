@@ -1053,3 +1053,35 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   «Capturas» verde do commit que estiver em `main` · envio a sério para `novo.` · ler o registo · correr «Verificar o site (só lê)» ·
   escrever na ficha da V3 e em `versoes.json` a data, o n.º do deploy, o commit completo e a etiqueta `novo-v3` (a V2 passa a
   «esteve no ar de 16/11 a …») · pedir ao Diogo o iPhone, parte a parte.
+
+- **17/11/2026 (22h06, hora de Lisboa) · «Labca» = «Lança» · A VERSÃO 3 ESTÁ NO AR EM `novo.montecasabranca.pt` (deploy n.º 19,
+  commit `9840ad5`, etiqueta `novo-v3`).** Antes disso o Diogo repetiu a pergunta das notas («Espero que estejas a considerar e
+  tenhas passado ao lovable as notas que estivemos a fazer ontem»); respondido em poucas linhas (sim; no primeiro pedido faltaram
+  quatro; corrigido no Lovable e no site), sem trabalho novo. Depois escreveu «Labca»: lido como «Lança» (o «b» ao lado do «n»; era
+  a resposta ao meu «falta só o seu Lança») e dito assim ao Diogo antes de enviar.
+  **(1) Antes do envio:** a data da versão (17/11) era a do dia; `main` = `9840ad5`, com `site/` igual ao do ensaio a seco n.º 18;
+  «Capturas» n.º 58 verde para esse commit.
+  **(2) O envio a sério n.º 19** (run 44186670145, 22h06–22h07): pré-voos, «Capturas» e sintaxe verdes; rsync em 4 s; `config.php`
+  ficou como estava; **HTTP 200 à primeira**; previsão do tempo e conta a responder (`fonte: site`); `noindex` e `robots.txt` de
+  bloqueio confirmados; a página mostra «Ensaio · versão 3»; **etiqueta `novo-v3` criada pelo próprio deploy**. Um aviso amarelo,
+  que era **falso**: «o tempo de uma estadia distante não devolveu as médias». As médias vieram nas três tentativas (cada dia com
+  `"tipo":"media"`); a verificação é que cortava a resposta aos 220 caracteres antes de procurar o `"modo":"media"`, que vem depois
+  da lista dos dias. Corrigido no `deploy-site.yml` (guarda a resposta inteira e mostra só o começo); não toca no site.
+  **(3) «Verificar o site (só lê)», corrida n.º 2** (run 44186994840): página HTTP 200 em 0,8 s (122 880 bytes); no ar «Ensaio ·
+  versão 3 · 17/11/2026»; `noindex`, `robots.txt` de bloqueio e sem ligações para as plataformas; **as 190 fotografias respondem
+  todas**; previsão, conta, calendário e médias em 0,26–0,30 s cada, «médias do tempo OK»; o arquivo do Open-Meteo, pedido do
+  GitHub, em 1,1 s e 0,7 s (1 826 dias, sem valores em falta).
+  **(4) Registo.** Ficha da V3 em `docs/versoes/REGISTO.md` («Publicada», verificação, «o que o Diogo achou» por dizer);
+  `versoes.json` com o commit completo (`9840ad5551db8115e250cae111ef5ef069178a1c`) e a etiqueta; **a V2 esteve no ar de 16/11 a
+  17/11**. **A partir daqui qualquer mudança em `site/` é a versão 4:** subir o número em `site/versao.json` e abrir a ficha
+  `### V4 · …` (o deploy recusa a V3 com outro conteúdo).
+  **Ferramenta:** nesta parte a sessão recusou correr o guião de espera da pasta de trabalho (`esperar_wf.py`) logo a seguir ao
+  envio; o estado das corridas lê-se com a ferramenta do GitHub (`list_workflow_runs`, `list_workflow_jobs`), que serve igualmente.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · **19 real**.
+  **Por dizer pelo Diogo:** o que achou da V3 no iPhone, parte a parte (coluna do REGISTO): se as fotografias aparecem inteiras e se
+  deixam levar com o dedo, se os menus já não prendem, se os campos das datas cabem, Montemor e a N2 com peso próprio · as
+  fotografias aos passos ou a rolar sem parar · se as duas setas no computador ficam ou saem · se a ideia do menu se mantém (nota
+  6a) · o resto de antes (a 34 em «A Quinta», a ligação de partilha do Google Maps, as ligações da ecopista e da N2, os originais
+  das quatro frases traduzidas, os textos). **Em aberto, de antes:** melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para
+  a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px ·
+  `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**

@@ -226,7 +226,9 @@ jobs:
               # n.º 14, a 16/11/2026: falhou à primeira e respondeu minutos depois). Quando responde, o servidor guarda a tabela 30 dias e os visitantes
               # deixam de esperar por ela: esta verificação serve também para a deixar guardada logo a seguir ao envio.
               for t in 1 2 3; do
-                M=$(curl -s $K --max-time 40 "$SITE_URL/api/tempo.php?de=$(date -d '+200 days' +%F)&ate=$(date -d '+203 days' +%F)" | head -c 220); echo "api/tempo.php (estadia daqui a 200 dias), tentativa $t → $M"
+                # A resposta guarda-se inteira e só se mostra o começo: o «modo» vem depois da lista dos dias, e cortar antes de o procurar
+                # dava um aviso falso (deploy n.º 19, a 17/11/2026: as médias vieram, mas a linha lida acabava antes do «modo»).
+                M=$(curl -s $K --max-time 40 "$SITE_URL/api/tempo.php?de=$(date -d '+200 days' +%F)&ate=$(date -d '+203 days' +%F)"); echo "api/tempo.php (estadia daqui a 200 dias), tentativa $t → ${M:0:220}"
                 if grep -q '"modo":"media"' <<<"$M"; then echo "médias do tempo OK"; break; fi
                 if [ "$t" = "3" ]; then echo "::warning::o tempo de uma estadia distante não devolveu as médias dos anos anteriores em três tentativas (o arquivo do Open-Meteo pode não estar a responder); confirma mais tarde com o workflow «Verificar o site (só lê)»"; else sleep 6; fi
               done
