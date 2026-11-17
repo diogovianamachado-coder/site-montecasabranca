@@ -968,3 +968,74 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   das quatro frases traduzidas, os textos). **Em aberto, de antes:** melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a
   app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px ·
   `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**
+
+- **16/11/2026 (noite) → 17/11 (01h, hora de Lisboa) · «ESPERO QUE ESTEJAS A CONSIDERAR E TENHAS PASSADO AO LOVABLE AS NOTAS QUE
+  ESTIVEMOS A FAZER ONTEM» · CONFERÊNCIA NOTA A NOTA · QUATRO COISAS REPOSTAS NA VERSÃO 3 · O LOVABLE RECEBEU AS NOTAS EM FALTA ·
+  tudo em `main`, nada no servidor (a V3 continua à espera do «Lança»).**
+  **(1) A conferência.** As 17 notas e as respostas da noite de 15/11 foram relidas pelas palavras do Diogo (no registo da conversa)
+  e pelas capturas que ele enviou, e comparadas com o pedido de 16/11 ao Lovable, com a composição que ele devolveu e com a V3 do
+  site. Quadro completo em `docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`, **secção 6**. Resultado: os textos, a
+  ordem, os menus e as regras (sem plataformas, sem «antes e depois», 18h, casas de banho só na galeria, pedido leve) foram ao
+  Lovable e estão na página. **O que falhou foi meu:** o pedido de 16/11 levou o conteúdo, mas não as decisões dele com as palavras
+  dele. Dizia «CAPA (mantém a tua)», por isso a pré-visualização do Lovable ficou com outra capa (título em baixo, mais escura); não
+  levou «não precisa de dizer que tem fotos» nem «a rolar random»; não descreveu o desenho da referência de «Antes de chegar»; e a
+  frase «é a tua "Fotografias", com este nome» deixou «Fotografias» voltar como sobretítulo. A composição do Lovable trouxe então
+  contagens («01 / 04» nas fotografias, «02 / 10» nas frases), setas em todos os ecrãs, a fila do fecho parada e por ordem fixa e
+  «Antes de chegar» numa coluna, e eu passei-as para o site sem as confrontar com as notas.
+  **(2) Reposto na V3 (commits `303baa4` e `43d3673`).** *Fotografias dos capítulos e de Montemor (nota 8):* sem contagem; num ecrã
+  de toque sem setas (vê-se a seguinte a espreitar, o dedo leva-as); com rato, duas setas pequenas pousadas sobre as fotografias, em
+  cima à direita (a posição é a do Lovable de 17/11), e o rato em cima suspende o avanço. *Fila do fecho (nota 8):* ordem diferente
+  em cada visita (`fila(…, ['acaso' => true, 'rola' => true])` em `inc/util.php`: baralhada no servidor, a lista da fotografia em
+  grande segue a mesma ordem) e avança sozinha, um passo de 3,6 em 3,6 s, para um lado e depois para o outro, até lhe pegarem.
+  *«Antes de chegar» (nota 10):* a partir de 900 px, título à esquerda em três linhas e perguntas à direita, com «+» que passa a «−»
+  (some o traço vertical do ícone); abaixo disso, uma coluna. *Galeria:* só «Passear pelo Monte», sem sobretítulo. *Quem já ficou:*
+  sem contagem. No `site.js` o bloco passou a «Sequências e filas» (`faixaViva()`; `comRato` = «hover: hover e pointer: fine», e só
+  com isso se ouve o rato: num ecrã de toque um toque «entra» e nunca mais «sai»).
+  **(3) O que ficou do desenho do Lovable e não contraria nenhuma nota** (para o Diogo ver por olho): o cartaz em três linhas com
+  setas (na V2 eram degraus); em cada capítulo, palavra, frase e texto antes das fotografias; as fotografias uma de cada vez, aos
+  passos (na V2 deslizavam sem parar, e foi isso que no iPhone prendeu a página); Montemor, N2 e «Onde estamos» em três capítulos; o
+  fundo liso de «Quem já ficou»; os contactos compactos.
+  **(4) Lovable.** A 16/11 às 23h40 recusou o seguimento («out of credits»: o plano gratuito tinha gasto os créditos do dia); depois
+  da meia-noite aceitou-o (17/11, 00h20) e cumpriu-o às 00h28: versão `df8161a` do projeto (a de 16/11 era a `088eae5`), **não
+  publicado, sem créditos comprados**. A capa de lá passou a ser a capa 1 (conferida pela imagem que o Lovable guarda do projeto;
+  conferido outra vez à 00h55: `is_published: false`, versão `df8161a`). Pedido, resposta e o que mudou no código dele:
+  `lovable/composicao-2026-11-17/` (`pedido-ao-lovable.md`, `LEIA-ME.md`, `styles.css`; o `index.tsx` não foi guardado, só as
+  mudanças descritas). Duas diferenças de propósito entre o site e o Lovable: no site «Antes de chegar» só tem duas colunas a partir
+  de 900 px (lá, 768), e o rato em cima da fila do fecho suspende o avanço em vez de o parar de vez.
+  **(5) Testes.** A bateria falha se voltar uma contagem (`testar-site.sh`, bloco «notas do Diogo que não podem voltar atrás», e o
+  cenário), se as setas aparecerem num ecrã de toque ou faltarem com rato, se a fila do fecho vier pela mesma ordem em duas visitas,
+  não bater com a lista da fotografia em grande ou não avançar, se «Antes de chegar» deixar as duas colunas no computador, se o «+»
+  não passar a «−», ou se a galeria ganhar sobretítulo. Catorze larguras (320 a 1920) sem rolagem lateral; sem JavaScript tudo à
+  vista. «Capturas» n.º 55 (`303baa4`) e n.º 56 (`43d3673`) verdes, com a geometria no Chromium e no WebKit. **Ensaios a seco do
+  deploy n.º 16** (run 43987822805, `303baa4`, lido de ponta a ponta) **e n.º 17** (run 43990633151, `43d3673`): face à V2 mudam de
+  conteúdo 16 ficheiros, entram 2 (`partes/nacional2.php`, `partes/onde.php`), não sai nenhum e as 190 fotografias ficam como estão;
+  42,6 MB; nada enviado.
+  **(6) Uma manha das ferramentas, que quase me fez mostrar capturas erradas.** No Chromium, uma fotografia da página inteira
+  (`fullPage`) faz o telemóvel simulado passar a responder como um computador com rato («hover: hover», «pointer: fine») até ao fim
+  da página; a própria fotografia já sai assim. As setas, que só existem com rato, apareciam nas capturas «de telemóvel». Corrigido:
+  no `captura-site.cjs` a página inteira fotografa-se no fim, numa página à parte; no `versao/fotografar.cjs`, no telemóvel,
+  tiram-se da folha de estilos as regras que só valem com rato antes de fotografar, e as sequências deixam de avançar sozinhas para
+  cada parte sair com a primeira fotografia. `Emulation.setTouchEmulationEnabled` repõe o telemóvel entre capturas, mas a captura
+  inteira volta a mudá-lo.
+  **(7) A máquina da sessão foi reposta a meio (16/11, 23h40).** Perderam-se a pasta de trabalho (os guiões `esperar_capturas.py`,
+  `esperar_wf.py`, as folhas, o ensaio local em `/tmp/site-r5`) e as capturas que o Diogo tinha enviado; o repositório veio de novo
+  do GitHub, igual. Os dois guiões de espera foram refeitos na pasta de trabalho (leem a API pública do GitHub). Para ver o site na
+  sessão basta `bash demo/ferramentas/site/testar-site.sh` (monta os seus servidores) ou copiar `site/` para uma pasta com o
+  `config.ensaio.php` e servir com `php -S`.
+  **(8) Registo e mostra.** Ficha da V3 atualizada (`docs/versoes/REGISTO.md`: linhas 3, 4, 6, 7 e 8 e o parágrafo da conferência);
+  `docs/versoes/v3/` refeita; duas folhas «antes e agora» para o Diogo em `docs/integracao-app/revisao-2026-11-17/`
+  (`1-telemovel-antes-e-agora.jpg`, `2-computador-antes-e-agora.jpg`), enviadas na conversa. **A data da versão 3 passou a 17/11**
+  (o dia em que ficou fechada como está): `site/versao.json`, o título da ficha e `versoes.json`; as duas capturas do rodapé
+  (`docs/versoes/v3/09-contactos-*.jpg`) foram refeitas, porque mostram «Ensaio · versão 3 · data». Se o «Lança» for noutro dia, a
+  data acerta-se para esse dia nos mesmos três sítios (e refazem-se essas duas capturas) antes do envio.
+  **Regras que ficam (minhas, desta falha):** um pedido ao Lovable (ou a outro assistente de desenho) leva as decisões do Diogo com
+  as palavras dele, nota a nota, e não só o conteúdo que delas resultou; nunca «mantém a tua» sobre uma parte que ele já decidiu. O
+  que volta do Lovable confronta-se com as notas antes de passar para o site, e as diferenças dizem-se ao Diogo na mesma resposta. A
+  pré-visualização do Lovable não é a referência: a referência é o site em `novo.`.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–17 ensaios.
+  **Por dizer pelo Diogo:** «Lança» da V3 · o que achou da V3 no iPhone, parte a parte: se as fotografias se deixam levar com o
+  dedo, se os menus já não prendem, se os campos das datas cabem · se as duas setas no computador ficam ou saem · se a ideia do menu
+  se mantém (nota 6a) · o resto de antes (a 34 em «A Quinta», a ligação de partilha do Google Maps, as ligações da ecopista e da N2,
+  os originais das quatro frases traduzidas, os textos). **Em aberto, de antes:** melhoria de `tempo_clima()` · cópia do FACTOS
+  (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400
+  px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33. **Próxima sugestão: S37.**
