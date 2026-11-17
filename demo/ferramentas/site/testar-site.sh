@@ -27,6 +27,14 @@ foreach (["requestAnimationFrame", "sem-scroll", "body.style.overflow", "documen
 foreach ($mau as $m) echo "FALHOU: $m\n";
 exit($mau ? 1 : 0);' || exit 1
 echo "folha de estilos e JavaScript dentro das regras OK"
+# Notas do Diogo (15/11/2026) que a composição de 16/11 tinha desfeito e que não podem voltar sem se dar por isso:
+# · nota 8, «não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte»: sem contagens («01 / 04») nas fotografias;
+# · «não precisas dizer o número de avaliações»: sem contagem («02 / 10») por baixo das frases de quem já ficou.
+# (O cenário das capturas confere o resto na página a correr: setas só com rato, fila do fecho ao acaso e a andar, «Antes de chegar»
+# em duas colunas no computador, a galeria sem sobretítulo.)
+echo "== notas do Diogo que não podem voltar atrás"
+if grep -rnE 'seq-conta|data-seq-atual|citacoes-conta|citacoes-atual|citacoes-total' site --include='*.php' --include='*.js' --include='*.css'; then echo "FALHOU: voltou uma contagem às fotografias ou às frases (ver as linhas acima)"; exit 1; fi
+echo "sem contagens nas fotografias nem nas frases OK"
 echo "== fotografias"; php demo/ferramentas/site/conferir-fotos.php
 if python3 -c "import PIL" 2>/dev/null; then python3 demo/ferramentas/fotos/para_o_site.py --conferir; else echo "(sem Pillow nesta máquina: a comparação de site/fotos com a galeria fica para o computador de quem monta)"; fi
 echo "== servidores"; rm -rf /tmp/site-ensaio-app /tmp/site-ensaio-semapp; cp -r site /tmp/site-ensaio-app; cp -r site /tmp/site-ensaio-semapp

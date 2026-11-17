@@ -189,7 +189,7 @@ return [
     // Para juntar fotografias novas: copiar o ficheiro para fotos/<álbum>/ e acrescentar a linha aqui.
     // Álbuns sem fotografias não aparecem.
     'galeria' => [
-        'eyebrow' => 'Fotografias',
+        // Sem sobretítulo: a secção chama-se só «Passear pelo Monte» (Diogo, 15/11/2026; a palavra «Fotografias» saiu com a nota 3).
         'titulo' => 'Passear pelo Monte',
         'albuns' => [
             [

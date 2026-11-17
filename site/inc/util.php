@@ -104,22 +104,23 @@ function foto_caixa(array $f, bool $legenda = false): string
 
 /**
  * Uma «sequência»: as fotografias de um capítulo, uma de cada vez, em fila (desenho feito com o Lovable, 16/11/2026).
- * A rolagem é a do próprio browser (o dedo leva as fotografias; scroll-snap pára-as no sítio); por cima vão a contagem «01 / 04» e
- * duas setas. Avançam sozinhas, um passo de poucos em poucos segundos e em círculo, até ao primeiro toque (site.js, «Sequências»).
+ * A rolagem é a do próprio browser (o dedo leva as fotografias; scroll-snap pára-as no sítio). Avançam sozinhas, um passo de poucos
+ * em poucos segundos e em círculo, até a pessoa lhes pegar (site.js, «Sequências e filas»).
+ * Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no mobile
+ * ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.» Por isso não há contagem
+ * («01 / 04») nem rótulos: vê-se a fotografia seguinte a espreitar e o movimento. Nos ecrãs de toque também não há setas (o dedo
+ * leva-as); com rato há duas setas pequenas, porque o rato não arrasta, e o rato em cima das fotografias pára o avanço.
  * Cada caixa tem largura e altura escritas na folha de estilos (site.css, «Sequências»): nada depende do tamanho da fotografia.
  * Foi isso que falhou no iPhone na versão 2 (caixas mais largas do que a fotografia). As fotografias não dependem de JavaScript:
  * estão sempre à vista; «data-entra» só pede ao site.js uma entrada suave quando o bloco chega ao ecrã.
  */
 function sequencia(string $nome, array $fotos): string
 {
-    $n = count($fotos);
     $h = '<div class="seq" data-seq data-entra>';
-    $h .= '<div class="contentor seq-cabeca">';
-    $h .= '<p class="seq-conta" aria-hidden="true"><span data-seq-atual>01</span> / ' . sprintf('%02d', $n) . '</p>';
-    $h .= '<div class="seq-setas">';
+    $h .= '<div class="contentor seq-setas">';
     $h .= '<button type="button" class="btn-redondo btn-seta" data-seq-ir="-1" aria-label="' . e('Fotografia anterior em ' . $nome) . '">' . icone('esq') . '</button>';
     $h .= '<button type="button" class="btn-redondo btn-seta" data-seq-ir="1" aria-label="' . e('Fotografia seguinte em ' . $nome) . '">' . icone('dir') . '</button>';
-    $h .= '</div></div>';
+    $h .= '</div>';
     $h .= '<ul class="seq-faixa" data-galeria="' . galeria_json($nome, $fotos) . '" aria-label="' . e($nome . ': deslizar para ver as fotografias') . '">';
     foreach ($fotos as $i => $f) {
         $h .= '<li class="seq-item"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '" aria-label="' . e(($f['legenda'] ?? $f['alt'] ?? '') . ' · abrir a fotografia') . '">';
@@ -129,12 +130,18 @@ function sequencia(string $nome, array $fotos): string
 }
 
 /**
- * Uma «fila»: fotografias mais pequenas, lado a lado, para levar com o dedo (o fecho da casa). Sem contagem, sem setas e sem avanço
- * sozinho. As fotografias ao alto ficam mais altas e estreitas (vê-se pelo ficheiro); todas com largura e altura escritas no CSS.
+ * Uma «fila»: fotografias mais pequenas, lado a lado (o fecho da casa). Nota 8 do Diogo (15/11/2026): «as fotos em régua, sem serem
+ * exageradamente grandes, a rolar random, e que se apresentem como a galeria que temos nas plataformas.» Com $op['acaso'] a ordem é
+ * outra em cada visita (baralhada aqui, no servidor: a lista da fotografia em grande segue a mesma ordem); com $op['rola'] a fila
+ * avança sozinha, devagar, um passo de cada vez, e volta para trás ao chegar ao fim (site.js, «Sequências e filas»). Sem contagem e
+ * sem setas: o dedo ou o rato levam-na e, a partir daí, deixa de avançar sozinha. As fotografias ao alto ficam mais altas e estreitas
+ * (vê-se pelo ficheiro); todas com largura e altura escritas no CSS.
  */
-function fila(string $nome, array $fotos): string
+function fila(string $nome, array $fotos, array $op = []): string
 {
-    $h = '<ul class="fila" data-entra data-galeria="' . galeria_json($nome, $fotos) . '" aria-label="' . e($nome . ': deslizar para ver as fotografias') . '">';
+    $fotos = array_values($fotos);
+    if (!empty($op['acaso'])) shuffle($fotos);
+    $h = '<ul class="fila"' . (!empty($op['rola']) ? ' data-fila' : '') . ' data-entra data-galeria="' . galeria_json($nome, $fotos) . '" aria-label="' . e($nome . ': deslizar para ver as fotografias') . '">';
     foreach ($fotos as $i => $f) {
         [$l, $a] = foto_dim($f['src']);
         $h .= '<li class="fila-item' . ($a > $l ? ' ao-alto' : '') . '"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '" aria-label="' . e(($f['alt'] ?? '') . ' · abrir a fotografia') . '">';

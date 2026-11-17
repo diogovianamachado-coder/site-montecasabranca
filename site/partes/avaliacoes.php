@@ -1,5 +1,6 @@
-<?php $A = $C['avaliacoes']; $NOTAS = $F['notas'] ?? ['lista' => [], 'data' => '']; $nCit = count($A['citacoes']); ?>
-<!-- Quem já ficou: uma frase curta de cada vez (rodam sozinhas; um toque passa à seguinte). Todas estão no HTML. -->
+<?php $A = $C['avaliacoes']; $NOTAS = $F['notas'] ?? ['lista' => [], 'data' => '']; ?>
+<!-- Quem já ficou: uma frase curta de cada vez (rodam sozinhas; um toque passa à seguinte). Todas estão no HTML.
+     Sem contagem («02 / 10») por baixo: o Diogo não quer números de avaliações à vista (15/11/2026) e a nota 13 pede ligeireza. -->
 <section id="avaliacoes" class="avaliacoes" aria-labelledby="t-avaliacoes">
   <div class="contentor contentor-largo">
     <div class="reveal">
@@ -12,7 +13,6 @@
         </li>
         <?php endforeach; ?>
       </ul>
-      <p class="citacoes-conta" aria-hidden="true"><span id="citacoes-atual">01</span> / <span id="citacoes-total"><?= sprintf('%02d', $nCit) ?></span></p>
     </div>
     <?php if ($NOTAS['lista']): // as três notas (inc/factos.php → 'notas'): um anel fino que se enche até à nota e o nome da plataforma.
       // Só a nota, a escala e o nome: sem ligações e sem o número de avaliações (Diogo, 15/11/2026). ?>

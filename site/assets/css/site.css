@@ -57,7 +57,6 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: -.02em; font-wei
 .saltar:focus { left: 1rem; top: 1rem; }
 
 .contentor { width: 100%; max-width: var(--larg); margin-left: auto; margin-right: auto; padding-left: var(--pad); padding-right: var(--pad); }
-.contentor-leitura { max-width: 56rem; }   /* a coluna estreita das perguntas */
 .contentor-largo { max-width: 72rem; }
 .fundo-pale { background: var(--pale); }
 .com-linha { border-top: 1px solid var(--borda); }
@@ -246,9 +245,11 @@ img[style*="--pos"] { object-position: var(--pos, center); }
    A faixa rola com a rolagem do browser: o dedo leva as fotografias e o scroll-snap pára cada uma no sítio.
    Cada caixa (li) tem a largura e a altura escritas aqui: a fotografia enche-a, nunca lhe dá o tamanho. */
 .seq { margin-top: 2.5rem; }
-.seq-cabeca { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-.seq-conta { font-size: .75rem; letter-spacing: .18em; color: rgba(var(--texto-rgb), .62); font-variant-numeric: tabular-nums; }
+/* Sem contagem («01 / 04»): «não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte» (Diogo, 15/11/2026).
+   As duas setas só existem com rato, que não arrasta a faixa; num ecrã de toque o dedo leva as fotografias e as setas não se vêem. */
+.seq-setas { display: none; }
 .seq-setas .btn-redondo + .btn-redondo { margin-left: .5rem; }
+@media (hover: hover) and (pointer: fine) { .seq-setas { display: flex; justify-content: flex-end; margin-bottom: 1rem; } }
 /* --borda-faixa: a margem de cada lado da faixa. Até à largura da página é a margem normal; em ecrãs mais largos cresce, para a
    primeira fotografia começar alinhada com o texto (a faixa continua a ir de um lado ao outro do ecrã). */
 .seq, .fecho { --borda-faixa: var(--pad); }
@@ -265,7 +266,8 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .seq-item { width: 760px; width: min(760px, calc(100vw - 2 * var(--pad) - 4rem)); max-width: none; height: 560px; height: clamp(380px, 68vh, 560px); margin-right: 1.25rem; }
 }
 
-/* ---- Fecho da casa ---- (a frase grande e a fila de fotografias mais pequenas, para levar com o dedo; inc/util.php → fila()) */
+/* ---- Fecho da casa ---- (a frase grande e a fila de fotografias mais pequenas, numa ordem diferente em cada visita e a avançar
+   devagar, como a galeria das plataformas; o dedo leva-a; inc/util.php → fila()) */
 .fecho { padding: 6rem 0; }
 .fecho-frase { max-width: 64rem; font-size: 2.25rem; line-height: 1.25; }
 .fecho-cabeca { margin-top: 4rem; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; }
@@ -335,6 +337,7 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 /* ---- Passear pelo Monte (a galeria) ---- */
 .passear { padding: 6rem 0; }
 .passear-titulo { margin-top: 1rem; font-size: 2.75rem; font-size: clamp(2.4rem, 12.3vw, 3rem); line-height: 1.05; }
+.passear-titulo:first-child { margin-top: 0; }   /* a secção não leva sobretítulo: chama-se só «Passear pelo Monte» */
 .separadores { margin-top: 2rem; display: flex; flex-wrap: wrap; }
 .separador { margin: 0 .5rem .5rem 0; border-radius: 999px; border: 1px solid var(--borda); padding: .5rem 1rem; font-size: .875rem; line-height: 1.4; transition: background-color .3s, color .3s, border-color .3s; }
 .separador.ativo { border-color: var(--primario); background: var(--primario); color: var(--primario-texto); }
@@ -356,18 +359,26 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .album li { height: 290px; height: calc((min(100vw, var(--larg)) - 2 * var(--pad) - 2rem) * .25); }
 }
 
-/* ---- Antes de chegar (perguntas) ---- */
+/* ---- Antes de chegar (perguntas) ---- como na referência do Diogo (nota 10, 15/11/2026): no computador, o título à esquerda
+   (em três linhas) e as perguntas à direita; no telemóvel, uma coluna. O «+» passa a «−» quando a pergunta está aberta. */
 .antes { padding: 6rem 0; }
-.antes-titulo { margin-top: 1rem; font-size: 2.25rem; line-height: 1.12; }
+.antes-titulo { margin-top: 1rem; max-width: 8em; font-size: 2.25rem; line-height: 1.12; }   /* parte em «Para se sentirem / em casa» */
 .acordeao { margin-top: 2.5rem; border-top: 1px solid var(--borda); }
 .pergunta { border-bottom: 1px solid var(--borda); }
 .pergunta summary { list-style: none; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; font-size: 1.0625rem; line-height: 1.4; cursor: pointer; }
 .pergunta summary::-webkit-details-marker { display: none; }
-.ico-abre { margin-left: 1rem; color: var(--suave); transition: transform .4s var(--ease); }
-.pergunta[open] .ico-abre { transform: rotate(180deg); }
+.ico-abre { flex: none; margin-left: 1rem; color: var(--primario); }
+.ico-abre path + path { transition: opacity .3s ease; }
+.pergunta[open] .ico-abre path + path { opacity: 0; }   /* o traço vertical do «+» some: fica «−» */
 .resposta p { padding-bottom: 1.25rem; max-width: 46rem; font-size: 1rem; line-height: 1.625; color: rgba(var(--texto-rgb), .8); }
 @media (hover: hover) { .pergunta summary:hover { color: var(--primario); } }
 @media (min-width: 768px) { .antes { padding: 9rem 0; } .antes-titulo { font-size: 3.75rem; line-height: 1.05; } .pergunta summary { font-size: 1.1875rem; } }
+@media (min-width: 900px) {
+  .antes-grelha { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
+  .antes-cabeca { grid-column: 1 / span 4; }
+  .antes-titulo { max-width: 5em; }
+  .antes .acordeao { grid-column: 6 / span 7; margin-top: .25rem; }
+}
 
 /* ---- Quem já ficou ---- */
 .avaliacoes { padding: 6rem 0; }
@@ -379,7 +390,6 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .citacao blockquote::before { content: "«"; }
 .citacao blockquote::after { content: "»"; }
 .citacao-origem { margin-top: 1.75rem; font-size: .875rem; color: rgba(var(--texto-rgb), .62); }
-.citacoes-conta { margin-top: 1.5rem; text-align: center; font-size: .75rem; letter-spacing: .18em; color: rgba(var(--texto-rgb), .62); font-variant-numeric: tabular-nums; }
 /* As três notas (Booking, Airbnb, Google): um anel fino que se enche até à nota. Só a nota, a escala e o nome; sem ligações. */
 .notas { margin: 5rem auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; }
 .nota { display: flex; flex-direction: column; align-items: center; }

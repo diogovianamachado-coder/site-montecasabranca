@@ -3,7 +3,7 @@
 <section id="galeria" class="passear" aria-labelledby="t-galeria">
   <div class="contentor">
     <div class="reveal">
-      <p class="eyebrow"><?= e($G['eyebrow']) ?></p>
+      <?php if (!empty($G['eyebrow'])): ?><p class="eyebrow"><?= e($G['eyebrow']) ?></p><?php endif; ?>
       <h2 id="t-galeria" class="passear-titulo"><?= e($G['titulo']) ?></h2>
     </div>
     <div class="separadores" role="tablist" aria-label="Álbuns">

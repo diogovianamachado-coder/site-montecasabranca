@@ -302,3 +302,50 @@ e o n.º do deploy.
 
 **Continua por confirmar pelo Diogo:** a ligação de «Partilhar» da ficha do Google Maps · ver por olho as ligações da ecopista e da N2 ·
 os originais das quatro frases traduzidas pelo Airbnb · os textos novos · o que achou de cada parte da V2 ao vivo.
+
+## 6. Conferência de 16–17/11: as notas, o Lovable e a versão 3
+
+A 16/11 o Diogo viu a versão 2 no iPhone («muito mau»: fotografias em caixas vazias, menus presos, Montemor e a N2 sem peso) e pediu:
+«Trabalha com o Lovable para que o conteúdo passe a estar harmonioso.» O Claude levou o conteúdo ao Lovable, o Lovable compôs a página e
+o Claude passou-a para o site como versão 3. Depois o Diogo perguntou: **«Espero que estejas a considerar e tenhas passado ao Lovable as
+notas que estivemos a fazer ontem.»** Esta secção responde, nota a nota, com três colunas: se a nota foi no pedido ao Lovable
+(`lovable/composicao-2026-11-16/pedido-ao-lovable.md`), o que a composição dele fez com ela, e como está na versão 3 do site.
+
+**Resposta curta.** Os textos, a ordem da página, os menus e as regras foram todos no pedido e estão na versão 3. Três coisas não foram
+ditas ao Lovable com as palavras do Diogo, e a composição afastou-se delas: a capa escolhida, «não precisa de dizer que tem fotos» e
+as fotografias do fecho «a rolar random». Uma quarta, o desenho de «Antes de chegar», foi mudada pela composição. **No site, as quatro
+ficaram repostas a 17/11, antes de a versão 3 ser publicada.** Na pré-visualização do Lovable ainda não: o pedido para as acertar está
+escrito (`lovable/composicao-2026-11-16/pedido-seguinte-por-enviar.md`), mas o Lovable recusou-o por falta de créditos.
+
+| Nota (15/11) | Foi no pedido ao Lovable? | Na versão 3 do site |
+|---|---|---|
+| 1 · a página abria e fugia para «#casa» | Não (é comportamento do site, não desenho). Na pré-visualização do Lovable as ligações ainda deixam «#…» no endereço | Respeitada: as ligações não deixam «#» no endereço; coberto por teste |
+| 2 · brilho e enquadramento da capa → **«capa: 1»** (computador e telemóvel) | **Não.** O pedido dizia «mantém a tua». A pré-visualização do Lovable mostra outra capa (título em baixo, mais escura, fotografia ampliada) | Respeitada desde o início: capa 1 (título no céu, quase sem máscara, sem ampliação); coberto por teste |
+| 7 · título em cascata | Sim | Respeitada |
+| 3, 4, 5, 16 · menus («Entrar pela casa» só na capa; menu de cima; «Por fora · Sem pressa · Por dentro» no menu completo) | Sim | Respeitada: de cima «Montemor-o-Novo · N2 · Passear pelo Monte · Antes de chegar · Avaliações»; completo «A casa» com as três palavras · Montemor-o-Novo · Nacional 2 · Passear pelo Monte · Antes de chegar · Quem já ficou · Contactos |
+| 6a · no fim, perguntar se a ideia do menu se mantém | — | Continua por responder pelo Diogo, depois de ver a versão ao vivo |
+| 6b · outra fotografia no «lá fora», expressivas, sem repetir a da capa | Sim (as fotografias e as legendas foram na lista) | Respeitada: «Por fora» abre com a piscina, a casa e o chapéu; nenhuma fotografia de destaque se repete (teste) |
+| 8 · «Por fora · Sem pressa · Por dentro» é a melhor mensagem da casa; três momentos | Sim («um cartaz que enche o ecrã e um capítulo por palavra») | Respeitada, no desenho do Lovable: cartaz em três linhas com setas (na V2 eram degraus, com «Sem pressa» em itálico); cada capítulo abre com a palavra em grande |
+| 8 · «uma foto principal e 2/3 fotos atrás a rolar devagar … com o dedo no mobile ou rato acelerar ou parar. **Não precisa de dizer que tem fotos.** A dinâmica do site mostra essa parte» | **Só em parte.** Foi «passam em sequência, em círculo; o dedo leva-as». Não foi «não precisa de dizer que tem fotos». O Lovable pôs uma contagem («01 / 04») e duas setas | **Reposta a 17/11.** Sem contagem. No telemóvel sem setas: vê-se a fotografia seguinte a espreitar e o dedo leva-as. Com rato ficam duas setas pequenas (o rato não arrasta) e o rato em cima pára o avanço. Avançam sozinhas, um passo de 5 em 5 segundos, em círculo |
+| 8 · depois da frase, «as fotos em régua, sem serem exageradamente grandes, **a rolar random**, como a galeria das plataformas» | **Só em parte.** Foi «uma fila de fotografias mais pequenas para levar com o dedo». Não foi «a rolar» nem «random» | **Reposta a 17/11.** Ordem diferente em cada visita; avança sozinha, devagar, um passo de cada vez, para um lado e depois para o outro; o dedo leva-a e ela deixa de avançar |
+| 8 · sem «antes e depois»; sem falar de casas de banho nos destaques | Sim | Respeitada (casas de banho só na galeria e na resposta dos quartos) |
+| 9 · galeria como no Zenfolio; **chama-se «Passear pelo Monte»**; sem marca de água | Sim, mas a frase do pedido («é a tua "Fotografias", com este nome») deixou o Lovable pôr «Fotografias» como sobretítulo | **Reposta a 17/11:** só «Passear pelo Monte», sem sobretítulo. Álbuns O Monte 49 · Os Quartos 12 · A Quinta 18 · Montemor-o-Novo 14 |
+| 10 · «Antes de chegar · Para se sentirem em casa», sete perguntas, **«usa o tom e a mensagem que está na foto»** | Os textos sim. O desenho da fotografia de referência (título à esquerda, perguntas à direita, «+») não foi descrito; o Lovable fez uma coluna só, ao centro | **Reposta a 17/11:** no computador, título à esquerda em três linhas e perguntas à direita, com «+» que passa a «−»; no telemóvel, uma coluna. Saída às 18h |
+| 11 · Montemor «também é a estadia», fotografias em loop na secção, Visit Montemor | Sim, e foi a queixa principal de 16/11 («sem separador nem introdução») | Respeitada: capítulo próprio, com abertura, dez fotografias em círculo, a ligação e a Ecopista do Montado por baixo |
+| 11 · N2: a mensagem dos dois dias, programa feito por nós (castelo, mercado de sábado), ligação à Rota da N2 | Sim («capítulo próprio, com o mesmo peso») | Respeitada: capítulo próprio, com a casa ao entardecer e o programa Sexta · Sábado · Domingo |
+| 12 · localização com o mapa a abrir «Monte Casa Branca» | Sim | Respeitada: «Onde estamos», faixa cor de oliva. Falta a ligação de «Partilhar» da ficha do Google (do Diogo) |
+| 13 · avaliações com ligeireza: frases curtas, várias; três notas sem ligações e **sem número de avaliações** | Sim. O Lovable juntou uma contagem «02 / 10» por baixo da frase | **Reposta a 17/11:** sem contagem. Dez frases a rodar; Booking 10 · Airbnb 4,95 · Google 5,0, só a nota, a escala e o nome |
+| 14 · contactos «Falamos? · Contem-nos os vossos planos», ícones e símbolo; rodapé sem plataformas | Sim | Respeitada |
+| 15 · barra de baixo: manter | Sim | Respeitada (aparece quando a capa sai do ecrã, como sempre) |
+| 17 · painel das datas: tom, contas em três linhas, saída às 18h sem pôr do sol, tempo como no Lovable com as médias dos anos anteriores, pedido leve no telemóvel | Sim | Respeitada. A ordem dentro do painel passou a calendário → contas → tempo → pedido |
+| Regra de escrita: nunca literal, nunca «testamento» | Os textos foram tal como aprovados («pt-PT, exatamente assim») | Sem mudanças nos textos |
+
+**O que a composição do Lovable trouxe que o Diogo não tinha pedido, e ficou** (para ele ver por olho; nada disto contraria uma nota):
+o cartaz em três linhas com setas, em vez dos degraus; em cada capítulo, primeiro a palavra, a frase e o texto, depois as fotografias;
+as fotografias uma de cada vez, grandes, a avançar aos passos (na V2 deslizavam sem parar, e foi isso que no iPhone prendeu a página);
+Montemor-o-Novo, a Nacional 2 e «Onde estamos» como três capítulos; o fundo liso em «Quem já ficou»; os contactos mais compactos.
+
+**Como se garante que não volta a acontecer.** A bateria de testes do site passou a falhar se voltar uma contagem às fotografias ou
+às frases, se as setas aparecerem num ecrã de toque, se a fila do fecho vier pela mesma ordem em duas visitas ou não avançar, se
+«Antes de chegar» deixar de estar em duas colunas no computador ou se a galeria ganhar sobretítulo (`demo/ferramentas/site/`).
+E a regra daqui em diante: um pedido ao Lovable leva as decisões do Diogo com as palavras dele, não só o conteúdo.

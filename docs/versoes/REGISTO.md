@@ -65,7 +65,17 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 - **O que os testes veem e o que não veem:** a bateria corre no Chromium e, desde 16/11, a geometria da página também no WebKit (o
   motor do Safari) em cada push. O WebKit dos testes **não reproduziu** as falhas que o iPhone do Diogo mostrou na V2; por isso a
   prova final desta versão é o telemóvel dele, depois do «Lança».
-- **Capturas:** `docs/versoes/v3/`.
+- **As notas do Diogo de 15/11, conferidas uma a uma (16–17/11).** Pergunta dele: «Espero que estejas a considerar e tenhas passado
+  ao Lovable as notas que estivemos a fazer ontem.» A conferência está em
+  `docs/integracao-app/2026-11-15_notas_do_diogo_e_o_que_mudou.md`, secção 6. Resultado: os textos, a ordem, os menus e as regras
+  (sem ligações para as plataformas, sem «antes e depois», saída às 18h, casas de banho só na galeria, pedido de datas leve) foram
+  ao Lovable e estão na página; **quatro coisas tinham-se afastado das palavras dele com a composição e foram repostas nesta versão,
+  antes de ser publicada** (linhas 3, 4, 6, 7 e 8 do quadro): a contagem e as setas nas fotografias («não precisa de dizer que tem
+  fotos»), a fila do fecho parada e por ordem fixa («a rolar random»), «Antes de chegar» fora do desenho da referência dele, e o
+  sobretítulo «Fotografias» por cima de «Passear pelo Monte». **A capa 1 não tinha sido passada ao Lovable** (o pedido dizia
+  «mantém a tua»): no site sempre foi a capa 1; a pré-visualização do Lovable ainda mostra outra, e o pedido para a acertar está
+  escrito e por enviar (o Lovable ficou sem créditos a 16/11: `lovable/composicao-2026-11-16/pedido-seguinte-por-enviar.md`).
+- **Capturas:** `docs/versoes/v3/` (refeitas a 17/11, já com as notas repostas).
 - **Ordem da página:** capa → a casa (o cartaz) → por fora → sem pressa → por dentro → fecho → Montemor-o-Novo → Nacional 2 → onde
   estamos → Passear pelo Monte → Antes de chegar → Quem já ficou → contactos.
 
@@ -73,12 +83,12 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 |---|---|---|
 | 1 Capa | O desenho é o mesmo (a opção 1). «Sem receção, sem pressa» passou para o lado do botão «Entrar pela casa»; o botão de descer fica só na capa (já não acompanha a página); sem desfoques. No computador, a fotografia fica presa e a página passa-lhe por cima | por dizer |
 | 2 A casa | O cartaz do Lovable: «Por fora», «Sem pressa» e «Por dentro» em três linhas, cada uma com a sua seta, entre traços finos; a frase à direita, por baixo. Era em degraus, com a do meio em itálico | por dizer |
-| 3 Os espaços | Três capítulos com abertura própria: «A casa» em cima, a palavra em grande, a frase a cor e o texto; depois as fotografias **uma de cada vez**, grandes, com a legenda escrita sobre cada uma, a contagem «01 / 04» e duas setas. O dedo leva-as; avançam sozinhas, um passo de 5 em 5 segundos, em círculo, até se lhes tocar. «Sem pressa» tem o fundo pálido, para os três não se colarem. Eram filas a rolar sem parar, com a palavra sobre a fotografia | por dizer |
-| 4 Fecho e régua | A frase «Há dias em que não é preciso mais nada» em grande, à esquerda; «Há mais casa para descobrir» com a ligação «Passear pelo Monte»; 18 fotografias mais pequenas para levar com o dedo, pela ordem escolhida (as ao alto mais altas e estreitas). Já não rolam sozinhas nem mudam de ordem. A casa ao entardecer saiu daqui: é a fotografia da Nacional 2 | por dizer |
+| 3 Os espaços | Três capítulos com abertura própria: «A casa» em cima, a palavra em grande, a frase a cor e o texto; depois as fotografias **uma de cada vez**, grandes, com a legenda escrita sobre cada uma e a seguinte a espreitar. **Sem contagem** («não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte», nota 8). O dedo leva-as; avançam sozinhas, um passo de 5 em 5 segundos, em círculo, até se lhes pegar. No telemóvel não há setas; no computador ficam duas setas pequenas (o rato não arrasta) e o rato em cima das fotografias pára o avanço. «Sem pressa» tem o fundo pálido, para os três não se colarem. Eram filas a rolar sem parar, com a palavra sobre a fotografia | por dizer |
+| 4 Fecho e régua | A frase «Há dias em que não é preciso mais nada» em grande, à esquerda; «Há mais casa para descobrir» com a ligação «Passear pelo Monte»; 18 fotografias mais pequenas (as ao alto mais altas e estreitas), **numa ordem diferente em cada visita e a avançar sozinhas, devagar**, um passo de cada vez, para um lado e depois para o outro («a rolar random», nota 8); o dedo leva-as e, a partir daí, deixam de avançar. A casa ao entardecer saiu daqui: é a fotografia da Nacional 2 | por dizer |
 | 5 Montemor, N2 e onde estamos | Passam a ser **três capítulos**. *Montemor-o-Novo*: fundo pálido e um traço a separá-lo da casa; «A 1 h de Lisboa», o título, o texto e a ligação; as dez fotografias em sequência; a Ecopista do Montado por baixo, com título próprio, separada por um traço. *Nacional 2*: capítulo igual em peso, com a casa ao entardecer («A mesma casa à vossa espera ao fim do dia») e o programa em três linhas (Sexta · Sábado · Domingo). *Onde estamos*: faixa cor de oliva, com as distâncias e o botão do mapa. Era uma só secção: as fotografias coladas ao fecho da casa, a N2 numa caixa ao lado do texto e as distâncias numa coluna | por dizer |
-| 6 A galeria | Sobretítulo «Fotografias»; os quatro separadores à vista (em duas linhas no telemóvel); as mesmas 93 fotografias nos mesmos álbuns, em duas colunas no telemóvel e três no computador | por dizer |
-| 7 Antes de chegar | Coluna estreita, ao centro, com o título por cima das perguntas (eram duas colunas); abre-se uma pergunta de cada vez | por dizer |
-| 8 Quem já ficou | As frases maiores, com a origem por baixo («Airbnb · julho de 2026») e a contagem «01 / 10»; as três notas em anéis finos; fundo liso (era cor de areia) | por dizer |
+| 6 A galeria | Só o título «Passear pelo Monte», sem sobretítulo; os quatro separadores à vista (em duas linhas no telemóvel); as mesmas 93 fotografias nos mesmos álbuns, em duas colunas no telemóvel e três no computador | por dizer |
+| 7 Antes de chegar | Como na referência do Diogo (nota 10) e na V2: no computador, o título à esquerda, em três linhas, e as perguntas à direita, com um «+» que passa a «−»; no telemóvel, uma coluna. Fundo pálido. Abre-se uma pergunta de cada vez | por dizer |
+| 8 Quem já ficou | As frases maiores, com a origem por baixo («Airbnb · julho de 2026»), **sem contagem**; as três notas em anéis finos; fundo liso (era cor de areia) | por dizer |
 | 9 Contactos e rodapé | Mais compacto: o logótipo, a linha do registo e a letra pequena ficam todos à esquerda, por baixo dos contactos | por dizer |
 | 10 Menu completo | As entradas em linhas com traços finos; por baixo de «A casa», Por fora · Sem pressa · Por dentro. Escolher uma entrada fecha o menu e a página está lá de imediato | por dizer |
 | 11 Painel das datas | Ordem nova: calendário → as contas → o tempo → o pedido. A conta em três linhas com o valor à direita («Estadia · 3 noites · 330 € por noite», «Limpeza final · uma vez por estadia», «Total da casa» a cor). Os campos das datas já não saem do ecrã. O escuro por trás deixou de ter desfoque | por dizer |

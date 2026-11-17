@@ -36,6 +36,10 @@ const ALTURA_MAX = { '1280': 4600, '390': 6400 }; const ALTURA_GALERIA = { '1280
     const registar = (parte) => { (indice.partes[parte] = indice.partes[parte] || []).push(nome); };
 
     await page.goto(base + '/', { waitUntil: 'networkidle' }); await page.waitForTimeout(1500);
+    // No telemóvel: as partes fotografam-se com «fullPage» e, no Chromium, essa fotografia faz o telemóvel simulado responder como um
+    // computador com rato («hover: hover», «pointer: fine»). Para as capturas saírem como num telemóvel a sério, tiram-se da folha de
+    // estilos as regras que só valem com rato (por exemplo as setas das sequências, que num ecrã de toque não existem).
+    if (movel) await page.evaluate(() => { for (const folha of Array.from(document.styleSheets)) { let regras; try { regras = folha.cssRules; } catch (e) { continue; } for (let i = regras.length - 1; i >= 0; i--) { const r = regras[i]; if (r.type === CSSRule.MEDIA_RULE && /hover:\s*hover|pointer:\s*fine/.test(r.conditionText || (r.media && r.media.mediaText) || '')) folha.deleteRule(i); } } });
     // 1. A capa, tal como abre
     await foto('01-capa'); registar('01-capa');
     // Passar pela página toda devagar, para as fotografias carregarem e as secções «aparecerem» (revelar ao rolar)
@@ -47,7 +51,9 @@ const ALTURA_MAX = { '1280': 4600, '390': 6400 }; const ALTURA_GALERIA = { '1280
     const semBarra = await page.addStyleTag({ content: '.dock{visibility:hidden!important}' });
     // As frases de quem já ficou trocam-se com um esbatido: sem ele, a captura nunca apanha duas frases sobrepostas
     await page.addStyleTag({ content: '.citacao{transition:none!important}' });
-    // V3: as sequências de fotografias voltam ao princípio (podem ter avançado sozinhas enquanto a página era percorrida)
+    // V3: as sequências e a fila do fecho deixam de avançar sozinhas (uma tecla em cima delas conta como «pegar-lhes») e voltam ao
+    // princípio: assim cada parte sai sempre com a primeira fotografia à frente, e não a meio de um passo
+    await page.evaluate(() => { document.querySelectorAll('.seq-faixa, .fila').forEach((f) => { f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Shift', bubbles: true })); f.scrollLeft = 0; }); }); await page.waitForTimeout(600);
     await page.evaluate(() => { document.querySelectorAll('.seq-faixa, .fila').forEach((f) => { f.scrollLeft = 0; }); }); await page.waitForTimeout(300);
     // 0. A página inteira, pequena, para se ver a ordem das partes
     if (nome === '1280') { await foto('00-pagina-inteira', { fullPage: true, quality: 60 }); registar('00-pagina-inteira'); }

@@ -127,62 +127,78 @@
     else mostrar(true);
   }
 
-  /* ---- Sequências: as fotografias de um capítulo, uma de cada vez ----
-     A faixa rola com a rolagem do browser (o dedo leva-a; o scroll-snap pára cada fotografia no sítio). Aqui só se faz três coisas:
-     a contagem «01 / 04» (lida depois de a faixa rolar), as setas (um passo para cada lado, em círculo) e o avanço sozinho: um
-     passo de 5 em 5 segundos enquanto a sequência está à vista, a página está parada e ninguém lhe tocou. Ao primeiro toque, clique
-     ou seta, deixa de avançar sozinha. Com «reduzir movimento» ligado nunca avança sozinha. */
-  var seqs = [];
+  /* ---- Sequências e filas: as fotografias que passam sozinhas ----
+     Nota 8 do Diogo (15/11/2026): «uma foto principal e 2/3 fotos atrás a rolar devagar, onde os clientes podem, com o dedo no
+     mobile ou o rato, acelerar ou parar. Não precisa de dizer que tem fotos. A dinâmica do site mostra essa parte.» E, para o fecho
+     da casa: «as fotos em régua … a rolar random». Por isso não há contagens nem rótulos; o movimento mostra que há mais.
+     A faixa rola com a rolagem do browser (o dedo leva-a; o scroll-snap pára cada fotografia no sítio). Aqui só se faz duas coisas:
+     · o avanço sozinho: um passo de poucos em poucos segundos enquanto a faixa está à vista, a página está parada e ninguém lhe
+       pegou. Uma sequência (as fotografias de um capítulo) anda em círculo; uma fila (o fecho da casa) vai até ao fim e volta para
+       trás, passo a passo. O rato em cima das fotografias suspende o avanço («parar»); quando a pessoa leva a faixa com o dedo,
+       abre uma fotografia ou usa as setas, deixa de avançar sozinha de vez;
+     · as setas das sequências, que só existem com rato (site.css): um passo para cada lado, em círculo («acelerar»).
+     Com «reduzir movimento» ligado nada avança sozinho. */
+  var vivas = [];
+  var comRato = !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  function faixaViva(caixa, faixa, itens, op) {
+    var n = itens.length; if (n < 2) return;
+    var s = { visivel: false, parado: reduz, rato: false, ultimo: 0, cada: op.cada, dir: 1 };
+    var margem = function () { return parseFloat(window.getComputedStyle(faixa).paddingLeft) || 0; };
+    var maximo = function () { return Math.max(0, faixa.scrollWidth - faixa.clientWidth); };
+    var lugar = function (i) { return Math.min(Math.max(0, itens[i].offsetLeft - margem()), maximo()); };   // onde a faixa pára para a fotografia i
+    var indice = function () {
+      var x = faixa.scrollLeft, max = maximo(), m = margem(), melhor = 0, dist = Infinity;
+      if (max > 0 && x >= max - 2) return n - 1;
+      for (var i = 0; i < n; i++) { var di = Math.abs(itens[i].offsetLeft - m - x); if (di < dist) { dist = di; melhor = i; } }
+      return melhor;
+    };
+    // As fotografias a seguir à que está à frente começam logo a carregar, para não aparecerem vazias ao chegar a vez delas.
+    var adiantar = function (i) { for (var k = 1; k <= op.adiante; k++) { var im = $('img', itens[(i + k) % n]); if (im && im.getAttribute('loading') === 'lazy') im.setAttribute('loading', 'eager'); } };
+    var ir = function (x) {
+      if (!reduz && faixa.scrollTo) { try { faixa.scrollTo({ left: x, top: 0, behavior: 'smooth' }); return; } catch (e) {} }
+      faixa.scrollLeft = x;
+    };
+    var seguinte = function (x) { for (var i = 0; i < n; i++) { if (lugar(i) > x + 4) return lugar(i); } return null; };
+    var anterior = function (x) { for (var i = n - 1; i >= 0; i--) { if (lugar(i) < x - 4) return lugar(i); } return null; };
+    s.passo = function (dir) {                                  // um passo para um lado, em círculo (as setas e as sequências)
+      var x = faixa.scrollLeft, alvo = dir > 0 ? seguinte(x) : anterior(x);
+      if (alvo === null) alvo = dir > 0 ? 0 : maximo();
+      ir(alvo);
+    };
+    s.sozinha = function () {                                   // o passo que a faixa dá sem ninguém lhe tocar
+      if (!op.vaivem) { s.passo(1); return; }
+      var x = faixa.scrollLeft, alvo = s.dir > 0 ? seguinte(x) : anterior(x);
+      if (alvo === null) { s.dir = -s.dir; alvo = s.dir > 0 ? seguinte(x) : anterior(x); }   // chegou a uma ponta: volta para trás
+      if (alvo !== null) ir(alvo);
+    };
+    var parar = function () { s.parado = true; };
+    // «Pegar na faixa» quer dizer: levá-la mesmo com o dedo (ela rola enquanto está tocada), abrir uma fotografia ou usar as setas.
+    // Passar o dedo por cima para rolar a página não conta: a faixa não se mexe e continua a avançar.
+    var tocada = false, largada = null, espera = null;
+    faixa.addEventListener('touchstart', function () { tocada = true; clearTimeout(largada); }, { passive: true });
+    ['touchend', 'touchcancel'].forEach(function (nome) { faixa.addEventListener(nome, function () { clearTimeout(largada); largada = setTimeout(function () { tocada = false; }, 1500); }, { passive: true }); });
+    faixa.addEventListener('scroll', function () { if (tocada) parar(); if (!espera) espera = setTimeout(function () { espera = null; if (s.visivel) adiantar(indice()); }, 120); }, { passive: true });
+    faixa.addEventListener('click', parar);
+    faixa.addEventListener('keydown', parar);
+    faixa.addEventListener('wheel', function (ev) { if (Math.abs(ev.deltaX) > Math.abs(ev.deltaY)) parar(); }, { passive: true });
+    if (comRato) {                                              // num ecrã de toque um toque também «entra» e nunca mais «sai»
+      caixa.addEventListener('mouseenter', function () { s.rato = true; });
+      caixa.addEventListener('mouseleave', function () { s.rato = false; s.ultimo = Date.now() - Math.max(0, s.cada - 2200); });   // retoma pouco depois de o rato sair
+    }
+    $$('[data-seq-ir]', caixa).forEach(function (b) { b.addEventListener('click', function () { parar(); s.passo(parseInt(b.getAttribute('data-seq-ir'), 10) < 0 ? -1 : 1); }); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { var v = en[0].isIntersecting; if (v && !s.visivel) { s.ultimo = Date.now() - Math.max(0, s.cada - 3000); adiantar(indice()); } s.visivel = v; }, { threshold: 0.6 }).observe(faixa);
+    vivas.push(s);
+  }
   function sequencias() {
-    $$('[data-seq]').forEach(function (el) {
-      var faixa = $('.seq-faixa', el); if (!faixa) return;
-      var itens = $$('.seq-item', faixa), n = itens.length; if (n < 2) return;
-      var elAtual = $('[data-seq-atual]', el);
-      var s = { visivel: false, parado: reduz, ultimo: 0 };
-      var margem = function () { return parseFloat(window.getComputedStyle(faixa).paddingLeft) || 0; };
-      var maximo = function () { return Math.max(0, faixa.scrollWidth - faixa.clientWidth); };
-      var lugar = function (i) { return Math.min(Math.max(0, itens[i].offsetLeft - margem()), maximo()); };   // onde a faixa pára para a fotografia i
-      var indice = function () {
-        var x = faixa.scrollLeft, max = maximo(), m = margem(), melhor = 0, dist = Infinity;
-        if (max > 0 && x >= max - 2) return n - 1;
-        for (var i = 0; i < n; i++) { var di = Math.abs(itens[i].offsetLeft - m - x); if (di < dist) { dist = di; melhor = i; } }
-        return melhor;
-      };
-      // As duas fotografias a seguir à que está à frente começam logo a carregar, para não aparecerem vazias ao chegar a vez delas.
-      var adiantar = function (i) { for (var k = 1; k <= 2; k++) { var im = $('img', itens[(i + k) % n]); if (im && im.getAttribute('loading') === 'lazy') im.setAttribute('loading', 'eager'); } };
-      var contar = function () { var i = indice(); if (elAtual) elAtual.textContent = dois(i + 1); if (s.visivel) adiantar(i); };
-      var ir = function (x) {
-        if (!reduz && faixa.scrollTo) { try { faixa.scrollTo({ left: x, top: 0, behavior: 'smooth' }); return; } catch (e) {} }
-        faixa.scrollLeft = x;
-      };
-      s.passo = function (dir) {
-        var x = faixa.scrollLeft, i, alvo = null;
-        if (dir > 0) { for (i = 0; i < n; i++) { if (lugar(i) > x + 4) { alvo = lugar(i); break; } } if (alvo === null) alvo = 0; }
-        else { for (i = n - 1; i >= 0; i--) { if (lugar(i) < x - 4) { alvo = lugar(i); break; } } if (alvo === null) alvo = maximo(); }
-        ir(alvo);
-      };
-      var parar = function () { s.parado = true; };
-      // «Ao primeiro toque» quer dizer: quando a pessoa leva mesmo a faixa com o dedo (ela rola enquanto está tocada), abre uma
-      // fotografia ou usa as setas. Passar o dedo por cima para rolar a página não conta: a faixa não se mexe e continua a avançar.
-      var tocada = false, largada = null, espera = null;
-      faixa.addEventListener('touchstart', function () { tocada = true; clearTimeout(largada); }, { passive: true });
-      ['touchend', 'touchcancel'].forEach(function (nome) { faixa.addEventListener(nome, function () { clearTimeout(largada); largada = setTimeout(function () { tocada = false; }, 1500); }, { passive: true }); });
-      faixa.addEventListener('scroll', function () { if (tocada) parar(); if (!espera) espera = setTimeout(function () { espera = null; contar(); }, 120); }, { passive: true });
-      faixa.addEventListener('click', parar);
-      faixa.addEventListener('keydown', parar);
-      faixa.addEventListener('wheel', function (ev) { if (Math.abs(ev.deltaX) > Math.abs(ev.deltaY)) parar(); }, { passive: true });
-      $$('[data-seq-ir]', el).forEach(function (b) { b.addEventListener('click', function () { parar(); s.passo(parseInt(b.getAttribute('data-seq-ir'), 10) < 0 ? -1 : 1); }); });
-      if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { var v = en[0].isIntersecting; if (v && !s.visivel) { s.ultimo = Date.now() - 2200; adiantar(indice()); } s.visivel = v; }, { threshold: 0.6 }).observe(faixa);
-      contar();
-      seqs.push(s);
-    });
-    // O relógio das sequências: uma vez por segundo vê se alguma tem de dar um passo. Só com a página parada há mais de 1,6 s
-    // (depois de um toque numa faixa, ela fica «tocada» durante 1,5 s: assim o passo dado aqui nunca é tomado por um gesto da pessoa).
-    if (seqs.length && !reduz) setInterval(function () {
+    $$('[data-seq]').forEach(function (el) { var f = $('.seq-faixa', el); if (f) faixaViva(el, f, $$('.seq-item', f), { cada: 5200, adiante: 2, vaivem: false }); });
+    $$('[data-fila]').forEach(function (f) { faixaViva(f, f, $$('.fila-item', f), { cada: 3600, adiante: 4, vaivem: true }); });
+    // O relógio: uma vez por segundo vê se alguma faixa tem de dar um passo. Só com a página parada há mais de 1,6 s (depois de um
+    // toque numa faixa, ela fica «tocada» durante 1,5 s: assim o passo dado aqui nunca é tomado por um gesto da pessoa).
+    if (vivas.length && !reduz) setInterval(function () {
       var agora = Date.now();
-      if (dedos && agora - ultimoGesto > 8000) dedos = false;      // um fim de toque que não chegou não pára as sequências para sempre
+      if (dedos && agora - ultimoGesto > 8000) dedos = false;      // um fim de toque que não chegou não pára as faixas para sempre
       if (d.hidden || abertas.length || dedos || agora - ultimoGesto < 1600) return;
-      for (var i = 0; i < seqs.length; i++) { var s = seqs[i]; if (s.visivel && !s.parado && agora - s.ultimo >= 5200) { s.ultimo = agora; s.passo(1); } }
+      for (var i = 0; i < vivas.length; i++) { var s = vivas[i]; if (s.visivel && !s.parado && !s.rato && agora - s.ultimo >= s.cada) { s.ultimo = agora; s.sozinha(); } }
     }, 1000);
   }
 
@@ -264,13 +280,14 @@
   function frases() {
     var lista = $('#citacoes'); if (!lista) return;
     var cits = $$('.citacao', lista), ci = 0, vista = !('IntersectionObserver' in window), quieta = false, relogio = null;
-    var elAtual = $('#citacoes-atual'), elTotal = $('#citacoes-total');
-    var ir = function (n) { if (cits.length < 2) return; cits[ci].classList.remove('ativa'); ci = (n + cits.length) % cits.length; cits[ci].classList.add('ativa'); if (elAtual) elAtual.textContent = dois(ci + 1); };
+    var ir = function (n) { if (cits.length < 2) return; cits[ci].classList.remove('ativa'); ci = (n + cits.length) % cits.length; cits[ci].classList.add('ativa'); };
     var arrancar = function () { clearInterval(relogio); if (reduz) return; relogio = setInterval(function () { if (vista && !quieta && !d.hidden && !abertas.length) ir(ci + 1); }, 6000); };
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { vista = en[0].isIntersecting; }, { threshold: 0.3 }).observe(lista);
     lista.addEventListener('click', function () { ir(ci + 1); arrancar(); });
-    lista.addEventListener('mouseenter', function () { quieta = true; });
-    lista.addEventListener('mouseleave', function () { quieta = false; });
+    if (comRato) {                                              // só com rato: num ecrã de toque um toque «entra» e nunca mais «sai»
+      lista.addEventListener('mouseenter', function () { quieta = true; });
+      lista.addEventListener('mouseleave', function () { quieta = false; });
+    }
     arrancar();
     if (window.fetch) fetch('api/avaliacoes.php').then(function (r) { return r.json(); }).then(function (j) {
       (j && j.avaliacoes || []).forEach(function (a) {
@@ -282,7 +299,6 @@
         p.textContent = 'Quem ficou' + (m ? ' · ' + MESES[+m[2] - 1].toLowerCase() + ' de ' + m[1] : '');
         li.appendChild(bq); li.appendChild(p); lista.appendChild(li); cits.push(li);
       });
-      if (elTotal) elTotal.textContent = dois(cits.length);
     }).catch(function () {});
   }
 
