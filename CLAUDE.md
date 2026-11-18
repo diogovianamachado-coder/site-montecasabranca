@@ -1229,3 +1229,34 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   da N2 · os originais das quatro frases traduzidas · os textos · melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a app ·
   «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas
   #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33 · o Lovable continua com a composição aos passos. **Próxima sugestão: S37.**
+
+- **18/11/2026 (00h40–01h15, hora de Lisboa) · O DIOGO VIU A V4 NO IPHONE: «JÁ ESTÁ MELHOR» · SEIS NOTAS REGISTADAS, NADA ALTERADO.**
+  Ordem dele: «Ainda não alteres nada. Regista só. Aparecerão entretanto outras ideias de ajuste.» Nada mudou em `site/` e nada foi
+  para o servidor; **a V4 (`0be7000`, `novo-v4`) continua no ar.** As notas, com quatro capturas dele (riscos a vermelho), ficam em
+  **`docs/integracao-app/2026-11-18_notas_do_diogo_v4.md`** (palavras dele, onde se mexe, propostas) e
+  `docs/integracao-app/revisao-2026-11-18/`; a ficha da V4 em `docs/versoes/REGISTO.md` tem a coluna «O que o Diogo achou» preenchida.
+  As ideias seguintes juntam-se ao mesmo documento; quando ele mandar avançar, tudo é a **V5** (subir `site/versao.json`, ficha
+  `### V5 · …`, «Lança»). **As seis notas:** (1) «estão a faltar movimentos nas fotos; havia umas fotos que tinham vida na primeira
+  versão; confirma se não é verdade e vê como incorporar» → **confirmado** no código da V1 (`17198b1`) e num passeio gravado no
+  tamanho do telemóvel (vídeo de 2 min 45 s enviado na conversa; dois recortes em quadros na pasta da revisão): a V1 tinha
+  **fotografias grandes, de lado a lado, com o título por cima** («Primeiro, lá fora» a 70 % da altura do ecrã; «O Alentejo mesmo à
+  porta» a 55 %; `.banda`) e **fotografias que entravam uma a uma, a subir e a acender** (`.reveal` em cada uma, com o texto ao lado um
+  instante depois); a régua a andar sozinha e a capa a ficar para trás, a V4 já tem. Proposta para a V5, a confirmar com ele: uma
+  fotografia grande a abrir cada capítulo e Montemor, a passar devagar por trás ao rolar em qualquer iPhone (o efeito da N2 usa
+  `view()`, só Safari 26), a entrar a subir, e a faixa por baixo · (2) «a pílula do movimento para baixo durante todo o site» → era o
+  botão de descer da V1 e da V2, fixo no canto direito no telemóvel, em forma de rato com um ponto a mexer, que leva à secção seguinte e
+  no fim volta ao topo; **fui eu que o tirei na V3** (tapava texto nas capturas da V2; o passeio da V1 mostra-o por cima do fim de uma
+  linha); volta na V5 num sítio onde não tape, a mostrar antes · (3) «quando se carrega a meio para ver as fotos não há botão para
+  retornar … voltar ao ponto onde estava» → botão «Voltar onde estava», com seta, depois de qualquer salto por ligação; a provar também
+  o gesto de voltar do iPhone sem pôr `#` no endereço · (4) «nas avaliações retira que são de 2026» → a linha fica «Recebemos hóspedes
+  desde 2022» (`conteudo.php` → `avaliacoes.rodape_notas`; a data fica em `inc/factos.php` → `notas.data`) · (5) mostrar que há mais
+  avaliações e que se podem ver, «look and feel engraçado e que não seja igual à régua»; ele desenhou uma seta para cada lado → ideias a
+  mostrar em imagem antes de fazer: setas ‹ ›, traços que se enchem como nas histórias do Instagram, cartões em baralho, «Ler mais
+  avaliações» numa folha · (6) «na capa retirar a frase da receção» (`conteudo.php` → `inicio.nota`); nota de monitor: é a única frase
+  que diz «sem check-in presencial», que pode ir para «A que horas podemos chegar?» se ele quiser. **Lição:** a pílula foi tirada por
+  iniciativa minha na V3 e dita de passagem; coisas que o Diogo viu a funcionar não se tiram sem lhe perguntar antes, mesmo para
+  corrigir um defeito (corrige-se o defeito, não se tira a peça). **Ferramenta:** a V1 monta-se com `git archive 17198b1 site` numa
+  pasta do scratchpad, um `config.php` como o do `fotografar.sh` e `php -S` noutra porta (8797); o passeio grava-se com o Playwright
+  (`recordVideo`, Chromium com `--force-device-scale-factor=2`). **Deploys do site:** sem mudança (21 real é o último). **Por dizer pelo
+  Diogo:** se é isto que via de «vida» na V1 (pelo vídeo) · as próximas ideias · quando avançar para a V5. **Em aberto, de antes:** como
+  na entrada anterior. **Próxima sugestão: S37.**

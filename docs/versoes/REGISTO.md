@@ -52,6 +52,11 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
   n.º 61, 63 e 64 foram canceladas pelo GitHub antes de testar (espelho do Ubuntu lento; `0be7000` deu-lhes mais tempo).
 - **Verificação depois do envio:** a página responde (HTTP 200 à primeira) e mostra «Ensaio · versão 4»; continua fora dos motores de
   busca (`noindex` e `robots.txt` de bloqueio); a previsão, a conta e as médias do tempo respondem; `config.php` ficou como estava.
+- **O que o Diogo achou, ao vivo, no iPhone (18/11, entre as 00h40 e as 00h55, com quatro capturas):** «Já está melhor.» E seis
+  notas, **registadas e por fazer** («Ainda não alteres nada. Regista só. Aparecerão entretanto outras ideias de ajuste»): faltam
+  movimentos nas fotografias, como havia na V1; a pílula de descer em todo o site; um botão para voltar ao ponto onde se estava;
+  tirar «notas de novembro de 2026»; mostrar que há mais avaliações e que se podem ver; tirar «Sem receção, sem pressa» da capa. As
+  palavras dele, o que a V1 tinha e as propostas estão em `docs/integracao-app/2026-11-18_notas_do_diogo_v4.md`. Serão a V5.
 - **De onde vem:** o que o Diogo viu da V3 no iPhone a 17/11 (ver a ficha da V3): «zero movimento», «as fotos estão estáticas»,
   «a régua das fotos não anda», «refaz o que é necessário para que esse movimento seja fluente e que o site tenha vida»; e «nas fotos
   de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na v2». A composição da página
@@ -79,19 +84,19 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 | Parte | O que mudou face à V3 | O que o Diogo achou |
 |---|---|---|
-| 1 Capa | **Ao rolar, a fotografia fica para trás, como na V2** (desce um quarto do que a página sobe): a V3 tinha tirado este movimento do telemóvel e o Diogo pediu-o de volta a 17/11 («nas fotos de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na v2»). No computador a fotografia continua presa ao ecrã, com a página a passar-lhe por cima. Parada, a fotografia respira muito devagar (cresce 3,5 % em 18 segundos e volta; em repouso, o enquadramento da capa 1 é o mesmo); nos browsers mais recentes o texto vai-se apagando enquanto a capa sai | por dizer |
+| 1 Capa | **Ao rolar, a fotografia fica para trás, como na V2** (desce um quarto do que a página sobe): a V3 tinha tirado este movimento do telemóvel e o Diogo pediu-o de volta a 17/11 («nas fotos de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na v2»). No computador a fotografia continua presa ao ecrã, com a página a passar-lhe por cima. Parada, a fotografia respira muito devagar (cresce 3,5 % em 18 segundos e volta; em repouso, o enquadramento da capa 1 é o mesmo); nos browsers mais recentes o texto vai-se apagando enquanto a capa sai | **Melhor** («já está melhor», 18/11). Tirar «Sem receção, sem pressa»; o botão de descer passa a estar em todo o site (notas 6 e 2 de 18/11) → V5 |
 | 2 A casa | Igual | por dizer |
-| 3 Os espaços | As fotografias de cada capítulo **deslizam sozinhas, sem parar**; vê-se sempre a seguinte a chegar. Saem as duas setas do computador (o rato arrasta a faixa). A faixa vai de um lado ao outro do ecrã | por dizer |
+| 3 Os espaços | As fotografias de cada capítulo **deslizam sozinhas, sem parar**; vê-se sempre a seguinte a chegar. Saem as duas setas do computador (o rato arrasta a faixa). A faixa vai de um lado ao outro do ecrã | **Melhor, mas faltam movimentos nas fotografias:** «havia umas fotos que tinham vida na primeira versão». Confirmado: na V1 havia fotografias grandes, de lado a lado, com o título por cima, e fotografias que entravam uma a uma (nota 1 de 18/11) → V5 |
 | 4 Fecho e régua | A régua **anda sozinha, sem parar**, numa ordem diferente em cada visita; o dedo ou o rato levam-na. **Todas as fotografias com o mesmo tamanho** (Diogo, 17/11: «há uma foto que tem dimensão diferente; tens de enquadrar essa foto no mosaico que estamos a passar»): as duas que estão ao alto, o pôr do sol e a lareira acesa, são recortadas na caixa como as outras (a lareira um pouco abaixo do centro, para se ver a moldura inteira) | por dizer |
 | 5 Montemor, N2 e onde estamos | As dez fotografias de Montemor deslizam sozinhas, como as dos capítulos. Na Nacional 2, a fotografia grande passa devagar por trás da sua caixa enquanto a página rola (nos browsers mais recentes) | por dizer |
-| 6 A galeria | Ao abrir um álbum, as miniaturas entram umas a seguir às outras | por dizer |
+| 6 A galeria | Ao abrir um álbum, as miniaturas entram umas a seguir às outras | Falta um botão para voltar ao ponto onde se estava depois de saltar para a galeria a meio da página (nota 3 de 18/11) → V5 |
 | 7 Antes de chegar | Igual | por dizer |
-| 8 Quem já ficou | Igual (as frases continuam a rodar de 6 em 6 segundos) | por dizer |
+| 8 Quem já ficou | Igual (as frases continuam a rodar de 6 em 6 segundos) | Tirar «notas de novembro de 2026»; mostrar que há mais avaliações e que se podem ver, com graça e sem ser outra régua (ele desenhou uma seta para cada lado; notas 4 e 5 de 18/11) → V5 |
 | 9 Contactos e rodapé | Igual. No ensaio, a linha da versão diz quando o aparelho pede menos movimento | por dizer |
 | 10 Menu completo | Igual | por dizer |
 | 11 Painel das datas | Igual | por dizer |
 | 12 Barra de baixo | Igual | por dizer |
-| Toda a página | Os blocos de texto sobem um pouco mais ao aparecer. Com o menu, o painel ou uma fotografia abertos, as faixas por trás esperam | por dizer |
+| Toda a página | Os blocos de texto sobem um pouco mais ao aparecer. Com o menu, o painel ou uma fotografia abertos, as faixas por trás esperam | Falta «a pílula do movimento para baixo durante todo o site»: o botão de descer em forma de rato, fixo no canto, da V1 e da V2, que eu tirei na V3 (nota 2 de 18/11) → V5 |
 
 ### V3 · 17/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
 
