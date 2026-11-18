@@ -140,7 +140,9 @@ jobs:
     # ou aviso PHP. Desde 16/11 corre também a geometria da página em Chromium e em WebKit (demo/ferramentas/site/geometria.cjs).
     # O deploy-site.yml só envia com este workflow verde.
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    # 35 minutos (eram 15): a 17–18/11/2026 o espelho do Ubuntu da máquina do GitHub esteve tão lento que só a instalação das
+    # dependências do WebKit passou dos 15 minutos, e o GitHub cancelou as corridas n.º 61, 63 e 64 antes de testarem o site.
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -150,9 +152,19 @@ jobs:
         run: php --version | head -1 && node --version
       - name: Instalar Playwright, Chromium e WebKit
         # WebKit (16/11/2026): é o motor do Safari e de todos os browsers do iPhone. A versão 2 passou em Chromium e falhou no iPhone.
+        # Se a instalação passar dos 7 minutos (espelho do Ubuntu lento), pára, troca para o espelho principal do Ubuntu e repete.
+        timeout-minutes: 28
         run: |
           npm install --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium webkit
+          if ! timeout 420 npx playwright install --with-deps chromium webkit; then
+            echo "a instalação passou dos 7 minutos ou falhou: outro espelho do Ubuntu e nova tentativa"
+            sudo pkill -f 'apt-get' || true; sudo pkill -f 'dpkg' || true; sleep 3
+            sudo dpkg --configure -a || true
+            for f in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list; do
+              if [ -f "$f" ]; then sudo sed -i -E 's#https?://[a-z0-9.-]*archive\.ubuntu\.com#http://archive.ubuntu.com#g' "$f"; fi
+            done
+            npx playwright install --with-deps chromium webkit
+          fi
       - name: Testar o site (sintaxe · portas · capturas 390/1280 com e sem app · geometria em Chromium e WebKit)
         env:
           MOTORES: chromium webkit
