@@ -1260,3 +1260,11 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   (`recordVideo`, Chromium com `--force-device-scale-factor=2`). **Deploys do site:** sem mudança (21 real é o último). **Por dizer pelo
   Diogo:** se é isto que via de «vida» na V1 (pelo vídeo) · as próximas ideias · quando avançar para a V5. **Em aberto, de antes:** como
   na entrada anterior. **Próxima sugestão: S37.**
+  **18/11 (01h30) · duas decisões do Diogo e a lista do GPT.** (a) **Pílula de descer:** «o ícone do rato pode ficar no meio, mais
+  flutuante e sem ficar em frente ao texto. Sobe a posição» → na V5: ao centro, a flutuar, mais acima do que na V1/V2, a apagar-se
+  quando passa texto por baixo, escondida com camadas abertas; vídeo antes do «Lança». (b) **«Sem receção, sem pressa» passa para a
+  resposta «A que horas podemos chegar?»** («Sim, coloca…»); texto proposto no documento das notas, a confirmar. (c) **«Vê as notas que
+  o GPT colocou no GitHub e enumera … se sim ou se não»:** desde 15/11 o GPT não pôs nada novo (GitHub sem commits, issues nem ramos
+  dele; Dropbox `13. APP Gestão AL/site/` só com `zenfolio/`). As doze notas dele ainda por decidir (fecho de 24/10, propostas de 17/10 e
+  a entrada «Simular preços» do commit `7056b2b`), com a recomendação do Claude, a lista do que ele já decidiu e os três factos por
+  confirmar estão no mesmo documento (secção «Notas do GPT por decidir»); as respostas dele entram na coluna «Diogo». Nada em `site/`.

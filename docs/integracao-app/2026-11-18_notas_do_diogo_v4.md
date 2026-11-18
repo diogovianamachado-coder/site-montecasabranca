@@ -55,8 +55,11 @@ Os números entre parênteses são as partes da página do registo de versões (
   da V2 no iPhone tapava texto. Vê-se no passeio da V1: há um quadro em que o botão fica por cima do fim de uma linha de texto. Na V4
   só existe na capa, e não fica fixo.
 - **Como entrar na V5:** volta em todo o site com o mesmo comportamento (secção seguinte; no fim, o topo), num sítio onde não tape
-  texto. Mostrar ao Diogo, antes de fazer, onde fica: por exemplo, encostado por cima da barra de baixo, no lado direito, a esconder-se
-  quando o menu, o painel ou uma fotografia estão abertos; ou dentro da própria barra de baixo.
+  texto.
+- **Decisão do Diogo (18/11, cerca das 01h30):** «O ícone do rato pode ficar no meio, mais flutuante e sem ficar em frente ao texto.
+  Sobe a posição.» Logo: **ao centro, a flutuar, mais acima do que estava** (na V1 e na V2 ficava no canto direito, encostado à barra
+  de baixo), e **nunca por cima de texto**: apaga-se quando passa texto por baixo e volta sobre fotografias e espaços vazios;
+  esconde-se com o menu, o painel ou uma fotografia abertos. Mostrar em vídeo antes do «Lança».
 
 ## 3. Voltar ao ponto onde estava (6 A galeria; navegação)
 
@@ -98,8 +101,42 @@ Os números entre parênteses são as partes da página do registo de versões (
 
 - **Palavras dele:** «Na capa retirar a frase da receção.» (`diogo-4-capa-rececao-e-pilula.jpg`.)
 - **Onde:** `site/conteudo.php` → `inicio.nota`. Sai na V5; «Entrar pela casa» fica sozinho.
-- **Nota de monitor:** é a única frase do site que diz que não há check-in presencial (um facto do brief). Se o Diogo quiser que o
-  facto continue no site, pode ir para a resposta «A que horas podemos chegar?» de «Antes de chegar». Perguntar quando se fizer a V5.
+- **Nota de monitor:** é a única frase do site que diz que não há check-in presencial (um facto do brief).
+- **Decisão do Diogo (18/11):** «Sim, coloca o sem pressa e sem receção na resposta à hora de entrada.» Proposta de texto para a
+  resposta «A que horas podemos chegar?» (`conteudo.php`, perguntas de «Antes de chegar»), a confirmar por ele: «A entrada é a partir
+  das 16h, sem receção e sem pressa: o Diogo envia antes as indicações para entrarem sozinhos. A saída é até às 11h; quando ninguém
+  entra no mesmo dia, pode ficar para as {saida_tardia}, para aproveitarem o dia até ao fim.»
+
+## Notas do GPT por decidir (lista de 18/11)
+
+Pedido do Diogo: «Vê as notas que o GPT colocou no GitHub e enumera aqui numerada para que decidamos. Se sim ou se não.» Visto a 18/11:
+**desde 15/11 o GPT não pôs nada novo**, nem no GitHub (commits, issues, ramos) nem no Dropbox (`13. APP Gestão AL/site/` só tem
+`zenfolio/`). As notas dele que continuam por decidir vêm do fecho de 24/10 (`docs/decisoes/2026-10-24_fecho_chatgpt.md`), das
+propostas de 17/10 (`docs/decisoes/propostas.md`, `pendentes.md`) e da mudança de 15/11 (commit `7056b2b`, na demo antiga: os textos
+dele já foram adaptados ao painel das datas; ficou de fora a entrada no menu). Ao lado de cada uma, a recomendação do Claude.
+
+| N.º | Nota do GPT | Recomendação | Diogo |
+|---|---|---|---|
+| 1 | «Simular preços» no menu completo, a abrir as contas (15/11) | sim | por dizer |
+| 2 | Mais protagonismo à piscina, de dia e ao entardecer ou à noite; a biblioteca com a lareira para mostrar o inverno; o campo nas várias estações (24/10) | sim, nas fotografias grandes da V5 | por dizer |
+| 3 | «A mesma vista, outra luz»: uma vista da piscina que muda entre dia, entardecer e noite (24/10) | sim, se houver três fotografias tiradas do mesmo sítio (ver primeiro) | por dizer |
+| 4 | Em poucas fotografias, uma frase curta com graça em vez da legenda descritiva («a biblioteca no inverno», «o último café no alpendre») (24/10) | sim, com os textos mostrados antes | por dizer |
+| 5 | O roteiro das duas noites também numa página leve, para guardar no telemóvel (24/10) | não por agora (já está na página) | por dizer |
+| 6 | Galeria arrumada por espaços, com verão e inverno como filtro (24/10) | não (a 15/11 o Diogo escolheu os álbuns do Zenfolio) | por dizer |
+| 7 | Um ícone e a contagem nas fotografias, para dizer que há mais (24/10) | não (nota 8 de 15/11: o movimento mostra isso) | por dizer |
+| 8 | Convite para juntar o grupo (S19, ideia aceite a 17/10, nunca desenhada) | sim, depois da V5 | por dizer |
+| 9 | Dar a mensagem por fechada como está (das quatro frases em estudo desde 19/10, «Por fora · Sem pressa · Por dentro» e «Há dias em que não é preciso mais nada» já estão no site, com «Uma casa inteira / O Alentejo à vossa porta» na capa) | sim | por dizer |
+| 10 | Retomar o logótipo e o livro de marca (parados desde outubro) | não por agora | por dizer |
+| 11 | A visita à casa em vídeo (S20, adiada) | não por agora | por dizer |
+| 12 | Cancelar o Zenfolio só depois de cinco condições: originais conferidos, inventário guardado, fotografias publicadas e verificadas no site, ligações trocadas e autorização escrita do Diogo | sim | por dizer |
+
+**Notas do GPT que o Diogo já decidiu (não precisam de resposta):** a barra de baixo com Menu, Contacto e «Verificar
+disponibilidade» (nota 15 de 15/11, «manter»); as fotografias de cada parte a abrirem só esse grupo («ok» a 25/10; já funciona);
+«antes e depois» fora do site (15/11); sem preços por época e sem «Reguengo»; a saída às 18h quando ninguém entra (15/11).
+
+**Factos que o GPT deixou por confirmar:** 3,2 ou 3,6 hectares (o site não diz a área) · as regras miúdas dos animais, do
+cancelamento e do Wi-Fi · a autorização escrita do Diogo para as fotografias do Rodrigo, antes de o site passar para
+`montecasabranca.pt`.
 
 ## Próximas ideias
 
