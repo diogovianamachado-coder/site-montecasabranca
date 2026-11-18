@@ -1194,3 +1194,38 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   fotografia. O `captura-site.cjs` passa a dizer, em cada falha, que animação movia a faixa e em que estado estava. **Lição:** a
   bateria local não chega para mudanças de movimento: só se mostra ao Diogo ou se pede o «Lança» depois de o «Capturas» (Chromium
   antigo e WebKit) estar verde.
+
+- **18/11/2026 (00h35, hora de Lisboa) · «Lanca» = «Lança» (17/11, 23h55) · A VERSÃO 4 ESTÁ NO AR EM `novo.montecasabranca.pt` (deploy
+  n.º 21, commit `0be7000`, etiqueta `novo-v4`).** (1) **Antes do envio:** a data passou a 18/11 (commit `504c1d1`: o envio seria depois
+  da meia-noite) e as capturas do registo foram refeitas (`fa5b42c`). (2) **Os testes do GitHub apanharam mais uma falha:** o «Capturas»
+  n.º 62 (`504c1d1`) passou no Chromium antigo (o dedo e o rato já seguravam e levavam as faixas com a animação criada pelo `site.js`) e
+  falhou no WebKit num só ponto: o dedo fabricado não arrastava a faixa (parar e retomar funcionavam). Causa provável, não confirmada
+  (a sonda só chegou com a correção): no WebKit `getComputedTiming().duration` não vem como número, `medidasDe()` devolvia nada e o
+  arrasto ficava desligado. Correção (`1fda384`): a duração é a que se deu ao criar a animação (`r.dur`); o tempo lê-se por
+  `ms()`/`tempoDe()` (aceitam número ou objeto); `duracaoCss()` cai para a duração escrita pelo servidor na pista; `geometria.cjs` ganhou
+  uma sonda (que animação move a faixa, em que estado está, e se mudar o tempo à mão a move). (3) **O GitHub cancelou três corridas antes
+  de testarem** (n.º 61, 63 e 64): o espelho do Ubuntu da máquina do GitHub esteve tão lento que a instalação das dependências do WebKit
+  passou dos 15 minutos do trabalho «site». `0be7000`: o trabalho «site» passa a ter 35 minutos e a instalação um limite de 7, depois do
+  qual troca para o espelho principal do Ubuntu e repete (a n.º 65 instalou tudo em 40 s). (4) **«Capturas» n.º 65 verde** (Chromium e
+  WebKit, todos os pontos, incluindo o arrasto no WebKit, a capa e as caixas da régua todas iguais) → **ensaio a seco n.º 20** (run
+  44208845334) lido de ponta a ponta: mudam de conteúdo só `conteudo.php`, `versao.json`, `site.css`, `site.js`, `inc/util.php`,
+  `partes/contactos.php` e `partes/regua.php`; nada entra nem sai; 42 656 657 bytes → **envio a sério n.º 21** (run 44209051012, 00h35):
+  `config.php` ficou como estava; HTTP 200 à primeira; previsão, conta (`fonte: site`) e médias do tempo OK; `noindex`, `robots.txt` de
+  bloqueio e «Ensaio · versão 4» confirmados; **etiqueta `novo-v4` criada pelo próprio deploy**. «Verificar o site (só lê)», corrida
+  n.º 3 (run 44209159411), lançada a seguir. (5) **Registo:** ficha da V4 «Publicada» com a verificação; `versoes.json` com o commit
+  completo (`0be7000f33bb0d64e2a3355d348dc7f40c0308f0`) e a etiqueta; **a V3 esteve no ar de 17/11 a 18/11**. **A partir daqui qualquer
+  mudança em `site/` é a versão 5:** subir o número em `site/versao.json` e abrir a ficha `### V5 · …`. (6) **A meio, o Diogo perguntou:**
+  «Há 1 hora que estás a tentar fazer a v4 o que se passa?». Respondido com o que tinha acontecido (a régua, as duas falhas apanhadas
+  pelos testes, o GitHub lento) e porque não se enviou sem os testes verdes (a V2 e a V3 passaram nos testes locais e falharam no
+  iPhone). **Lição desta noite:** o que demora não é o código, é provar que funciona no motor do Safari antes de enviar, e esses testes
+  só correm no GitHub (8 a 10 minutos por volta): juntar as correções num só commit, correr a bateria local antes, e dar ao Diogo o
+  ponto da situação logo que uma volta falha, sem esperar que ele pergunte.
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real ·
+  20 ensaio · **21 real**.
+  **Por dizer pelo Diogo:** o que achou da V4 no iPhone, parte a parte: se as fotografias andam sozinhas e fluidas, se a régua anda com
+  as fotografias todas do mesmo tamanho, se a capa fica para trás ao rolar como na V2, se o dedo segura e leva as faixas · se o iPhone
+  tem «Reduzir movimento» (o rodapé do ensaio di-lo) · o resto quando ele quiser falar das alterações (disse que ainda não). **Em
+  aberto, de antes:** a ideia do menu (nota 6a) · a 34 em «A Quinta» · a ligação de partilha do Google Maps · as ligações da ecopista e
+  da N2 · os originais das quatro frases traduzidas · os textos · melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a app ·
+  «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em falta · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas
+  #189–#192 e `SITE_CHAVE` · EN · repositório público · S31–S33 · o Lovable continua com a composição aos passos. **Próxima sugestão: S37.**

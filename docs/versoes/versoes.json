@@ -1,6 +1,6 @@
 {
   "1": {"data": "8/11/2026", "estado": "esteve no ar em novo. de 8/11 a 16/11/2026", "commit": "17198b1549f96e969e2fe0cdee5aa467525c31ec", "etiqueta": ""},
   "2": {"data": "16/11/2026", "estado": "esteve no ar em novo. de 16/11 a 17/11/2026", "commit": "37c9ca050a7217ff424b3d03e30a19c141b70c27", "etiqueta": "novo-v2"},
-  "3": {"data": "17/11/2026", "estado": "a que está no ar em novo.", "commit": "9840ad5551db8115e250cae111ef5ef069178a1c", "etiqueta": "novo-v3"},
-  "4": {"data": "18/11/2026", "estado": "em main, por publicar (espera o «Lança»)", "commit": "", "etiqueta": ""}
+  "3": {"data": "17/11/2026", "estado": "esteve no ar em novo. de 17/11 a 18/11/2026", "commit": "9840ad5551db8115e250cae111ef5ef069178a1c", "etiqueta": "novo-v3"},
+  "4": {"data": "18/11/2026", "estado": "a que está no ar em novo.", "commit": "0be7000f33bb0d64e2a3355d348dc7f40c0308f0", "etiqueta": "novo-v4"}
 }

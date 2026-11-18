@@ -43,7 +43,15 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ### V4 · 18/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
 
-- **Estado:** em `main`, **por publicar**: espera o «Lança» do Diogo. Até lá, o que está no ar em `novo.` é a V3.
+- **Publicada:** 18/11/2026, às 00h35 (hora de Lisboa), com o «Lança» do Diogo (17/11, 23h55): deploy do site n.º 21 (o n.º 20
+  foi o ensaio a seco), commit `0be7000`, **etiqueta `novo-v4`**. É a que está no ar em `novo.`. Face à V3: mudaram 7 ficheiros
+  (`site.css`, `site.js`, `conteudo.php`, `inc/util.php`, `partes/contactos.php`, `partes/regua.php`, `versao.json`), nenhum entrou
+  nem saiu, e as 190 fotografias ficaram como estavam. Commits do site: `be0646d` (o movimento e a capa), `c876fd5` (a régua com as
+  fotografias do mesmo tamanho; a animação criada pelo `site.js`), `504c1d1` (a data), `1fda384` (o arrasto no motor do Safari);
+  testes «Capturas» n.º 65 verdes (Chromium e WebKit); as corridas n.º 60 e 62 falharam e apanharam as duas falhas corrigidas, e as
+  n.º 61, 63 e 64 foram canceladas pelo GitHub antes de testar (espelho do Ubuntu lento; `0be7000` deu-lhes mais tempo).
+- **Verificação depois do envio:** a página responde (HTTP 200 à primeira) e mostra «Ensaio · versão 4»; continua fora dos motores de
+  busca (`noindex` e `robots.txt` de bloqueio); a previsão, a conta e as médias do tempo respondem; `config.php` ficou como estava.
 - **De onde vem:** o que o Diogo viu da V3 no iPhone a 17/11 (ver a ficha da V3): «zero movimento», «as fotos estão estáticas»,
   «a régua das fotos não anda», «refaz o que é necessário para que esse movimento seja fluente e que o site tenha vida»; e «nas fotos
   de cima elas aparecem em modo estático e sem aquele movimento suave que já tinha sido implementado na v2». A composição da página
@@ -88,7 +96,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V3 · 17/11/2026 · a composição feita com o Lovable e a construção nova para o iPhone
 
 - **Publicada:** 17/11/2026, às 22h06 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 19 (os n.º 15 a 18 foram
-  ensaios a seco), commit `9840ad5`, **etiqueta `novo-v3`**. É a que está no ar em `novo.`. Face à V2: 16 ficheiros mudaram,
+  ensaios a seco), commit `9840ad5`, **etiqueta `novo-v3`**. Esteve no ar em `novo.` de 17/11 a 18/11. Face à V2: 16 ficheiros mudaram,
   2 entraram (`partes/nacional2.php`, `partes/onde.php`), nenhum saiu e as 190 fotografias ficaram como estavam.
   Commits do site: `75affc3` e `f58b428` (16/11: a composição e a construção nova), `303baa4` e `43d3673` (17/11: as notas de
   15/11 repostas) e `5aa49b7` (17/11: a data); testes «Capturas» n.º 52, 53 e 55 a 58 verdes (Chromium e WebKit).
