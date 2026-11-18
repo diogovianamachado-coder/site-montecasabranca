@@ -167,10 +167,17 @@ async function medirRolo(page, k) {
         const el = document.querySelector('[data-rolo]'), cx = el.getBoundingClientRect(), y = cx.top + Math.min(cx.height / 2, 150);
         const ponteiro = (tipo, x) => el.dispatchEvent(new PointerEvent(tipo, { pointerId: 71, pointerType: 'touch', isPrimary: true, clientX: x, clientY: y, bubbles: true, cancelable: true }));
         const dif = (a, b) => { let d = a.x - b.x; if (d < -a.volta / 2) d += a.volta; if (d > a.volta / 2) d -= a.volta; return Math.round(d * 10) / 10; };
+        // Sonda (18/11/2026): que animação move a faixa e se o seu tempo se deixa mudar neste motor (para uma falha dizer porquê).
+        const pista = el.querySelector('.rolo-pista'), an = pista.getAnimations ? pista.getAnimations() : [];
+        const sonda = { js: el.classList.contains('rolo-js'), animacoes: an.map((a) => (a.animationName || 'js') + ':' + a.playState).join(','), tipoTempo: an[0] ? typeof an[0].currentTime : '-' };
+        try { sonda.duracao = an[0] ? String(an[0].effect.getComputedTiming().duration) : '-'; } catch (e) { sonda.duracao = 'erro: ' + e.message; }
         ponteiro('pointerdown', 300); await esperar(150); const p1 = lerRolo(0); await esperar(900); const p2 = lerRolo(0);      // dedo parado: a faixa espera
+        sonda.depoisDoDedo = an.map((a) => a.playState).join(',');
         for (let i = 1; i <= 10; i++) { ponteiro('pointermove', 300 - i * 20); await esperar(16); } const p3 = lerRolo(0);                // dedo 200 px para a esquerda: leva-a
         ponteiro('pointerup', 100); await esperar(1300); const p4 = lerRolo(0); await esperar(1200); const p5 = lerRolo(0);                // largada: continua
-        return { parado: dif(p1, p2), levou: dif(p2, p3), depois: dif(p4, p5), abriuFotografia: !document.getElementById('galeria-ecra').hidden };
+        // e, já largada, se mudar o tempo à mão move a faixa (o que o dedo faz por dentro)
+        if (an[0]) { const a = an[0], q0 = lerRolo(0); try { a.pause(); a.currentTime = (+a.currentTime || 0) + 2000; await esperar(60); sonda.tempoAMao = dif(q0, lerRolo(0)); } catch (e) { sonda.tempoAMao = 'erro: ' + e.message; } try { a.play(); } catch (e) {} }
+        return { parado: dif(p1, p2), levou: dif(p2, p3), depois: dif(p4, p5), abriuFotografia: !document.getElementById('galeria-ecra').hidden, sonda };
       }, lerRolo.toString());
     }
     r.erros = Array.from(new Set(erros)).slice(0, 6);
@@ -192,7 +199,7 @@ async function medirRolo(page, k) {
     m.sozinhos.filter((s) => !(s.px >= 20)).forEach((s) => falhas.push(`${q}: as fotografias de «${s.rolo}» não andam sozinhas (${s.px} px em 1,5 s; têm de andar pelo menos 20)`));
     if (m.gesto) {
       if (Math.abs(m.gesto.parado) > 1) falhas.push(`${q}: com o dedo parado em cima, as fotografias continuaram a andar (${m.gesto.parado} px)`);
-      if (!(m.gesto.levou > 150 && m.gesto.levou < 260)) falhas.push(`${q}: o dedo 200 px para a esquerda não levou as fotografias (${m.gesto.levou} px)`);
+      if (!(m.gesto.levou > 150 && m.gesto.levou < 260)) falhas.push(`${q}: o dedo 200 px para a esquerda não levou as fotografias (${m.gesto.levou} px; sonda ${JSON.stringify(m.gesto.sonda)})`);
       if (!(m.gesto.depois >= 15)) falhas.push(`${q}: depois de largadas, as fotografias não continuaram a andar (${m.gesto.depois} px em 1,2 s)`);
       if (m.gesto.abriuFotografia) falhas.push(`${q}: levar as fotografias com o dedo abriu uma fotografia em grande`);
     }

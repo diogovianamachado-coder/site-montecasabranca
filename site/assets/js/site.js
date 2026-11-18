@@ -171,14 +171,22 @@
   d.addEventListener('keydown', function (ev) { if (ev.key === 'Tab') ultimoTab = Date.now(); }, true);
   function mod(a, n) { return ((a % n) + n) % n; }
   function duracaoCss(pista) {                            // a duração da volta na folha de estilos (com os tamanhos e o «reduzir movimento»), em ms
-    var v = String(getComputedStyle(pista).animationDuration || '').split(',')[0].trim(), n = parseFloat(v);
-    if (!(n > 0)) return 0;
-    return /ms$/.test(v) ? n : n * 1000;
+    var cs = getComputedStyle(pista), v = String(cs.animationDuration || cs.webkitAnimationDuration || '').split(',')[0].trim(), n = parseFloat(v);
+    if (n > 0) return /ms$/.test(v) ? n : n * 1000;
+    // Se o browser não a disser, a que o servidor escreveu na pista para este tamanho de ecrã e este «reduzir movimento».
+    var largo = !!(window.matchMedia && window.matchMedia('(min-width: 768px)').matches);
+    v = String(pista.style.getPropertyValue('--dur' + (largo ? (reduz ? '-lc' : '-l') : (reduz ? '-c' : ''))) || '').trim(); n = parseFloat(v);
+    return n > 0 ? (/ms$/.test(v) ? n : n * 1000) : 0;
   }
   function animacaoDe(r) { return r.anim || null; }
+  // Um tempo da Web Animations em milissegundos (alguns browsers devolvem um objeto em vez de um número).
+  function ms(v) { if (v && typeof v === 'object') { try { v = v.to ? v.to('ms').value : v.value; } catch (e) { v = v.value; } } v = +v; return isFinite(v) ? v : 0; }
+  function tempoDe(a) { try { return ms(a.currentTime); } catch (e) { return 0; } }
   function medidasDe(r, a) {                              // a duração de uma volta (ms) e o comprimento de uma série (px)
-    var dur = 0; try { dur = +a.effect.getComputedTiming().duration || 0; } catch (e) { dur = 0; }
+    var dur = r.dur || 0;                                 // a que se deu ao criar a animação (não depende do browser a saber dizer)
+    if (!(dur > 0)) { try { dur = ms(a.effect.getComputedTiming().duration); } catch (e) { dur = 0; } }
     var per = r.pista.scrollWidth / 2;
+    if (!(per > 0)) { var s = $('.rolo-serie', r.pista); per = s ? s.getBoundingClientRect().width : 0; }
     return dur > 0 && per > 0 ? { dur: dur, per: per } : null;
   }
   // Troca a animação da folha de estilos por uma igual, criada aqui, a começar no sítio onde a outra ia (sem salto).
@@ -191,7 +199,7 @@
     try { a = pista.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(-50%, 0, 0)' }], { duration: dur, iterations: Infinity, easing: 'linear' }); } catch (e) { a = null; }
     if (!a) return;
     try { a.currentTime = inicio; } catch (e) {}
-    r.anim = a; r.el.classList.add('rolo-js');           // site.css: .rolo-js .rolo-pista { animation-name: none }
+    r.anim = a; r.dur = dur; r.el.classList.add('rolo-js');   // site.css: .rolo-js .rolo-pista { animation-name: none }
   }
   function acertarRolo(r) {                               // anda ou está parada?
     var anda = r.perto && !r.preso && !r.rato && !r.foco && !abertas.length, a = r.anim;
@@ -215,7 +223,7 @@
       var agora = Date.now(), passo = Math.min(48, agora - ultimo); ultimo = agora;
       v *= Math.pow(0.94, passo / 16);
       if ((v < 0 && -v <= natural * 1.2) || (v >= 0 && v < 0.02)) { soltar(r); return; }
-      try { a.currentTime = mod((+a.currentTime || 0) - v * passo / m.per * m.dur, m.dur); } catch (e) { soltar(r); }
+      try { a.currentTime = mod(tempoDe(a) - v * passo / m.per * m.dur, m.dur); } catch (e) { soltar(r); }
     }, 16);
   }
   function umRolo(el) {
@@ -240,7 +248,7 @@
       pararBalanco(r);
       var a = animacaoDe(r);
       r.id = ev.pointerId; r.toque = ev.pointerType === 'touch'; r.x0 = ev.clientX; r.levou = false; r.preso = true;
-      r.t0 = a ? (+a.currentTime || 0) : 0; r.m = a ? medidasDe(r, a) : null;
+      r.t0 = a ? tempoDe(a) : 0; r.m = a ? medidasDe(r, a) : null;
       r.xa = r.xb = ev.clientX; r.ta = r.tb = r.ta0 = ev.timeStamp;
       acertarRolo(r);
     });
@@ -260,7 +268,7 @@
       if (Math.abs(ev.deltaX) <= Math.abs(ev.deltaY) || Math.abs(ev.deltaX) < 2) return;
       var a = animacaoDe(r), m = a ? medidasDe(r, a) : null; if (!m) return;
       ev.preventDefault();
-      try { a.currentTime = mod((+a.currentTime || 0) + (ev.deltaMode === 1 ? ev.deltaX * 32 : ev.deltaX) / m.per * m.dur, m.dur); } catch (e) {}
+      try { a.currentTime = mod(tempoDe(a) + (ev.deltaMode === 1 ? ev.deltaX * 32 : ev.deltaX) / m.per * m.dur, m.dur); } catch (e) {}
     }, { passive: false });
     if (comRato) {                                        // num ecrã de toque um toque também «entra» e nunca mais «sai»
       el.addEventListener('mousemove', function (ev) {
@@ -294,9 +302,9 @@
       largura = window.innerWidth;
       rolos.forEach(function (r) {
         var a = r.anim; if (!a) return;
-        var nova = duracaoCss(r.pista), velha = 0; try { velha = +a.effect.getComputedTiming().duration || 0; } catch (e) { velha = 0; }
+        var nova = duracaoCss(r.pista), velha = r.dur || 0;
         if (!(nova > 0) || !(velha > 0) || Math.abs(nova - velha) < 1) return;
-        try { var p = a.currentTime === null ? null : (+a.currentTime) / velha; a.effect.updateTiming({ duration: nova }); if (p !== null) a.currentTime = p * nova; } catch (e) {}
+        try { var p = a.currentTime === null ? null : tempoDe(a) / velha; a.effect.updateTiming({ duration: nova }); r.dur = nova; if (p !== null) a.currentTime = p * nova; } catch (e) {}
       });
     });
     if (!('IntersectionObserver' in window)) return;
