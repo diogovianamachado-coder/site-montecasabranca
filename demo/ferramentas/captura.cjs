@@ -36,7 +36,10 @@ try { cenario = require(path.join(__dirname, "cenarios", versao.revisao + ".cjs"
       const problemas = [];
       page.on("console", m => { if (m.type() === "error") problemas.push("consola: " + m.text()); });
       page.on("pageerror", e => problemas.push("erro JS: " + e.message));
-      page.on("requestfailed", r => problemas.push("pedido falhado: " + r.url()));
+      // Um pedido que o próprio browser cancela (net::ERR_ABORTED: a imagem preguiçosa de uma moldura que sai do ecrã, a página que se
+      // fecha a meio de um carregamento) não é falha do site. Contou como falha a 19/11/2026 em desktop.html (corrida n.º 81 do
+      // «Capturas»: imagens/piscina-dia.jpg) e parou o envio da versão 7 do site. Os outros pedidos falhados continuam a contar.
+      page.on("requestfailed", r => { const e = (r.failure() || {}).errorText || ""; if (/ERR_ABORTED/.test(e)) return; problemas.push("pedido falhado: " + r.url() + (e ? " (" + e + ")" : "")); });
       page.on("response", r => { if (r.status() >= 400) problemas.push(`HTTP ${r.status()}: ${r.url()}`); });
       await page.goto(`${base}/${p}`, { waitUntil: "networkidle" });
       // rolar a página inteira antes da fotografia, para as imagens «lazy» e os blocos revelados ao rolar aparecerem (r3, 25/10)

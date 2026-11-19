@@ -1462,3 +1462,21 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   Capturas `docs/versoes/v7/` (30) e `docs/integracao-app/revisao-2026-11-19/bandas-telemovel-antes-e-agora.jpg`. As frases de «Quem
   já ficou» continuam a esperar com o rato em cima (pergunta em aberto). **Ficam por decidir pelo Diogo:** as fotografias (pelo PDF) ·
   o «Lança» da V7. **Próxima sugestão: S37.**
+
+- **19/11/2026 (19h48, hora de Lisboa) · «lança» · A VERSÃO 7 ESTÁ NO AR EM `novo.montecasabranca.pt` (deploy n.º 27, commit `6e4f945`,
+  etiqueta `novo-v7`).** As notas registadas foram todas na V7; as fotografias novas ficam para depois, como o Diogo disse («só ficar
+  a faltar as fotos»). **Antes do envio:** «Capturas» n.º 80 (`6ec8915`, a V7) verde; n.º 81 (`6e4f945`, a ferramenta) com o trabalho
+  da demo antiga vermelho na primeira tentativa: `demo/ferramentas/captura.cjs` contou como erro um pedido de fotografia cancelado
+  pelo browser (`net::ERR_ABORTED` em `desktop.html`, `imagens/piscina-dia.jpg`); o servidor da demo já atende vários pedidos ao
+  mesmo tempo; voltou a correr só esse trabalho e passou (tentativa 2). **Corrigido a seguir ao envio:** o `captura.cjs` passa a
+  ignorar só os pedidos cancelados (`ERR_ABORTED`); os outros continuam a contar. **Ensaio a seco n.º 26** (run 44601780355): versão
+  7, `<fcst` só nos 7 ficheiros esperados, nada entra nem sai, 42 699 148 bytes → **envio a sério n.º 27** (run 44601986474, 19h48):
+  HTTP 200 à primeira, previsão, conta e médias OK, `noindex`, `robots.txt` de bloqueio e «Ensaio · versão 7» OK, etiqueta `novo-v7`
+  criada pelo deploy. «Verificar o site (só lê)» n.º 6 (run 44602227804): página em 0,7 s (147 695 bytes), 190 fotografias todas a
+  responder, portas em 0,26–0,33 s, arquivo do Open-Meteo em 0,7 s (1 826 dias, sem falhas). **Registo:** ficha V7 «Publicada»; a V6
+  esteve no ar a 19/11, das 10h42 às 19h48; `versoes.json` com o commit completo e a etiqueta. **A partir daqui qualquer mudança em
+  `site/` é a versão 8.** **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18
+  ensaios · 19 real · 20 ensaio · 21 real · 22 ensaio · 23 real · 24 ensaio · 25 real · 26 ensaio · **27 real**. **Por dizer pelo
+  Diogo:** a V7 no iPhone (as fotografias grandes) · as pastas das fotografias (pelo PDF) · se as frases de «Quem já ficou» também
+  deixam de esperar com o rato. **Lição:** escrever a ficha da versão antes de correr a bateria local (o teste de versão pára logo).
+  **Próxima sugestão: S37.**

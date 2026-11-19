@@ -1,5 +1,7 @@
 # Notas do Diogo sobre a versão 6 (19/11/2026, à tarde, no computador)
 
+**Atualização de 19/11, 19h48: a versão 7 está no ar em `novo.`** (deploy n.º 27, etiqueta `novo-v7`).
+
 **Atualização de 19/11 (noite): as secções 1, 2 e 3 estão feitas na versão 7, por publicar** (ficha em
 `docs/versoes/REGISTO.md`). O Diogo mandou as capturas do iPhone: «Verifica se é técnico e então pode-se fazer nova revisão.
 Quero que fique tudo pronto a colocar no servidor e só ficar a faltar as fotos que queremos colocar.» Era técnico (secção 3,

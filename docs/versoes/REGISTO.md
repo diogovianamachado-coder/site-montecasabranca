@@ -43,7 +43,17 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ### V7 · 19/11/2026 · as fotografias grandes quase inteiras no telemóvel, o rato livre e «Quantas pessoas vêm?» sem palavra
 
-- **Por publicar:** espera o «Lança» do Diogo. (Quando for para o ar: a data, o n.º do deploy, o commit e a etiqueta `novo-v7`.)
+- **Publicada:** 19/11/2026, às 19h48 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 27 (o n.º 26 foi o ensaio a
+  seco), commit `6e4f945`, **etiqueta `novo-v7`** (o site é o do commit `6ec8915`; o `6e4f945` só juntou a ferramenta que encontra os
+  originais das fotografias). É a que está no ar em `novo.`. Face à V6 mudaram 7 ficheiros (`conteudo.php`, `versao.json`,
+  `assets/css/site.css`, `assets/js/site.js`, `inc/util.php`, `partes/momentos.php`, `partes/montemor.php`); nada entrou nem saiu, e
+  as fotografias ficaram como estavam. Testes «Capturas» n.º 80 (`6ec8915`) e n.º 81 (`6e4f945`) verdes, com a geometria no Chromium
+  e no WebKit; na n.º 81 o trabalho da demo antiga falhou na primeira tentativa porque contou como erro um pedido de fotografia
+  cancelado pelo próprio browser (`desktop.html`), e passou ao voltar a correr; o teste foi corrigido a seguir.
+- **Verificação depois do envio:** a página responde (HTTP 200 à primeira) e mostra «Ensaio · versão 7»; continua fora dos motores de
+  busca (`noindex` e `robots.txt` de bloqueio); a previsão, a conta e as médias do tempo respondem. «Verificar o site (só lê)»,
+  corrida n.º 6: a página em 0,7 s, sem ligações para as plataformas; as 190 fotografias da página existem no servidor; as portas
+  respondem em cerca de 0,3 s cada.
 - **De onde vem:** as notas do Diogo de 19/11 sobre a V6 (`docs/integracao-app/2026-11-19_notas_do_diogo_v6.md`): sobre «Escolham»,
   «esta palavra não fica bem aqui. deixa em branco»; «quando o rato do pc está estacionado em cima da foto a régua para. não deve
   parar. o rato deverá estar livre»; «pelo desktop parece que o site está bem. as fotos grandes no mobile parece que ficam cortadas e
@@ -91,7 +101,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V6 · 19/11/2026 · as notas de 18 e 19/11: a pílula, o cartaz em escada, as fotografias grandes, a ecopista, a N2, as avaliações, a galeria, o voltar e o painel
 
 - **Publicada:** 19/11/2026, às 10h42 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 25 (o n.º 24 foi o ensaio a
-  seco), commit `37b0736`, **etiqueta `novo-v6`**. É a que está no ar em `novo.`. Face à V5 mudaram 14 ficheiros (`conteudo.php`,
+  seco), commit `37b0736`, **etiqueta `novo-v6`**. Esteve no ar em `novo.` a 19/11/2026, das 10h42 às 19h48. Face à V5 mudaram 14 ficheiros (`conteudo.php`,
   `index.php`, `versao.json`, `assets/css/site.css`, `assets/js/site.js`, `inc/util.php` e oito partes: `avaliacoes`, `casa`, `dock`,
   `galeria`, `inicio`, `momentos`, `montemor`, `nacional2`); nada entrou nem saiu, e as fotografias ficaram como estavam. Commits do
   site: `75f243c` (a pílula de descer) e `4d687e5` (as outras notas de 18 e 19/11); testes «Capturas» n.º 76 e n.º 77 verdes
