@@ -82,7 +82,6 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: -.02em; font-wei
 @keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
 @keyframes subir { from { opacity: 0; transform: translateY(2rem); } to { opacity: 1; transform: none; } }
 @keyframes da-direita { from { opacity: 0; transform: translateX(2rem); } to { opacity: 1; transform: none; } }
-@keyframes saltar { 0%, 100% { transform: translateY(-18%); animation-timing-function: cubic-bezier(.8, 0, 1, 1); } 50% { transform: none; animation-timing-function: cubic-bezier(0, 0, .2, 1); } }
 @keyframes assentar { from { transform: scale(1.05); } to { transform: none; } }
 @keyframes respirar { from { transform: scale(1); } to { transform: scale(1.035); } }
 @keyframes entrar-leve { from { opacity: 0; transform: translate3d(0, .75rem, 0); } to { opacity: 1; transform: none; } }
@@ -188,12 +187,34 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .hero-botoes { margin-top: .85rem; display: flex; flex-wrap: wrap; align-items: center; }
 .hero .btn-foto { margin-right: 1rem; background: rgba(var(--sombra-rgb), .24); text-shadow: none; }
 .hero-nota { margin: .5rem 0; font-style: italic; font-size: .875rem; }
-.hero-descer { position: absolute; right: 1.25rem; bottom: 1.25rem; z-index: 3; display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; border: 1px solid rgba(var(--claro-rgb), .6); background: rgba(var(--sombra-rgb), .2); transition: background-color .3s; }
-.hero-descer .ico { width: 1.25rem; height: 1.25rem; animation: saltar 1.6s infinite; }
+/* ---- A pílula de descer (versão 6, 19/11/2026) ----
+   Diogo, 18/11, com a versão 4 no iPhone: «Está a faltar a pílula do movimento para baixo durante todo o site.» e «O ícone do rato
+   pode ficar no meio, mais flutuante e sem ficar em frente ao texto. Sobe a posição.»; 19/11, com a versão 5: «Faltou esta parte».
+   A forma é a da versão 1 e da versão 2 (um rato com um ponto a descer). Lá ficava no canto direito, encostada à barra de baixo, e às
+   vezes por cima de uma linha de texto; a versão 3 tirou-a. Agora:
+   · sem JavaScript fica na capa, ao centro, por baixo do botão, e leva à casa;
+   · com JavaScript (classe «flutua», site.js, «A pílula») fica presa ao ecrã em todo o site: na capa, ao centro e por baixo do botão;
+     quando a capa sai do ecrã e a barra de baixo aparece, sobe (classe «alto») e fica a flutuar por cima da barra, com ar à volta;
+   · nunca fica por cima de texto: o site.js apaga-a (classe «apagada») quando passa texto por baixo e volta a mostrá-la sobre
+     fotografias e espaços vazios; apagada, os toques passam para o que está por baixo. Esconde-se com o menu, o painel ou uma
+     fotografia abertos;
+   · cada toque leva à secção seguinte; no fim da página vira-se ao contrário (classe «topo») e volta ao topo.
+   A caixa que se toca (3 × 3,75 rem) é maior do que o rato que se vê (1,75 × 2,875 rem). Centrada pela margem, não por transform:
+   o transform fica para a subida. */
+.pilula { position: absolute; left: 50%; bottom: .75rem; z-index: 3; display: flex; align-items: center; justify-content: center; width: 3rem; height: 3.75rem; margin-left: -1.5rem; color: var(--sobre-foto); -webkit-tap-highlight-color: transparent; transition: opacity .35s ease, transform .55s var(--ease); }
+.pilula-rato { position: relative; display: block; width: 1.75rem; height: 2.875rem; border: 1.5px solid rgba(var(--claro-rgb), .92); border-radius: 999px; background: rgba(var(--sombra-rgb), .32); box-shadow: 0 .5rem 1.5rem rgba(var(--sombra-rgb), .24); transition: background-color .3s, transform .45s var(--ease); }
+.pilula-rato::after { content: ""; position: absolute; left: 50%; top: 50%; width: .3rem; height: .55rem; margin: -.275rem 0 0 -.15rem; border-radius: 999px; background: currentColor; animation: pilula-ponto 1.6s ease-in-out infinite; }
+@keyframes pilula-ponto { 0%, 100% { transform: translateY(-.55rem); opacity: .95; } 55% { transform: translateY(.5rem); opacity: .3; } }
+.pilula.topo .pilula-rato { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+.pilula:focus { outline: none; }
+.pilula:focus-visible .pilula-rato { box-shadow: 0 0 0 3px rgba(var(--claro-rgb), .95), 0 .5rem 1.5rem rgba(var(--sombra-rgb), .24); }
+.pilula.flutua { position: fixed; z-index: 38; bottom: calc(.75rem + env(safe-area-inset-bottom, 0px)); }
+.pilula.flutua.alto { -webkit-transform: translate3d(0, -5.6rem, 0); transform: translate3d(0, -5.6rem, 0); }
+.pilula.apagada { opacity: 0; pointer-events: none; }
 @media (hover: hover) {
   .hero-nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 6px; }
   .hero .btn-foto:hover { background: rgba(var(--claro-rgb), .18); }
-  .hero-descer:hover { background: rgba(var(--claro-rgb), .22); }
+  .pilula:hover .pilula-rato { background: rgba(var(--sombra-rgb), .5); }
 }
 @media (min-width: 768px) {
   .hero-texto { padding-bottom: 5.5rem; }
@@ -206,7 +227,6 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .etiquetas .ico { display: block; }
   .hero-botoes { margin-top: 1.1rem; }
   .hero-nota { font-size: 1rem; }
-  .hero-descer { left: 50%; right: auto; bottom: 1.5rem; margin-left: -1.375rem; }
 }
 @media (min-width: 900px) { .hero-nav { display: flex; } .hero-topo { padding-top: calc(1.75rem + env(safe-area-inset-top, 0px)); padding-bottom: 1.75rem; } }
 /* Estudo da capa (só no ensaio, com ?capa= no endereço e mais do que uma opção em conteudo.php) */
@@ -452,7 +472,9 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 }
 
 /* ---- Contactos (rodapé, compacto) ---- */
-.contactos { background: var(--oliva); color: var(--sobre-foto); padding: 3.5rem 0 calc(7.5rem + env(safe-area-inset-bottom, 0px)); }
+/* Em baixo, espaço para a barra e, por cima dela, para a pílula de descer: no fim da página ela fica ali, sobre o verde, a dizer
+   «voltar ao topo», sem tapar a última linha (versão 6). */
+.contactos { background: var(--oliva); color: var(--sobre-foto); padding: 3.5rem 0 calc(10.75rem + env(safe-area-inset-bottom, 0px)); }
 .contactos-titulo { margin-top: .75rem; max-width: 42rem; font-size: 1.875rem; line-height: 1.25; }
 .contactos-texto { margin-top: 1rem; max-width: 36rem; font-size: 1rem; line-height: 1.625; opacity: .9; }
 .contactos-lista { margin-top: 1.75rem; }
@@ -465,7 +487,7 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .versao-ensaio { letter-spacing: .06em; }   /* só no ensaio: «Ensaio · versão N · data» */
 @media (hover: hover) { .contactos-lista a:hover { text-decoration: underline; text-underline-offset: 4px; } }
 @media (min-width: 768px) {
-  .contactos { padding: 4rem 0 7rem; }
+  .contactos { padding: 4rem 0 calc(10.75rem + env(safe-area-inset-bottom, 0px)); }
   .contactos-titulo { font-size: 3rem; }
   .contactos-lista { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contactos-lista li + li { margin-top: 0; }
@@ -651,7 +673,9 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .js .reveal:not(.is-in), .js .reveal:not(.is-in) .cartaz-linhas a { -webkit-transform: none; transform: none; }
   .cartaz-linhas a { transition: color .3s, opacity .9s ease; }
   .entrada, .entrou, .album li, .painel { animation-name: aparecer; }
-  .hero-foto, .hero-texto, .hero-descer .ico { animation: none; }
+  .hero-foto, .hero-texto { animation: none; }
+  .pilula-rato::after { animation: none; -webkit-transform: translateY(-.45rem); transform: translateY(-.45rem); }
+  .pilula, .pilula-rato { transition-property: opacity, background-color; }
   .foto-botao img, .ligacao-seta .ico, .ico-seta, .dock { transition-property: opacity, background-color; }
 }
 @media (prefers-reduced-motion: reduce) and (min-width: 768px) { .rolo-pista { animation-duration: var(--dur-lc, 150s); } }

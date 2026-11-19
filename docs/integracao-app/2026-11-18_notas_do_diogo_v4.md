@@ -1,5 +1,7 @@
 # Notas do Diogo sobre a versão 4 (18/11/2026, entre as 00h40 e as 00h55, no iPhone)
 
+**Atualização de 19/11, 02h: a pílula de descer (secção 2) está feita na versão 6, por publicar** («Faltou esta parte», 19/11).
+
 **Atualização de 19/11, 01h: a versão 5 está no ar só com as frases.** «Retira as frases e lança»: saíram as legendas sobre as
 fotografias e por baixo da da N2 (nota 2 de 19/11), «Sem receção, sem pressa» da capa, que passou para a resposta «A que horas
 podemos chegar?» (nota 6 de 18/11), e «notas de novembro de 2026» (nota 4 de 18/11). **Tudo o resto deste documento passa para a
@@ -65,6 +67,9 @@ Os números entre parênteses são as partes da página do registo de versões (
   Sobe a posição.» Logo: **ao centro, a flutuar, mais acima do que estava** (na V1 e na V2 ficava no canto direito, encostado à barra
   de baixo), e **nunca por cima de texto**: apaga-se quando passa texto por baixo e volta sobre fotografias e espaços vazios;
   esconde-se com o menu, o painel ou uma fotografia abertos. Mostrar em vídeo antes do «Lança».
+- **19/11, com a V5 no iPhone: «Faltou esta parte»** (captura da capa, com o botão redondo do canto rodeado). **Feito na V6** (por
+  publicar, espera o «Lança»): na capa ao centro, por baixo de «Entrar pela casa»; depois da capa sobe e flutua por cima da barra; apaga-se
+  sobre texto; cada toque leva à secção seguinte; no fim volta ao topo. Ficha em `docs/versoes/REGISTO.md` (V6); vídeo enviado na conversa.
 
 ## 3. Voltar ao ponto onde estava (6 A galeria; navegação)
 

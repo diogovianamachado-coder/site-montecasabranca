@@ -1,11 +1,12 @@
-/* Monte Casa Branca · interação (JavaScript nativo, sem dependências). Versão 4, 17/11/2026.
-   Blocos: ligações internas · a capa (a fotografia fica para trás ao rolar) · revelar ao rolar · barra de baixo · rolos de fotografias · camadas (menu, painel, fotografia) ·
+/* Monte Casa Branca · interação (JavaScript nativo, sem dependências). Versão 4, 17/11/2026; a pílula de descer na versão 6, 19/11/2026.
+   Blocos: ligações internas · a capa (a fotografia fica para trás ao rolar) · revelar ao rolar · barra de baixo · a pílula de descer · rolos de fotografias · camadas (menu, painel, fotografia) ·
    álbuns · fotografia em ecrã inteiro · frases de quem já ficou · painel das datas (calendário via api/ocupacao.php, conta via
    api/tarifa.php, tempo via api/tempo.php, pedido via api/prereserva.php).
    Regras, por causa do Safari do iPhone (na versão 2 a página prendia; na 3 as fotografias quase não se mexiam):
    · o movimento das fotografias é da folha de estilos (site.css, «Rolos»): uma animação que o browser corre sozinho. Aqui só se
      trata do que a pessoa faz (parar, levar, abrir). Nada aqui mexe na rolagem da página nem empurra nada a cada instante; a única
      coisa que acompanha a rolagem é a posição da fotografia da capa (a paralaxe da versão 2, só com o que a rolagem já mudou);
+     a pílula de descer só vê o que tem por baixo e muda de classe;
    · o menu, o painel e a fotografia em grande não bloqueiam a rolagem da página (nada de overflow: hidden no body);
    · ao escolher um destino no menu, o menu fecha e a página vai direta para lá, sem animação; a chegada é sempre conferida;
    · cada bloco arranca dentro de «seguro()»: se um falhar, os outros continuam a funcionar. */
@@ -25,7 +26,8 @@
   /* ---- Camadas (menu, painel, fotografia): abrir e fechar ----
      Abrir é só mostrar o elemento; fechar é só escondê-lo. Nada é posto nem tirado do <body>. Com uma camada aberta, as fotografias
      por trás ficam paradas (aoMudarCamadas → «Rolos»). */
-  function aoMudarCamadas() { for (var i = 0; i < rolos.length; i++) acertarRolo(rolos[i]); }
+  function aoMudarCamadas() { for (var i = 0; i < rolos.length; i++) acertarRolo(rolos[i]); pilulaAcertar(); }
+  var pilulaAcertar = function () {};                    // a pílula de descer (bloco «A pílula»); até ela arrancar, não faz nada
   function abrir(id) {
     var el = d.getElementById(id); if (!el || !el.hidden) return;
     el._antes = d.activeElement; el.hidden = false; abertas.push(id); aoMudarCamadas();
@@ -118,7 +120,7 @@
   /* ---- Barra de baixo: aparece quando a capa sai do ecrã ---- */
   function barra() {
     var dock = $('#dock'), inicio = $('#inicio'); if (!dock) return;
-    var mostrar = function (v) { if (v) dock.classList.add('visivel'); else dock.classList.remove('visivel'); dock.setAttribute('aria-hidden', v ? 'false' : 'true'); };
+    var mostrar = function (v) { if (v) dock.classList.add('visivel'); else dock.classList.remove('visivel'); dock.setAttribute('aria-hidden', v ? 'false' : 'true'); pilulaAcertar(); };
     if (inicio && 'IntersectionObserver' in window) new IntersectionObserver(function (en) { mostrar(!en[0].isIntersecting); }, { threshold: 0.05 }).observe(inicio);
     else mostrar(true);
   }
@@ -146,6 +148,100 @@
     window.addEventListener('scroll', acertar, { passive: true });
     window.addEventListener('resize', acertar);
     if (presa) { if (presa.addEventListener) presa.addEventListener('change', acertar); else if (presa.addListener) presa.addListener(acertar); }
+  }
+
+  /* ---- A pílula de descer (versão 6, 19/11/2026) ----
+     Diogo, 18/11: «Está a faltar a pílula do movimento para baixo durante todo o site.» e «O ícone do rato pode ficar no meio, mais
+     flutuante e sem ficar em frente ao texto. Sobe a posição.» (19/11, com a versão 5 no iPhone: «Faltou esta parte».)
+     · Fica presa ao ecrã (classe «flutua»): na capa, ao centro e por baixo do botão; quando a barra de baixo aparece, sobe (classe
+       «alto») e fica a flutuar por cima dela. As duas posições estão na folha de estilos (site.css, «A pílula»).
+     · Nunca por cima de texto: quando a página rola, vê-se o que está por baixo da pílula numa grelha de pontos à sua volta
+       (document.elementsFromPoint). Se for texto (um parágrafo, um título, uma pergunta, uma ligação, um botão…), apaga-se logo;
+       sobre fotografias e espaços vazios volta a aparecer, um instante depois, para não piscar entre duas linhas. Apagada não
+       apanha toques: passam para o que está por baixo.
+     · Esconde-se com o menu, o painel ou uma fotografia abertos.
+     · Cada toque leva à secção seguinte, com a mesma viagem das ligações (irPara); no fim da página vira-se ao contrário e volta
+       ao topo.
+     Só lê posições e muda classes; nunca mexe na rolagem enquanto a pessoa rola. */
+  function pilula() {
+    var p = d.getElementById('pilula'), rato = p && $('.pilula-rato', p); if (!p || !rato) return;
+    var dock = d.getElementById('dock'), inicio = d.getElementById('inicio');
+    var TEXTO = 'p, h1, h2, h3, h4, h5, h6, li, dt, dd, blockquote, figcaption, label, summary, legend, address, td, th, a, button, input, select, textarea, .eyebrow';
+    var FOTO = '.foto-botao, .foto-larga-caixa, .hero-fundo, picture, img, video';
+    var podeVer = !!d.elementsFromPoint;
+    function daPilula(el) { return el === p || p.contains(el); }
+    // O que está à frente num ponto do ecrã: 1 = texto, 0 = fotografia, nada ou espaço vazio. Desce pela pilha só enquanto o que
+    // encontra não decide (uma caixa vazia por cima de texto, um contentor).
+    function oQueEsta(x, y) {
+      var pilha = d.elementsFromPoint(x, y);
+      for (var k = 0; k < pilha.length; k++) {
+        var el = pilha[k]; if (daPilula(el)) continue;
+        if (!el.closest || el === raiz || el === d.body) return 0;
+        if (el.closest(FOTO)) return 0;
+        var t = el.closest(TEXTO); if (t && /\S/.test(t.textContent || '')) return 1;
+      }
+      return 0;
+    }
+    // Um bloco de texto que ainda está a subir para o seu lugar (revelar ao rolar: entra 34 px abaixo e sobe em 1,1 s) conta já no
+    // sítio onde vai ficar, para a pílula se apagar antes de as letras chegarem e não depois.
+    var revelaveis = $$('.reveal');
+    function textoACaminho(r, m) {
+      for (var i = 0; i < revelaveis.length; i++) {
+        var el = revelaveis[i], b = el.getBoundingClientRect();
+        if (b.bottom < r.top - 80 || b.top > r.bottom + 80 || b.width < 1) continue;
+        var t = getComputedStyle(el).transform, dy = 0;
+        if (t && t !== 'none') { var v = t.slice(t.indexOf('(') + 1).match(/-?[\d.]+(e-?\d+)?/g); if (v) dy = parseFloat(v.length > 6 ? v[13] : v[5]) || 0; }
+        if (Math.abs(dy) < 1) continue;
+        if (b.left < r.right + m && b.right > r.left - m && b.top - dy < r.bottom + m && b.bottom - dy > r.top - m && /\S/.test(el.textContent || '')) return true;
+      }
+      return false;
+    }
+    function porCimaDeTexto() {
+      if (!podeVer) return false;
+      var r = rato.getBoundingClientRect(), m = 8, cols = [r.left - m, r.left + r.width / 2, r.right + m], i, y, passo = (r.height + 2 * m) / 7;
+      for (y = r.top - m; y <= r.bottom + m + 0.5; y += passo) {
+        for (i = 0; i < 3; i++) if (oQueEsta(cols[i], y) === 1) return true;
+      }
+      return textoACaminho(r, m);
+    }
+    function noFim() { return alturaRolada() + (window.innerHeight || raiz.clientHeight) >= raiz.scrollHeight - 120; }
+    var tVer = null, tParou = null, tParou2 = null, tMostrar = null;
+    function acertar() {
+      tVer = null;
+      var alto = !!(dock && dock.classList.contains('visivel')), fim = noFim();
+      if (alto !== p.classList.contains('alto')) { p.classList.toggle('alto', alto); setTimeout(acertar, 620); }   // depois de subir ou descer, ver outra vez
+      if (fim !== p.classList.contains('topo')) { p.classList.toggle('topo', fim); p.setAttribute('aria-label', fim ? 'Voltar ao topo' : 'Descer para a secção seguinte'); }
+      var teclado = false; try { teclado = p.matches(':focus-visible'); } catch (e) {}
+      var esconder = abertas.length > 0 || (!teclado && porCimaDeTexto());
+      if (esconder) { clearTimeout(tMostrar); tMostrar = null; p.classList.add('apagada'); }
+      else if (p.classList.contains('apagada') && !tMostrar) {
+        tMostrar = setTimeout(function () { tMostrar = null; if (!(abertas.length > 0 || porCimaDeTexto())) p.classList.remove('apagada'); }, 220);
+      }
+    }
+    // Enquanto a página rola, vê-se de 90 em 90 ms; quando pára, outra vez (e mais tarde, depois de o texto que entrou acabar de subir).
+    function agendar() {
+      if (!tVer) tVer = setTimeout(acertar, 90);
+      clearTimeout(tParou); tParou = setTimeout(acertar, 260);
+      clearTimeout(tParou2); tParou2 = setTimeout(acertar, 1100);
+    }
+    function paragens() { return $$('#inicio, main > section, #contactos').filter(function (s) { return s.offsetHeight > 0; }); }
+    p.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      if (p.classList.contains('topo')) { irPara(inicio || d.body, true); return; }
+      var y = alturaRolada() + 48, alvo = null;
+      paragens().some(function (s) { if (topoDe(s) > y) { alvo = s; return true; } return false; });
+      if (alvo) irPara(alvo, true); else window.scrollTo(0, raiz.scrollHeight);
+    });
+    p.classList.add('flutua');
+    pilulaAcertar = function () { acertar(); agendar(); };
+    window.addEventListener('scroll', agendar, { passive: true });
+    window.addEventListener('resize', agendar);
+    window.addEventListener('load', agendar);
+    // Um separador da galeria, uma pergunta aberta… mudam o que fica por baixo da pílula sem a página rolar. E um bloco de texto que
+    // acaba de subir para o seu lugar também.
+    d.addEventListener('click', function (ev) { if (!daPilula(ev.target)) { setTimeout(acertar, 350); setTimeout(acertar, 1000); } }, true);
+    d.addEventListener('transitionend', function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains('reveal') && !tVer) tVer = setTimeout(acertar, 30); });
+    acertar();
   }
 
   /* ---- Rolos: as fotografias que deslizam sozinhas ----
@@ -654,6 +750,7 @@
   seguro('capa', capa);
   seguro('revelar', revelar);
   seguro('barra de baixo', barra);
+  seguro('pílula', pilula);
   seguro('rolos de fotografias', rolar);
   seguro('camadas', camadas);
   seguro('álbuns', albuns);

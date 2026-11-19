@@ -22,7 +22,9 @@
       <?php if (!empty($I['nota'])): ?><p class="hero-nota serif"><?= e($I['nota']) ?></p><?php endif; ?>
     </div>
   </div>
-  <a href="#a-casa" class="hero-descer" aria-label="Descer para a casa"><?= icone('baixo') ?></a>
+  <?php // A pílula de descer (versão 6, 19/11/2026): sem JavaScript fica aqui, ao centro, por baixo do botão; com JavaScript fica
+        // presa ao ecrã em todo o site, a flutuar ao centro (site.css e site.js, «A pílula»). ?>
+  <a href="#a-casa" class="pilula" id="pilula" aria-label="Descer para a secção seguinte"><span class="pilula-rato" aria-hidden="true"></span></a>
   <?php if ($capaEstudo): // estudo da capa: só no ensaio e só com ?capa= no endereço ?>
   <nav class="estudo-capa" aria-label="Estudo da capa">
     <span>Capa</span>

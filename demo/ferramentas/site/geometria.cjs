@@ -10,6 +10,10 @@
 //   6. Movimento (versão 4, 17/11/2026: «As fotos estão estáticas … A régua das fotos não anda», Diogo, com a versão 3 no iPhone):
 //      cada rolo de fotografias, posto no ecrã, anda sozinho, SEM ESPERAR POR NADA; anda também com o JavaScript desligado e com
 //      «reduzir movimento» pedido ao sistema (mais devagar); o dedo parado segura-o e o dedo para o lado leva-o.
+//   7. A capa: ao rolar, a fotografia fica para trás (telemóvel) ou presa ao ecrã (computador).
+//   8. A pílula de descer (versão 6, 19/11/2026: «Faltou esta parte»): presa ao ecrã, ao centro; na capa por baixo do botão, depois
+//      a flutuar por cima da barra; nunca por cima de letras; cada toque leva à secção seguinte; no fim volta ao topo; sem JavaScript
+//      fica na capa.
 // Uso: node geometria.cjs <base> <pasta-saída> [motor: chromium|webkit|firefox]      Sai com 1 se houver falhas.
 const pw = require('playwright');
 const fs = require('fs');
@@ -153,6 +157,68 @@ async function medirRolo(page, k) {
       window.scrollTo({ top: 0, behavior: 'instant' }); await esperar(300);
       return { subiu: Math.round((a - b) * 10) / 10 };
     });
+    // 8 · a pílula de descer (versão 6, 19/11/2026). Diogo, 18/11: «Está a faltar a pílula do movimento para baixo durante todo o
+    //     site» e «O ícone do rato pode ficar no meio, mais flutuante e sem ficar em frente ao texto. Sobe a posição»; 19/11, com a
+    //     versão 5 no iPhone: «Faltou esta parte». Confere: presa ao ecrã; na capa vê-se, ao centro, por baixo do botão; depois da capa
+    //     fica a flutuar por cima da barra de baixo, com ar à volta; NUNCA SE VÊ POR CIMA DE LETRAS (as linhas de texto são medidas
+    //     uma a uma, sem perguntar nada ao site.js) e vê-se em vários sítios; cada toque leva à secção seguinte; no fim vira-se e volta
+    //     ao topo; com o menu aberto esconde-se.
+    await page.keyboard.press('Escape').catch(() => {}); await page.mouse.move(2, 2).catch(() => {});
+    r.pilula = await page.evaluate(async () => {
+      const esperar = (ms) => new Promise((ok) => setTimeout(ok, ms));
+      const p = document.getElementById('pilula'); if (!p) return null;
+      const rato = p.querySelector('.pilula-rato'), dock = document.getElementById('dock');
+      const visivel = () => !p.classList.contains('apagada') && +getComputedStyle(p).opacity > 0.5;
+      // Rolar como uma pessoa: primeiro o «gesto» (uma roda), que diz ao site que a viagem de um toque anterior acabou (site.js, irPara).
+      const ir = (y) => { window.dispatchEvent(new Event('wheel')); window.scrollTo({ top: y, behavior: 'instant' }); };
+      // Letras que se vêem por baixo da pílula: as linhas de cada texto da página (Range.getClientRects), tirando o que não se vê
+      // (camadas fechadas, respostas fechadas, texto transparente ou escondido).
+      const letrasPorBaixo = () => {
+        const r = rato.getBoundingClientRect(), achadas = [];
+        const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (/\S/.test(n.nodeValue) ? 1 : 2) });
+        let n; while ((n = w.nextNode())) {
+          const el = n.parentElement; if (!el || p.contains(el) || el.closest('#dock, #menu, #disponibilidade, #galeria-ecra, script, style, [hidden]')) continue;
+          if (el.closest('details:not([open])') && !el.closest('summary')) continue;
+          const pr = el.getBoundingClientRect(); if (pr.bottom < r.top - 40 || pr.top > r.bottom + 40) continue;
+          const s = getComputedStyle(el); if (s.visibility === 'hidden' || +s.opacity === 0) continue;
+          const rg = document.createRange(); rg.selectNodeContents(n);
+          for (const q of rg.getClientRects()) if (q.width > 0 && q.left < r.right + 2 && q.right > r.left - 2 && q.top < r.bottom + 2 && q.bottom > r.top - 2) { achadas.push(n.nodeValue.trim().slice(0, 40)); break; }
+        }
+        return achadas;
+      };
+      const res = { fixa: getComputedStyle(p).position === 'fixed' };
+      ir(0); await esperar(900);
+      let rr = rato.getBoundingClientRect(); const botao = document.querySelector('.hero-botoes');
+      res.capa = { visivel: visivel(), centro: Math.round((rr.left + rr.right) / 2 - innerWidth / 2), folgaEmBaixo: Math.round(innerHeight - rr.bottom), abaixoDoBotao: botao ? Math.round(rr.top - botao.getBoundingClientRect().bottom) : null, letras: letrasPorBaixo() };
+      // a página toda, com paragens: nunca se vê por cima de letras; vê-se em vários sítios
+      const total = document.documentElement.scrollHeight, passo = Math.round(innerHeight * 0.6), sobre = []; let vistas = 0;
+      for (let y = 0; y <= total; y += passo) {
+        ir(y); await esperar(700);
+        if (visivel()) { vistas++; const l = letrasPorBaixo(); if (l.length) sobre.push(Math.round(scrollY) + ' px: «' + l[0] + '»'); }
+      }
+      res.vistas = vistas; res.paragens = Math.ceil(total / passo); res.sobreLetras = sobre.slice(0, 4);
+      // depois da capa: a flutuar por cima da barra de baixo, ao centro
+      ir(Math.round(innerHeight * 2.2)); await esperar(1000);
+      rr = rato.getBoundingClientRect();
+      res.depoisDaCapa = { alto: p.classList.contains('alto'), barra: dock.classList.contains('visivel'), folgaBarra: Math.round(dock.getBoundingClientRect().top - rr.bottom), centro: Math.round((rr.left + rr.right) / 2 - innerWidth / 2) };
+      // cada toque leva à secção seguinte (o toque é o clique do próprio elemento: apagada, a pílula não se deixa tocar com o dedo)
+      const chegou = async (id, ms) => { const a = document.getElementById(id); for (let t = 0; t < ms; t += 100) { await esperar(100); if (a && Math.abs(a.getBoundingClientRect().top) <= 3) return true; } return a ? Math.round(a.getBoundingClientRect().top) : 'sem #' + id; };
+      ir(0); await esperar(800);
+      p.click(); res.toque1 = await chegou('a-casa', 4500);
+      await esperar(300); p.click(); res.toque2 = await chegou('por-fora', 4500);
+      // no fim da página: vira-se, vê-se sobre o verde do rodapé e leva ao topo
+      ir(document.documentElement.scrollHeight); await esperar(1200);
+      res.fim = { topo: p.classList.contains('topo'), visivel: visivel(), rotulo: p.getAttribute('aria-label'), letras: letrasPorBaixo() };
+      p.click(); for (let t = 0; t < 7000 && scrollY > 2; t += 100) await esperar(100);
+      res.voltouAoTopo = Math.round(scrollY);
+      // com o menu aberto, esconde-se
+      ir(Math.round(innerHeight * 1.6)); await esperar(900);
+      const abrir = document.getElementById('abrir-menu');
+      if (abrir) { abrir.click(); await esperar(500); res.comMenu = visivel(); const f = document.querySelector('#menu [data-fechar]'); if (f) f.click(); await esperar(400); }
+      ir(0); await esperar(300);
+      return res;
+    });
+
     // 6 · movimento: cada rolo, posto no ecrã, anda sozinho; o dedo parado segura-o, o dedo para o lado leva-o e, largado, continua
     await page.keyboard.press('Escape').catch(() => {}); await page.mouse.move(2, 2).catch(() => {});
     const nRolos = await page.locator('[data-rolo]').count();
@@ -194,6 +260,25 @@ async function medirRolo(page, k) {
     if (!r.capa) falhas.push(`${q}: não encontrei a fotografia da capa`);
     else if (nome === 'telemovel' && !(r.capa.subiu >= 140 && r.capa.subiu <= 160)) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; com a paralaxe da versão 2 sobe 150 (fica para trás um quarto da rolagem)`);
     else if (nome === 'computador' && Math.abs(r.capa.subiu) > 6) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; no computador está presa ao ecrã e não sobe`);
+    const pl = r.pilula;
+    if (!pl) falhas.push(`${q}: não encontrei a pílula de descer (#pilula)`);
+    else {
+      if (!pl.fixa) falhas.push(`${q}: a pílula de descer não ficou presa ao ecrã`);
+      if (!pl.capa.visivel) falhas.push(`${q}: na capa, a pílula de descer não se vê`);
+      if (Math.abs(pl.capa.centro) > 2) falhas.push(`${q}: na capa, a pílula não está ao centro (${pl.capa.centro} px)`);
+      if (pl.capa.letras.length) falhas.push(`${q}: na capa, a pílula fica por cima de texto («${pl.capa.letras[0]}»)`);
+      if (pl.capa.folgaEmBaixo < 8) falhas.push(`${q}: na capa, a pílula está colada ao fundo do ecrã (${pl.capa.folgaEmBaixo} px)`);
+      if (pl.capa.abaixoDoBotao !== null && pl.capa.abaixoDoBotao < 4) falhas.push(`${q}: na capa, a pílula não ficou por baixo do botão (${pl.capa.abaixoDoBotao} px)`);
+      if (pl.sobreLetras.length) falhas.push(`${q}: a pílula vê-se por cima de texto: ${pl.sobreLetras.join(' · ')}`);
+      if (pl.vistas < 6) falhas.push(`${q}: a pílula quase nunca se vê (${pl.vistas} de ${pl.paragens} paragens)`);
+      if (!pl.depoisDaCapa.alto || !pl.depoisDaCapa.barra || pl.depoisDaCapa.folgaBarra < 24) falhas.push(`${q}: depois da capa, a pílula não ficou a flutuar por cima da barra de baixo (${JSON.stringify(pl.depoisDaCapa)})`);
+      if (Math.abs(pl.depoisDaCapa.centro) > 2) falhas.push(`${q}: depois da capa, a pílula não está ao centro (${pl.depoisDaCapa.centro} px)`);
+      if (pl.toque1 !== true) falhas.push(`${q}: um toque na pílula, na capa, não levou à casa (topo de #a-casa: ${pl.toque1})`);
+      if (pl.toque2 !== true) falhas.push(`${q}: o toque seguinte não levou ao capítulo «Por fora» (topo: ${pl.toque2})`);
+      if (!pl.fim.topo || !pl.fim.visivel || pl.fim.letras.length || pl.fim.rotulo !== 'Voltar ao topo') falhas.push(`${q}: no fim da página a pílula não se virou para voltar ao topo, ou não se vê, ou tapa texto (${JSON.stringify(pl.fim)})`);
+      if (pl.voltouAoTopo > 2) falhas.push(`${q}: no fim da página, um toque na pílula não voltou ao topo (ficou a ${pl.voltouAoTopo} px)`);
+      if (pl.comMenu) falhas.push(`${q}: com o menu aberto, a pílula continuou à vista`);
+    }
     const m = r.movimento;
     if (!m.rolos) falhas.push(`${q}: a página não tem rolos de fotografias`);
     m.sozinhos.filter((s) => !(s.px >= 20)).forEach((s) => falhas.push(`${q}: as fotografias de «${s.rolo}» não andam sozinhas (${s.px} px em 1,5 s; têm de andar pelo menos 20)`));
@@ -217,6 +302,10 @@ async function medirRolo(page, k) {
       sem.caixa = recorte;
       if (cx.y < vp.height - 40) { const f1 = await page.screenshot({ clip: recorte }); await page.waitForTimeout(2000); const f2 = await page.screenshot({ clip: recorte }); sem.mexeu = Buffer.compare(f1, f2) !== 0; }
     }
+    // 8 (continuação) · sem JavaScript, a pílula fica na capa, ao centro e em baixo (leva à casa)
+    await page.goto(base + '/', { waitUntil: 'load' }); await page.waitForTimeout(600);
+    const pb = await page.locator('#pilula').boundingBox().catch(() => null), hb = await page.locator('#inicio').boundingBox().catch(() => null);
+    sem.pilula = pb && hb ? { centro: Math.round(pb.x + pb.width / 2 - hb.width / 2), folgaEmBaixo: Math.round(hb.y + hb.height - (pb.y + pb.height)) } : null;
     await ctx.close();
     const ctx2 = await browser.newContext({ ...telemovel, locale: 'pt-PT', reducedMotion: 'reduce' }); const page2 = await ctx2.newPage();
     await page2.goto(base + '/', { waitUntil: 'load' }); await page2.waitForTimeout(1200);
@@ -227,6 +316,7 @@ async function medirRolo(page, k) {
     const q = `${motor} · telemóvel`;
     if (!sem.caixa) falhas.push(`${q} sem JavaScript: não encontrei as fotografias de «Por fora»`);
     else if (!sem.mexeu) falhas.push(`${q} sem JavaScript: as fotografias não andam (duas imagens com 2 s de intervalo saíram iguais). O movimento tem de ser da folha de estilos`);
+    if (!sem.pilula || Math.abs(sem.pilula.centro) > 2 || sem.pilula.folgaEmBaixo < 0 || sem.pilula.folgaEmBaixo > 40) falhas.push(`${q} sem JavaScript: a pílula de descer não está na capa, ao centro e em baixo (${JSON.stringify(sem.pilula)})`);
     if (!(calmo.px >= 8)) falhas.push(`${q} com «reduzir movimento»: as fotografias ficaram paradas (${calmo.px} px em 1,5 s); nesta versão continuam a andar, mais devagar`);
     if (calmo.px > 40) falhas.push(`${q} com «reduzir movimento»: as fotografias andam depressa de mais (${calmo.px} px em 1,5 s)`);
   }
@@ -234,5 +324,5 @@ async function medirRolo(page, k) {
   fs.writeFileSync(`${out}/geometria-${motor}.json`, JSON.stringify(res, null, 1));
   console.log(JSON.stringify(res, null, 1));
   if (falhas.length) { console.error(`GEOMETRIA FALHOU (${motor}):\n  ` + falhas.join('\n  ')); process.exit(1); }
-  console.log(`geometria OK em ${motor}: sem rolagem horizontal, fotografias a encher as caixas e carregadas, painel dentro da largura, menu a levar ao destino, a fotografia da capa a ficar para trás ao rolar, fotografias a andar sozinhas (também sem JavaScript e com «reduzir movimento») e a deixarem-se levar`);
+  console.log(`geometria OK em ${motor}: sem rolagem horizontal, fotografias a encher as caixas e carregadas, painel dentro da largura, menu a levar ao destino, a fotografia da capa a ficar para trás ao rolar, fotografias a andar sozinhas (também sem JavaScript e com «reduzir movimento») e a deixarem-se levar, e a pílula de descer ao centro, nunca por cima de texto, a levar à secção seguinte e, no fim, ao topo`);
 })().catch((e) => { console.error(e); process.exit(1); });

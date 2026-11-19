@@ -41,6 +41,33 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
+### V6 · 19/11/2026 · a pílula de descer
+
+- **Por publicar:** espera o «Lança» do Diogo. (Quando for para o ar: a data, o n.º do deploy, o commit e a etiqueta `novo-v6`.)
+- **De onde vem:** o Diogo viu a V5 no iPhone e mandou a captura da capa com o botão redondo do canto rodeado a vermelho: «Faltou esta
+  parte». A pílula de descer estava decidida desde 18/11 («Está a faltar a pílula do movimento para baixo durante todo o site» e «O
+  ícone do rato pode ficar no meio, mais flutuante e sem ficar em frente ao texto. Sobe a posição») e não entrou na V5, que foi só de
+  textos («Retira as frases e lança»). Falha minha: devia ter perguntado se a pílula ia já na V5.
+- **O que é:** a forma da V1 e da V2 (um rato com um ponto a descer), num sítio novo. Na capa fica **ao centro, por baixo de «Entrar
+  pela casa»**; quando a capa sai do ecrã e a barra de baixo aparece, **sobe e fica a flutuar por cima da barra**, ao centro, com ar à
+  volta (na V1 e na V2 ficava no canto direito, encostada à barra). **Nunca fica por cima de texto:** apaga-se quando passa texto por
+  baixo e volta sobre fotografias e espaços vazios; apagada, os toques passam para o que está por baixo. Cada toque leva à secção
+  seguinte; no fim da página vira-se ao contrário e volta ao topo; esconde-se com o menu, o painel ou uma fotografia abertos. Sem
+  JavaScript fica na capa e leva à casa. Com «reduzir movimento» no aparelho, o ponto fica parado e a subida é sem animação.
+- **Onde está:** `partes/inicio.php` (a pílula), `assets/css/site.css` → «A pílula de descer», `assets/js/site.js` → «A pílula de
+  descer». Testes: `geometria.cjs` → ponto 8 (Chromium e WebKit: ao centro, nunca por cima de letras, medidas linha a linha, a levar
+  à secção seguinte e, no fim, ao topo; sem JavaScript, na capa) e `captura-site.cjs` (um dedo a sério na pílula leva à casa).
+- **Capturas:** `docs/versoes/v6/`.
+- **Ordem da página:** a mesma da V5.
+
+| Parte | O que mudou face à V5 | O que o Diogo achou |
+|---|---|---|
+| 1 Capa | O botão redondo do canto direito passa a ser a pílula: o rato com o ponto a descer, ao centro, por baixo de «Entrar pela casa» | por dizer |
+| 2 a 8, 10 e 11 | Iguais. A pílula passa por cima a flutuar: vê-se sobre fotografias e espaços vazios e apaga-se quando tem texto por baixo | por dizer |
+| 9 Contactos e rodapé | Mais espaço verde em baixo, para no fim a pílula ficar sobre o verde a dizer «voltar ao topo» sem tapar a última linha (no ensaio, «Ensaio · versão 6 · 19/11/2026») | por dizer |
+| 12 Barra de baixo | Igual; a pílula flutua por cima dela, ao centro | por dizer |
+| Toda a página | A pílula de descer em todo o site: cada toque leva à secção seguinte; no fim, ao topo | por dizer |
+
 ### V5 · 19/11/2026 · as frases retiradas
 
 - **Publicada:** 19/11/2026, às 01h01 (hora de Lisboa), com o «Lança» do Diogo («Retira as frases e lança»): deploy do site n.º 23
@@ -62,7 +89,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 | Parte | O que mudou face à V4 | O que o Diogo achou |
 |---|---|---|
-| 1 Capa | Sai «Sem receção, sem pressa», que estava ao lado de «Entrar pela casa»; a ideia passou para «Antes de chegar» | por dizer |
+| 1 Capa | Sai «Sem receção, sem pressa», que estava ao lado de «Entrar pela casa»; a ideia passou para «Antes de chegar» | «Faltou esta parte» (19/11, com a captura da capa e o botão redondo do canto rodeado): a pílula de descer, decidida a 18/11, não tinha entrado → V6 |
 | 2 A casa | Igual | por dizer |
 | 3 Os espaços | As fotografias dos três capítulos deixam de ter a legenda escrita por cima (e a sombra em baixo que a deixava ler). A descrição fica para quem usa leitor de ecrã e por baixo da fotografia aberta em grande | por dizer |
 | 4 Fecho e régua | Igual (a régua já não tinha legendas) | por dizer |

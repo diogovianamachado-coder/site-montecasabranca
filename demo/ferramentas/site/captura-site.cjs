@@ -1,5 +1,5 @@
-// Capturas e cenário do site em PHP (site/) a 390 e 1280 px, na versão 4 (o movimento, 17/11/2026):
-// página inteira · ligações internas (sem «#» no endereço) · rolos de fotografias (caixas do tamanho da fotografia; ANDAM SOZINHOS,
+// Capturas e cenário do site em PHP (site/) a 390 e 1280 px, na versão 4 (o movimento, 17/11/2026) e na 6 (a pílula de descer, 19/11):
+// página inteira · ligações internas (sem «#» no endereço) · a pílula de descer (um dedo a sério, na capa, leva à casa) · rolos de fotografias (caixas do tamanho da fotografia; ANDAM SOZINHOS,
 // devagar e sem parar, logo que chegam ao ecrã; sem contagem e sem setas; com rato: pára enquanto o rato se mexe por cima, arrasta-se,
 // a roda para o lado leva-o e a tecla Tab segura-o; no telemóvel, com dedos a sério: o dedo para cima rola a página e a faixa continua,
 // o dedo parado segura-a, o dedo para o lado leva-a e, largada, continua) · a régua do fecho (ordem diferente em cada visita, anda
@@ -46,6 +46,15 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
     await page.click(movel ? '.hero-botoes a' : '.hero-nav a[href="#galeria"]'); await page.waitForTimeout(3200);
     const ligacao = await page.evaluate((m) => ({ url: location.href, y: Math.round(window.scrollY), topo: Math.round(document.getElementById(m ? 'a-casa' : 'galeria').getBoundingClientRect().top) }), movel);
+    // A pílula de descer (versão 6, 19/11/2026: «Faltou esta parte»): um dedo a sério na pílula, na capa, leva à casa; no computador,
+    // um clique. (Que nunca fica por cima de texto, que volta ao topo e que está ao centro confere-o o geometria.cjs, nos dois motores.)
+    await page.evaluate(() => { window.dispatchEvent(new Event('wheel')); window.scrollTo(0, 0); }); await page.waitForTimeout(900);
+    const pc = await page.evaluate(() => { const r = document.querySelector('#pilula .pilula-rato').getBoundingClientRect(), p = document.getElementById('pilula'); return { x: Math.round(r.left + r.width / 2), y: Math.round(r.top + r.height / 2), apagada: p.classList.contains('apagada') }; });
+    if (movel) await page.touchscreen.tap(pc.x, pc.y); else await page.mouse.click(pc.x, pc.y);
+    await page.waitForTimeout(3200);
+    const pilula = { ...pc, topoDaCasa: await page.evaluate(() => Math.round(document.getElementById('a-casa').getBoundingClientRect().top)), url: await page.evaluate(() => location.href) };
+    await page.screenshot({ path: `${out}/${modo}-${nome}-pilula-depois-do-toque.jpg`, type: 'jpeg', quality: 70 });
+    if (!movel) await page.mouse.move(4, 4);
     // Abrir com «#galeria» no endereço: vai para a galeria e o endereço fica limpo; com «#casa» (endereço antigo) fica na capa
     const p2 = await ctx.newPage(); await p2.goto(base + '/#galeria', { waitUntil: 'load' }); await p2.waitForTimeout(900);
     const comHash = await p2.evaluate(() => ({ url: location.href, y: Math.round(window.scrollY) }));
@@ -184,7 +193,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     // A página inteira, numa página nova do mesmo aparelho (ver a nota do cimo): é a última coisa que se faz com este aparelho
     const pi = await ctx.newPage(); await pi.goto(base + '/', { waitUntil: 'networkidle' }); await pi.waitForTimeout(800); await rolar(pi);
     await pi.screenshot({ path: `${out}/${modo}-${nome}-inteira.jpg`, fullPage: true, type: 'jpeg', quality: 80 }); await pi.close();
-    res.push({ modo, nome, movel, medidas, ligacao, comHash, hashAntigo, filaOutraVisita, sequencia, filaAnda, pergunta, citacoes, veu, campos, calNota, incertos, conta: conta.replace(/\s*\n\s*/g, ' | '), contaEpocas, tempoVisivel, tempoNota, tempoMedias, pedidoEstado, confirmar, pedidoEstado2, galImg, menu, pedidos, erros: erros.length, errosDistintos: [...new Set(erros)].slice(0, 3) });
+    res.push({ modo, nome, movel, medidas, ligacao, pilula, comHash, hashAntigo, filaOutraVisita, sequencia, filaAnda, pergunta, citacoes, veu, campos, calNota, incertos, conta: conta.replace(/\s*\n\s*/g, ' | '), contaEpocas, tempoVisivel, tempoNota, tempoMedias, pedidoEstado, confirmar, pedidoEstado2, galImg, menu, pedidos, erros: erros.length, errosDistintos: [...new Set(erros)].slice(0, 3) });
     await ctx.close();
   }
   await browser.close(); fs.writeFileSync(`${out}/resultado-${modo}.json`, JSON.stringify(res, null, 2)); console.log(JSON.stringify(res, null, 2));
@@ -195,6 +204,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (r.medidas.scrollWidth > r.medidas.innerWidth) falhas.push(q + 'rolagem horizontal');
     if (r.medidas.capitulos.some((y, i, v) => y < 0 || (i > 0 && y <= v[i - 1]))) falhas.push(q + 'os capítulos não estão todos na página, ou não estão pela ordem do menu (' + r.medidas.capitulos.join(', ') + ')');
     if (r.ligacao.url.includes('#') || Math.abs(r.ligacao.topo) > 4) falhas.push(q + 'a ligação interna deixou «#» no endereço ou não chegou à secção (' + r.ligacao.url + ', topo ' + r.ligacao.topo + ')');
+    if (r.pilula.apagada || Math.abs(r.pilula.topoDaCasa) > 4 || r.pilula.url.includes('#')) falhas.push(q + (r.movel ? 'um dedo na pílula de descer' : 'um clique na pílula de descer') + ', na capa, não levou à casa (' + JSON.stringify(r.pilula) + ')');
     if (r.comHash.url.includes('#') || r.comHash.y < 500) falhas.push(q + 'abrir com #galeria não levou à galeria ou não limpou o endereço');
     if (r.hashAntigo.url.includes('#') || r.hashAntigo.y > 5) falhas.push(q + 'abrir com #casa (endereço antigo) não ficou na capa');
     if (s.caixas.length) falhas.push(q + s.caixas.length + ' caixa(s) de fotografia com tamanho diferente do da fotografia, p. ex. ' + s.caixas.slice(0, 3).join(' · '));
@@ -248,5 +258,5 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (!r.menu.fechado || Math.abs(r.menu.topo) > 2 || r.menu.hash || !r.menu.rola) falhas.push(q + 'escolher um destino no menu não fechou o menu e levou lá de imediato (' + JSON.stringify(r.menu) + ')');
   }
   if (falhas.length) { console.error('FALHOU:\n  ' + falhas.join('\n  ')); process.exit(1); }
-  console.log('OK · ' + res.length + ' tamanhos sem erros nem rolagem horizontal; capítulos pela ordem, ligações, fotografias a andar sozinhas (caixas, velocidade, sem contagens nem setas, rato, teclado e dedo), régua do fecho ao acaso e a andar, «Antes de chegar», frases, painel, tempo, fotografia e menu como deve ser');
+  console.log('OK · ' + res.length + ' tamanhos sem erros nem rolagem horizontal; capítulos pela ordem, ligações, a pílula de descer a levar à casa, fotografias a andar sozinhas (caixas, velocidade, sem contagens nem setas, rato, teclado e dedo), régua do fecho ao acaso e a andar, «Antes de chegar», frases, painel, tempo, fotografia e menu como deve ser');
 })().catch(e => { console.error(e); process.exit(1); });
