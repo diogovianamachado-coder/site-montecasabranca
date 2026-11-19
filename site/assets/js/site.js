@@ -157,7 +157,8 @@
   /* ---- Fotografias que passam devagar (versão 6, 19/11/2026) ----
      As fotografias grandes que abrem os capítulos e a da Nacional 2 (data-mexe) passam devagar por trás da sua caixa enquanto a
      página rola, como na versão 1 (Diogo, 18/11: «havia umas fotos que tinham vida na primeira versão»): a caixa .foto-mexe é mais
-     alta do que a fotografia à vista (120 %) e desce no máximo 9 % da altura, conforme a fotografia vai do fundo ao cimo do ecrã. É a
+     alta do que a fotografia à vista (120 %; no telemóvel, 112 %) e o curso é 90 % da folga, medida em cada caixa, conforme a
+     fotografia vai do fundo ao cimo do ecrã (versão 7: no telemóvel a folga é menor, para a fotografia se ver quase inteira). É a
      mesma maneira da capa (só a posição, com o que a rolagem já mudou), por isso corre em qualquer telemóvel. Só se mexem as que estão
      perto do ecrã. Com «reduzir movimento», ficam paradas. */
   function passar() {
@@ -170,7 +171,8 @@
         var x = lista[i], r = x.el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200 || r.height < 1) continue;
         var p = (vh - r.top) / (vh + r.height); if (p < 0) p = 0; if (p > 1) p = 1;
-        var t = Math.round((p - 0.5) * 0.18 * r.height * 10) / 10;
+        var folga = (x.m.offsetHeight - x.el.offsetHeight) / 2; if (folga < 0) folga = 0;
+        var t = Math.round((p - 0.5) * 1.8 * folga * 10) / 10;
         if (t === x.ultimo) continue; x.ultimo = t;
         x.m.style.transform = 'translate3d(0, ' + t + 'px, 0)';
       }
@@ -336,8 +338,9 @@
      troca-a por uma igual criada aqui (element.animate), à mesma velocidade e no mesmo sítio: é a que o dedo e o rato conseguem
      parar e levar em qualquer browser. (Na primeira versão pegava-se na animação da folha de estilos com getAnimations(); num
      Chromium mais antigo, o dos testes do GitHub, o dedo e o rato deixaram de lhe conseguir tocar.) O que a pessoa faz:
-     · «parar»: enquanto o dedo ou o botão do rato estão em cima da faixa, ela fica parada; ao largar, continua. Com rato, pára
-       também enquanto o rato se mexe por cima das fotografias (para se conseguir escolher uma) e retoma pouco depois;
+     · «parar»: enquanto o dedo ou o botão do rato estão carregados em cima da faixa, ela fica parada; ao largar, continua. O rato
+       por cima das fotografias, parado ou a mexer-se, não as pára (versão 7; Diogo, 19/11/2026: «quando o rato do pc está
+       estacionado em cima da foto a régua para. não deve parar. o rato deverá estar livre»);
      · «acelerar»: arrastar para um lado ou para o outro leva a faixa (anda-se com o tempo da animação para a frente ou para trás);
        ao largar, a faixa continua com o balanço do gesto até voltar à sua velocidade. O dedo para cima e para baixo rola a página
        (touch-action: pan-y na folha de estilos); a roda ou o trackpad para os lados também levam a faixa;
@@ -382,7 +385,7 @@
     r.anim = a; r.dur = dur; r.el.classList.add('rolo-js');   // site.css: .rolo-js .rolo-pista { animation-name: none }
   }
   function acertarRolo(r) {                               // anda ou está parada?
-    var anda = r.perto && !r.preso && !r.rato && !r.foco && !abertas.length, a = r.anim;
+    var anda = r.perto && !r.preso && !r.foco && !abertas.length, a = r.anim;
     // Sem animação criada aqui (browser antigo), o «parar» faz-se pela folha de estilos (classe «parado»).
     if (!a) { if (anda) r.el.classList.remove('parado'); else r.el.classList.add('parado'); return; }
     try {
@@ -408,8 +411,8 @@
   }
   function umRolo(el) {
     var pista = $('.rolo-pista', el); if (!pista) return;
-    var r = { el: el, pista: pista, anim: null, perto: true, preso: false, rato: false, foco: false, levou: false,
-      id: null, toque: false, largar: null, x0: 0, t0: 0, m: null, xa: 0, xb: 0, ta: 0, tb: 0, ta0: 0, semClique: 0, balanco: null, tRato: null, rx: -1, ry: -1 };
+    var r = { el: el, pista: pista, anim: null, perto: true, preso: false, foco: false, levou: false,
+      id: null, toque: false, largar: null, x0: 0, t0: 0, m: null, xa: 0, xb: 0, ta: 0, tb: 0, ta0: 0, semClique: 0, balanco: null };
     el._rolo = r; rolos.push(r);
     criarAnimacao(r);
     var largar = function (ev) {
@@ -450,15 +453,6 @@
       ev.preventDefault();
       try { a.currentTime = mod(tempoDe(a) + (ev.deltaMode === 1 ? ev.deltaX * 32 : ev.deltaX) / m.per * m.dur, m.dur); } catch (e) {}
     }, { passive: false });
-    if (comRato) {                                        // num ecrã de toque um toque também «entra» e nunca mais «sai»
-      el.addEventListener('mousemove', function (ev) {
-        if (ev.clientX === r.rx && ev.clientY === r.ry) return;   // a página a rolar por baixo do rato parado não conta
-        r.rx = ev.clientX; r.ry = ev.clientY;
-        clearTimeout(r.tRato); r.tRato = setTimeout(function () { r.rato = false; acertarRolo(r); }, 1400);
-        if (!r.rato) { r.rato = true; acertarRolo(r); }
-      });
-      el.addEventListener('mouseleave', function () { clearTimeout(r.tRato); r.rx = r.ry = -1; if (r.rato) { r.rato = false; acertarRolo(r); } });
-    }
     // Com o teclado (a tecla Tab): a fotografia que recebe o foco vem para a frente e a faixa espera enquanto o foco lá estiver.
     // O foco que volta sozinho a uma fotografia (ao fechar a fotografia em grande) não conta: a faixa continua a andar.
     el.addEventListener('focusin', function (ev) {
@@ -494,7 +488,7 @@
         var r = en.target._rolo; if (!r) return;
         r.perto = en.isIntersecting;
         if (r.perto) { r.el.classList.remove('longe'); r.el.classList.remove('parado'); }
-        else { pararBalanco(r); r.id = null; r.preso = false; r.levou = false; r.rato = false; r.el.classList.remove('a-levar'); r.el.classList.add('longe'); }
+        else { pararBalanco(r); r.id = null; r.preso = false; r.levou = false; r.el.classList.remove('a-levar'); r.el.classList.add('longe'); }
         acertarRolo(r);
       });
     }, { rootMargin: '100% 0px 100% 0px', threshold: 0 });

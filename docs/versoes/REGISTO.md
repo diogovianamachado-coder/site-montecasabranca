@@ -41,6 +41,53 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
+### V7 · 19/11/2026 · as fotografias grandes quase inteiras no telemóvel, o rato livre e «Quantas pessoas vêm?» sem palavra
+
+- **Por publicar:** espera o «Lança» do Diogo. (Quando for para o ar: a data, o n.º do deploy, o commit e a etiqueta `novo-v7`.)
+- **De onde vem:** as notas do Diogo de 19/11 sobre a V6 (`docs/integracao-app/2026-11-19_notas_do_diogo_v6.md`): sobre «Escolham»,
+  «esta palavra não fica bem aqui. deixa em branco»; «quando o rato do pc está estacionado em cima da foto a régua para. não deve
+  parar. o rato deverá estar livre»; «pelo desktop parece que o site está bem. as fotos grandes no mobile parece que ficam cortadas e
+  sem nexo»; e, com quatro capturas do iPhone: «Se a de Montemor até não fica mal, as outras ficam péssimas e não mostram nada.
+  Verifica se é técnico e então pode-se fazer nova revisão. Quero que fique tudo pronto a colocar no servidor e só ficar a faltar as
+  fotos que queremos colocar.»
+- **O que mudou:**
+  1. **As fotografias grandes no telemóvel (era técnico).** As quatro são deitadas (3 × 2) e a caixa do telemóvel era mais alta do
+     que larga (596 px de altura num ecrã de 393): via-se 37 % da largura de cada fotografia, uma tira do meio, e na versão de
+     1 000 px. Agora a caixa tem de altura 78 % da largura do ecrã (307 px; nunca mais de 70 % da altura do ecrã) e a caixa que faz a
+     fotografia passar devagar é 12 % mais alta (era 20 %): vê-se 76 % da largura, com a versão de 1 600 px. A palavra fica um pouco
+     mais pequena. Nos tablets ao alto, a altura não passa de 62 % da largura (vê-se 90 %; era 49 %). Montemor fica como estava no
+     telemóvel («a de Montemor até não fica mal»). No computador nada muda.
+  2. **O rato livre.** Passar o rato por cima das fotografias, parado ou a mexer-se, já não pára as faixas (capítulos, régua do
+     fecho, Montemor, ecopista). Carregar e arrastar continua a levá-las; um clique abre a fotografia; a tecla Tab segura-as. As
+     frases de «Quem já ficou» continuam a esperar com o rato em cima delas, para se conseguirem ler (pergunta em aberto nas notas).
+  3. **«Quantas pessoas vêm?»** começa em branco, sem «Escolham»; o pedido de datas continua a pedir o número.
+  4. **Pronto para as fotografias.** A fotografia grande de cada capítulo e de Montemor escolhe-se numa linha (`conteudo.php` →
+     `banda`); se for uma das da faixa de baixo, sai sozinha da faixa e nunca aparece duas vezes. A escolha faz-se pelo processo
+     «separador - número de fotos» (`docs/fotografia/2026-11-19_escolha_das_fotografias_por_separador.pdf`).
+- **Onde está:** `assets/css/site.css` («Fotografias grandes a abrir os capítulos») · `assets/js/site.js` (bloco «Rolos», sem a
+  pausa do rato; «Fotografias que passam devagar», com o curso medido pela folga de cada caixa) · `inc/util.php` (`foto_img` com
+  `$soGrande`; `banda()`; `sem_a_grande()`) · `partes/momentos.php` e `partes/montemor.php` · `conteudo.php` (`pessoas_escolher`).
+  Testes: `geometria.cjs` ponto 10 (as três fotografias grandes com pelo menos 70 % da largura à vista, Chromium e WebKit) ·
+  `captura-site.cjs` (o rato a mexer-se e parado não pára a faixa; a opção vazia sem palavra) · `conferir-fotos.php` (conta as
+  faixas como a página fica).
+- **Capturas:** `docs/versoes/v7/` e, só do telemóvel, `docs/integracao-app/revisao-2026-11-19/bandas-telemovel-antes-e-agora.jpg`.
+- **Ordem da página:** a mesma da V6.
+
+| Parte | O que mudou face à V6 | O que o Diogo achou |
+|---|---|---|
+| 1 Capa | Igual | por dizer |
+| 2 A casa | Igual | por dizer |
+| 3 Os espaços | No telemóvel as fotografias grandes vêem-se quase inteiras (76 % da largura; antes 37 %) e mais nítidas; nos tablets ao alto, 90 %; a palavra um pouco mais pequena; a grande nunca se repete na faixa; o rato por cima não pára as faixas | por dizer |
+| 4 Fecho e régua | O rato por cima não pára a régua | por dizer |
+| 5 Montemor, N2 e onde estamos | Montemor igual no telemóvel; o rato por cima não pára as faixas | por dizer |
+| 6 A galeria | Igual | por dizer |
+| 7 Antes de chegar | Igual | por dizer |
+| 8 Quem já ficou | Igual | por dizer |
+| 9 Contactos e rodapé | Igual (no ensaio, «Ensaio · versão 7 · 19/11/2026») | por dizer |
+| 10 Menu completo | Igual | por dizer |
+| 11 Painel das datas | «Quantas pessoas vêm?» em branco, sem «Escolham» | por dizer |
+| 12 Barra de baixo | Igual | por dizer |
+
 ### V6 · 19/11/2026 · as notas de 18 e 19/11: a pílula, o cartaz em escada, as fotografias grandes, a ecopista, a N2, as avaliações, a galeria, o voltar e o painel
 
 - **Publicada:** 19/11/2026, às 10h42 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 25 (o n.º 24 foi o ensaio a

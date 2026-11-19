@@ -1,6 +1,7 @@
 // Capturas e cenário do site em PHP (site/) a 390 e 1280 px, na versão 4 (o movimento, 17/11/2026) e na 6 (a pílula de descer, 19/11):
 // página inteira · ligações internas (sem «#» no endereço) · a pílula de descer (um dedo a sério, na capa, leva à casa) · rolos de fotografias (caixas do tamanho da fotografia; ANDAM SOZINHOS,
-// devagar e sem parar, logo que chegam ao ecrã; sem contagem e sem setas; com rato: pára enquanto o rato se mexe por cima, arrasta-se,
+// devagar e sem parar, logo que chegam ao ecrã; sem contagem e sem setas; com rato: não pára com o rato por cima (parado ou a mexer-se,
+// versão 7), arrasta-se,
 // a roda para o lado leva-o e a tecla Tab segura-o; no telemóvel, com dedos a sério: o dedo para cima rola a página e a faixa continua,
 // o dedo parado segura-a, o dedo para o lado leva-a e, largada, continua) · a régua do fecho (ordem diferente em cada visita, anda
 // sozinha) · «Antes de chegar» (duas colunas no computador, «+» que passa a «−») · frases de quem já ficou (sem contagem) · painel com
@@ -62,6 +63,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
         galeriaVisiveis: ativo ? Array.from(ativo.children).filter((li) => getComputedStyle(li).display !== 'none').length : -1,
         galeriaTotal: ativo ? ativo.children.length : -1, verTodas: !!document.getElementById('ver-todas'),
         pax: (document.getElementById('pax') || {}).value,
+        paxTexto: (() => { const s = document.getElementById('pax'); return s && s.selectedOptions && s.selectedOptions[0] ? s.selectedOptions[0].textContent.trim() : null; })(),
       };
     });
     // «Ver todas»: abre o álbum inteiro por cima; ao fechar, a página está onde estava
@@ -124,8 +126,10 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     await page.screenshot({ path: `${out}/${modo}-${nome}-por-fora.jpg`, type: 'jpeg', quality: 80 });
     let rato = null;
     if (!movel) {
-      // 2b) o rato a mexer-se por cima: a faixa espera (para se conseguir escolher uma fotografia); quieto, retoma pouco depois
-      await page.mouse.move(400, s1.topo + 200); await page.mouse.move(430, s1.topo + 215); await page.waitForTimeout(150); const r1 = await ler(); await page.waitForTimeout(800); const r2 = await ler();
+      // 2b) o rato por cima das fotografias não pára a faixa, a mexer-se ou parado (versão 7; Diogo, 19/11/2026: «quando o rato do pc
+      //     está estacionado em cima da foto a régua para. não deve parar. o rato deverá estar livre»)
+      await page.mouse.move(400, s1.topo + 200); await page.waitForTimeout(150); const r1 = await ler();
+      for (let i = 1; i <= 8; i++) { await page.mouse.move(400 + i * 6, s1.topo + 200 + (i % 2)); await page.waitForTimeout(100); } const r2 = await ler();
       await page.waitForTimeout(1500); const r3 = await ler(); await page.waitForTimeout(1000); const r4 = await ler();
       // 2c) arrastar com o rato leva a faixa e, ao largar, não abre nenhuma fotografia
       const a0 = await ler(); await page.mouse.move(700, a0.topo + 250); await page.mouse.down(); for (let i = 1; i <= 12; i++) { await page.mouse.move(700 - i * 30, a0.topo + 250); await page.waitForTimeout(16); } const a1 = await ler(); await page.mouse.up(); await page.waitForTimeout(200); const a2 = await ler();
@@ -267,6 +271,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (!v.todas.aberto || v.todas.visiveis !== v.galeriaTotal || !v.todas.fechou || Math.abs(v.todas.paginaMexeu) > 2) falhas.push(q + '«Ver todas» não abriu o álbum inteiro por cima, ou ao fechar a página mexeu (' + JSON.stringify(v.todas) + ')');
     if (!v.voltar.visivel || Math.abs(v.voltar.voltouA) > 4 || !v.voltar.someu) falhas.push(q + 'depois de saltar do fecho para a galeria, «Voltar onde estava» não apareceu ou não voltou ao mesmo ponto (' + JSON.stringify(v.voltar) + ')');
     if (v.pax !== '') falhas.push(q + '«Quantas pessoas vêm?» não começa vazio (está «' + v.pax + '»)');
+    if (v.paxTexto !== '') falhas.push(q + '«Quantas pessoas vêm?» mostra «' + v.paxTexto + '» na opção vazia: fica em branco (Diogo, 19/11/2026)');
     if (!r.painelCimo.corpo || !r.painelCimo.rolou || !r.painelCimo.tituloVisivel) falhas.push(q + 'no painel das datas, o cimo não ficou à vista depois de rolar (' + JSON.stringify(r.painelCimo) + ')');
     if (r.pedidoSemPessoas && !/pessoas/i.test(r.pedidoSemPessoas)) falhas.push(q + 'o pedido sem «quantas pessoas» não o pediu («' + r.pedidoSemPessoas + '»)');
     if (r.pilula.apagada || Math.abs(r.pilula.topoDaCasa) > 4 || r.pilula.url.includes('#')) falhas.push(q + (r.movel ? 'um dedo na pílula de descer' : 'um clique na pílula de descer') + ', na capa, não levou à casa (' + JSON.stringify(r.pilula) + ')');
@@ -285,8 +290,8 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (m.setas) falhas.push(q + 'voltaram setas às fotografias (' + m.setas + '): as fotografias andam sozinhas e levam-se com o dedo ou o rato');
     if (!r.movel) {
       const x = s.rato;
-      if (!x || Math.abs(x.emCima) > 1) falhas.push(q + 'com o rato a mexer-se por cima das fotografias a faixa continuou a andar (' + JSON.stringify(x) + ')');
-      if (x && !(x.quieto >= 20)) falhas.push(q + 'com o rato quieto a faixa não retomou o andamento (' + x.quieto + ' px em 1 s)');
+      if (!x || !(x.emCima >= 15)) falhas.push(q + 'com o rato a mexer-se por cima das fotografias a faixa parou (' + JSON.stringify(x) + '): o rato deve estar livre');
+      if (x && !(x.quieto >= 20)) falhas.push(q + 'com o rato parado em cima das fotografias a faixa parou (' + x.quieto + ' px em 1 s): o rato deve estar livre');
       if (x && !(x.arrastou > 300 && x.arrastou < 420)) falhas.push(q + 'arrastar 360 px com o rato não levou a faixa (' + x.arrastou + ' px)');
       if (x && x.abriuAoLargar) falhas.push(q + 'ao largar a faixa depois de a arrastar abriu-se uma fotografia');
       if (x && (!(x.roda > 200 && x.roda < 320) || x.rodaPagina !== 0)) falhas.push(q + 'a roda para o lado não levou a faixa, ou rolou a página (' + x.roda + ' px; página ' + x.rodaPagina + ' px)');

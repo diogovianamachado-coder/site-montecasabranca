@@ -286,9 +286,15 @@ img[style*="--pos"] { object-position: var(--pos, center); }
    também»): uma fotografia de lado a lado, com o sobretítulo e o título escritos por cima, em baixo, sobre uma sombra. Entra a
    acender quando chega ao ecrã (data-entra) e passa devagar por trás enquanto se rola: a caixa .foto-mexe é mais alta do que a banda
    (120 %) e o site.js desloca-a um pouco a cada passo da rolagem («Fotografias que passam devagar»), em qualquer telemóvel. Um toque
-   abre-a em grande. Altura escrita (70 % do ecrã no telemóvel, 85 % no computador; Montemor, mais baixa). */
+   abre-a em grande. Altura escrita (70 % do ecrã no telemóvel, 85 % no computador; Montemor, mais baixa).
+   Versão 7 (Diogo, 19/11/2026: «as fotos grandes no mobile parece que ficam cortadas e sem nexo … as outras ficam péssimas e não
+   mostram nada»): as fotografias são deitadas (3 × 2) e a caixa do telemóvel era mais alta do que larga: via-se só uma tira do meio,
+   pouco mais de um terço de cada fotografia. Agora, no telemóvel, a caixa tem 78 % da largura do ecrã de altura (nunca mais de 70 %
+   da altura do ecrã) e a que a faz passar devagar é só 12 % mais alta: vê-se cerca de três quartos da fotografia, de um lado ao
+   outro. A palavra fica um pouco mais pequena. Nos tablets ao alto, a altura não passa de 62 % da largura. Montemor (banda-media)
+   fica como estava no telemóvel: o título tem três linhas e a fotografia aguenta o corte («a de Montemor até não fica mal»). */
 .capitulo-com-banda { padding-top: 0; }
-.banda { position: relative; height: 70vh; height: 70svh; min-height: 24rem; max-height: 56rem; overflow: hidden; background: var(--areia); color: var(--sobre-foto); }
+.banda { position: relative; height: 78vw; max-height: 70vh; max-height: 70svh; overflow: hidden; background: var(--areia); color: var(--sobre-foto); }
 .banda-media { height: 58vh; height: 58svh; min-height: 21rem; }
 .banda .foto-botao { border-radius: 0; }
 .foto-mexe { position: absolute; left: 0; right: 0; top: -10%; display: block; height: 120%; }
@@ -297,6 +303,12 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .banda-texto { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: 2.25rem; text-shadow: 0 1px 18px rgba(var(--sombra-rgb), .45); }
 .banda-titulo { margin-top: .75rem; font-size: 3.5rem; font-size: clamp(3rem, 15.4vw, 3.75rem); line-height: 1; }
 .banda-media .banda-titulo { max-width: 40rem; font-size: 2.6rem; font-size: clamp(2.3rem, 12vw, 3rem); line-height: 1.06; }
+@media (max-width: 767px) {
+  .banda:not(.banda-media) .foto-mexe { top: -6%; height: 112%; }
+  .banda:not(.banda-media) .banda-titulo { font-size: 2.6rem; font-size: clamp(2.5rem, 12.5vw, 3.25rem); }
+  .banda:not(.banda-media) .banda-texto { padding-bottom: 1.5rem; }
+  .banda:not(.banda-media) .eyebrow-foto { margin-bottom: 0; }
+}
 @media (prefers-reduced-motion: no-preference) {
   .banda.entrou .foto-mexe img { animation: banda-acende 1.8s var(--ease) both; }
   @keyframes banda-acende { from { opacity: .25; transform: scale(1.07); } to { opacity: 1; transform: none; } }
@@ -304,7 +316,7 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .capitulo-com-banda .capitulo-grelha { margin-top: 3rem; }
 .abertura-sem-titulo { margin-top: 3rem; max-width: 42rem; }
 @media (min-width: 768px) {
-  .banda { height: 85vh; height: 85svh; max-height: 60rem; }
+  .banda { height: 85vh; height: 85svh; min-height: 24rem; max-height: 60rem; max-height: min(60rem, 62vw); }
   .banda-media { height: 70vh; height: 70svh; }
   .banda-texto { padding-bottom: 3.5rem; }
   .banda-titulo { font-size: 6rem; }

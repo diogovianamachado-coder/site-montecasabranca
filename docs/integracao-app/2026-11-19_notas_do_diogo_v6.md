@@ -1,5 +1,13 @@
 # Notas do Diogo sobre a versão 6 (19/11/2026, à tarde, no computador)
 
+**Atualização de 19/11 (noite): as secções 1, 2 e 3 estão feitas na versão 7, por publicar** (ficha em
+`docs/versoes/REGISTO.md`). O Diogo mandou as capturas do iPhone: «Verifica se é técnico e então pode-se fazer nova revisão.
+Quero que fique tudo pronto a colocar no servidor e só ficar a faltar as fotos que queremos colocar.» Era técnico (secção 3,
+opção a). A escolha das fotografias (secção 4) faz-se pelo processo «separador - número de fotos»:
+`docs/fotografia/2026-11-19_escolha_das_fotografias_por_separador.pdf` (17 separadores, cada um com o sítio na página, o número
+de fotografias, as que lá estão hoje e o nome da pasta). Ele faz as pastas offline, mostra-me as fotografias em pouca resolução e
+eu procuro os originais.
+
 **Estado: registadas, por fazer.** A ordem do Diogo: «guarda estas notas para uma proxima revisão». Nada mudou em `site/` e nada foi
 para o servidor; **a V6 (`37b0736`, etiqueta `novo-v6`) continua no ar em `novo.`**. Quando ele mandar avançar, isto é a **versão 7**:
 sobe o número em `site/versao.json`, abre-se a ficha `### V7 · …` em `docs/versoes/REGISTO.md` e só se envia com novo «Lança». As

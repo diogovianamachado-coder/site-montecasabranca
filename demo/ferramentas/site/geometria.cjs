@@ -13,6 +13,8 @@
 //   7. A capa: ao rolar, a fotografia fica para trás (telemóvel) ou presa ao ecrã (computador).
 //   9. As fotografias grandes que abrem os capítulos (versão 6) passam devagar ao rolar, sem deixar ver a borda; o cimo do painel das
 //      datas fica à vista quando o corpo rola.
+//  10. As fotografias grandes dos três capítulos vêem-se quase inteiras de um lado ao outro, em qualquer ecrã (versão 7, 19/11/2026:
+//      «as fotos grandes no mobile parece que ficam cortadas e sem nexo»): pelo menos 70 % da largura da fotografia à vista.
 //   8. A pílula de descer (versão 6, 19/11/2026: «Faltou esta parte»): presa ao ecrã, ao centro; na capa por baixo do botão, depois
 //      a flutuar por cima da barra; nunca por cima de letras; cada toque leva à secção seguinte; no fim volta ao topo; sem JavaScript
 //      fica na capa.
@@ -241,6 +243,20 @@ async function medirRolo(page, k) {
       return out;
     });
 
+    // 10 · as fotografias grandes dos três capítulos vêem-se quase inteiras de um lado ao outro (versão 7): a parte da largura da
+    //      fotografia que cabe na caixa (a fotografia enche a caixa .foto-mexe, que é mais alta do que a fotografia à vista).
+    r.bandasVisiveis = await page.evaluate(async () => {
+      const out = [];
+      for (const b of Array.from(document.querySelectorAll('.banda:not(.banda-media)'))) {
+        const mx = b.querySelector('.foto-mexe'), im = mx && mx.querySelector('img'); if (!im) { out.push({ falta: true }); continue; }
+        im.loading = 'eager';
+        if (!im.complete || !im.naturalWidth) await new Promise((ok) => { im.addEventListener('load', ok, { once: true }); im.addEventListener('error', ok, { once: true }); setTimeout(ok, 6000); });
+        const w = b.getBoundingClientRect().width, hm = mx.getBoundingClientRect().height, rz = im.naturalWidth / im.naturalHeight;
+        out.push({ visivel: rz ? Math.round(w / Math.max(w, hm * rz) * 100) : 0, caixa: Math.round(w) + '×' + Math.round(b.getBoundingClientRect().height), fonte: (im.currentSrc || '').split('/').pop() });
+      }
+      return out;
+    });
+
     // 6 · movimento: cada rolo, posto no ecrã, anda sozinho; o dedo parado segura-o, o dedo para o lado leva-o e, largado, continua
     await page.keyboard.press('Escape').catch(() => {}); await page.mouse.move(2, 2).catch(() => {});
     const nRolos = await page.locator('[data-rolo]').count();
@@ -285,6 +301,8 @@ async function medirRolo(page, k) {
     else if (nome === 'computador' && Math.abs(r.capa.subiu) > 6) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; no computador está presa ao ecrã e não sobe`);
     if (!r.bandas.length) falhas.push(`${q}: não encontrei as fotografias grandes que passam devagar (data-mexe)`);
     r.bandas.forEach((bd, i) => { if (bd.falta || !(bd.mexeu >= 6) || !bd.cobre) falhas.push(`${q}: a fotografia grande n.º ${i + 1} não passou devagar ao rolar, ou deixou ver a borda (${JSON.stringify(bd)})`); });
+    if (r.bandasVisiveis.length !== 3) falhas.push(`${q}: esperava as três fotografias grandes dos capítulos e encontrei ${r.bandasVisiveis.length}`);
+    r.bandasVisiveis.forEach((bd, i) => { if (bd.falta || !(bd.visivel >= 70)) falhas.push(`${q}: da fotografia grande n.º ${i + 1} vê-se só ${bd.visivel} % da largura: no telemóvel deve ver-se quase inteira (${JSON.stringify(bd)})`); });
     const pl = r.pilula;
     if (!pl) falhas.push(`${q}: não encontrei a pílula de descer (#pilula)`);
     else {

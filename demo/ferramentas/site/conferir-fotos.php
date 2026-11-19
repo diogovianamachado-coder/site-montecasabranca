@@ -48,10 +48,12 @@ $juntar = function (string $onde, array $fotos) use (&$destaque, &$erros): void 
         $destaque[$f['src']] = $onde;
     }
 };
-foreach ($C['momentos'] as $m) { $juntar('fotografia grande de ' . $m['palavra'], [$m['banda']]); $juntar('capítulo ' . $m['palavra'], $m['fotos']); }
+// A fotografia grande sai sozinha da faixa do seu capítulo (inc/util.php, sem_a_grande, versão 7): conta-se como a página fica.
+$semGrande = fn(array $fotos, array $g) => array_values(array_filter($fotos, fn($f) => (string)($f['src'] ?? '') !== (string)($g['src'] ?? '')));
+foreach ($C['momentos'] as $m) { $juntar('fotografia grande de ' . $m['palavra'], [$m['banda']]); $juntar('capítulo ' . $m['palavra'], $semGrande($m['fotos'], $m['banda'])); }
 $juntar('fila do fecho', $C['regua']['fotos']);
 $juntar('fotografia grande de Montemor-o-Novo', [$C['montemor']['banda']]);
-$juntar('Montemor-o-Novo', $C['montemor']['fotos']);
+$juntar('Montemor-o-Novo', $semGrande($C['montemor']['fotos'], $C['montemor']['banda']));
 $juntar('ecopista', $C['montemor']['ecopista']['fotos'] ?? []);
 $juntar('Nacional 2', [$C['n2']['foto']]);
 foreach (array_keys($referidas) as $src) {

@@ -50,7 +50,7 @@ function foto_url_m(string $src): ?string
  * Uma <img> ou <picture> com lazy loading, foco ('pos' = object-position; 'pos_m' = o mesmo, só no telemóvel) e variante móvel.
  * $attrs: atributos extra para a <img> (class, fetchpriority, …).
  */
-function foto_img(array $foto, array $attrs = [], bool $lazy = true): string
+function foto_img(array $foto, array $attrs = [], bool $lazy = true, bool $soGrande = false): string
 {
     $src = foto_url($foto['src']);
     $m = foto_url_m($foto['src']);
@@ -67,7 +67,9 @@ function foto_img(array $foto, array $attrs = [], bool $lazy = true): string
     $html = '<img';
     foreach ($a as $k => $v) $html .= ' ' . $k . '="' . e((string)$v) . '"';
     $html .= '>';
-    if ($m) {
+    // $soGrande: sem a versão de telemóvel (1 000 px). As fotografias grandes que abrem os capítulos mostram-se no telemóvel mais
+    // largas do que o ecrã (num ecrã de densidade 3, cerca de 1 500 píxeis): com a de 1 000 px ficavam pouco nítidas (versão 7).
+    if ($m && !$soGrande) {
         return '<picture><source media="(max-width: 767px)" srcset="' . e($m) . '">' . $html . '</picture>';
     }
     return $html;
@@ -174,10 +176,18 @@ function banda(array $foto, string $eyebrow, string $titulo, string $id, string 
 {
     $h = '<div class="banda' . ($classe !== '' ? ' ' . $classe : '') . '" data-mexe data-entra data-galeria="' . galeria_json($nome, array_merge([$foto], array_values($outras))) . '">';
     $h .= '<button type="button" class="foto-botao abrir-galeria banda-foto" data-inicio="0" aria-label="' . e(($foto['alt'] ?? '') . ' · abrir a fotografia') . '">';
-    $h .= '<span class="foto-mexe">' . foto_img($foto, ['draggable' => 'false']) . '</span></button>';
+    $h .= '<span class="foto-mexe">' . foto_img($foto, ['draggable' => 'false'], true, true) . '</span></button>';
     $h .= '<span class="banda-sombra" aria-hidden="true"></span>';
     $h .= '<div class="banda-texto contentor"><div class="reveal"><p class="eyebrow eyebrow-foto">' . e($eyebrow) . '</p><h2 id="' . e($id) . '" class="banda-titulo">' . e($titulo) . '</h2></div></div>';
     return $h . '</div>';
+}
+
+/** As fotografias de uma faixa sem a fotografia grande do capítulo: se a escolhida para a grande também estiver na lista da faixa,
+ * sai sozinha da faixa e nunca aparece duas vezes seguidas (versão 7; para a escolha das fotografias ser só uma linha). */
+function sem_a_grande(array $fotos, array $grande): array
+{
+    $g = (string)($grande['src'] ?? '');
+    return array_values(array_filter($fotos, fn($f) => (string)($f['src'] ?? '') !== $g));
 }
 
 /** As fotografias de um capítulo (as grandes; a legenda é a descrição de cada uma, não se escreve sobre ela): um rolo. */

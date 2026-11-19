@@ -408,7 +408,9 @@ return [
         'chegada' => 'Chegada',
         'partida' => 'Partida',
         'pessoas' => 'Quantas pessoas vêm?',
-        'pessoas_escolher' => 'Escolham',          // começa vazio (versão 6; Diogo, 19/11/2026: «o número 4 … está a aparecer por defeito?»)
+        // A primeira opção, escolhida por omissão, fica sem palavra (versão 7; Diogo, 19/11/2026, sobre «Escolham»: «esta palavra não
+        // fica bem aqui. deixa em branco»). Começa vazio desde a versão 6 («o número 4 … está a aparecer por defeito?»).
+        'pessoas_escolher' => '',
         'falta_pessoas' => 'Digam-nos quantas pessoas vêm.',
         'nota_casa' => 'A casa é só vossa, venham dois ou oito',
         'conta_vazia' => 'Escolham a chegada e a partida para ver quanto fica a estadia',

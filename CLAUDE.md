@@ -1427,3 +1427,36 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   estas notas» = registar e não mexer; a próxima revisão será a **V7**. **Por dizer pelo Diogo:** repor ou não as fotografias
   principais · a forma das fotografias grandes no telemóvel (a, b ou c) · se as frases de «Quem já ficou» também deixam de esperar
   com o rato por cima · quando avançar para a V7. **Próxima sugestão: S37.**
+
+- **19/11/2026 (noite) · «VERIFICA SE É TÉCNICO» · VERSÃO 7 EM `main`, POR PUBLICAR (espera o «Lança») · O PROCESSO «SEPARADOR -
+  NÚMERO DE FOTOS».** Duas mensagens do Diogo depois das notas: com quatro capturas do iPhone, «Se a de Montemor até não fica mal, as
+  outras ficam péssimas e não mostram nada. Verifica se é técnico e então pode-se fazer nova revisão. Quero que fique tudo pronto a
+  colocar no servidor e só ficar a faltar as fotos que queremos colocar»; e «cria um processo de "separador - número de fotos" …
+  organiza em secções, e faz um pdf onde identificas cada secção. eu vou então fazer offline uma pasta onde coloco as fotos respetivas
+  e depois mostro-te com pouca resolução e tu vais à procura do original para incorporar».
+  **(1) O PDF** `docs/fotografia/2026-11-19_escolha_das_fotografias_por_separador.pdf` (18 páginas, enviado na conversa): capa com os
+  seis passos e a tabela; uma página por separador com o sítio na página (captura do computador), o número de fotografias, o formato,
+  as que lá estão hoje (miniaturas numeradas, com o nome) e o nome da pasta. **Os 17 separadores:** 01 Capa 1 · 02 Por fora grande 1
+  · 03 Por fora faixa 4 (4 a 6) · 04 Sem pressa grande 1 · 05 Sem pressa faixa 4 · 06 Por dentro grande 1 · 07 Por dentro faixa 5 ·
+  08 Régua do fecho 18 (12 a 20) · 09 Montemor grande 1 · 10 Montemor faixa 7 (5 a 10) · 11 Ecopista 3 (até 6) · 12 Nacional 2 1 ·
+  13 a 16 galeria (O Monte 49 · Os Quartos 12 · A Quinta 18 · Montemor-o-Novo 14; à escolha, as 6 primeiras vêem-se na página) ·
+  17 imagem da partilha 1 (hoje = a capa). Regras escritas no PDF: uma pasta por separador com o nome da tabela; a ordem pelo nome
+  (01, 02…); a mesma fotografia não vai a duas pastas de 01 a 12; pasta vazia = fica como está; ele mostra as pastas em pouca
+  resolução e eu procuro os originais (primeiro nas 115 de `design/fotos/galeria/`, depois no Dropbox «7. Fotos»), preparo-os e
+  mostro antes do «Lança». **Quando chegarem as pastas:** comparar cada imagem com as da galeria e de `site/fotos/` por semelhança
+  (impressão digital da imagem reduzida, com PIL); as que não estiverem lá, procurar no Dropbox pelo nome ou trazê-las pela via do
+  GitHub (`fotos-dropbox.yml`). Os geradores do PDF ficaram no scratchpad (`pdfsep/`: `separadores.php`, `fotografar_seccoes.cjs`,
+  `construir.py`, `pdf.cjs`); se a máquina for reposta, refazem-se.
+  **(2) A V7** (ficha em `docs/versoes/REGISTO.md`; notas em `docs/integracao-app/2026-11-19_notas_do_diogo_v6.md`): **era técnico**:
+  as fotografias grandes são deitadas e a caixa do telemóvel era mais alta do que larga (393 × 596): via-se 37 % da largura, na versão
+  de 1 000 px. Agora a caixa tem de altura 78 % da largura do ecrã (393 × 307; nunca mais de 70 % da altura do ecrã), a caixa da
+  passagem é 12 % mais alta (era 20 %; o curso passou a ser medido pela folga de cada caixa) e vai a versão de 1 600 px: vê-se 76 %.
+  Nos tablets ao alto, altura até 62 % da largura (90 %, era 49 %). Montemor igual no telemóvel. A palavra um pouco mais pequena no
+  telemóvel. **O rato livre:** sem a pausa do rato por cima das faixas (fica carregar e arrastar, clique, Tab). **«Quantas pessoas
+  vêm?»** em branco. **Pronto para as fotografias:** a grande escolhe-se numa linha (`conteudo.php` → `banda`) e sai sozinha da faixa
+  se lá estiver (`inc/util.php` → `sem_a_grande()`; `conferir-fotos.php` conta como a página fica). Testes: `geometria.cjs` ponto 10
+  (pelo menos 70 % da largura à vista) e `captura-site.cjs` (o rato a mexer-se andou 38 px em 0,8 s, parado 41 px em 1 s; opção vazia
+  sem palavra); bateria local verde (a primeira corrida parou por a ficha da V7 ainda não existir: escrever a ficha antes de correr).
+  Capturas `docs/versoes/v7/` (30) e `docs/integracao-app/revisao-2026-11-19/bandas-telemovel-antes-e-agora.jpg`. As frases de «Quem
+  já ficou» continuam a esperar com o rato em cima (pergunta em aberto). **Ficam por decidir pelo Diogo:** as fotografias (pelo PDF) ·
+  o «Lança» da V7. **Próxima sugestão: S37.**

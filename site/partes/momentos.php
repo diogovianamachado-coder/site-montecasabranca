@@ -3,10 +3,10 @@
 // fotografias «com vida» da versão 1; Diogo, 18/11/2026). A fotografia entra a acender e passa devagar por trás ao rolar. Depois, a
 // frase e o texto; e as outras fotografias, a deslizar sozinhas, que entram uma a uma. O capítulo do meio tem o fundo pálido.
 // As fotografias ficam fora do «revelar ao rolar»: estão sempre à vista, não dependem de JavaScript. ?>
-<?php foreach ($M as $i => $m): ?>
+<?php foreach ($M as $i => $m): $faixa = sem_a_grande($m['fotos'], $m['banda']); // a grande nunca se repete na faixa ?>
 
 <section id="<?= e($m['id']) ?>" class="capitulo capitulo-com-banda<?= $i === 1 ? ' fundo-pale' : '' ?>" aria-labelledby="t-<?= e($m['id']) ?>">
-  <?= banda($m['banda'], $C['casa']['eyebrow'], $m['palavra'], 't-' . $m['id'], $m['palavra'], $m['fotos']) ?>
+  <?= banda($m['banda'], $C['casa']['eyebrow'], $m['palavra'], 't-' . $m['id'], $m['palavra'], $faixa) ?>
   <div class="contentor">
     <div class="reveal capitulo-grelha">
       <p class="capitulo-frase serif"><?= e($m['frase']) ?></p>
@@ -16,6 +16,6 @@
       </div>
     </div>
   </div>
-  <?= sequencia($m['palavra'], $m['fotos']) ?>
+  <?= sequencia($m['palavra'], $faixa) ?>
 </section>
 <?php endforeach; ?>
