@@ -41,6 +41,34 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
+### V5 · 19/11/2026 · as frases retiradas
+
+- **Estado:** em `main`, a caminho de `novo.`, com o «Lança» do Diogo (19/11, cerca da 01h): «Retira as frases e lança».
+- **De onde vem:** quatro notas do Diogo sobre a V4: «retirar as micro legendas das fotos» (nota 2 de 19/11) · «na capa retirar a
+  frase da receção» (nota 6 de 18/11) · «nas avaliações retira que são de 2026» (nota 4 de 18/11) · e, sobre a frase da capa, «sim,
+  coloca o sem pressa e sem receção na resposta à hora de entrada». **Só textos:** o desenho e o movimento são os da V4. As outras
+  notas da V4 (as marcadas «→ V5» na ficha da V4: fotografias grandes, pílula de descer, voltar onde estava, mais avaliações, cartaz
+  em degraus, galeria curta e no fim, cimo do painel fixo, o «4», a N2 num só bloco, a ecopista com régua) ficam para a versão
+  seguinte; estão em `docs/integracao-app/2026-11-18_notas_do_diogo_v4.md`.
+- **Capturas:** `docs/versoes/v5/`.
+- **Ordem da página:** a mesma da V4.
+
+| Parte | O que mudou face à V4 | O que o Diogo achou |
+|---|---|---|
+| 1 Capa | Sai «Sem receção, sem pressa», que estava ao lado de «Entrar pela casa»; a ideia passou para «Antes de chegar» | por dizer |
+| 2 A casa | Igual | por dizer |
+| 3 Os espaços | As fotografias dos três capítulos deixam de ter a legenda escrita por cima (e a sombra em baixo que a deixava ler). A descrição fica para quem usa leitor de ecrã e por baixo da fotografia aberta em grande | por dizer |
+| 4 Fecho e régua | Igual (a régua já não tinha legendas) | por dizer |
+| 5 Montemor, N2 e onde estamos | As fotografias de Montemor também sem legenda por cima; a fotografia da N2 sem a legenda por baixo («A mesma casa à vossa espera ao fim do dia») | por dizer |
+| 6 A galeria | Igual | por dizer |
+| 7 Antes de chegar | «A que horas podemos chegar?» passa a dizer: «A entrada é a partir das 16h, sem receção e sem pressa: o Diogo envia antes as indicações para entrarem sozinhos. A saída é até às 11h; quando ninguém entra no mesmo dia, pode ficar para as 18h, para aproveitarem o dia até ao fim.» | por dizer |
+| 8 Quem já ficou | A linha de baixo fica só «Recebemos hóspedes desde 2022» (sai «· notas de novembro de 2026») | por dizer |
+| 9 Contactos e rodapé | Igual (no ensaio, «Ensaio · versão 5 · 19/11/2026») | por dizer |
+| 10 Menu completo | Igual | por dizer |
+| 11 Painel das datas | Igual | por dizer |
+| 12 Barra de baixo | Igual | por dizer |
+| Toda a página | No resumo para os assistentes de pesquisa (`llms.txt`), a entrada passa a dizer que é sem receção | por dizer |
+
 ### V4 · 18/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
 
 - **Publicada:** 18/11/2026, às 00h35 (hora de Lisboa), com o «Lança» do Diogo (17/11, 23h55): deploy do site n.º 21 (o n.º 20

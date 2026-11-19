@@ -122,7 +122,8 @@ function foto_caixa(array $f, bool $legenda = false, bool $lazy = true): string
  * Sem contagens e sem setas. Cada caixa tem largura e altura escritas na folha de estilos: nada depende do tamanho da fotografia.
  * Numa faixa todas as caixas têm o mesmo tamanho (Diogo, 17/11/2026: «há uma foto que tem dimensão diferente; tens de enquadrar
  * essa foto no mosaico que estamos a passar»): uma fotografia ao alto é recortada na caixa, com o ponto de foco de 'pos'.
- * $op: 'tipo' => 'seq' (as fotografias grandes de um capítulo, com a legenda escrita sobre cada uma) ou 'fila' (as mais pequenas
+ * $op: 'tipo' => 'seq' (as fotografias grandes de um capítulo; até à versão 4 com a legenda escrita sobre cada uma, que saiu na
+ * versão 5 e ficou só como descrição) ou 'fila' (as mais pequenas
  * do fecho da casa); 'acaso' => true baralha a ordem em cada visita (aqui, no servidor: a lista da fotografia em grande segue a
  * mesma ordem).
  */
@@ -145,14 +146,16 @@ function rolo(string $nome, array $fotos, array $op = []): string
             $h .= '<li class="rolo-item"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '"'
                 . ($copia ? ' tabindex="-1"' : ' aria-label="' . e($rotulo) . '"') . '>';
             // As duas primeiras são pedidas logo (são as que se vêem ao chegar); as outras quando o rolo se aproxima do ecrã.
-            $h .= foto_caixa($copia ? array_merge($f, ['alt' => '']) : $f, !$fila, !(!$copia && $i < 2)) . '</button></li>';
+            // Sem legenda escrita sobre a fotografia (versão 5; Diogo, 19/11/2026: «retirar as micro legendas das fotos»): a legenda
+            // fica como descrição, no rótulo do botão e na fotografia aberta em grande.
+            $h .= foto_caixa($copia ? array_merge($f, ['alt' => '']) : $f, false, !(!$copia && $i < 2)) . '</button></li>';
         }
         $h .= '</ul>';
     }
     return $h . '</div></div>';
 }
 
-/** As fotografias de um capítulo (grandes, com legenda): um rolo. */
+/** As fotografias de um capítulo (as grandes; a legenda é a descrição de cada uma, não se escreve sobre ela): um rolo. */
 function sequencia(string $nome, array $fotos): string
 {
     return rolo($nome, $fotos, ['tipo' => 'seq']);

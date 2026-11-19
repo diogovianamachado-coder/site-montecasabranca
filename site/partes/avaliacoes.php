@@ -31,6 +31,6 @@
       <?php endforeach; ?>
     </ul>
     <?php endif; ?>
-    <p class="avaliacoes-rodape"><?= e($A['rodape'] . ($NOTAS['lista'] && $NOTAS['data'] !== '' ? ' · ' . str_replace('{data}', $NOTAS['data'], $A['rodape_notas']) : '')) ?></p>
+    <p class="avaliacoes-rodape"><?= e($A['rodape']) ?></p>
   </div>
 </section>

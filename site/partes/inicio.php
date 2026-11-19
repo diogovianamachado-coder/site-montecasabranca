@@ -19,7 +19,7 @@
     </ul>
     <div class="hero-botoes entrada">
       <a href="<?= e($I['botao'][1]) ?>" class="btn btn-foto"><?= e($I['botao'][0]) ?></a>
-      <p class="hero-nota serif"><?= e($I['nota']) ?></p>
+      <?php if (!empty($I['nota'])): ?><p class="hero-nota serif"><?= e($I['nota']) ?></p><?php endif; ?>
     </div>
   </div>
   <a href="#a-casa" class="hero-descer" aria-label="Descer para a casa"><?= icone('baixo') ?></a>

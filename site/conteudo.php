@@ -47,7 +47,8 @@ return [
         'subtitulo' => 'Monte Casa Branca · Montemor-o-Novo, a 1 h de Lisboa',
         'etiquetas' => [['pessoas', 'Até 8 pessoas'], ['cama', '4 quartos'], ['ondas', 'Piscina 10 × 5 m']],
         'botao' => ['Entrar pela casa', '#a-casa'],
-        'nota' => 'Sem receção, sem pressa',
+        // 'nota' (a frase pequena ao lado do botão) saiu na versão 5 (Diogo, 18/11/2026: «na capa retirar a frase da receção»);
+        // a ideia passou para a resposta «A que horas podemos chegar?» de «Antes de chegar» («sim, coloca … na resposta à hora de entrada»).
         // A capa: escolhida pelo Diogo a 15/11/2026, para o computador e para o telemóvel («capa: 1 · capa telemóvel: 1»).
         // Fotografia 1, com o título no céu e quase sem máscara (o texto leva sombra própria); a casa fica toda à vista.
         // As opções 2 e 3 do estudo saíram (estão no histórico do repositório, commit 5f23bdc). Se um dia houver outro estudo,
@@ -326,7 +327,7 @@ return [
         ['A casa é só para nós?', 'Sim. A estadia é sempre de casa inteira: até oito pessoas, quatro quartos e a piscina de 10 × 5 m só para o vosso grupo.'],
         ['Como estão distribuídos os quartos?', 'Dois quartos de casal e dois twin. Se preferirem, um dos twin passa a casal e a casa fica com três quartos de casal e um twin. Há duas casas de banho, uma delas privativa, e ainda um WC social.'],
         ['Podemos ir no inverno?', 'Podem, e vale a pena: há ar condicionado em todas as divisões e lareira na biblioteca.'],
-        ['A que horas podemos chegar?', 'A entrada é a partir das 16h e a saída até às 11h. Quando ninguém entra no mesmo dia, a saída pode ficar para as {saida_tardia}, para aproveitarem o dia até ao fim. O Diogo envia as indicações de chegada antes da estadia.'],
+        ['A que horas podemos chegar?', 'A entrada é a partir das 16h, sem receção e sem pressa: o Diogo envia antes as indicações para entrarem sozinhos. A saída é até às 11h; quando ninguém entra no mesmo dia, pode ficar para as {saida_tardia}, para aproveitarem o dia até ao fim.'],
         ['Qual é a estadia mínima?', 'Duas noites, quase todo o ano. De 18 de julho a 31 de agosto, sete noites, de sábado a sábado.'],
         ['Os animais também podem vir?', 'Podem, são bem-vindos. Digam-nos só quem vem, para deixarmos tudo combinado.'],
         ['Como podemos pedir as nossas datas?', 'Escolham as datas no calendário e falem connosco por WhatsApp ou email. O pedido só fica confirmado depois de falarem com o Diogo.'],
@@ -349,11 +350,11 @@ return [
             ['A casa superou as nossas expectativas e as fotografias', 'Airbnb', 'outubro de 2023', true],
             ['A piscina é maravilhosa e apanha sol até ao final da tarde', 'Vrbo', 'agosto de 2022', false],
         ],
-        // As três notas (Booking, Airbnb, Google) vêm de inc/factos.php → 'notas'. {data} é trocado pelo mês das notas.
+        // As três notas (Booking, Airbnb, Google) vêm de inc/factos.php → 'notas'. A data das notas fica lá, para nós, mas não se
+        // escreve na página (versão 5; Diogo, 18/11/2026: «nas avaliações retira que são de 2026»).
         'notas_titulo' => 'As notas de quem já ficou',          // só para quem usa leitor de ecrã
         'nota_escala' => 'em {escala}',
         'rodape' => 'Recebemos hóspedes desde 2022',
-        'rodape_notas' => 'notas de {data}',                    // junta-se ao rodapé quando há notas («… · notas de novembro de 2026»)
     ],
 
     // ---- 9. Contactos (rodapé) ------------------------------------------------------------

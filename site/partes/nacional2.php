@@ -11,8 +11,7 @@
     </div>
     <figure class="foto-larga" data-entra>
       <div class="foto-larga-caixa"><?= foto_img($N['foto'], ['draggable' => 'false']) ?></div>
-      <figcaption><?= e($N['foto']['legenda']) ?></figcaption>
-    </figure>
+    </figure><?php // sem a legenda por baixo (versão 5, 19/11/2026: «retirar as micro legendas das fotos»); a descrição fica no alt ?>
     <div class="reveal">
       <ol class="programa">
         <?php foreach ($N['programa'] as [$dia, $o]): ?>
