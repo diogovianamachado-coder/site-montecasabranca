@@ -198,6 +198,9 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
       veu = { topoPainel, paginaRolou: (await page.evaluate(() => Math.round(window.scrollY))) - y0, painelAberto: await page.evaluate(() => !document.getElementById('disponibilidade').hidden) };
     }
     const campos = await page.evaluate(() => { const pr = document.querySelector('#disponibilidade .painel').getBoundingClientRect(); return ['entrada', 'saida', 'pax'].map((id) => { const r = document.getElementById(id).getBoundingClientRect(); return { id, esq: Math.round(r.left), dir: Math.round(r.right), dentro: r.left >= pr.left - 1 && r.right <= pr.right + 1 && r.right <= window.innerWidth + 1 && r.width > 60 }; }); });
+    // As datas ao meio da caixa (Diogo, 19/11/2026: «Centrar as datas»). O Safari do iPhone centra-as com uma caixa flexível; sem ela
+    // a data fica no canto de cima, à esquerda. O Chromium dos testes desenha a data de outra maneira, por isso confere-se a regra.
+    const datasMeio = await page.evaluate(() => ['entrada', 'saida'].map((id) => { const s = getComputedStyle(document.getElementById(id)); return { id, ok: /flex/.test(s.display) && s.alignItems === 'center' && s.justifyContent === 'center' && s.textAlign === 'center', d: [s.display, s.alignItems, s.justifyContent, s.textAlign].join(' ') }; }));
     const calNota = await page.locator('#cal-nota').innerText();
     const incertos = await page.locator('#meses button.incerto').count();
     const dias = page.locator('#meses > div').nth(1).locator('button[data-dia]:not([disabled])');
@@ -248,7 +251,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     // A página inteira, numa página nova do mesmo aparelho (ver a nota do cimo): é a última coisa que se faz com este aparelho
     const pi = await ctx.newPage(); await pi.goto(base + '/', { waitUntil: 'networkidle' }); await pi.waitForTimeout(800); await rolar(pi);
     await pi.screenshot({ path: `${out}/${modo}-${nome}-inteira.jpg`, fullPage: true, type: 'jpeg', quality: 80 }); await pi.close();
-    res.push({ modo, nome, movel, medidas, ligacao, pilula, v6, painelCimo, pedidoSemPessoas, comHash, hashAntigo, filaOutraVisita, sequencia, filaAnda, pergunta, citacoes, veu, campos, calNota, incertos, conta: conta.replace(/\s*\n\s*/g, ' | '), contaEpocas, tempoVisivel, tempoNota, tempoMedias, pedidoEstado, confirmar, pedidoEstado2, galImg, menu, pedidos, erros: erros.length, errosDistintos: [...new Set(erros)].slice(0, 3) });
+    res.push({ modo, nome, movel, medidas, ligacao, pilula, v6, painelCimo, pedidoSemPessoas, comHash, hashAntigo, filaOutraVisita, sequencia, filaAnda, pergunta, citacoes, veu, campos, datasMeio, calNota, incertos, conta: conta.replace(/\s*\n\s*/g, ' | '), contaEpocas, tempoVisivel, tempoNota, tempoMedias, pedidoEstado, confirmar, pedidoEstado2, galImg, menu, pedidos, erros: erros.length, errosDistintos: [...new Set(erros)].slice(0, 3) });
     await ctx.close();
   }
   await browser.close(); fs.writeFileSync(`${out}/resultado-${modo}.json`, JSON.stringify(res, null, 2)); console.log(JSON.stringify(res, null, 2));
@@ -322,6 +325,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     }
     if (r.veu && (r.veu.paginaRolou !== 0 || !r.veu.painelAberto)) falhas.push(q + 'arrastar no escuro por cima do painel rolou a página por trás ou fechou o painel (' + JSON.stringify(r.veu) + ')');
     if (r.campos.some((c) => !c.dentro)) falhas.push(q + 'campos do painel fora da largura: ' + r.campos.filter((c) => !c.dentro).map((c) => c.id + ' ' + c.esq + '→' + c.dir).join(' · '));
+    if (r.datasMeio && r.datasMeio.some((c) => !c.ok)) falhas.push(q + 'as datas não estão ao meio da caixa: ' + r.datasMeio.filter((c) => !c.ok).map((c) => c.id + ' (' + c.d + ')').join(' · '));
     if (!r.galImg.aberta || !r.galImg.src || !r.galImg.aVista) falhas.push(q + 'a fotografia não abriu em ecrã inteiro');
     if (r.medidas.citacoes > 1 && (!r.citacoes.primeira || r.citacoes.primeira === r.citacoes.depois)) falhas.push(q + 'a frase de quem já ficou não mudou sozinha («' + r.citacoes.primeira + '»)');
     if (!r.tempoMedias.medias || !/anos/.test(r.tempoMedias.nota)) falhas.push(q + 'o tempo de uma estadia distante não mostrou as médias com a nota');

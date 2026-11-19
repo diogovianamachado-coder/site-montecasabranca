@@ -41,6 +41,38 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
+### V8 · 19/11/2026 · as datas ao meio da caixa no painel
+
+- **Por publicar:** espera o «Lança» do Diogo. (Quando for para o ar: a data, o n.º do deploy, o commit e a etiqueta `novo-v8`.)
+- **De onde vem:** uma captura do iPhone do Diogo (19/11, à noite), com o painel das datas aberto, os dois campos das datas rodeados
+  a vermelho e a nota «Centrar as datas». As datas («25/11/2026», «27/11/2026») estavam no canto de cima, à esquerda, de cada caixa.
+- **O que mudou:** as datas ficam ao meio da caixa, na altura e na largura. **Porquê:** o Safari do iPhone põe a data ao meio com uma
+  caixa flexível (`display: inline-flex` e `align-items: center`, da folha de estilos do próprio browser); a regra dos campos do site
+  (`display: block`, igual para todos os campos) tirava-lha, e uma regra a encostar a data à esquerda fazia o resto. Vinha assim
+  desde a V3 (na V1 e na V2 o campo tinha o desenho do próprio iPhone). No computador, a data fica ao meio do espaço antes do ícone
+  do calendário. Os outros campos (pessoas, nome, email, telefone, mensagem) ficam como estavam.
+- **Onde está:** `assets/css/site.css`, bloco «Os campos» (as duas regras dos campos de data).
+- **O que não se consegue ver daqui:** o Safari de um iPhone. No browser de testes (Chromium), também no modo em que mostra a data como
+  o telemóvel (uma caixa só, sem os campos do dia, mês e ano), as datas ficam ao meio. A prova é o telemóvel do Diogo depois do
+  «Lança».
+- **Capturas:** `docs/versoes/v8/`.
+- **Ordem da página:** a mesma da V7.
+
+| Parte | O que mudou face à V7 | O que o Diogo achou |
+|---|---|---|
+| 1 Capa | Igual | por dizer |
+| 2 A casa | Igual | por dizer |
+| 3 Os espaços | Igual | por dizer |
+| 4 Fecho e régua | Igual | por dizer |
+| 5 Montemor, N2 e onde estamos | Igual | por dizer |
+| 6 A galeria | Igual | por dizer |
+| 7 Antes de chegar | Igual | por dizer |
+| 8 Quem já ficou | Igual | por dizer |
+| 9 Contactos e rodapé | Igual (no ensaio, «Ensaio · versão 8 · 19/11/2026») | por dizer |
+| 10 Menu completo | Igual | por dizer |
+| 11 Painel das datas | As datas ao meio da caixa, na altura e na largura | por dizer |
+| 12 Barra de baixo | Igual | por dizer |
+
 ### V7 · 19/11/2026 · as fotografias grandes quase inteiras no telemóvel, o rato livre e «Quantas pessoas vêm?» sem palavra
 
 - **Publicada:** 19/11/2026, às 19h48 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 27 (o n.º 26 foi o ensaio a
@@ -95,7 +127,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 | 8 Quem já ficou | Igual | por dizer |
 | 9 Contactos e rodapé | Igual (no ensaio, «Ensaio · versão 7 · 19/11/2026») | por dizer |
 | 10 Menu completo | Igual | por dizer |
-| 11 Painel das datas | «Quantas pessoas vêm?» em branco, sem «Escolham» | por dizer |
+| 11 Painel das datas | «Quantas pessoas vêm?» em branco, sem «Escolham» | «Centrar as datas» (captura do iPhone, 19/11): na V8 |
 | 12 Barra de baixo | Igual | por dizer |
 
 ### V6 · 19/11/2026 · as notas de 18 e 19/11: a pílula, o cartaz em escada, as fotografias grandes, a ecopista, a N2, as avaliações, a galeria, o voltar e o painel

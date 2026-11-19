@@ -1480,3 +1480,21 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   Diogo:** a V7 no iPhone (as fotografias grandes) · as pastas das fotografias (pelo PDF) · se as frases de «Quem já ficou» também
   deixam de esperar com o rato. **Lição:** escrever a ficha da versão antes de correr a bateria local (o teste de versão pára logo).
   **Próxima sugestão: S37.**
+
+- **19/11/2026 (noite) · «Centrar as datas» · VERSÃO 8 EM `main`, POR PUBLICAR (espera o «Lança»).** Captura do iPhone do Diogo com o
+  painel das datas aberto, os dois campos das datas rodeados a vermelho e a nota «Centrar as datas»: as datas estavam no canto de
+  cima, à esquerda, de cada caixa. **Causa, confirmada na folha de estilos do próprio WebKit** (`Source/WebCore/css/html.css`, lida a
+  19/11): no iPhone os campos de data são `display: inline-flex; align-items: center` e o valor (`::-webkit-date-and-time-value`) tem
+  `text-align: center` e `inline-size: 100%`; a regra dos campos do site (`.campos input { display: block … }`, desde a V3; na V1 e na
+  V2 o campo tinha o desenho do iPhone) tirava a caixa flexível, e uma regra nossa encostava o valor à esquerda. **Feito** (bloco «Os
+  campos» do `site.css`): `.campos input[type="date"] { display: flex; align-items: center; justify-content: center; text-align: center; }`
+  e `::-webkit-date-and-time-value { margin: 0; text-align: center; flex: 1 1 auto; min-width: 0; min-height: 1.25em; }`; no
+  computador a data fica ao meio do espaço antes do ícone do calendário; os outros campos não mudam. Teste novo no `captura-site.cjs`
+  (`datasMeio`: os dois campos de data com a caixa flexível e tudo ao centro). `site/versao.json` = 8; ficha `### V8` em
+  `docs/versoes/REGISTO.md` (e, na V7, «Centrar as datas» na parte 11); `versoes.json` com a 8; capturas `docs/versoes/v8/`.
+  **O que não se vê daqui:** o Chromium dos testes não reproduz o defeito, nem no modo em que desenha a data numa caixa só, como o
+  telemóvel (`--disable-blink-features=InputMultipleFieldsUI`: aí a data já aparecia ao meio com a regra antiga); por isso não se
+  mandou ao Diogo uma imagem «antes e agora». A prova é o iPhone depois do «Lança». **Pergunta ao Diogo:** o risco vermelho que passa
+  por «As contas, sem surpresas» é para tirar esse título, ou é só o traço do círculo? (Não se tira sem a resposta.) **Ferramenta:**
+  um `&` dentro de uma chamada normal deixou a bateria a correr desta vez, mas o certo é `run_in_background`; para esperar, um `until`
+  em segundo plano. **Próxima sugestão: S37.**
