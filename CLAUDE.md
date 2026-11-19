@@ -1289,3 +1289,9 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   a N2 num só bloco com traço fino, fotografia da casa ao entardecer em destaque dentro do bloco e o programa pequeno · «Onde estamos» como
   está · sem legendas pequenas. Cuidado: a 16/11 ele disse que na V2 a N2 parecia «um apêndice» e Montemor não tinha separador; daí a
   abertura clara e a fotografia em destaque. Nada em `site/`.
+  **19/11 (00h35) · respostas do Diogo:** o «não» da nota 2 explicado (sem legendas nas fotografias, a ideia 4 do GPT, frases com graça em
+  poucas fotografias, deixa de ter lugar; se ele a quiser, passa a «sim» como exceção) · **nota 3: «propõe na próxima versão»** (galeria curta
+  e antes dos contactos entra na V5 como proposta) · **nota 7: «são da ecopista»**: `montemor/caminho-arvores-bicicleta.jpg`,
+  `estacao-paiao.jpg` e `montado-bicicleta.jpg` passam da faixa de Montemor (fica com sete) para a régua da ecopista; na galeria continuam as
+  catorze · o estudo do ChatGPT de 10 páginas foi feito a partir do Instagram do Diogo: essas fotografias ainda não estão disponíveis e,
+  quando estiverem (Dropbox ou conversa), entram nas réguas (ecopista, ou a do fecho para as da casa) e não na galeria. Nada em `site/`.

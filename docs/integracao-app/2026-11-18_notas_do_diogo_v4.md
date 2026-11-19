@@ -196,6 +196,19 @@ enquadramento e tamanhos ao critério do Claude:**
 ficava «como se fosse um apêndice». Por isso a V5 junta o arranjo da V2 com a abertura clara de Montemor da V4 e a fotografia da N2 em
 destaque, para a N2 não voltar a parecer um apêndice. Mostrar ao Diogo antes do «Lança».
 
+**Respostas do Diogo (19/11, cerca das 00h35):**
+- Perguntou o que queria dizer o «não» da nota 2. Explicado: a ideia 4 do GPT era pôr, em poucas fotografias, uma frase curta com graça
+  no lugar da legenda; sem legendas nas fotografias (nota 2), essa ideia deixa de ter lugar, por isso ficou registada como «não». Se ele
+  quiser essas frases em poucas fotografias, passa a «sim» e são a exceção.
+- **Nota 3: «propõe na próxima versão».** A galeria curta e antes dos contactos entra na V5 como proposta, para ele ver.
+- **Nota 7: «são da ecopista».** As três fotografias da bicicleta vermelha (o túnel de árvores, a antiga estação do Paião e junto ao
+  montado: `montemor/caminho-arvores-bicicleta.jpg`, `estacao-paiao.jpg`, `montado-bicicleta.jpg`) passam da faixa de Montemor para a
+  régua da ecopista; a faixa de Montemor fica com sete. No álbum Montemor-o-Novo da galeria continuam as catorze, como no Zenfolio.
+- **O estudo do ChatGPT:** «as últimas capturas foi o GPT que verificou o meu Instagram. Essas fotos ainda não estão disponíveis mas
+  poderão fazer parte da lista de fotos a entrar na régua e não na galeria.» Registado: quando as fotografias do Instagram estiverem
+  disponíveis (no Dropbox ou enviadas na conversa), entram nas réguas (a da ecopista, se forem de lá; as da casa, na do fecho, «Há
+  mais casa para descobrir») e **não** na galeria.
+
 **Nota de monitor:** a primeira captura mostra que o ChatGPT está a fazer um estudo de 10 páginas para o Diogo, que não está no GitHub
 nem no Dropbox. Se forem essas «as notas do GPT» que ele queria numeradas, o Claude precisa das 10 páginas (capturas ou o ficheiro).
 
