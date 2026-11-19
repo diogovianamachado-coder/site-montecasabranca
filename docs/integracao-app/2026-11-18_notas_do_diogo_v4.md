@@ -180,6 +180,22 @@ alteração», numeradas por ele de 1 a 7. Continua a valer «Ainda não alteres
    2 ou 3 que ele vai juntar (pela pasta do Dropbox ou pela conversa), a régua fica com 4 a 6. **Nas partes de apoio** (Montemor, N2,
    ecopista) as fotografias ficam mais pequenas do que nos capítulos da casa.
 
+**Decisão do Diogo sobre as notas 6 e 7 (19/11, cerca das 00h25):** na comparação das versões 1, 2 e 4 rodeou, na V2, o texto da
+ecopista, o bloco da N2 (traço fino à esquerda, título, texto, programa pequeno, estadia mínima, ligação à Rota da N2) e o começo de
+«Onde estamos» (`diogo-10-n2-como-na-v2.jpg`): «Tem mais lógica assim, mas enquadra e dimensiona como achares melhor.» **Na V5,
+enquadramento e tamanhos ao critério do Claude:**
+- Montemor abre como na V4 (sobretítulo, «Montemor-o-Novo também é a estadia», o texto e a ligação), com a faixa de fotografias mais
+  pequena (nota 7);
+- logo a seguir, a ecopista como na V2 (o texto e «Conhecer a ecopista»), agora com a sua régua pequena (nota 7);
+- depois a N2 num só bloco, como na V2: o traço fino à esquerda, o sobretítulo, «Dois dias no coração do Alentejo», a mensagem, a
+  fotografia da casa ao entardecer dentro do bloco e em destaque, o programa pequeno (os dias em itálico, com o texto ao lado), a
+  estadia mínima e a ligação à Rota da N2;
+- e «Onde estamos» logo a seguir, como está;
+- sem legendas pequenas nas fotografias (nota 2).
+**Cuidado (nota de monitor):** a 16/11, sobre a V2, o Diogo disse que Montemor «aparece quase sem separador nem introdução» e que a N2
+ficava «como se fosse um apêndice». Por isso a V5 junta o arranjo da V2 com a abertura clara de Montemor da V4 e a fotografia da N2 em
+destaque, para a N2 não voltar a parecer um apêndice. Mostrar ao Diogo antes do «Lança».
+
 **Nota de monitor:** a primeira captura mostra que o ChatGPT está a fazer um estudo de 10 páginas para o Diogo, que não está no GitHub
 nem no Dropbox. Se forem essas «as notas do GPT» que ele queria numeradas, o Claude precisa das 10 páginas (capturas ou o ficheiro).
 

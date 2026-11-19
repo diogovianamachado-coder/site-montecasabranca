@@ -1283,3 +1283,9 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `revisao-2026-11-18/versoes-1-2-4-parte5-telemovel.jpg`) · **(7)** a ecopista com uma régua pequena, a começar pela fotografia da bicicleta
   no túnel de árvores (`montemor/caminho-arvores-bicicleta.jpg`); duas com a mesma bicicleta (estação do Paião, montado) a confirmar se são
   da ecopista; o Diogo junta mais 2 ou 3; nas partes de apoio as fotografias ficam mais pequenas. **Próxima sugestão: S37.**
+  **19/11 (00h25) · decisão sobre a N2 e a ecopista:** na comparação das versões, o Diogo rodeou na V2 a ecopista, o bloco da N2 e o começo
+  de «Onde estamos»: «Tem mais lógica assim, mas enquadra e dimensiona como achares melhor» (`revisao-2026-11-18/diogo-10-n2-como-na-v2.jpg`).
+  Plano para a V5 (no documento das notas): abertura de Montemor da V4 com fotografias mais pequenas · ecopista como na V2 com régua pequena ·
+  a N2 num só bloco com traço fino, fotografia da casa ao entardecer em destaque dentro do bloco e o programa pequeno · «Onde estamos» como
+  está · sem legendas pequenas. Cuidado: a 16/11 ele disse que na V2 a N2 parecia «um apêndice» e Montemor não tinha separador; daí a
+  abertura clara e a fotografia em destaque. Nada em `site/`.
