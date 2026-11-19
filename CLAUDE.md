@@ -1443,9 +1443,11 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   17 imagem da partilha 1 (hoje = a capa). Regras escritas no PDF: uma pasta por separador com o nome da tabela; a ordem pelo nome
   (01, 02…); a mesma fotografia não vai a duas pastas de 01 a 12; pasta vazia = fica como está; ele mostra as pastas em pouca
   resolução e eu procuro os originais (primeiro nas 115 de `design/fotos/galeria/`, depois no Dropbox «7. Fotos»), preparo-os e
-  mostro antes do «Lança». **Quando chegarem as pastas:** comparar cada imagem com as da galeria e de `site/fotos/` por semelhança
-  (impressão digital da imagem reduzida, com PIL); as que não estiverem lá, procurar no Dropbox pelo nome ou trazê-las pela via do
-  GitHub (`fotos-dropbox.yml`). Os geradores do PDF ficaram no scratchpad (`pdfsep/`: `separadores.php`, `fotografar_seccoes.cjs`,
+  mostro antes do «Lança». **Quando chegarem as pastas:** `python3 demo/ferramentas/fotos/encontrar_original.py <imagens ou pastas>`
+  compara cada imagem com as da galeria e de `site/fotos/` (impressão digital de 17 × 16 e cores médias, também recortadas ao quadrado;
+  provado com três fotografias reduzidas, recortadas e muito comprimidas: encontrou as três; distâncias até 8 = a mesma fotografia,
+  várias quase iguais = a mesma guardada em dois sítios); as que não estiverem lá, procurar no Dropbox pelo nome ou trazê-las pela via
+  do GitHub (`fotos-dropbox.yml`). Os geradores do PDF ficaram no scratchpad (`pdfsep/`: `separadores.php`, `fotografar_seccoes.cjs`,
   `construir.py`, `pdf.cjs`); se a máquina for reposta, refazem-se.
   **(2) A V7** (ficha em `docs/versoes/REGISTO.md`; notas em `docs/integracao-app/2026-11-19_notas_do_diogo_v6.md`): **era técnico**:
   as fotografias grandes são deitadas e a caixa do telemóvel era mais alta do que larga (393 × 596): via-se 37 % da largura, na versão
