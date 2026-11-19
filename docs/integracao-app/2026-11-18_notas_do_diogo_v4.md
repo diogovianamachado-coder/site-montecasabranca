@@ -1,5 +1,10 @@
 # Notas do Diogo sobre a versão 4 (18/11/2026, entre as 00h40 e as 00h55, no iPhone)
 
+**Atualização de 19/11, 01h: a versão 5 está no ar só com as frases.** «Retira as frases e lança»: saíram as legendas sobre as
+fotografias e por baixo da da N2 (nota 2 de 19/11), «Sem receção, sem pressa» da capa, que passou para a resposta «A que horas
+podemos chegar?» (nota 6 de 18/11), e «notas de novembro de 2026» (nota 4 de 18/11). **Tudo o resto deste documento passa para a
+versão seguinte (V6)**, onde se lê «V5» nas propostas abaixo. Ficha em `docs/versoes/REGISTO.md`.
+
 **Estado: registadas, por fazer.** A ordem do Diogo foi: «Ainda não alteres nada. Regista só. Aparecerão entretanto outras ideias de
 ajuste.» Até ele dizer o contrário, nada muda em `site/` e nada vai para o servidor; a V4 continua no ar em `novo.`. As ideias
 seguintes juntam-se a este documento (secção «Próximas ideias»). Quando ele mandar avançar, tudo isto será a **versão 5**: sobe o

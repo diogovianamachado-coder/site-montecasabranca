@@ -43,7 +43,14 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ### V5 · 19/11/2026 · as frases retiradas
 
-- **Estado:** em `main`, a caminho de `novo.`, com o «Lança» do Diogo (19/11, cerca da 01h): «Retira as frases e lança».
+- **Publicada:** 19/11/2026, às 01h01 (hora de Lisboa), com o «Lança» do Diogo («Retira as frases e lança»): deploy do site n.º 23
+  (o n.º 22 foi o ensaio a seco), commit `ea2fbd4`, **etiqueta `novo-v5`**. É a que está no ar em `novo.`. Face à V4 mudaram 7
+  ficheiros, todos de texto (`conteudo.php`, `llms.txt`, `versao.json`, `inc/util.php`, `partes/avaliacoes.php`, `partes/inicio.php`,
+  `partes/nacional2.php`); nada entrou nem saiu, e as fotografias ficaram como estavam. Testes «Capturas» n.º 72 verdes (Chromium e
+  WebKit).
+- **Verificação depois do envio:** a página responde (HTTP 200 à primeira) e mostra «Ensaio · versão 5»; continua fora dos motores de
+  busca (`noindex` e `robots.txt` de bloqueio); a previsão, a conta e as médias do tempo respondem; `config.php` ficou como estava.
+  «Verificar o site (só lê)», corrida n.º 4: todas as fotografias da página existem no servidor e as portas respondem.
 - **De onde vem:** quatro notas do Diogo sobre a V4: «retirar as micro legendas das fotos» (nota 2 de 19/11) · «na capa retirar a
   frase da receção» (nota 6 de 18/11) · «nas avaliações retira que são de 2026» (nota 4 de 18/11) · e, sobre a frase da capa, «sim,
   coloca o sem pressa e sem receção na resposta à hora de entrada». **Só textos:** o desenho e o movimento são os da V4. As outras
@@ -72,7 +79,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V4 · 18/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
 
 - **Publicada:** 18/11/2026, às 00h35 (hora de Lisboa), com o «Lança» do Diogo (17/11, 23h55): deploy do site n.º 21 (o n.º 20
-  foi o ensaio a seco), commit `0be7000`, **etiqueta `novo-v4`**. É a que está no ar em `novo.`. Face à V3: mudaram 7 ficheiros
+  foi o ensaio a seco), commit `0be7000`, **etiqueta `novo-v4`**. Esteve no ar em `novo.` de 18/11 a 19/11/2026. Face à V3: mudaram 7 ficheiros
   (`site.css`, `site.js`, `conteudo.php`, `inc/util.php`, `partes/contactos.php`, `partes/regua.php`, `versao.json`), nenhum entrou
   nem saiu, e as 190 fotografias ficaram como estavam. Commits do site: `be0646d` (o movimento e a capa), `c876fd5` (a régua com as
   fotografias do mesmo tamanho; a animação criada pelo `site.js`), `504c1d1` (a data), `1fda384` (o arrasto no motor do Safari);

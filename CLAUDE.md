@@ -1295,3 +1295,25 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   `estacao-paiao.jpg` e `montado-bicicleta.jpg` passam da faixa de Montemor (fica com sete) para a régua da ecopista; na galeria continuam as
   catorze · o estudo do ChatGPT de 10 páginas foi feito a partir do Instagram do Diogo: essas fotografias ainda não estão disponíveis e,
   quando estiverem (Dropbox ou conversa), entram nas réguas (ecopista, ou a do fecho para as da casa) e não na galeria. Nada em `site/`.
+- **19/11/2026 (00h40–01h05, hora de Lisboa) · «Retira as frases e lança» · A VERSÃO 5 ESTÁ NO AR EM `novo.montecasabranca.pt` (deploy
+  n.º 23, commit `ea2fbd4`, etiqueta `novo-v5`).** Lido como as quatro frases que ele tinha pedido para tirar ou mudar: (1) as legendas
+  escritas sobre as fotografias dos capítulos e de Montemor (`inc/util.php` → `rolo()` passa `false` a `foto_caixa`; a legenda fica como
+  descrição: rótulo do botão e fotografia aberta em grande) e a de baixo da fotografia da N2 (`partes/nacional2.php` sem `figcaption`) ·
+  (2) «Sem receção, sem pressa» saiu da capa (`conteudo.php` sem `inicio.nota`; `partes/inicio.php` só a mostra se existir) · (3) a ideia
+  foi para «A que horas podemos chegar?»: «A entrada é a partir das 16h, sem receção e sem pressa: o Diogo envia antes as indicações para
+  entrarem sozinhos. A saída é até às 11h; quando ninguém entra no mesmo dia, pode ficar para as 18h, para aproveitarem o dia até ao
+  fim.» (também no `FAQPage`; e no `llms.txt`, «sem receção») · (4) «Quem já ficou» fica só com «Recebemos hóspedes desde 2022»
+  (`partes/avaliacoes.php`; `rodape_notas` saiu; a data das notas fica em `inc/factos.php`). As datas de cada frase («Airbnb · julho de
+  2026 · tradução») ficam: ele rodeou só «notas de novembro de 2026». O CSS das legendas (`.foto-legenda`, `.hero-nota`, `.foto-larga
+  figcaption`) ficou, sem uso, para se repor depressa. **Envio:** bateria local verde → capturas `docs/versoes/v5/` → commit `ea2fbd4` →
+  «Capturas» n.º 72 verde (Chromium e WebKit) → **ensaio a seco n.º 22** (run 44433433979): `<fcst` só em `conteudo.php`, `llms.txt`,
+  `versao.json`, `inc/util.php`, `partes/avaliacoes.php`, `partes/inicio.php`, `partes/nacional2.php`; nada entra nem sai; 42 657 368
+  bytes → **envio a sério n.º 23** (run 44433611952, 01h01): `config.php` como estava, HTTP 200 à primeira, previsão, conta e médias OK,
+  `noindex`, `robots.txt` de bloqueio e «versão 5» OK, **etiqueta `novo-v5` criada pelo deploy** → «Verificar o site (só lê)» n.º 4
+  verde (todas as fotografias, portas). **Registo:** ficha da V5 «Publicada»; a V4 esteve no ar de 18/11 a 19/11; `versoes.json` com o
+  commit completo (`ea2fbd42cf7e9a7f745bfb9486f3d2a69108b059`). **Tudo o resto das notas da V4 passa para a V6** (fotografias grandes,
+  pílula ao centro, voltar onde estava, mais avaliações, cartaz em degraus, galeria curta e no fim, cimo do painel fixo, o «4», a N2 num
+  só bloco, a ecopista com régua; documento das notas atualizado). **A partir daqui qualquer mudança em `site/` é a versão 6.**
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real ·
+  20 ensaio · 21 real · 22 ensaio · **23 real**. **Por dizer pelo Diogo:** o que achou da V5 (as frases) e quando avançar para a V6.
+  **Próxima sugestão: S37.**
