@@ -1,6 +1,13 @@
 # Notas do Diogo sobre a versão 4 (18/11/2026, entre as 00h40 e as 00h55, no iPhone)
 
-**Atualização de 19/11, 02h: a pílula de descer (secção 2) está feita na versão 6, por publicar** («Faltou esta parte», 19/11).
+**Atualização de 19/11, 03h: TUDO o que estava decidido ou proposto neste documento está feito na versão 6, por publicar** (espera o
+«Lança»). O Diogo, com a V5 no iPhone: «Grande parte das alterações não as fizeste. Revê o que pedi: botão de deslizar, menu do por
+dentro sem pressa e por fora, falta o botão de voltar quando abro as fotos pelo scroll down, mantiveste a n2 igual? O montado está
+vazio.» Feito na V6: a pílula de descer (secção 2) · o cartaz em escada (19/11, nota 1) · as fotografias grandes a abrir os capítulos
+e Montemor e as fotografias a entrar uma a uma (secção 1) · «Voltar onde estava» (secção 3) · as setas e os traços das avaliações
+(secção 5) · a galeria curta, antes dos contactos, com «Ver todas» (19/11, nota 3) · o cimo do painel sempre à vista (19/11, nota 4) ·
+«Quantas pessoas?» vazio (19/11, nota 5) · a N2 num só bloco (19/11, nota 6) · a ecopista com a régua pequena e a faixa de Montemor
+mais pequena (19/11, nota 7). Ficha em `docs/versoes/REGISTO.md` (V6).
 
 **Atualização de 19/11, 01h: a versão 5 está no ar só com as frases.** «Retira as frases e lança»: saíram as legendas sobre as
 fotografias e por baixo da da N2 (nota 2 de 19/11), «Sem receção, sem pressa» da capa, que passou para a resposta «A que horas

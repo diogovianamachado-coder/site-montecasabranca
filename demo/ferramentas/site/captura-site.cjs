@@ -34,7 +34,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     };
     await page.goto(base + '/', { waitUntil: 'networkidle' }); await page.waitForTimeout(800); await rolar(page);
     const medidas = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth, altura: document.body.scrollHeight, imgs: document.querySelectorAll('img').length, imgsM: Array.from(document.querySelectorAll('img')).filter(i => (i.currentSrc || '').includes('-m.')).length, faq: document.querySelectorAll('details.pergunta').length, faqUltima: (Array.from(document.querySelectorAll('details.pergunta summary span')).pop() || {}).textContent || '', rolos: document.querySelectorAll('[data-rolo]').length, citacoes: document.querySelectorAll('#citacoes .citacao').length,
-      capitulos: ['a-casa', 'por-fora', 'sem-pressa', 'por-dentro', 'fecho', 'montemor', 'nacional2', 'onde', 'galeria', 'antes-de-chegar', 'avaliacoes', 'contactos'].map(id => { const e = document.getElementById(id); return e ? Math.round(e.getBoundingClientRect().top + window.scrollY) : -1; }),
+      capitulos: ['a-casa', 'por-fora', 'sem-pressa', 'por-dentro', 'fecho', 'montemor', 'nacional2', 'onde', 'antes-de-chegar', 'avaliacoes', 'galeria', 'contactos'].map(id => { const e = document.getElementById(id); return e ? Math.round(e.getBoundingClientRect().top + window.scrollY) : -1; }),
       contagens: document.querySelectorAll('[data-seq-atual], .seq-conta, #citacoes-atual, .citacoes-conta').length,
       setas: document.querySelectorAll('.seq-setas, [data-seq-ir], .rolo .btn-seta').length,
       sobretituloGaleria: ((document.querySelector('#galeria .eyebrow') || {}).textContent || '').trim(),
@@ -46,6 +46,50 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
     await page.click(movel ? '.hero-botoes a' : '.hero-nav a[href="#galeria"]'); await page.waitForTimeout(3200);
     const ligacao = await page.evaluate((m) => ({ url: location.href, y: Math.round(window.scrollY), topo: Math.round(document.getElementById(m ? 'a-casa' : 'galeria').getBoundingClientRect().top) }), movel);
+    // Versão 6 (as notas do Diogo de 18 e 19/11/2026): o que se vê na página, sem mexer em nada.
+    const v6 = await page.evaluate(() => {
+      const al = (el) => el ? getComputedStyle(el).textAlign : '';
+      const d = document.querySelectorAll('#a-casa .cartaz-linhas .degrau');
+      const ativo = document.querySelector('.passear .album:not(.escondido)');
+      return {
+        escada: d.length === 3 ? [al(d[0]), al(d[1]), al(d[2]), getComputedStyle(d[1]).fontStyle].join('/') : 'faltam degraus (' + d.length + ')',
+        setasCartaz: document.querySelectorAll('#a-casa .ico-seta, #a-casa svg').length,
+        bandas: ['por-fora', 'sem-pressa', 'por-dentro', 'montemor'].filter((id) => document.querySelector('#' + id + ' .banda .foto-mexe img')).length,
+        ecopista: document.querySelectorAll('#montemor .rolo-mini').length,
+        n2Bloco: !!document.querySelector('#nacional2 .n2-bloco .n2-foto') && getComputedStyle(document.querySelector('#nacional2 .n2-bloco')).borderLeftStyle === 'solid',
+        tracos: document.querySelectorAll('#citacoes-passar .citacoes-tracos li').length, frases: document.querySelectorAll('#citacoes .citacao').length,
+        setasFrases: document.querySelectorAll('#citacoes-passar .citacoes-seta').length,
+        galeriaVisiveis: ativo ? Array.from(ativo.children).filter((li) => getComputedStyle(li).display !== 'none').length : -1,
+        galeriaTotal: ativo ? ativo.children.length : -1, verTodas: !!document.getElementById('ver-todas'),
+        pax: (document.getElementById('pax') || {}).value,
+      };
+    });
+    // «Ver todas»: abre o álbum inteiro por cima; ao fechar, a página está onde estava
+    // (o botão vai para o meio do ecrã antes de se medir: assim o clique não precisa de rolar a página)
+    await page.evaluate(() => { window.dispatchEvent(new Event('wheel')); document.getElementById('ver-todas').scrollIntoView({ block: 'center' }); }); await page.waitForTimeout(900);
+    const yGal = await page.evaluate(() => Math.round(window.scrollY));
+    await page.click('#ver-todas'); await page.waitForTimeout(800);
+    v6.todas = await page.evaluate(() => { const e = document.getElementById('album-ecra'); return { aberto: !e.hidden, fotos: e.querySelectorAll('.album li').length, visiveis: Array.from(e.querySelectorAll('.album li')).filter((li) => getComputedStyle(li).display !== 'none').length }; });
+    await page.screenshot({ path: `${out}/${modo}-${nome}-ver-todas.jpg`, type: 'jpeg', quality: 70 });
+    // depois de rolar as fotografias até ao fim, o fechar continua à vista (o cimo da camada não rola)
+    v6.todas.fecharAVista = await page.evaluate(async () => { const c = document.getElementById('album-ecra-corpo'); if (c) c.scrollTop = c.scrollHeight; await new Promise((ok) => setTimeout(ok, 300)); const q = document.querySelector('#album-ecra [data-fechar]').getBoundingClientRect(); return { rolou: !!c && c.scrollTop > 100, aVista: q.top >= 0 && q.bottom <= window.innerHeight && q.height > 0 }; });
+    await page.click('#album-ecra [data-fechar]'); await page.waitForTimeout(500);
+    v6.todas.fechou = await page.evaluate(() => document.getElementById('album-ecra').hidden); v6.todas.paginaMexeu = (await page.evaluate(() => Math.round(window.scrollY))) - yGal;
+    // «Voltar onde estava»: do fecho («Passear pelo Monte») para a galeria e de volta ao mesmo ponto
+    await page.evaluate(() => { window.dispatchEvent(new Event('wheel')); const e = document.querySelector('#fecho .fecho-cabeca'); window.scrollTo(0, Math.round(e.getBoundingClientRect().top + window.scrollY - 200)); }); await page.waitForTimeout(700);
+    const yAntes = await page.evaluate(() => Math.round(window.scrollY));
+    await page.click('#fecho .fecho-cabeca .ligacao-seta'); await page.waitForTimeout(2600);
+    v6.voltar = await page.evaluate(() => ({ visivel: !document.getElementById('voltar').hidden, topoGaleria: Math.round(document.getElementById('galeria').getBoundingClientRect().top) }));
+    await page.screenshot({ path: `${out}/${modo}-${nome}-voltar.jpg`, type: 'jpeg', quality: 70 });
+    if (v6.voltar.visivel) { await page.click('#voltar'); await page.waitForTimeout(2400); }
+    v6.voltar.voltouA = (await page.evaluate(() => Math.round(window.scrollY))) - yAntes; v6.voltar.someu = await page.evaluate(() => document.getElementById('voltar').hidden);
+    // As frases: a seta da direita passa à seguinte
+    await page.evaluate(() => { window.dispatchEvent(new Event('wheel')); document.getElementById('avaliacoes').scrollIntoView({ block: 'center' }); }); await page.waitForTimeout(600);
+    const frase0 = await page.evaluate(() => (document.querySelector('#citacoes .citacao.ativa blockquote') || {}).textContent || '');
+    await page.click('#citacoes-passar .citacoes-seta[data-passo="1"]'); await page.waitForTimeout(400);
+    v6.setaPassou = frase0 !== (await page.evaluate(() => (document.querySelector('#citacoes .citacao.ativa blockquote') || {}).textContent || ''));
+    await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(400);
+
     // A pílula de descer (versão 6, 19/11/2026: «Faltou esta parte»): um dedo a sério na pílula, na capa, leva à casa; no computador,
     // um clique. (Que nunca fica por cima de texto, que volta ao topo e que está ao centro confere-o o geometria.cjs, nos dois motores.)
     await page.evaluate(() => { window.dispatchEvent(new Event('wheel')); window.scrollTo(0, 0); }); await page.waitForTimeout(900);
@@ -68,7 +112,8 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     const andou = (a, b) => { let d = a.x - b.x; if (d < -a.volta / 2) d += a.volta; if (d > a.volta / 2) d -= a.volta; return Math.round(d * 10) / 10; };
     const ler = () => lerRolo('#por-fora');
     // 1) cada caixa tem o tamanho da sua fotografia (o que falhou no iPhone na versão 2 foi a caixa ficar mais larga)
-    const caixas = await page.evaluate(() => Array.from(document.querySelectorAll('.rolo-item, .album:not(.escondido) li')).map((li) => { const i = li.querySelector('img'), a = li.getBoundingClientRect(), b = i ? i.getBoundingClientRect() : { width: 0, height: 0 }; return Math.abs(a.width - b.width) > 1 || Math.abs(a.height - b.height) > 1 || a.width < 100 || a.height < 100 ? (i ? (i.currentSrc || i.src).split('/').pop() : 'sem imagem') + ' caixa ' + Math.round(a.width) + '×' + Math.round(a.height) + ' fotografia ' + Math.round(b.width) + '×' + Math.round(b.height) : null; }).filter(Boolean));
+    // (só as que estão na página e se vêem: a galeria curta esconde as que passam das seis, e o álbum inteiro fica na camada fechada)
+    const caixas = await page.evaluate(() => Array.from(document.querySelectorAll('.rolo-item, .passear .album:not(.escondido) li')).filter((li) => getComputedStyle(li).display !== 'none').map((li) => { const i = li.querySelector('img'), a = li.getBoundingClientRect(), b = i ? i.getBoundingClientRect() : { width: 0, height: 0 }; return Math.abs(a.width - b.width) > 1 || Math.abs(a.height - b.height) > 1 || a.width < 100 || a.height < 100 ? (i ? (i.currentSrc || i.src).split('/').pop() : 'sem imagem') + ' caixa ' + Math.round(a.width) + '×' + Math.round(a.height) + ' fotografia ' + Math.round(b.width) + '×' + Math.round(b.height) : null; }).filter(Boolean));
     // 1b) numa faixa todas as fotografias têm o mesmo tamanho (Diogo, 17/11/2026: «há uma foto que tem dimensão diferente; tens de
     //     enquadrar essa foto no mosaico que estamos a passar»): uma fotografia ao alto é recortada na caixa, não fica mais alta
     const tamanhos = await page.evaluate(() => Array.from(document.querySelectorAll('[data-rolo]')).map((el) => { const s = new Set(Array.from(el.querySelectorAll('.rolo-item')).map((li) => { const r = li.getBoundingClientRect(); return Math.round(r.width) + '×' + Math.round(r.height); })); return s.size > 1 ? (el.getAttribute('aria-label') || 'faixa') + ': ' + Array.from(s).join(', ') : null; }).filter(Boolean));
@@ -88,7 +133,8 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
       await page.mouse.move(600, a2.topo + 250); await page.waitForTimeout(100); const w0 = await ler(); await page.mouse.wheel(240, 0); await page.waitForTimeout(150); const w1 = await ler();
       // 2e) com a tecla Tab: a fotografia que recebe o foco vem para a frente e a faixa espera
       await page.mouse.move(4, 4); await page.waitForTimeout(1600);
-      await page.evaluate(() => { const l = document.querySelectorAll('#a-casa .cartaz-linhas a'); l[l.length - 1].focus({ preventScroll: true }); }); await page.keyboard.press('Tab'); await page.waitForTimeout(300);
+      // (desde a versão 6 o capítulo abre com a fotografia grande, que também se abre com o teclado: o Tab parte dela para a faixa)
+      await page.evaluate(() => { const b = document.querySelector('#por-fora .banda .foto-botao'); b.focus({ preventScroll: true }); }); await page.keyboard.press('Tab'); await page.waitForTimeout(300);
       const t0 = await ler(); await page.waitForTimeout(900); const t1 = await ler();
       const foco = await page.evaluate(() => { const b = document.activeElement, r = b.getBoundingClientRect(); return { noRolo: !!b.closest('#por-fora [data-rolo]'), esq: Math.round(r.left) }; });
       await page.evaluate(() => document.activeElement.blur()); await page.waitForTimeout(200);
@@ -153,14 +199,19 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     const dias = page.locator('#meses > div').nth(1).locator('button[data-dia]:not([disabled])');
     let conta = ''; if (await dias.count() > 6) { await dias.nth(2).click(); await page.waitForTimeout(300); await dias.nth(5).click(); await page.waitForTimeout(1300); conta = await page.locator('#conta').innerText(); }
     const tempoVisivel = await page.evaluate(() => !document.getElementById('tempo').hidden && document.querySelectorAll('#tempo-dias li').length);
+    const painelCimo = await page.evaluate(async () => { const c = document.getElementById('painel-corpo'), t = document.getElementById('disp-titulo'); if (!c || !t) return { corpo: !!c }; c.scrollTop = c.scrollHeight; await new Promise((ok) => setTimeout(ok, 300)); const r = t.getBoundingClientRect(), rolou = c.scrollTop > 50; c.scrollTop = 0; return { corpo: true, rolou, tituloVisivel: r.top >= 0 && r.bottom <= window.innerHeight && r.height > 0 }; });
     const tempoNota = await page.locator('#tempo-nota').innerText();
     await page.screenshot({ path: `${out}/${modo}-${nome}-painel.jpg`, type: 'jpeg', quality: 80 });
     await page.evaluate(() => document.getElementById('conta').scrollIntoView({ block: 'start' })); await page.waitForTimeout(400);
     await page.screenshot({ path: `${out}/${modo}-${nome}-painel-conta.jpg`, type: 'jpeg', quality: 80 });
-    let pedidoEstado = '', confirmar = '', pedidoEstado2 = '';
+    let pedidoEstado = '', confirmar = '', pedidoEstado2 = '', pedidoSemPessoas = '';
     if (!(await page.locator('#form-pedido').isHidden())) {
       await page.fill('#form-pedido input[name=nome]', 'Ana Martins'); await page.fill('#form-pedido input[name=email]', modo === 'app' ? 'ana+preco@exemplo.pt' : 'ana@exemplo.pt');
       await page.evaluate(() => document.querySelector('#form-pedido').scrollIntoView()); await page.waitForTimeout(5200);
+      // sem «Quantas pessoas vêm?» escolhido (começa vazio, versão 6), o pedido não segue e pede-o
+      await page.click('#enviar-pedido'); await page.waitForTimeout(500);
+      pedidoSemPessoas = await page.locator('#pedido-estado').innerText();
+      await page.selectOption('#pax', '6'); await page.waitForTimeout(1300);
       await page.click('#enviar-pedido'); await page.waitForTimeout(1500);
       pedidoEstado = await page.locator('#pedido-estado').innerText();
       const btn = page.locator('.pedido-confirmar');
@@ -193,7 +244,7 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     // A página inteira, numa página nova do mesmo aparelho (ver a nota do cimo): é a última coisa que se faz com este aparelho
     const pi = await ctx.newPage(); await pi.goto(base + '/', { waitUntil: 'networkidle' }); await pi.waitForTimeout(800); await rolar(pi);
     await pi.screenshot({ path: `${out}/${modo}-${nome}-inteira.jpg`, fullPage: true, type: 'jpeg', quality: 80 }); await pi.close();
-    res.push({ modo, nome, movel, medidas, ligacao, pilula, comHash, hashAntigo, filaOutraVisita, sequencia, filaAnda, pergunta, citacoes, veu, campos, calNota, incertos, conta: conta.replace(/\s*\n\s*/g, ' | '), contaEpocas, tempoVisivel, tempoNota, tempoMedias, pedidoEstado, confirmar, pedidoEstado2, galImg, menu, pedidos, erros: erros.length, errosDistintos: [...new Set(erros)].slice(0, 3) });
+    res.push({ modo, nome, movel, medidas, ligacao, pilula, v6, painelCimo, pedidoSemPessoas, comHash, hashAntigo, filaOutraVisita, sequencia, filaAnda, pergunta, citacoes, veu, campos, calNota, incertos, conta: conta.replace(/\s*\n\s*/g, ' | '), contaEpocas, tempoVisivel, tempoNota, tempoMedias, pedidoEstado, confirmar, pedidoEstado2, galImg, menu, pedidos, erros: erros.length, errosDistintos: [...new Set(erros)].slice(0, 3) });
     await ctx.close();
   }
   await browser.close(); fs.writeFileSync(`${out}/resultado-${modo}.json`, JSON.stringify(res, null, 2)); console.log(JSON.stringify(res, null, 2));
@@ -204,6 +255,20 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (r.medidas.scrollWidth > r.medidas.innerWidth) falhas.push(q + 'rolagem horizontal');
     if (r.medidas.capitulos.some((y, i, v) => y < 0 || (i > 0 && y <= v[i - 1]))) falhas.push(q + 'os capítulos não estão todos na página, ou não estão pela ordem do menu (' + r.medidas.capitulos.join(', ') + ')');
     if (r.ligacao.url.includes('#') || Math.abs(r.ligacao.topo) > 4) falhas.push(q + 'a ligação interna deixou «#» no endereço ou não chegou à secção (' + r.ligacao.url + ', topo ' + r.ligacao.topo + ')');
+    const v = r.v6;
+    if (v.escada !== 'left/center/right/italic') falhas.push(q + 'o cartaz «Por fora · Sem pressa · Por dentro» não está em escada como na versão 2 (' + v.escada + ')');
+    if (v.setasCartaz) falhas.push(q + 'o cartaz voltou a ter setas');
+    if (v.bandas !== 4) falhas.push(q + 'faltam fotografias grandes a abrir os capítulos e Montemor (' + v.bandas + ' de 4)');
+    if (v.ecopista !== 1) falhas.push(q + 'a ecopista não tem a sua régua pequena de fotografias');
+    if (!v.n2Bloco) falhas.push(q + 'a Nacional 2 não está num só bloco, com o traço à esquerda e a fotografia dentro');
+    if (v.setasFrases !== 2 || v.tracos !== v.frases || !v.setaPassou) falhas.push(q + 'as frases de quem já ficou não têm as duas setas e um traço por frase, ou a seta não passa à seguinte (' + JSON.stringify({ setas: v.setasFrases, tracos: v.tracos, frases: v.frases, passou: v.setaPassou }) + ')');
+    if (!v.verTodas || v.galeriaVisiveis > 6 || !(v.galeriaTotal > 6)) falhas.push(q + 'a galeria não está curta (seis à vista) com «Ver todas» (' + v.galeriaVisiveis + ' de ' + v.galeriaTotal + ')');
+    if (!v.todas.fecharAVista || !v.todas.fecharAVista.rolou || !v.todas.fecharAVista.aVista) falhas.push(q + 'no álbum inteiro, depois de rolar as fotografias, o fechar saiu do ecrã (' + JSON.stringify(v.todas.fecharAVista) + ')');
+    if (!v.todas.aberto || v.todas.visiveis !== v.galeriaTotal || !v.todas.fechou || Math.abs(v.todas.paginaMexeu) > 2) falhas.push(q + '«Ver todas» não abriu o álbum inteiro por cima, ou ao fechar a página mexeu (' + JSON.stringify(v.todas) + ')');
+    if (!v.voltar.visivel || Math.abs(v.voltar.voltouA) > 4 || !v.voltar.someu) falhas.push(q + 'depois de saltar do fecho para a galeria, «Voltar onde estava» não apareceu ou não voltou ao mesmo ponto (' + JSON.stringify(v.voltar) + ')');
+    if (v.pax !== '') falhas.push(q + '«Quantas pessoas vêm?» não começa vazio (está «' + v.pax + '»)');
+    if (!r.painelCimo.corpo || !r.painelCimo.rolou || !r.painelCimo.tituloVisivel) falhas.push(q + 'no painel das datas, o cimo não ficou à vista depois de rolar (' + JSON.stringify(r.painelCimo) + ')');
+    if (r.pedidoSemPessoas && !/pessoas/i.test(r.pedidoSemPessoas)) falhas.push(q + 'o pedido sem «quantas pessoas» não o pediu («' + r.pedidoSemPessoas + '»)');
     if (r.pilula.apagada || Math.abs(r.pilula.topoDaCasa) > 4 || r.pilula.url.includes('#')) falhas.push(q + (r.movel ? 'um dedo na pílula de descer' : 'um clique na pílula de descer') + ', na capa, não levou à casa (' + JSON.stringify(r.pilula) + ')');
     if (r.comHash.url.includes('#') || r.comHash.y < 500) falhas.push(q + 'abrir com #galeria não levou à galeria ou não limpou o endereço');
     if (r.hashAntigo.url.includes('#') || r.hashAntigo.y > 5) falhas.push(q + 'abrir com #casa (endereço antigo) não ficou na capa');
@@ -258,5 +323,5 @@ async function rolar(page) { await page.evaluate(async () => { const passo = Mat
     if (!r.menu.fechado || Math.abs(r.menu.topo) > 2 || r.menu.hash || !r.menu.rola) falhas.push(q + 'escolher um destino no menu não fechou o menu e levou lá de imediato (' + JSON.stringify(r.menu) + ')');
   }
   if (falhas.length) { console.error('FALHOU:\n  ' + falhas.join('\n  ')); process.exit(1); }
-  console.log('OK · ' + res.length + ' tamanhos sem erros nem rolagem horizontal; capítulos pela ordem, ligações, a pílula de descer a levar à casa, fotografias a andar sozinhas (caixas, velocidade, sem contagens nem setas, rato, teclado e dedo), régua do fecho ao acaso e a andar, «Antes de chegar», frases, painel, tempo, fotografia e menu como deve ser');
+  console.log('OK · ' + res.length + ' tamanhos sem erros nem rolagem horizontal; capítulos pela ordem, ligações, a pílula de descer a levar à casa, o cartaz em escada, as fotografias grandes, a ecopista e a N2, as setas das frases, a galeria curta com «Ver todas», «Voltar onde estava», o cimo do painel e «Quantas pessoas?» vazio, fotografias a andar sozinhas (caixas, velocidade, sem contagens nem setas, rato, teclado e dedo), régua do fecho ao acaso e a andar, «Antes de chegar», frases, painel, tempo, fotografia e menu como deve ser');
 })().catch(e => { console.error(e); process.exit(1); });

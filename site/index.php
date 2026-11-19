@@ -106,17 +106,18 @@ $jsonld = [
 <main>
 <?php
 // A ordem da página é a do menu: a casa (o cartaz, os três capítulos e o fecho) · Montemor-o-Novo · a Nacional 2 · onde estamos ·
-// passear pelo Monte (a galeria) · antes de chegar · quem já ficou. Os contactos fecham a página.
-// Composição da versão 3 (16/11/2026), feita com o Lovable a pedido do Diogo: cada capítulo tem abertura própria.
+// antes de chegar · quem já ficou · passear pelo Monte (a galeria, curta). Os contactos fecham a página.
+// Composição da versão 3 (16/11/2026), feita com o Lovable a pedido do Diogo: cada capítulo tem abertura própria. Versão 6
+// (19/11/2026): a galeria passou para antes dos contactos (Diogo, nota 3: «no fim antes dos contactos?»; «propõe na próxima versão»).
 require __DIR__ . '/partes/casa.php';
 require __DIR__ . '/partes/momentos.php';
 require __DIR__ . '/partes/regua.php';
 require __DIR__ . '/partes/montemor.php';
 require __DIR__ . '/partes/nacional2.php';
 require __DIR__ . '/partes/onde.php';
-require __DIR__ . '/partes/galeria.php';
 require __DIR__ . '/partes/antes.php';
 require __DIR__ . '/partes/avaliacoes.php';
+require __DIR__ . '/partes/galeria.php';
 ?>
 </main>
 <?php

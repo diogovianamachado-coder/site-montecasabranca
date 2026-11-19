@@ -32,7 +32,24 @@
   </div>
 </div>
 
-<!-- Painel «Verificar disponibilidade». O véu (o escuro por trás) é um irmão do painel: apanha os toques fora dele. -->
+<!-- O álbum inteiro, por cima da página (versão 6): abre com «Ver todas as fotografias» na galeria; ao fechar, a página está onde
+     estava. Cobre a página; o cimo (o nome do álbum e o fechar) fica sempre à vista e só as fotografias rolam, por dentro. -->
+<div class="album-ecra" id="album-ecra" hidden role="dialog" aria-modal="true" aria-labelledby="album-ecra-titulo">
+  <div class="album-ecra-topo">
+    <h2 class="album-ecra-titulo" id="album-ecra-titulo"><?= e($C['galeria']['titulo']) ?></h2>
+    <button type="button" class="btn-redondo" data-fechar="album-ecra" aria-label="Fechar"><?= icone('fechar') ?></button>
+  </div>
+  <div class="album-ecra-corpo" id="album-ecra-corpo"><div class="album-ecra-lista" id="album-ecra-lista"></div></div>
+</div>
+
+<!-- «Voltar onde estava» (versão 6; Diogo, 18/11/2026: «quando se carrega a meio para ver as fotos, não há botão para retornar e
+     continuar a viagem no site»). Aparece depois de um salto grande por uma ligação (menu, «Passear pelo Monte», as palavras do
+     cartaz…) e leva ao ponto exato de onde se saiu; some depois de usado ou quando a pessoa sai da secção a que foi. -->
+<button type="button" class="voltar" id="voltar" hidden><?= icone('cima', 'ico ico-voltar') ?><span><?= e($C['voltar']) ?></span></button>
+
+<!-- Painel «Verificar disponibilidade». O véu (o escuro por trás) é um irmão do painel: apanha os toques fora dele.
+     Versão 6 (Diogo, 19/11/2026: «manter cabeçalho visível na disponibilidade»): o cimo (sobretítulo, título e fechar) fica sempre à
+     vista e só o resto rola por baixo dele (.painel-corpo). -->
 <div class="painel-fundo" id="disponibilidade" hidden>
   <div class="painel-veu" data-fechar="disponibilidade" aria-hidden="true"></div>
   <div class="painel" role="dialog" aria-modal="true" aria-labelledby="disp-titulo">
@@ -43,6 +60,7 @@
       </div>
       <button type="button" class="btn-redondo" data-fechar="disponibilidade" aria-label="Fechar"><?= icone('fechar') ?></button>
     </div>
+    <div class="painel-corpo" id="painel-corpo">
     <p class="painel-texto"><?= e($Dp['texto']) ?></p>
 
     <div class="calendario" id="calendario">
@@ -61,7 +79,7 @@
         <label><?= e($Dp['chegada']) ?><input type="date" name="entrada" id="entrada" required></label>
         <label><?= e($Dp['partida']) ?><input type="date" name="saida" id="saida" required></label>
         <label class="largo"><?= e($Dp['pessoas']) ?>
-          <select name="pax" id="pax"><?php for ($i = 1; $i <= $F['capacidade']; $i++): ?><option value="<?= $i ?>"<?= $i === 4 ? ' selected' : '' ?>><?= $i ?></option><?php endfor; ?></select>
+          <select name="pax" id="pax"><option value="" selected><?= e($Dp['pessoas_escolher']) ?></option><?php for ($i = 1; $i <= $F['capacidade']; $i++): ?><option value="<?= $i ?>"><?= $i ?></option><?php endfor; ?></select>
         </label>
       </form>
       <p class="nota-pequena nota-casa"><?= e($Dp['nota_casa']) ?></p>
@@ -103,6 +121,7 @@
     </form>
 
     <p class="nota-pequena painel-nota"><?= e($Dp['nota_preco']) ?></p>
+    </div>
   </div>
 </div>
 

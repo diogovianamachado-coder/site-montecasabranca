@@ -234,22 +234,25 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .estudo-capa a { display: inline-flex; align-items: center; justify-content: center; margin-left: .4rem; width: 1.75rem; height: 1.75rem; border-radius: 999px; border: 1px solid rgba(var(--claro-rgb), .5); }
 .estudo-capa a[aria-current] { background: var(--sobre-foto); color: var(--texto); border-color: var(--sobre-foto); }
 
-/* ---- O cartaz «Por fora · Sem pressa · Por dentro» ---- (enche o ecrã; cada palavra, com a sua seta, leva ao capítulo) */
-.cartaz { display: flex; align-items: center; min-height: 100vh; min-height: 100svh; padding: 6rem 0; }
-.cartaz-linhas { margin-top: 2rem; border-bottom: 1px solid var(--borda); font-size: 3rem; font-size: clamp(2.5rem, 13.3vw, 3.25rem); line-height: 1; }
-.cartaz-linhas a { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--borda); padding: 1rem 0; transition: color .3s, opacity .9s var(--ease), transform .9s var(--ease); }
-.cartaz-linhas a:nth-child(2) { transition-delay: 0s, .15s, .15s; }
-.cartaz-linhas a:nth-child(3) { transition-delay: 0s, .3s, .3s; }
-.js .reveal:not(.is-in) .cartaz-linhas a { opacity: 0; transform: translateY(1rem); }
-.ico-seta { margin-left: 1rem; width: 1.75rem; height: 1.75rem; stroke-width: 1.5; color: var(--primario); transition: transform .5s var(--ease); }
-.cartaz-texto { margin-top: 2.5rem; max-width: 36rem; font-size: 1.125rem; line-height: 1.625; color: rgba(var(--texto-rgb), .85); }
-@media (hover: hover) { .cartaz-linhas a:hover { color: var(--primario); } .cartaz-linhas a:hover .ico-seta { transform: translate(.25rem, -.25rem); } }
+/* ---- O cartaz «Por fora · Sem pressa · Por dentro» ---- em escada, como na versão 2 (Diogo, 19/11/2026: «menu em escada»):
+   «Por fora» à esquerda, «Sem pressa» ao meio, em itálico e na cor terracota, «Por dentro» à direita, sem setas. Cada palavra leva ao
+   seu capítulo; entram uma a seguir à outra. Enche o ecrã (menos a barra de baixo). */
+.cartaz { display: flex; align-items: center; min-height: 100vh; min-height: calc(100svh - var(--dock)); padding: 4.5rem 0; }
+.cartaz .contentor { width: 100%; }
+.cartaz-linhas { margin: 1.75rem auto 0; max-width: 21.5rem; font-size: 3.1rem; font-size: clamp(2.75rem, 14.5vw, 4.25rem); line-height: 1.08; }
+.cartaz-linhas .degrau { display: block; transition: color .3s, opacity .9s var(--ease), transform .9s var(--ease); }
+.cartaz-linhas .degrau-1 { text-align: left; }
+.cartaz-linhas .degrau-2 { text-align: center; font-style: italic; color: var(--primario); transition-delay: 0s, .2s, .2s; }
+.cartaz-linhas .degrau-3 { text-align: right; transition-delay: 0s, .4s, .4s; }
+.js .reveal:not(.is-in) .cartaz-linhas .degrau { opacity: 0; transform: translateY(1.1rem); }
+.cartaz-texto { margin: 2.25rem auto 0; max-width: 34rem; text-align: center; font-size: 1.125rem; line-height: 1.65; color: rgba(var(--texto-rgb), .85); }
+@media (hover: hover) { .cartaz-linhas .degrau:hover { color: var(--primario); } .cartaz-linhas .degrau-2:hover { color: var(--texto); } }
 @media (min-width: 768px) {
-  .cartaz { padding: 8rem 0; }
-  .cartaz-linhas { margin-top: 2.5rem; font-size: 6rem; }
-  .cartaz-linhas a { padding: 1.5rem 0; }
-  .ico-seta { width: 2.5rem; height: 2.5rem; }
-  .cartaz-texto { margin-left: auto; font-size: 1.25rem; }
+  .cartaz { padding: 6rem 0; }
+  .cartaz-linhas { max-width: 56rem; font-size: 6.5rem; font-size: clamp(4.5rem, 8vw, 6.5rem); }
+  .cartaz-linhas .degrau-1 { padding-right: 2.6em; }
+  .cartaz-linhas .degrau-3 { padding-left: 2.6em; }
+  .cartaz-texto { margin-top: 2.75rem; font-size: 1.25rem; }
 }
 
 /* ---- Capítulos ----
@@ -276,6 +279,39 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .abertura-titulo { font-size: 4.5rem; }
   .abertura-lado { margin-left: auto; }
   .abertura-lado .abertura-ligacao { text-align: right; }
+}
+
+/* ---- Fotografias grandes a abrir os capítulos (versão 6, 19/11/2026) ----
+   As «bandas» da versão 1 (Diogo, 18/11: «havia umas fotos que tinham vida na primeira versão … vê como incorporar essa parte
+   também»): uma fotografia de lado a lado, com o sobretítulo e o título escritos por cima, em baixo, sobre uma sombra. Entra a
+   acender quando chega ao ecrã (data-entra) e passa devagar por trás enquanto se rola: a caixa .foto-mexe é mais alta do que a banda
+   (120 %) e o site.js desloca-a um pouco a cada passo da rolagem («Fotografias que passam devagar»), em qualquer telemóvel. Um toque
+   abre-a em grande. Altura escrita (70 % do ecrã no telemóvel, 85 % no computador; Montemor, mais baixa). */
+.capitulo-com-banda { padding-top: 0; }
+.banda { position: relative; height: 70vh; height: 70svh; min-height: 24rem; max-height: 56rem; overflow: hidden; background: var(--areia); color: var(--sobre-foto); }
+.banda-media { height: 58vh; height: 58svh; min-height: 21rem; }
+.banda .foto-botao { border-radius: 0; }
+.foto-mexe { position: absolute; left: 0; right: 0; top: -10%; display: block; height: 120%; }
+.foto-mexe picture, .foto-mexe img { display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.banda-sombra { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(to bottom, rgba(var(--sombra-rgb), 0) 0%, rgba(var(--sombra-rgb), .26) 45%, rgba(var(--sombra-rgb), .62) 100%); pointer-events: none; }
+.banda-texto { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: 2.25rem; text-shadow: 0 1px 18px rgba(var(--sombra-rgb), .45); }
+.banda-titulo { margin-top: .75rem; font-size: 3.5rem; font-size: clamp(3rem, 15.4vw, 3.75rem); line-height: 1; }
+.banda-media .banda-titulo { max-width: 40rem; font-size: 2.6rem; font-size: clamp(2.3rem, 12vw, 3rem); line-height: 1.06; }
+@media (prefers-reduced-motion: no-preference) {
+  .banda.entrou .foto-mexe img { animation: banda-acende 1.8s var(--ease) both; }
+  @keyframes banda-acende { from { opacity: .25; transform: scale(1.07); } to { opacity: 1; transform: none; } }
+}
+.capitulo-com-banda .capitulo-grelha { margin-top: 3rem; }
+.abertura-sem-titulo { margin-top: 3rem; max-width: 42rem; }
+@media (min-width: 768px) {
+  .banda { height: 85vh; height: 85svh; max-height: 60rem; }
+  .banda-media { height: 70vh; height: 70svh; }
+  .banda-texto { padding-bottom: 3.5rem; }
+  .banda-titulo { font-size: 6rem; }
+  .banda-media .banda-titulo { font-size: 4.5rem; }
+  .capitulo-com-banda .capitulo-grelha { margin-top: 5rem; }
+  .abertura-sem-titulo { margin-top: 5rem; margin-left: auto; }
+  .abertura-sem-titulo .abertura-ligacao { text-align: right; }
 }
 
 /* ---- Rolos ---- (as fotografias que deslizam sozinhas; inc/util.php → rolo(); site.js → «Rolos»)
@@ -308,9 +344,25 @@ img[style*="--pos"] { object-position: var(--pos, center); }
    enquadrar essa foto no mosaico que estamos a passar»). As fotografias ao alto são recortadas na caixa (conteudo.php, 'pos'). */
 .rolo-fila { margin-top: 1.5rem; }
 .rolo-fila .rolo-item { width: 290px; height: 220px; margin-right: .75rem; }
+/* A régua pequena das partes de apoio (a ecopista; versão 6, Diogo, 19/11/2026: «uma régua de fotos não tão grande»). */
+.rolo-mini { margin-top: 1.5rem; }
+.rolo-mini .rolo-item { width: 230px; height: 170px; margin-right: .625rem; }
+/* Ao chegarem ao ecrã, as primeiras fotografias de cada faixa entram uma a uma, a subir e a acender (versão 6: como na versão 1). */
+@media (prefers-reduced-motion: no-preference) {
+  .rolo.entrou, .banda.entrou { animation: none; }
+  .rolo.entrou .rolo-serie:first-child .rolo-item { animation: rolo-entra 1s var(--ease) both; }
+  /* termina em translate3d(0, 0, 0) e não em «none»: cada caixa continua com a sua camada (ver acima) */
+  @keyframes rolo-entra { from { opacity: 0; transform: translate3d(0, 1.5rem, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+  .rolo.entrou .rolo-serie:first-child .rolo-item:nth-child(2) { animation-delay: .16s; }
+  .rolo.entrou .rolo-serie:first-child .rolo-item:nth-child(3) { animation-delay: .32s; }
+  .rolo.entrou .rolo-serie:first-child .rolo-item:nth-child(4) { animation-delay: .48s; }
+  .rolo.entrou .rolo-serie:first-child .rolo-item:nth-child(5) { animation-delay: .64s; }
+}
 @media (min-width: 768px) {
   .rolo { margin-top: 3.5rem; }
   .rolo-pista { animation-duration: var(--dur-l, 90s); }
+  .rolo-mini { margin-top: 2rem; }
+  .rolo-mini .rolo-item { width: 300px; height: 220px; margin-right: .875rem; }
   .rolo-seq .rolo-item { width: 760px; width: min(760px, calc(100vw - 2 * var(--pad) - 4rem)); max-width: none; height: 560px; height: clamp(380px, 68vh, 560px); margin-right: 1.25rem; }
   .rolo-fila { margin-top: 2rem; }
   .rolo-fila .rolo-item { width: 380px; height: 280px; margin-right: 1rem; }
@@ -340,35 +392,33 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .sub-texto { grid-column: 6 / span 7; margin-top: 0; }
 }
 
-/* ---- Nacional 2: a fotografia da casa ao entardecer e o programa de duas noites ---- */
-.foto-larga { margin-top: 3rem; }
-.foto-larga-caixa { position: relative; width: 100%; height: 340px; overflow: hidden; border-radius: 2px; background: var(--areia); }
-.foto-larga figcaption { margin-top: .75rem; font-size: .875rem; color: rgba(var(--texto-rgb), .62); }
-/* Enquanto a página rola, a fotografia passa devagar por trás da sua caixa (ligado à rolagem, pelo próprio browser; onde não
-   existe, a fotografia fica parada na caixa, como sempre). */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .foto-larga-caixa { overflow: clip; }   /* «clip» e não «hidden»: com «hidden» a caixa seria ela própria a zona de rolagem e a fotografia não se mexia */
-    .foto-larga-caixa img { top: -10%; height: 120%; animation: foto-passa linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
-    @keyframes foto-passa { from { transform: translate3d(0, -7%, 0); } to { transform: translate3d(0, 7%, 0); } }
-  }
-}
-.programa { margin-top: 4rem; border-top: 1px solid var(--borda); }
-.programa li { border-bottom: 1px solid var(--borda); padding: 1.75rem 0; }
-.programa h3 { font-size: 1.875rem; line-height: 1.2; color: var(--primario); }
-.programa p { margin-top: .75rem; max-width: 42rem; font-size: 1.125rem; line-height: 1.625; color: rgba(var(--texto-rgb), .85); }
-.programa-rodape { margin-top: 1.75rem; }
-.programa-rodape .nota-capitulo { margin-top: 0; max-width: none; }
-.programa-rodape .ligacao-seta { margin-top: 1rem; }
-@media (min-width: 768px) {
-  .foto-larga { margin-top: 4rem; }
-  .foto-larga-caixa { height: 65vh; min-height: 380px; max-height: 700px; }
-  .programa { margin-top: 6rem; }
-  .programa li { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: baseline; padding: 2.25rem 0; }
-  .programa h3 { grid-column: 1 / span 3; font-size: 2.25rem; }
-  .programa p { grid-column: 5 / span 8; margin-top: 0; }
-  .programa-rodape { display: flex; align-items: center; justify-content: space-between; }
-  .programa-rodape .ligacao-seta { margin-top: 0; margin-left: 2rem; }
+/* ---- Nacional 2: um só bloco, como na versão 2 (versão 6, 19/11/2026) ----
+   O traço fino à esquerda junta o sobretítulo, o título, a mensagem, a fotografia da casa ao entardecer e o programa pequeno (os
+   dias em itálico, a cor, e o texto ao lado), a estadia mínima e a ligação (Diogo: «dar importância às fotos e mensagem e ter o
+   programa como acessório»). No computador, o texto e o programa à esquerda e a fotografia, alta, à direita. A fotografia passa
+   devagar ao rolar (a mesma .foto-mexe das fotografias grandes) e abre-se em grande com um toque. */
+.n2-bloco { border-left: 2px solid var(--primario); padding-left: 1.25rem; }
+.n2-titulo { margin-top: .75rem; font-size: 2.5rem; font-size: clamp(2.2rem, 11.5vw, 2.75rem); line-height: 1.08; }
+.n2-mensagem { margin-top: 1.25rem; max-width: 36rem; font-size: 1.1875rem; line-height: 1.6; color: rgba(var(--texto-rgb), .88); }
+.n2-foto { position: relative; margin-top: 2rem; height: 300px; overflow: hidden; border-radius: 2px; background: var(--areia); }
+.n2-foto .foto-botao { border-radius: 2px; }
+.n2-programa { margin-top: 2rem; }
+.programa { border-top: 1px solid var(--borda); }
+.programa li { display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); grid-gap: .75rem; gap: .75rem; align-items: baseline; padding: .85rem 0; border-bottom: 1px solid var(--borda); }
+.programa-dia { font-family: var(--serif); font-style: italic; font-size: 1.125rem; line-height: 1.4; color: var(--primario); }
+.programa-o { font-size: .9375rem; line-height: 1.55; color: rgba(var(--texto-rgb), .82); }
+.programa-nota { margin-top: 1rem; font-size: .875rem; line-height: 1.6; color: rgba(var(--texto-rgb), .62); }
+.n2-programa .abertura-ligacao { margin-top: 1rem; }
+@media (min-width: 900px) {
+  .n2-bloco { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr; padding-left: 2.5rem; }
+  .n2-texto { grid-column: 1 / span 6; grid-row: 1; }
+  .n2-programa { grid-column: 1 / span 6; grid-row: 2; margin-top: 2.5rem; }
+  .n2-foto { grid-column: 8 / span 5; grid-row: 1 / span 2; margin-top: 0; height: auto; min-height: 520px; }
+  .n2-titulo { font-size: 3.5rem; }
+  .n2-mensagem { font-size: 1.25rem; }
+  .programa li { grid-template-columns: 6.5rem minmax(0, 1fr); padding: 1rem 0; }
+  .programa-dia { font-size: 1.25rem; }
+  .programa-o { font-size: 1rem; }
 }
 
 /* ---- Onde estamos ---- (faixa cor de oliva) */
@@ -399,6 +449,9 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 /* Duas colunas no telemóvel, três no computador. A altura de cada caixa é escrita (largura da coluna × 3/4), sem aspect-ratio. */
 .album { margin-top: 1.5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-gap: .625rem; gap: .625rem; }
 .album.escondido { display: none; }
+/* Na página, só as primeiras seis de cada álbum (versão 6; Diogo, 19/11/2026, nota 3); «Ver todas» abre o álbum inteiro por cima. */
+.album-curto li:nth-child(n+7) { display: none; }
+.ver-todas-linha { margin-top: 2rem; text-align: center; }
 /* Ao abrir um álbum, as miniaturas entram umas a seguir às outras (as doze primeiras em cadeia; as restantes juntas). */
 .album li { animation: entrar-leve .7s var(--ease) both; animation-delay: .5s; }
 .album li:nth-child(1) { animation-delay: 0s; } .album li:nth-child(2) { animation-delay: .04s; } .album li:nth-child(3) { animation-delay: .08s; }
@@ -449,6 +502,22 @@ img[style*="--pos"] { object-position: var(--pos, center); }
 .citacao blockquote::before { content: "«"; }
 .citacao blockquote::after { content: "»"; }
 .citacao-origem { margin-top: 1.75rem; font-size: .875rem; color: rgba(var(--texto-rgb), .62); }
+/* Setas e traços (versão 6; Diogo, 18/11/2026: «… que há mais avaliações e que quem visita pode ver mais»): um traço por frase; o
+   da frase à vista enche-se enquanto ela está no ecrã (é o relógio da roda: quando acaba, vem a seguinte), os de trás ficam cheios.
+   As setas passam à anterior e à seguinte. Só com JavaScript (sem ele as frases não rodam). */
+.citacoes-passar { display: none; align-items: center; justify-content: center; margin-top: 2.25rem; }
+.js .citacoes-passar { display: flex; }
+.citacoes-seta { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; border: 1px solid var(--borda); color: var(--texto); transition: border-color .3s, color .3s; }
+.citacoes-seta .ico { width: 1.1rem; height: 1.1rem; }
+@media (hover: hover) { .citacoes-seta:hover { border-color: var(--primario); color: var(--primario); } }
+.citacoes-tracos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; max-width: 60%; margin: 0 1rem; }
+.citacoes-tracos li { position: relative; width: .9rem; height: 3px; margin: .4rem .15rem; overflow: hidden; border-radius: 3px; background: var(--borda); }
+.citacoes-tracos li span { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--primario); -webkit-transform: scaleX(0); transform: scaleX(0); -webkit-transform-origin: left center; transform-origin: left center; }
+.citacoes-tracos li.lida span { -webkit-transform: none; transform: none; }
+.citacoes-tracos li.ativo span { animation: traco-enche 6s linear forwards; }
+.citacoes-passar.quieta .citacoes-tracos li.ativo span { -webkit-animation-play-state: paused; animation-play-state: paused; }
+@keyframes traco-enche { from { transform: scaleX(0); } to { transform: none; } }
+@media (min-width: 768px) { .citacoes-tracos li { width: 1.4rem; margin: .4rem .2rem; } }
 /* As três notas (Booking, Airbnb, Google): um anel fino que se enche até à nota. Só a nota, a escala e o nome; sem ligações. */
 .notas { margin: 5rem auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; }
 .nota { display: flex; flex-direction: column; align-items: center; }
@@ -536,22 +605,50 @@ img[style*="--pos"] { object-position: var(--pos, center); }
   .menu-sub { font-size: 1.0625rem; }
 }
 
+/* ---- O álbum inteiro, por cima da página (versão 6) ----
+   Abre com «Ver todas as fotografias». Cobre a página; o cimo (o nome do álbum e o fechar) fica sempre à vista e só as fotografias
+   rolam, por dentro (sem mexer na rolagem da página); uma fotografia tocada abre-se em grande por cima; ao fechar, a página está onde
+   estava. */
+.album-ecra { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 55; display: flex; flex-direction: column; background: var(--fundo); animation: aparecer .25s both; }
+.album-ecra[hidden] { display: none; }
+.album-ecra-topo { display: flex; flex: none; align-items: center; justify-content: space-between; width: 100%; max-width: var(--larg); margin: 0 auto; padding: calc(1rem + env(safe-area-inset-top, 0px)) var(--pad) .75rem; }
+.album-ecra-titulo { font-family: var(--serif); font-size: 1.875rem; line-height: 1.2; }
+.album-ecra-corpo { flex: 1 1 auto; min-height: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.album-ecra-lista { min-height: calc(100% + 1px); max-width: var(--larg); margin: 0 auto; padding: 0 var(--pad) calc(2rem + env(safe-area-inset-bottom, 0px)); }
+.album-ecra .album { margin-top: .25rem; }
+@media (min-width: 768px) { .album-ecra-titulo { font-size: 2.5rem; } }
+
+/* ---- «Voltar onde estava» (versão 6; Diogo, 18/11/2026) ----
+   Depois de um salto grande por uma ligação, um botão pequeno no canto de cima leva ao ponto exato de onde se saiu. Some depois de
+   usado ou quando a pessoa sai da secção a que foi. A seta aponta para onde se volta. */
+.voltar { position: fixed; top: calc(.75rem + env(safe-area-inset-top, 0px)); right: .75rem; z-index: 39; display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1rem 0 .85rem; border-radius: 999px; border: 1px solid var(--borda); background: var(--cartao); color: var(--texto); font-size: .875rem; font-weight: 600; box-shadow: 0 .5rem 1.5rem rgba(var(--sombra-rgb), .16); animation: aparecer .35s both; }
+.voltar[hidden] { display: none; }
+.voltar .ico-voltar { width: 1rem; height: 1rem; margin-right: .45rem; color: var(--primario); }
+.voltar.para-baixo .ico-voltar { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+@media (hover: hover) { .voltar:hover { border-color: var(--primario); } }
+@media (min-width: 768px) { .voltar { top: calc(1.25rem + env(safe-area-inset-top, 0px)); right: 1.5rem; } }
+
 /* ---- Painel «Verificar disponibilidade» ----
    No telemóvel sobe de baixo; no computador entra pela direita. O véu (o escuro por trás) é um irmão do painel e não deixa passar os
    gestos (touch-action: none); o painel rola por dentro e segura a rolagem (overscroll-behavior). A página por trás não é bloqueada. */
 .painel-fundo { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; }
 .painel-fundo[hidden] { display: none; }
 .painel-veu { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: rgba(var(--texto-rgb), .45); touch-action: none; animation: aparecer .3s both; }
-.painel { position: relative; width: 100%; max-width: 36rem; max-height: 94vh; max-height: 94svh; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; border-radius: 8px 8px 0 0; background: var(--fundo); padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom, 0px)); animation: subir .4s var(--ease) both; }
-.painel-cabeca { display: flex; align-items: flex-start; justify-content: space-between; }
+.painel { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 36rem; max-height: 94vh; max-height: 94svh; overflow: hidden; border-radius: 8px 8px 0 0; background: var(--fundo); animation: subir .4s var(--ease) both; }
+/* O cimo fica sempre à vista (versão 6; Diogo, 19/11/2026: «manter cabeçalho visível na disponibilidade»); só o corpo rola. */
+.painel-cabeca { display: flex; flex: none; align-items: flex-start; justify-content: space-between; padding: 1.25rem 1.25rem .9rem; border-bottom: 1px solid var(--borda); }
+.painel-corpo { flex: 1 1 auto; min-height: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding: 1rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom, 0px)); }
 .painel-cabeca .btn-redondo { margin-left: .75rem; }
-.painel-titulo { margin-top: .5rem; font-size: 1.875rem; line-height: 1.2; }
+.painel-titulo { margin-top: .4rem; font-size: 1.625rem; line-height: 1.2; }
 .painel-subtitulo { font-size: 1.5rem; line-height: 1.25; }
 .painel-texto { margin-top: 1rem; font-size: 1rem; line-height: 1.625; color: rgba(var(--texto-rgb), .8); }
+.painel-corpo > .painel-texto:first-child { margin-top: 0; }
 .painel-nota { margin-top: 1.5rem; }
 @media (min-width: 768px) {
   .painel-fundo { align-items: stretch; justify-content: flex-end; }
-  .painel { height: 100%; max-height: none; border-radius: 0; padding: 2rem; animation-name: da-direita; }
+  .painel { height: 100%; max-height: none; border-radius: 0; animation-name: da-direita; }
+  .painel-cabeca { padding: 2rem 2rem 1.25rem; }
+  .painel-corpo { padding: 1.25rem 2rem 2rem; }
   .painel-titulo { font-size: 2.25rem; }
 }
 /* O calendário */

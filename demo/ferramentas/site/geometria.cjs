@@ -11,6 +11,8 @@
 //      cada rolo de fotografias, posto no ecrã, anda sozinho, SEM ESPERAR POR NADA; anda também com o JavaScript desligado e com
 //      «reduzir movimento» pedido ao sistema (mais devagar); o dedo parado segura-o e o dedo para o lado leva-o.
 //   7. A capa: ao rolar, a fotografia fica para trás (telemóvel) ou presa ao ecrã (computador).
+//   9. As fotografias grandes que abrem os capítulos (versão 6) passam devagar ao rolar, sem deixar ver a borda; o cimo do painel das
+//      datas fica à vista quando o corpo rola.
 //   8. A pílula de descer (versão 6, 19/11/2026: «Faltou esta parte»): presa ao ecrã, ao centro; na capa por baixo do botão, depois
 //      a flutuar por cima da barra; nunca por cima de letras; cada toque leva à secção seguinte; no fim volta ao topo; sem JavaScript
 //      fica na capa.
@@ -124,7 +126,8 @@ async function medirRolo(page, k) {
         return { aberto: !document.getElementById('disponibilidade').hidden, larguraPainel: Math.round(pr.width), transbordo: p.scrollWidth - p.clientWidth, fora };
       });
       await page.screenshot({ path: `${out}/geo-${motor}-${nome}-painel.jpg`, type: 'jpeg', quality: 70 }).catch(() => {});
-      await page.evaluate(() => { const c = document.querySelector('#disponibilidade .painel'); if (c) c.scrollTop = c.scrollHeight * 0.45; }); await page.waitForTimeout(400);
+      // Versão 6: só o corpo do painel rola; o cimo (o título e o fechar) tem de continuar à vista (Diogo: «manter cabeçalho visível»).
+      r.painelCimo = await page.evaluate(async () => { const c = document.querySelector('#painel-corpo') || document.querySelector('#disponibilidade .painel'), t = document.getElementById('disp-titulo'); c.scrollTop = c.scrollHeight * 0.45; await new Promise((ok) => setTimeout(ok, 400)); const q = t ? t.getBoundingClientRect() : null; return { rolou: c.scrollTop > 40, tituloVisivel: !!q && q.top >= 0 && q.bottom <= innerHeight && q.height > 0 }; });
       await page.screenshot({ path: `${out}/geo-${motor}-${nome}-painel-contas.jpg`, type: 'jpeg', quality: 70 }).catch(() => {});
       await page.keyboard.press('Escape'); await page.waitForTimeout(500);
     }
@@ -219,6 +222,25 @@ async function medirRolo(page, k) {
       return res;
     });
 
+    // 9 · as fotografias grandes que abrem os capítulos (versão 6: as «bandas» da versão 1) passam devagar por trás ao rolar: ao rolar
+    //     250 px com a fotografia à vista, a sua caixa interior desloca-se (sem sair da fotografia: no máximo 10 % da altura).
+    r.bandas = await page.evaluate(async () => {
+      const esperar = (ms) => new Promise((ok) => setTimeout(ok, ms));
+      const out = [];
+      for (const b of Array.from(document.querySelectorAll('[data-mexe]')).slice(0, 2)) {
+        const m = b.querySelector('.foto-mexe'); if (!m) { out.push({ falta: true }); continue; }
+        const topo = b.getBoundingClientRect().top + scrollY;
+        window.dispatchEvent(new Event('wheel')); window.scrollTo({ top: Math.max(0, topo - innerHeight * 0.6), behavior: 'instant' }); await esperar(300);
+        const y1 = m.getBoundingClientRect().top - b.getBoundingClientRect().top;
+        window.scrollTo({ top: Math.max(0, topo - innerHeight * 0.6) + 250, behavior: 'instant' }); await esperar(300);
+        const y2 = m.getBoundingClientRect().top - b.getBoundingClientRect().top, h = b.getBoundingClientRect().height;
+        const ib = b.getBoundingClientRect(), im = m.getBoundingClientRect();
+        out.push({ mexeu: Math.round(Math.abs(y2 - y1) * 10) / 10, cobre: im.top <= ib.top + 1 && im.bottom >= ib.bottom - 1, altura: Math.round(h) });
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' }); await esperar(200);
+      return out;
+    });
+
     // 6 · movimento: cada rolo, posto no ecrã, anda sozinho; o dedo parado segura-o, o dedo para o lado leva-o e, largado, continua
     await page.keyboard.press('Escape').catch(() => {}); await page.mouse.move(2, 2).catch(() => {});
     const nRolos = await page.locator('[data-rolo]').count();
@@ -254,12 +276,15 @@ async function medirRolo(page, k) {
     if (r.caixasMas.length) falhas.push(`${q}: ${r.caixasMas.length} fotografia(s) em fila com a caixa mais larga do que a fotografia, p. ex. ${r.caixasMas.slice(0, 3).map((c) => `${c.foto} (caixa ${c.caixa}, fotografia ${c.fotografia})`).join(' · ')}`);
     r.faixas.filter((f) => f.coberto < 0.85).forEach((f) => falhas.push(`${q}: na faixa «${f.faixa}» só ${Math.round(f.coberto * 100)} % do que se vê é fotografia`));
     if (r.porCarregar.length) falhas.push(`${q}: ${r.porCarregar.length} fotografia(s) passaram pelo ecrã sem carregar, p. ex. ${r.porCarregar.slice(0, 4).join(', ')}`);
+    if (r.painelCimo && (!r.painelCimo.rolou || !r.painelCimo.tituloVisivel)) falhas.push(`${q}: no painel das datas, depois de rolar, o cimo (título e fechar) saiu do ecrã (${JSON.stringify(r.painelCimo)})`);
     if (r.painel && (!r.painel.aberto || r.painel.fora.length || r.painel.transbordo > 1)) falhas.push(`${q}: painel das datas ${!r.painel.aberto ? 'não abriu' : 'com campos fora da largura: ' + (r.painel.fora.slice(0, 4).join(' · ') || 'transbordo de ' + r.painel.transbordo + ' px')}`);
     if (r.menu && (!r.menu.menuFechado || Math.abs(r.menu.topoDoAlvo) > 160 || !r.menu.paginaRola || r.menu.endereco)) falhas.push(`${q}: o menu não levou a ${r.menu.destino} como deve (fechado: ${r.menu.menuFechado}, topo do destino: ${r.menu.topoDoAlvo}, a página rola: ${r.menu.paginaRola}, endereço: «${r.menu.endereco}»)`);
     if (r.erros.length) falhas.push(`${q}: erros de JavaScript: ${r.erros.join(' | ')}`);
     if (!r.capa) falhas.push(`${q}: não encontrei a fotografia da capa`);
     else if (nome === 'telemovel' && !(r.capa.subiu >= 140 && r.capa.subiu <= 160)) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; com a paralaxe da versão 2 sobe 150 (fica para trás um quarto da rolagem)`);
     else if (nome === 'computador' && Math.abs(r.capa.subiu) > 6) falhas.push(`${q}: ao rolar 200 px, a fotografia da capa subiu ${r.capa.subiu} px; no computador está presa ao ecrã e não sobe`);
+    if (!r.bandas.length) falhas.push(`${q}: não encontrei as fotografias grandes que passam devagar (data-mexe)`);
+    r.bandas.forEach((bd, i) => { if (bd.falta || !(bd.mexeu >= 6) || !bd.cobre) falhas.push(`${q}: a fotografia grande n.º ${i + 1} não passou devagar ao rolar, ou deixou ver a borda (${JSON.stringify(bd)})`); });
     const pl = r.pilula;
     if (!pl) falhas.push(`${q}: não encontrei a pílula de descer (#pilula)`);
     else {
@@ -295,6 +320,8 @@ async function medirRolo(page, k) {
     const telemovelSem = { ...telemovel, javaScriptEnabled: false };
     const ctx = await browser.newContext({ ...telemovelSem, locale: 'pt-PT' }); const page = await ctx.newPage();
     await page.goto(base + '/#por-fora', { waitUntil: 'load' }); await page.waitForTimeout(1200);
+    // (desde a versão 6 o capítulo abre com uma fotografia grande: a faixa fica mais abaixo e é preciso trazê-la ao ecrã)
+    await page.locator('[data-rolo]').first().scrollIntoViewIfNeeded().catch(() => {}); await page.waitForTimeout(600);
     const sem = { caixa: null, mexeu: false };
     const cx = await page.locator('[data-rolo]').first().boundingBox().catch(() => null);
     if (cx) {

@@ -22,24 +22,29 @@ return [
 
     // ---- Menus ----------------------------------------------------------------
     // A barra de cima da capa (só no computador) e o menu completo (botão «Menu»). A ordem é a da página.
+    // Versão 6 (Diogo, 19/11/2026, nota 3: «reposicionar a secção de fotos … no fim antes dos contactos?»; «propõe na próxima versão»):
+    // a galeria passou para antes dos contactos, mais curta, e os dois menus mudaram com ela.
     'menu_topo' => [
         ['Montemor-o-Novo', '#montemor'],
         ['N2', '#nacional2'],
-        ['Passear pelo Monte', '#galeria'],      // a galeria (Diogo, 15/11/2026: «vamos passar a chamar "passear pelo monte"»)
         ['Antes de chegar', '#antes-de-chegar'],
         ['Avaliações', '#avaliacoes'],
+        ['Passear pelo Monte', '#galeria'],      // a galeria (Diogo, 15/11/2026: «vamos passar a chamar "passear pelo monte"»)
     ],
     'menu' => [
         // 'sub' = a linha pequena por baixo: cada palavra leva ao seu momento da casa
         ['A casa', '#a-casa', 'sub' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']]],
         ['Montemor-o-Novo', '#montemor'],
         ['Nacional 2', '#nacional2'],
-        ['Passear pelo Monte', '#galeria'],
         ['Antes de chegar', '#antes-de-chegar'],
         ['Quem já ficou', '#avaliacoes'],
+        ['Passear pelo Monte', '#galeria'],
         ['Contactos', '#contactos'],
     ],
     'menu_rodape' => 'Uma casa inteira no Alentejo',
+    // O botão que aparece depois de um salto a meio da página (versão 6; Diogo, 18/11/2026: «precisa de um botão ou seta para voltar
+    // ao ponto onde estava»).
+    'voltar' => 'Voltar onde estava',
 
     // ---- 1. Início (capa) -------------------------------------------------------
     'inicio' => [
@@ -63,18 +68,20 @@ return [
     // ---- 2. A casa: a mensagem «Por fora · Sem pressa · Por dentro» ----------------
     'casa' => [
         'eyebrow' => 'A casa',
-        'titulo' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']],   // três linhas, cada uma com a sua seta
+        'titulo' => [['Por fora', '#por-fora'], ['Sem pressa', '#sem-pressa'], ['Por dentro', '#por-dentro']],   // em escada, sem setas (versão 6)
         'texto' => 'Uma casa inteira, só vossa, para abrir as portas e deixar o dia acontecer',
     ],
 
     // ---- 3. Os três capítulos da casa -----------------------------------------------
     // 'palavra' é o título grande do capítulo (a mesma do cartaz); 'frase' vem por baixo, a cor; 'texto' é o parágrafo e 'nota' a linha pequena.
-    // As fotografias passam uma de cada vez, em sequência e em círculo: o dedo leva-as, as setas também, e avançam sozinhas devagar.
+    // 'banda' é a fotografia grande, de lado a lado, que abre o capítulo com a palavra escrita por cima e passa devagar ao rolar (versão
+    // 6; as fotografias «com vida» da versão 1, nota 1 do Diogo de 18/11/2026). 'fotos' deslizam a seguir, sozinhas e devagar.
     'momentos' => [
         [
             'id' => 'por-fora', 'palavra' => 'Por fora',
             'frase' => 'O melhor lugar é cá fora',
             'texto' => 'Da água à sombra do alpendre, o dia vive-se de portas abertas',
+            'banda' => ['src' => 'exterior/piscina-pinheiro-manha.jpg', 'alt' => 'A piscina e o pinheiro grande, de manhã, com o sol a nascer por trás', 'pos_m' => '55% 50%'],
             'fotos' => [
                 ['src' => 'exterior/piscina-agua.jpg', 'alt' => 'A água da piscina em primeiro plano, com a casa e o chapéu-de-sol ao fundo', 'legenda' => 'A piscina, a casa e a luz do Alentejo'],
                 ['src' => 'exterior/piscina-sobreiro.jpg', 'alt' => 'A piscina e o pinheiro grande, com o sol por trás', 'legenda' => 'Ficar até a luz mudar'],
@@ -86,6 +93,7 @@ return [
             'id' => 'sem-pressa', 'palavra' => 'Sem pressa',
             'frase' => 'A mesa pode esperar por todos',
             'texto' => 'Sombra para os dias quentes, uma mesa para as conversas longas e o campo sempre por perto',
+            'banda' => ['src' => 'exterior/alpendre-pinheiro.jpg', 'alt' => 'O alpendre de madeira, com a mesa posta e o pinheiro ao fundo', 'pos_m' => '62% 50%'],
             'fotos' => [
                 ['src' => 'exterior/alpendre-por-do-sol.jpg', 'alt' => 'Mesa posta no alpendre, com o sol a pôr-se atrás do pinheiro', 'legenda' => 'O alpendre, ao fim da tarde'],
                 ['src' => 'exterior/alpendre-mesa-jantar.jpg', 'alt' => 'A mesa de jantar no alpendre', 'legenda' => 'Lugar para todos à mesa'],
@@ -98,6 +106,7 @@ return [
             'frase' => 'Entrar sem deixar o exterior para trás',
             'texto' => 'O salão abre-se à piscina. A cozinha, a mesa e a sala dão lugar a cozinhar, conversar e ficar mais um pouco',
             'nota' => 'Quatro quartos, lareira na biblioteca e ar condicionado em todas as divisões',
+            'banda' => ['src' => 'interior/cozinha-sala.jpg', 'alt' => 'A cozinha com a ilha e a sala ao fundo, cheias de luz', 'pos_m' => '72% 50%'],
             'fotos' => [
                 ['src' => 'interior/sala-portas.jpg', 'alt' => 'O salão visto pelas portas abertas: cozinha, mesa de refeições e zona de estar', 'legenda' => 'O salão, de portas abertas'],
                 ['src' => 'interior/sala-mesa-sofa.jpg', 'alt' => 'Mesa de refeições e sofá, com a porta aberta para o alpendre', 'legenda' => 'À mesa cabem todos'],
@@ -147,28 +156,38 @@ return [
         'titulo' => 'Montemor-o-Novo também é a estadia',
         'texto' => 'Subir ao castelo, descobrir as ruas e escolher onde parar à mesa. A casa fica a 3 km do centro e Évora a 25 minutos',
         'ligacao' => ['Visitar Montemor-o-Novo', 'visit_montemor'],   // não «Passear por…»: «Passear pelo Monte» é a galeria
+        // A fotografia grande que abre o capítulo, com o título escrito por cima (versão 6, como as da versão 1).
+        'banda' => ['src' => 'montemor/igreja-rua.jpg', 'alt' => 'Uma igreja branca e azul numa rua de calçada de Montemor-o-Novo', 'pos' => '60% 40%', 'pos_m' => '58% 50%'],
+        // A ecopista com a sua régua pequena (versão 6; Diogo, 19/11/2026: «precisa de brilho e fotos … uma régua de fotos não tão
+        // grande»; «são da ecopista»: as três fotografias da bicicleta vermelha, a começar pela do túnel de árvores). O Diogo vai juntar
+        // mais duas ou três; as do Instagram, quando estiverem disponíveis, entram aqui e não na galeria.
         'ecopista' => [
             'titulo' => 'Ecopista do Montado',
             'texto' => 'A Ecopista do Montado passa à nossa porta: a antiga linha de comboio, hoje caminho entre sobreiros, para fazer a pé ou de bicicleta',
             'ligacao' => ['Conhecer a ecopista', 'ecopista'],
+            'fotos' => [
+                ['src' => 'montemor/caminho-arvores-bicicleta.jpg', 'alt' => 'Uma bicicleta num caminho de terra, sob um túnel de árvores', 'legenda' => 'De bicicleta, à sombra'],
+                ['src' => 'montemor/estacao-paiao.jpg', 'alt' => 'A antiga estação ferroviária do Paião, com uma bicicleta à porta', 'legenda' => 'A antiga estação do Paião, na ecopista'],
+                ['src' => 'montemor/montado-bicicleta.jpg', 'alt' => 'Uma bicicleta parada junto ao montado', 'legenda' => 'O montado, logo ali'],
+            ],
         ],
-        // As fotografias passam aqui mesmo, em sequência (não levam a outra página).
+        // As fotografias da vila passam aqui mesmo, numa faixa mais pequena do que as da casa (versão 6; Diogo, 19/11/2026: «nestes
+        // separadores de suporte, as fotos deveriam ser mais pequenas»). Sete: as três da bicicleta foram para a ecopista.
         'fotos' => [
             ['src' => 'montemor/castelo-ruinas.jpg', 'alt' => 'As ruínas no alto do castelo de Montemor-o-Novo', 'legenda' => 'O castelo, lá no alto', 'pos' => '50% 100%'],
             ['src' => 'montemor/vila-muralha.jpg', 'alt' => 'Os telhados de Montemor-o-Novo vistos da muralha', 'legenda' => 'A vila, vista da muralha'],
             ['src' => 'montemor/rua-branca-azul.jpg', 'alt' => 'Uma rua de casas caiadas, com barras azuis', 'legenda' => 'Ruas de cal e barras azuis'],
-            ['src' => 'montemor/caminho-arvores-bicicleta.jpg', 'alt' => 'Uma bicicleta num caminho de terra, sob um túnel de árvores', 'legenda' => 'De bicicleta, à sombra'],
             ['src' => 'montemor/igreja-fachada.jpg', 'alt' => 'A fachada de uma igreja branca e azul, com o painel de azulejos', 'legenda' => 'Branco, azul e azulejo'],
-            ['src' => 'montemor/estacao-paiao.jpg', 'alt' => 'A antiga estação ferroviária do Paião, com uma bicicleta à porta', 'legenda' => 'A antiga estação do Paião, na ecopista'],
             ['src' => 'montemor/castelo-porta-vista.jpg', 'alt' => 'A vila vista por uma porta da muralha', 'legenda' => 'Uma porta para a planície'],
             ['src' => 'montemor/janela-flores.jpg', 'alt' => 'Uma janela com grade de ferro e vasos de flores', 'legenda' => 'Janelas com flores'],
-            ['src' => 'montemor/montado-bicicleta.jpg', 'alt' => 'Uma bicicleta parada junto ao montado', 'legenda' => 'O montado, logo ali'],
             ['src' => 'montemor/miradouro-candeeiros.jpg', 'alt' => 'A vila vista de um miradouro, entre dois candeeiros', 'legenda' => 'Parar no miradouro'],
         ],
     ],
 
-    // ---- 5b. Nacional 2 (capítulo próprio, com o mesmo peso do de Montemor) --------------------------
-    // Não há fotografia da estrada: a do capítulo é a casa ao entardecer, «a mesma casa à vossa espera ao fim do dia».
+    // ---- 5b. Nacional 2: um só bloco, como na versão 2 (versão 6; Diogo, 19/11/2026: «Tem mais lógica assim, mas enquadra e
+    // dimensiona como achares melhor») ----
+    // O traço fino à esquerda, o título, a mensagem e a fotografia em destaque; o programa pequeno, como acessório. Não há fotografia
+    // da estrada: a do capítulo é a casa ao entardecer, «a mesma casa à vossa espera ao fim do dia».
     'n2' => [
         'eyebrow' => 'Nacional 2 · No caminho, uma casa',
         'titulo' => 'Dois dias no coração do Alentejo',
@@ -193,6 +212,10 @@ return [
     'galeria' => [
         // Sem sobretítulo: a secção chama-se só «Passear pelo Monte» (Diogo, 15/11/2026; a palavra «Fotografias» saiu com a nota 3).
         'titulo' => 'Passear pelo Monte',
+        // Versão 6: na página, só as primeiras de cada álbum; «Ver todas» abre o álbum inteiro por cima e, ao fechar, a página está
+        // onde estava (Diogo, 19/11/2026, nota 3: no telemóvel, uma secção grande no meio afastava as pessoas das seguintes).
+        'curta' => 6,
+        'ver_todas' => 'Ver todas as fotografias',
         'albuns' => [
             [
                 // Álbum «O Monte» do Zenfolio (design/fotos/galeria/01-o-monte/). Completo desde 16/11/2026: as duas fachadas do
@@ -353,6 +376,10 @@ return [
         // As três notas (Booking, Airbnb, Google) vêm de inc/factos.php → 'notas'. A data das notas fica lá, para nós, mas não se
         // escreve na página (versão 5; Diogo, 18/11/2026: «nas avaliações retira que são de 2026»).
         'notas_titulo' => 'As notas de quem já ficou',          // só para quem usa leitor de ecrã
+        // Setas e traços por baixo da frase: há mais e podem ver-se (versão 6; Diogo, 18/11/2026: «temos de arranjar uma forma dos
+        // clientes saberem que há mais avaliações … e que quem visita pode ver mais»; desenhou uma seta para cada lado).
+        'anterior' => 'Frase anterior',
+        'seguinte' => 'Frase seguinte',
         'nota_escala' => 'em {escala}',
         'rodape' => 'Recebemos hóspedes desde 2022',
     ],
@@ -381,6 +408,8 @@ return [
         'chegada' => 'Chegada',
         'partida' => 'Partida',
         'pessoas' => 'Quantas pessoas vêm?',
+        'pessoas_escolher' => 'Escolham',          // começa vazio (versão 6; Diogo, 19/11/2026: «o número 4 … está a aparecer por defeito?»)
+        'falta_pessoas' => 'Digam-nos quantas pessoas vêm.',
         'nota_casa' => 'A casa é só vossa, venham dois ou oito',
         'conta_vazia' => 'Escolham a chegada e a partida para ver quanto fica a estadia',
         'conta_calcular' => 'A fazer as contas…',

@@ -123,36 +123,61 @@ function foto_caixa(array $f, bool $legenda = false, bool $lazy = true): string
  * Numa faixa todas as caixas têm o mesmo tamanho (Diogo, 17/11/2026: «há uma foto que tem dimensão diferente; tens de enquadrar
  * essa foto no mosaico que estamos a passar»): uma fotografia ao alto é recortada na caixa, com o ponto de foco de 'pos'.
  * $op: 'tipo' => 'seq' (as fotografias grandes de um capítulo; até à versão 4 com a legenda escrita sobre cada uma, que saiu na
- * versão 5 e ficou só como descrição) ou 'fila' (as mais pequenas
- * do fecho da casa); 'acaso' => true baralha a ordem em cada visita (aqui, no servidor: a lista da fotografia em grande segue a
- * mesma ordem).
+ * versão 5 e ficou só como descrição), 'fila' (as mais pequenas do fecho da casa e da vila de Montemor) ou 'mini' (a régua pequena da
+ * ecopista, versão 6: «uma régua de fotos não tão grande»); 'acaso' => true baralha a ordem em cada visita (aqui, no servidor: a
+ * lista da fotografia em grande segue a mesma ordem); 'minimo' => N repete as fotografias na pista até haver N, para uma faixa com
+ * poucas (a ecopista tem três) encher um ecrã largo; a fotografia em grande continua a mostrar só as verdadeiras.
  */
 function rolo(string $nome, array $fotos, array $op = []): string
 {
     $fotos = array_values($fotos);
     if (!empty($op['acaso'])) shuffle($fotos);
-    $fila = ($op['tipo'] ?? 'seq') === 'fila';
-    // Segundos que cada fotografia leva a passar: [telemóvel, computador].
-    [$seg, $segLargo] = $fila ? [10.5, 10.5] : [12.0, 19.0];
-    $conta = (float)count($fotos);
+    $tipo = in_array($op['tipo'] ?? 'seq', ['seq', 'fila', 'mini'], true) ? (string)($op['tipo'] ?? 'seq') : 'seq';
+    $fila = $tipo !== 'seq';
+    // Segundos que cada fotografia leva a passar: [telemóvel, computador] (perto de 29 px por segundo no telemóvel em todas).
+    [$seg, $segLargo] = ['seq' => [12.0, 19.0], 'fila' => [10.5, 10.5], 'mini' => [8.3, 8.0]][$tipo];
+    $n = count($fotos);
+    $pista = $fotos;
+    $minimo = (int)($op['minimo'] ?? 0);
+    if ($n > 0 && $minimo > $n) { while (count($pista) < $minimo) $pista = array_merge($pista, $fotos); }
+    $conta = (float)count($pista);
     $s = fn(float $x): string => rtrim(rtrim(number_format($x, 1, '.', ''), '0'), '.') . 's';
     $dur = '--dur:' . $s($conta * $seg) . ';--dur-l:' . $s($conta * $segLargo) . ';--dur-c:' . $s($conta * $seg * 1.7) . ';--dur-lc:' . $s($conta * $segLargo * 1.7);
-    $h = '<div class="rolo rolo-' . ($fila ? 'fila' : 'seq') . '" data-rolo data-entra data-galeria="' . galeria_json($nome, $fotos) . '" role="group" aria-label="' . e($nome . ': fotografias') . '">';
+    $h = '<div class="rolo rolo-' . $tipo . '" data-rolo data-entra data-galeria="' . galeria_json($nome, $fotos) . '" role="group" aria-label="' . e($nome . ': fotografias') . '">';
     $h .= '<div class="rolo-pista" style="' . $dur . '">';
     foreach ([false, true] as $copia) {
         $h .= '<ul class="rolo-serie"' . ($copia ? ' aria-hidden="true"' : '') . '>';
-        foreach ($fotos as $i => $f) {
+        foreach ($pista as $i => $f) {
+            $real = $n > 0 ? $i % $n : 0;
+            $repetida = $copia || $i >= $n;       // a segunda série e as repetições: escondidas dos leitores de ecrã e do teclado
             $rotulo = ($fila ? ($f['alt'] ?? '') : ($f['legenda'] ?? $f['alt'] ?? '')) . ' · abrir a fotografia';
-            $h .= '<li class="rolo-item"><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $i . '"'
-                . ($copia ? ' tabindex="-1"' : ' aria-label="' . e($rotulo) . '"') . '>';
+            $h .= '<li class="rolo-item"' . (!$copia && $i >= $n ? ' aria-hidden="true"' : '') . '><button type="button" class="foto-botao abrir-galeria" data-inicio="' . $real . '"'
+                . ($repetida ? ' tabindex="-1"' : ' aria-label="' . e($rotulo) . '"') . '>';
             // As duas primeiras são pedidas logo (são as que se vêem ao chegar); as outras quando o rolo se aproxima do ecrã.
             // Sem legenda escrita sobre a fotografia (versão 5; Diogo, 19/11/2026: «retirar as micro legendas das fotos»): a legenda
             // fica como descrição, no rótulo do botão e na fotografia aberta em grande.
-            $h .= foto_caixa($copia ? array_merge($f, ['alt' => '']) : $f, false, !(!$copia && $i < 2)) . '</button></li>';
+            $h .= foto_caixa($repetida ? array_merge($f, ['alt' => '']) : $f, false, !(!$copia && $i < 2)) . '</button></li>';
         }
         $h .= '</ul>';
     }
     return $h . '</div></div>';
+}
+
+/**
+ * Uma fotografia grande, de lado a lado, a abrir um capítulo (versão 6, 19/11/2026: as «bandas» da versão 1; Diogo, 18/11: «havia umas
+ * fotos que tinham vida na primeira versão … vê como incorporar essa parte também»). O sobretítulo e o título vão escritos por cima,
+ * em baixo, sobre uma sombra; a fotografia entra a acender quando chega ao ecrã e passa devagar por trás enquanto se rola (site.js,
+ * «Fotografias que passam devagar»); um toque abre-a em grande, com as outras do capítulo a seguir ($outras).
+ * O título é o h2 do capítulo ($id). $classe: 'banda-media' para uma banda mais baixa (Montemor).
+ */
+function banda(array $foto, string $eyebrow, string $titulo, string $id, string $nome, array $outras = [], string $classe = ''): string
+{
+    $h = '<div class="banda' . ($classe !== '' ? ' ' . $classe : '') . '" data-mexe data-entra data-galeria="' . galeria_json($nome, array_merge([$foto], array_values($outras))) . '">';
+    $h .= '<button type="button" class="foto-botao abrir-galeria banda-foto" data-inicio="0" aria-label="' . e(($foto['alt'] ?? '') . ' · abrir a fotografia') . '">';
+    $h .= '<span class="foto-mexe">' . foto_img($foto, ['draggable' => 'false']) . '</span></button>';
+    $h .= '<span class="banda-sombra" aria-hidden="true"></span>';
+    $h .= '<div class="banda-texto contentor"><div class="reveal"><p class="eyebrow eyebrow-foto">' . e($eyebrow) . '</p><h2 id="' . e($id) . '" class="banda-titulo">' . e($titulo) . '</h2></div></div>';
+    return $h . '</div>';
 }
 
 /** As fotografias de um capítulo (as grandes; a legenda é a descrição de cada uma, não se escreve sobre ela): um rolo. */
@@ -161,10 +186,16 @@ function sequencia(string $nome, array $fotos): string
     return rolo($nome, $fotos, ['tipo' => 'seq']);
 }
 
-/** As fotografias mais pequenas do fecho da casa («as fotos em régua … a rolar random», nota 8 do Diogo): um rolo, com $op['acaso']. */
+/** As fotografias mais pequenas do fecho da casa («as fotos em régua … a rolar random», nota 8 do Diogo) e da vila de Montemor: um rolo, com $op['acaso']. */
 function fila(string $nome, array $fotos, array $op = []): string
 {
     return rolo($nome, $fotos, ['tipo' => 'fila', 'acaso' => !empty($op['acaso'])]);
+}
+
+/** A régua pequena de uma parte de apoio (a ecopista; versão 6): fotografias mais pequenas, repetidas na pista se forem poucas. */
+function regua_pequena(string $nome, array $fotos): string
+{
+    return rolo($nome, $fotos, ['tipo' => 'mini', 'minimo' => 8]);
 }
 
 /** Ícones SVG (traço, estilo lucide), por nome. */
@@ -175,6 +206,7 @@ function icone(string $nome, string $class = 'ico'): string
         'cama' => '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/>',
         'ondas' => '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
         'baixo' => '<path d="m6 9 6 6 6-6"/>',
+        'cima' => '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
         'esq' => '<path d="m15 18-6-6 6-6"/>',
         'dir' => '<path d="m9 18 6-6-6-6"/>',
         'fechar' => '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',

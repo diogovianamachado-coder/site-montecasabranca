@@ -41,32 +41,69 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ## Versões
 
-### V6 · 19/11/2026 · a pílula de descer
+### V6 · 19/11/2026 · as notas de 18 e 19/11: a pílula, o cartaz em escada, as fotografias grandes, a ecopista, a N2, as avaliações, a galeria, o voltar e o painel
 
 - **Por publicar:** espera o «Lança» do Diogo. (Quando for para o ar: a data, o n.º do deploy, o commit e a etiqueta `novo-v6`.)
-- **De onde vem:** o Diogo viu a V5 no iPhone e mandou a captura da capa com o botão redondo do canto rodeado a vermelho: «Faltou esta
-  parte». A pílula de descer estava decidida desde 18/11 («Está a faltar a pílula do movimento para baixo durante todo o site» e «O
-  ícone do rato pode ficar no meio, mais flutuante e sem ficar em frente ao texto. Sobe a posição») e não entrou na V5, que foi só de
-  textos («Retira as frases e lança»). Falha minha: devia ter perguntado se a pílula ia já na V5.
-- **O que é:** a forma da V1 e da V2 (um rato com um ponto a descer), num sítio novo. Na capa fica **ao centro, por baixo de «Entrar
-  pela casa»**; quando a capa sai do ecrã e a barra de baixo aparece, **sobe e fica a flutuar por cima da barra**, ao centro, com ar à
-  volta (na V1 e na V2 ficava no canto direito, encostada à barra). **Nunca fica por cima de texto:** apaga-se quando passa texto por
-  baixo e volta sobre fotografias e espaços vazios; apagada, os toques passam para o que está por baixo. Cada toque leva à secção
-  seguinte; no fim da página vira-se ao contrário e volta ao topo; esconde-se com o menu, o painel ou uma fotografia abertos. Sem
-  JavaScript fica na capa e leva à casa. Com «reduzir movimento» no aparelho, o ponto fica parado e a subida é sem animação.
-- **Onde está:** `partes/inicio.php` (a pílula), `assets/css/site.css` → «A pílula de descer», `assets/js/site.js` → «A pílula de
-  descer». Testes: `geometria.cjs` → ponto 8 (Chromium e WebKit: ao centro, nunca por cima de letras, medidas linha a linha, a levar
-  à secção seguinte e, no fim, ao topo; sem JavaScript, na capa) e `captura-site.cjs` (um dedo a sério na pílula leva à casa).
+- **De onde vem:** o Diogo viu a V5 no iPhone e mandou duas mensagens. A primeira, a captura da capa com o botão do canto rodeado:
+  «Faltou esta parte» (a pílula). A segunda, com seis capturas: «Grande parte das alterações não as fizeste. Revê o que pedi: botão de
+  deslizar, menu do por dentro sem pressa e por fora, falta o botão de voltar quando abro as fotos pelo scroll down, mantiveste a n2
+  igual? O montado está vazio.» Tinha razão: a V5 foi só das frases e as outras notas de 18 e 19/11
+  (`docs/integracao-app/2026-11-18_notas_do_diogo_v4.md`) ficaram por fazer. **Falha minha**: com «Retira as frases e lança» devia ter
+  perguntado se as outras notas iam já. A V6 faz todas as que estavam decididas ou propostas.
+- **O que mudou, nota a nota:**
+  1. **A pílula de descer** (18/11, nota 2, e a decisão «o ícone do rato pode ficar no meio, mais flutuante e sem ficar em frente ao
+     texto; sobe a posição»): o rato com um ponto a descer, como na V1 e na V2. Na capa fica ao centro, por baixo de «Entrar pela
+     casa»; quando a capa sai do ecrã, sobe e flutua por cima da barra de baixo. Nunca fica por cima de texto (apaga-se e não apanha
+     toques); cada toque leva à secção seguinte; no fim vira-se e volta ao topo; esconde-se com camadas abertas.
+  2. **O cartaz em escada** (19/11, nota 1, «menu em escada»): «Por fora» à esquerda, «Sem pressa» ao meio, em itálico e na cor
+     terracota, «Por dentro» à direita, sem setas, como na V2; as palavras entram uma a seguir à outra e cada uma leva ao seu capítulo.
+  3. **Fotografias com vida** (18/11, nota 1, «havia umas fotos que tinham vida na primeira versão»): cada capítulo da casa e Montemor
+     abrem com uma fotografia grande, de lado a lado, com a palavra (ou o título) escrita por cima, como as bandas da V1. Entra a
+     acender e passa devagar por trás enquanto se rola, em qualquer telemóvel. As fotografias das faixas entram uma a uma. Fotografias
+     grandes: a piscina e o pinheiro de manhã (Por fora), o alpendre com o pinheiro (Sem pressa), a cozinha e a sala (Por dentro), a
+     igreja branca e azul (Montemor); nenhuma repete as que já estavam em destaque.
+  4. **Montemor e a ecopista** (19/11, nota 7, «O montado está vazio»; «são da ecopista»): as fotografias da vila passam numa faixa
+     mais pequena do que as da casa (sete); a ecopista ganha a sua régua pequena com as três fotografias da bicicleta, a começar pela do
+     túnel de árvores.
+  5. **A Nacional 2 num só bloco** (19/11, nota 6, e «Tem mais lógica assim, mas enquadra e dimensiona como achares melhor»): o traço
+     fino à esquerda junta o sobretítulo, o título, a mensagem, a casa ao entardecer em destaque (passa devagar ao rolar) e o programa
+     pequeno, com os dias em itálico e o texto ao lado, a estadia mínima e a ligação. No computador, a fotografia fica à direita.
+  6. **As avaliações** (18/11, nota 5, «… saberem que há mais avaliações e que quem visita pode ver mais»; desenhou uma seta para cada
+     lado): por baixo da frase, duas setas e um traço por frase, como nas histórias do Instagram; o traço da frase à vista enche-se
+     enquanto ela está no ecrã e, quando acaba, vem a seguinte. As setas e o dedo para o lado passam a frase. Sem números.
+  7. **A galeria** (19/11, nota 3, «propõe na próxima versão»): passou para antes dos contactos e ficou curta (seis de cada álbum);
+     «Ver todas as fotografias» abre o álbum inteiro por cima da página, com o fechar sempre à vista; ao fechar, a página está onde
+     estava. Os dois menus mudaram de ordem com ela.
+  8. **«Voltar onde estava»** (18/11, nota 3, e «falta o botão de voltar quando abro as fotos»): depois de um salto grande por uma
+     ligação (o menu, «Passear pelo Monte», as palavras do cartaz), aparece no canto de cima o botão «Voltar onde estava», que leva ao
+     ponto exato de onde se saiu. O gesto de voltar do iPhone faz o mesmo, sem «#» no endereço.
+  9. **O painel das datas** (19/11, notas 4 e 5): o cimo (título e fechar) fica sempre à vista e só o resto rola; «Quantas pessoas
+     vêm?» começa vazio («Escolham»); a conta aparece sem ele e o pedido de datas pede-o.
+- **Onde está:** `partes/inicio.php` (pílula) · `partes/casa.php` (cartaz) · `partes/momentos.php`, `partes/montemor.php` e
+  `inc/util.php` → `banda()`, `regua_pequena()`, `rolo()` com 'mini' e 'minimo' (fotografias grandes, ecopista) · `partes/nacional2.php`
+  · `partes/avaliacoes.php` · `partes/galeria.php` e `partes/dock.php` (álbum inteiro, «Voltar onde estava», painel) · `index.php`
+  (ordem) · `conteudo.php` (menus, `banda`, `ecopista.fotos`, `galeria.curta`, textos novos) · `assets/css/site.css` e
+  `assets/js/site.js` (blocos com o nome de cada coisa). Testes: `geometria.cjs` (pontos 8 e 9, Chromium e WebKit) e `captura-site.cjs`
+  (cada nota acima) · `conferir-fotos.php` (fotografias grandes e ecopista sem repetidas).
 - **Capturas:** `docs/versoes/v6/`.
-- **Ordem da página:** a mesma da V5.
+- **Ordem da página:** capa · a casa (cartaz) · por fora · sem pressa · por dentro · fecho e régua · Montemor (com a ecopista) · N2 ·
+  onde estamos · antes de chegar · quem já ficou · **passear pelo Monte** · contactos.
 
 | Parte | O que mudou face à V5 | O que o Diogo achou |
 |---|---|---|
-| 1 Capa | O botão redondo do canto direito passa a ser a pílula: o rato com o ponto a descer, ao centro, por baixo de «Entrar pela casa» | por dizer |
-| 2 a 8, 10 e 11 | Iguais. A pílula passa por cima a flutuar: vê-se sobre fotografias e espaços vazios e apaga-se quando tem texto por baixo | por dizer |
-| 9 Contactos e rodapé | Mais espaço verde em baixo, para no fim a pílula ficar sobre o verde a dizer «voltar ao topo» sem tapar a última linha (no ensaio, «Ensaio · versão 6 · 19/11/2026») | por dizer |
-| 12 Barra de baixo | Igual; a pílula flutua por cima dela, ao centro | por dizer |
-| Toda a página | A pílula de descer em todo o site: cada toque leva à secção seguinte; no fim, ao topo | por dizer |
+| 1 Capa | O botão redondo do canto passa a ser a pílula de descer, ao centro, por baixo de «Entrar pela casa» | por dizer |
+| 2 A casa | O cartaz em escada, como na V2, sem setas | por dizer |
+| 3 Os espaços | Cada capítulo abre com uma fotografia grande e a palavra por cima, que passa devagar ao rolar; as fotografias da faixa entram uma a uma | por dizer |
+| 4 Fecho e régua | Igual | por dizer |
+| 5 Montemor, N2 e onde estamos | Montemor abre com uma fotografia grande e o título por cima; a faixa da vila mais pequena (sete); a ecopista com a régua pequena das três fotografias da bicicleta; a N2 num só bloco, com a fotografia em destaque e o programa pequeno | por dizer |
+| 6 A galeria | Passou para antes dos contactos; curta (seis), com «Ver todas as fotografias», que abre o álbum inteiro por cima | por dizer |
+| 7 Antes de chegar | Igual (vem agora logo a seguir a «Onde estamos») | por dizer |
+| 8 Quem já ficou | Duas setas e um traço por frase, que se enche enquanto ela está à vista; o dedo para o lado passa a frase | por dizer |
+| 9 Contactos e rodapé | Mais espaço verde em baixo, para a pílula ficar ali no fim a dizer «voltar ao topo» (no ensaio, «Ensaio · versão 6 · 19/11/2026») | por dizer |
+| 10 Menu completo | A ordem nova: «Passear pelo Monte» antes de «Contactos» | por dizer |
+| 11 Painel das datas | O cimo sempre à vista; «Quantas pessoas vêm?» começa vazio e o pedido pede-o | por dizer |
+| 12 Barra de baixo | Igual; a pílula flutua por cima dela | por dizer |
+| Toda a página | A pílula de descer em todo o site; «Voltar onde estava» depois de um salto grande (e o gesto de voltar do iPhone) | por dizer |
 
 ### V5 · 19/11/2026 · as frases retiradas
 

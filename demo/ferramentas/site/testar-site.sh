@@ -35,12 +35,15 @@ echo "folha de estilos e JavaScript dentro das regras OK"
 # · nota 8, «não precisa de dizer que tem fotos; a dinâmica do site mostra essa parte»: sem contagens («01 / 04») nas fotografias;
 # · «não precisas dizer o número de avaliações»: sem contagem («02 / 10») por baixo das frases de quem já ficou.
 # · 17/11, com a versão 3 no iPhone: «As fotos estão estáticas … A régua das fotos não anda»: as fotografias andam sozinhas e levam-se
-#   com o dedo ou o rato, por isso também não há setas.
+#   com o dedo ou o rato, por isso também não há setas nas fotografias.
+# · versão 6 (Diogo, 18/11/2026: «temos de arranjar uma forma dos clientes saberem que há mais avaliações»): as frases de quem já ficou
+#   passam a ter duas setas e um traço por frase (.citacoes-seta, .citacoes-tracos), sem números; o que continua proibido são as
+#   contagens («02 / 10») e as setas das fotografias.
 # (O cenário das capturas e a geometria conferem o resto na página a correr: as fotografias a andar sozinhas, também sem JavaScript; a
 # régua do fecho ao acaso; «Antes de chegar» em duas colunas no computador; a galeria sem sobretítulo.)
 echo "== notas do Diogo que não podem voltar atrás"
-if grep -rnE 'seq-conta|data-seq-atual|citacoes-conta|citacoes-atual|citacoes-total|seq-setas|data-seq-ir' site --include='*.php' --include='*.js' --include='*.css'; then echo "FALHOU: voltou uma contagem ou voltaram as setas às fotografias ou às frases (ver as linhas acima)"; exit 1; fi
-echo "sem contagens nem setas nas fotografias e nas frases OK"
+if grep -rnE 'seq-conta|data-seq-atual|citacoes-conta|citacoes-atual|citacoes-total|seq-setas|data-seq-ir' site --include='*.php' --include='*.js' --include='*.css'; then echo "FALHOU: voltou uma contagem às fotografias ou às frases, ou voltaram as setas às fotografias (ver as linhas acima)"; exit 1; fi
+echo "sem contagens nas fotografias e nas frases, sem setas nas fotografias OK"
 echo "== fotografias"; php demo/ferramentas/site/conferir-fotos.php
 if python3 -c "import PIL" 2>/dev/null; then python3 demo/ferramentas/fotos/para_o_site.py --conferir; else echo "(sem Pillow nesta máquina: a comparação de site/fotos com a galeria fica para o computador de quem monta)"; fi
 echo "== servidores"; rm -rf /tmp/site-ensaio-app /tmp/site-ensaio-semapp; cp -r site /tmp/site-ensaio-app; cp -r site /tmp/site-ensaio-semapp

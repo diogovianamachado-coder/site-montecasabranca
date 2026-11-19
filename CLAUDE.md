@@ -1348,3 +1348,37 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **Por dizer pelo Diogo:** «Lança» da V6 · o que acha da pílula no iPhone (a altura, ao centro, quando se esconde) · o resto das notas
   da V4 (fotografias grandes, voltar onde estava, mais avaliações, cartaz em degraus, galeria curta e no fim, cimo do painel fixo, o
   «4», a N2 num só bloco, a ecopista com régua) quando ele quiser. **Próxima sugestão: S37.**
+
+- **19/11/2026 (02h10–03h20, hora de Lisboa) · «GRANDE PARTE DAS ALTERAÇÕES NÃO AS FIZESTE» · A VERSÃO 6 PASSA A TER TODAS AS NOTAS DE 18 E 19/11,
+  em `main`, POR PUBLICAR (espera o «Lança»).** Com a V5 no iPhone (seis capturas): «Revê o que pedi: botão de deslizar, menu do por dentro
+  sem pressa e por fora, falta o botão de voltar quando abro as fotos pelo scroll down, mantiveste a n2 igual? O montado está vazio. Estou
+  mesmo a ficar cansado e estás-me a roubar dinheiro e tempo. Ou fazes o que peço ou passo a outro.» **Falha minha, de leitura:** «Retira
+  as frases e lança» foi lido como só as frases; ele queria as notas todas. **Regra que fica:** quando o Diogo manda «lança» com notas
+  registadas por fazer, perguntar numa linha se vão todas, ou fazê-las todas; nunca escolher uma parte sem o dizer antes.
+  **Feito na V6 (além da pílula da entrada anterior):** (1) **cartaz em escada** como na V2 (`partes/casa.php`, `.degrau-1/2/3`, sem setas);
+  (2) **fotografias grandes** a abrir Por fora, Sem pressa, Por dentro e Montemor (`inc/util.php` → `banda()`; `conteudo.php` → `banda`:
+  `exterior/piscina-pinheiro-manha.jpg`, `exterior/alpendre-pinheiro.jpg`, `interior/cozinha-sala.jpg` com `pos_m` 72 %,
+  `montemor/igreja-rua.jpg`), palavra por cima, a acender ao chegar e a passar devagar ao rolar (`site.js` → «Fotografias que passam
+  devagar», `[data-mexe]` + `.foto-mexe` a 120 %, ±9 % da altura; também a fotografia da N2); as primeiras cinco de cada faixa entram uma
+  a uma (`@keyframes rolo-entra`, acaba em `translate3d(0,0,0)` para manter a camada); (3) **Montemor**: faixa da vila com o tamanho da
+  régua do fecho (`fila()`, sete), **ecopista** com régua pequena (`regua_pequena()` → `rolo()` tipo 'mini' 230×170/300×220, 'minimo' 8:
+  repete as três fotografias da bicicleta na pista; a fotografia em grande mostra só as verdadeiras); (4) **N2 num só bloco**
+  (`partes/nacional2.php`, `.n2-bloco` com traço de 2 px, fotografia em destaque, programa pequeno com os dias em itálico; no computador a
+  fotografia à direita); (5) **avaliações**: setas ‹ › e um traço por frase que se enche em 6 s (é o relógio da roda: `animationend` →
+  seguinte; pára com a secção fora do ecrã, rato em cima ou camada aberta; com «reduzir movimento» volta o relógio simples); o dedo para o
+  lado passa a frase; (6) **galeria** antes dos contactos (`index.php`, menus em `conteudo.php`), curta (`.album-curto`, seis), «Ver todas
+  as fotografias» abre `#album-ecra` (cópia do álbum ativo; cimo fixo, corpo a rolar); (7) **«Voltar onde estava»** (`#voltar`, canto de
+  cima): depois de um salto por ligação de mais de 1,2 ecrãs; leva ao ponto exato; some ao usar ou ao sair da secção a que se foi (só depois
+  de lá chegar); cada salto vai para o histórico (`pushState` sem «#»; `popstate` volta ao ponto), por isso o gesto de voltar do iPhone faz o
+  mesmo; (8) **painel**: `.painel` em coluna, `.painel-cabeca` fixa e `.painel-corpo` a rolar; «Quantas pessoas vêm?» começa em «Escolham»
+  (a conta vai sem `pax`; o pedido pede-o, «Digam-nos quantas pessoas vêm.»; o texto do WhatsApp só diz as pessoas se escolhidas).
+  **Testes:** `captura-site.cjs` (cada nota: escada, quatro bandas, ecopista, bloco da N2, setas e traços, galeria curta e «Ver todas» com o
+  fechar à vista depois de rolar, voltar ao mesmo ponto, cimo do painel, `pax` vazio e o pedido a pedi-lo; ordem nova dos capítulos; Tab a
+  partir da fotografia grande); `geometria.cjs` ponto 9 (bandas a mexer sem mostrar a borda; cimo do painel; o teste sem JavaScript desce
+  até à faixa); `conferir-fotos.php` (bandas e ecopista sem repetidas entre os sítios de destaque); `testar-site.sh` (setas nas frases
+  passam a ser pedidas; continuam proibidas as contagens e as setas das fotografias). Bateria local verde; varredura da pílula sem
+  nenhuma paragem por cima de letras. Vídeo de 72 s enviado (`versao-6-telemovel.mp4`, só na pasta de trabalho); capturas `docs/versoes/v6/`.
+  **Lições:** o «Capturas» do GitHub esteve 23 min a instalar os browsers (espelho do Ubuntu lento) — esperar com o limite largo;
+  heredocs com aspas e regex em Python dentro do Bash são recusados pela verificação de segurança: escrever o guião num ficheiro do
+  scratchpad e correr `python3 ficheiro`; um teste que clica num botão fora do ecrã faz o Playwright rolar a página (medir depois de o pôr à
+  vista). **Por dizer pelo Diogo:** «Lança» da V6 · o que acha de cada parte no iPhone. **Próxima sugestão: S37.**

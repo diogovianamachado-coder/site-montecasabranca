@@ -26,8 +26,11 @@
   /* ---- Camadas (menu, painel, fotografia): abrir e fechar ----
      Abrir é só mostrar o elemento; fechar é só escondê-lo. Nada é posto nem tirado do <body>. Com uma camada aberta, as fotografias
      por trás ficam paradas (aoMudarCamadas → «Rolos»). */
-  function aoMudarCamadas() { for (var i = 0; i < rolos.length; i++) acertarRolo(rolos[i]); pilulaAcertar(); }
+  function aoMudarCamadas() { for (var i = 0; i < rolos.length; i++) acertarRolo(rolos[i]); pilulaAcertar(); frasesAcertar(); voltarAcertar(); }
   var pilulaAcertar = function () {};                    // a pílula de descer (bloco «A pílula»); até ela arrancar, não faz nada
+  var frasesAcertar = function () {};                    // as frases de quem já ficou param com uma camada aberta (bloco «Quem já ficou»)
+  var voltarAcertar = function () {};                    // o botão «Voltar onde estava» esconde-se com uma camada aberta
+  var aoSaltar = function () {};                         // chamado pelas ligações internas antes de um salto (bloco «Voltar onde estava»)
   function abrir(id) {
     var el = d.getElementById(id); if (!el || !el.hidden) return;
     el._antes = d.activeElement; el.hidden = false; abertas.push(id); aoMudarCamadas();
@@ -72,6 +75,7 @@
       ev.preventDefault();
       var doMenu = !!a.closest('#menu');
       if (doMenu) fechar('menu', true);
+      aoSaltar(alvo);
       irPara(alvo, !doMenu);
       if (ev.detail === 0) { if (!alvo.hasAttribute('tabindex')) alvo.setAttribute('tabindex', '-1'); try { alvo.focus({ preventScroll: true }); } catch (e) {} }   // veio do teclado
     });
@@ -148,6 +152,86 @@
     window.addEventListener('scroll', acertar, { passive: true });
     window.addEventListener('resize', acertar);
     if (presa) { if (presa.addEventListener) presa.addEventListener('change', acertar); else if (presa.addListener) presa.addListener(acertar); }
+  }
+
+  /* ---- Fotografias que passam devagar (versão 6, 19/11/2026) ----
+     As fotografias grandes que abrem os capítulos e a da Nacional 2 (data-mexe) passam devagar por trás da sua caixa enquanto a
+     página rola, como na versão 1 (Diogo, 18/11: «havia umas fotos que tinham vida na primeira versão»): a caixa .foto-mexe é mais
+     alta do que a fotografia à vista (120 %) e desce no máximo 9 % da altura, conforme a fotografia vai do fundo ao cimo do ecrã. É a
+     mesma maneira da capa (só a posição, com o que a rolagem já mudou), por isso corre em qualquer telemóvel. Só se mexem as que estão
+     perto do ecrã. Com «reduzir movimento», ficam paradas. */
+  function passar() {
+    if (reduz) return;
+    var lista = $$('[data-mexe]').map(function (el) { return { el: el, m: $('.foto-mexe', el), ultimo: null }; }).filter(function (x) { return !!x.m; });
+    if (!lista.length) return;
+    var acertar = function () {
+      var vh = window.innerHeight || raiz.clientHeight || 800;
+      for (var i = 0; i < lista.length; i++) {
+        var x = lista[i], r = x.el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200 || r.height < 1) continue;
+        var p = (vh - r.top) / (vh + r.height); if (p < 0) p = 0; if (p > 1) p = 1;
+        var t = Math.round((p - 0.5) * 0.18 * r.height * 10) / 10;
+        if (t === x.ultimo) continue; x.ultimo = t;
+        x.m.style.transform = 'translate3d(0, ' + t + 'px, 0)';
+      }
+    };
+    acertar();
+    window.addEventListener('scroll', acertar, { passive: true });
+    window.addEventListener('resize', acertar);
+    window.addEventListener('load', acertar);
+  }
+
+  /* ---- «Voltar onde estava» (versão 6, 19/11/2026) ----
+     Diogo, 18/11: «Quando se carrega a meio para ver as fotos, não há botão para retornar e continuar a viagem no site. Precisa de um
+     botão ou seta para voltar ao ponto onde estava.» (19/11: «falta o botão de voltar quando abro as fotos».)
+     · Depois de um salto grande por uma ligação (mais de um ecrã: o menu, «Passear pelo Monte», as palavras do cartaz…), aparece no
+       canto de cima o botão «Voltar onde estava», com a seta para o lado de onde se veio. Leva ao ponto exato de onde se saiu e some.
+     · Some também quando a pessoa sai da secção a que foi (ela continuou a viagem por ali) e esconde-se com uma camada aberta.
+     · O gesto de voltar do telemóvel (e o botão de voltar do browser) faz o mesmo: cada salto fica no histórico do browser com o
+       ponto de onde se saiu, sem «#» no endereço. */
+  function voltar() {
+    var b = d.getElementById('voltar'); if (!b) return;
+    var origem = null, destino = null, ativo = false, chegou = false;
+    var mostrar = function (v) { ativo = v; b.hidden = !v || abertas.length > 0; };
+    voltarAcertar = function () { b.hidden = !ativo || abertas.length > 0; };
+    var guardar = function (y) { try { if (history.replaceState) history.replaceState({ mcbY: y }, ''); } catch (e) {} };
+    aoSaltar = function (alvo) {
+      var y = alturaRolada(), yAlvo = Math.max(0, Math.round(topoDe(alvo))), vh = window.innerHeight || 800;
+      if (Math.abs(yAlvo - y) < vh * 1.2) return;                 // um salto pequeno (a capa para a casa) não precisa de volta
+      origem = y; destino = alvo; chegou = false;
+      guardar(y);
+      try { if (history.pushState) history.pushState({ mcbY: yAlvo, mcbSalto: true }, ''); } catch (e) {}
+      b.classList.toggle('para-baixo', y > yAlvo);
+      mostrar(true);
+    };
+    var irParaY = function (y) {
+      viagem++; var meu = viagem;
+      if (reduz) window.scrollTo(0, y); else { try { window.scrollTo({ top: y, left: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, y); } }
+      setTimeout(function () { if (meu === viagem && Math.abs(alturaRolada() - y) > 4) window.scrollTo(0, y); }, 1600);
+    };
+    b.addEventListener('click', function () {
+      if (origem === null) { mostrar(false); return; }
+      var y = origem; origem = null; destino = null; mostrar(false);
+      // O histórico fica coerente: se o salto está lá, é o «voltar» do browser que faz o caminho (e chama irParaY); senão, vai direto.
+      var st = history.state;
+      if (st && st.mcbSalto && history.back) history.back(); else irParaY(y);
+    });
+    window.addEventListener('popstate', function (ev) {
+      var st = ev.state;
+      if (st && typeof st.mcbY === 'number') { origem = null; destino = null; mostrar(false); irParaY(st.mcbY); }
+    });
+    // Sair da secção a que se foi (para fora dela, a mais de meio ecrã) acaba com o botão. Só conta depois de lá chegar: durante a
+    // viagem a secção ainda está longe.
+    var tVer = null;
+    window.addEventListener('scroll', function () {
+      if (!ativo || tVer) return;
+      tVer = setTimeout(function () {
+        tVer = null; if (!ativo || !destino) return;
+        var r = destino.getBoundingClientRect(), vh = window.innerHeight || 800, dentro = !(r.bottom < vh * 0.4 || r.top > vh * 0.6);
+        if (dentro) chegou = true;
+        else if (chegou) { origem = null; destino = null; mostrar(false); }
+      }, 300);
+    }, { passive: true });
   }
 
   /* ---- A pílula de descer (versão 6, 19/11/2026) ----
@@ -453,16 +537,31 @@
     if (foto) { foto.addEventListener('wheel', function (ev) { ev.preventDefault(); }, { passive: false }); foto.addEventListener('touchmove', function (ev) { if (!ev.touches || ev.touches.length < 2) ev.preventDefault(); }, { passive: false }); }
   }
 
-  /* ---- Álbuns da galeria (separadores) ---- */
+  /* ---- Álbuns da galeria (separadores) e «Ver todas» ----
+     Na página cada álbum mostra só as primeiras (versão 6); «Ver todas as fotografias» abre o álbum escolhido inteiro, por cima da
+     página (#album-ecra, uma camada como o menu). Ao fechar, a página está onde estava. As fotografias abrem-se em grande como sempre. */
   function albuns() {
     var seps = $$('.separador');
     seps.forEach(function (sep) {
       sep.addEventListener('click', function () {
         seps.forEach(function (x) { x.classList.remove('ativo'); x.setAttribute('aria-selected', 'false'); });
-        $$('.album').forEach(function (a) { a.classList.add('escondido'); });
+        $$('.passear .album').forEach(function (a) { a.classList.add('escondido'); });
         sep.classList.add('ativo'); sep.setAttribute('aria-selected', 'true');
         var alvo = d.getElementById(sep.getAttribute('aria-controls')); if (alvo) alvo.classList.remove('escondido');
       });
+    });
+    var ver = $('#ver-todas'), ecra = $('#album-ecra'), lista = $('#album-ecra-lista'), titulo = $('#album-ecra-titulo');
+    if (!ver || !ecra || !lista) return;
+    ver.addEventListener('click', function () {
+      var atual = $('.passear .album:not(.escondido)'); if (!atual) return;
+      var copia = atual.cloneNode(true);
+      ['id', 'role', 'aria-labelledby'].forEach(function (a) { copia.removeAttribute(a); });
+      copia.classList.remove('album-curto', 'escondido');
+      lista.innerHTML = ''; lista.appendChild(copia);
+      var corpo = $('#album-ecra-corpo'); if (corpo) corpo.scrollTop = 0;
+      var sep = $('.separador.ativo');
+      if (titulo && sep && sep.firstChild) titulo.textContent = (sep.firstChild.textContent || '').trim() || titulo.textContent;
+      abrir('album-ecra');
     });
   }
 
@@ -515,19 +614,48 @@
   function euros(v) { var n = Math.round(v * 100) / 100; var s = (n === Math.floor(n) ? String(n) : n.toFixed(2).replace('.', ',')); return s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €'; }
 
   /* ---- Quem já ficou: uma frase de cada vez ----
-     As frases estão todas no HTML (conteudo.php); aqui só se troca a que está à vista, de 6 em 6 segundos enquanto a secção está no
-     ecrã. Um toque passa à seguinte. As avaliações publicadas na app (porta #192), quando existirem e forem curtas, juntam-se à roda. */
+     As frases estão todas no HTML (conteudo.php); aqui só se troca a que está à vista. Por baixo, as setas e um traço por frase
+     (versão 6; Diogo, 18/11/2026: «… saberem que há mais avaliações e que quem visita pode ver mais»): o traço da frase à vista
+     enche-se em 6 segundos e, quando acaba, vem a seguinte; para enquanto a secção não está no ecrã, com o rato em cima ou com uma
+     camada aberta. As setas, um toque na frase e o dedo para o lado passam-na. As avaliações publicadas na app (porta #192), quando
+     existirem e forem curtas, juntam-se à roda, cada uma com o seu traço. Com «reduzir movimento», o traço não se enche: a roda anda
+     com um relógio simples, de 6 em 6 segundos. */
   function frases() {
     var lista = $('#citacoes'); if (!lista) return;
     var cits = $$('.citacao', lista), ci = 0, vista = !('IntersectionObserver' in window), quieta = false, relogio = null;
-    var ir = function (n) { if (cits.length < 2) return; cits[ci].classList.remove('ativa'); ci = (n + cits.length) % cits.length; cits[ci].classList.add('ativa'); };
-    var arrancar = function () { clearInterval(relogio); relogio = setInterval(function () { if (vista && !quieta && !d.hidden && !abertas.length) ir(ci + 1); }, 6000); };
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { vista = en[0].isIntersecting; }, { threshold: 0.3 }).observe(lista);
+    var passar = $('#citacoes-passar'), tracos = passar ? $('.citacoes-tracos', passar) : null;
+    var porTraco = !!(tracos && !reduz);
+    var marcar = function () {
+      if (!tracos) return;
+      var t = $$('li', tracos);
+      for (var k = 0; k < t.length; k++) { t[k].classList.remove('ativo'); if (k < ci) t[k].classList.add('lida'); else t[k].classList.remove('lida'); }
+      if (t[ci]) { void t[ci].offsetWidth; t[ci].classList.add('ativo'); }     // o traço volta a encher-se do princípio
+    };
+    var parada = function () { return !vista || quieta || d.hidden || abertas.length > 0; };
+    frasesAcertar = function () { if (passar) { if (parada()) passar.classList.add('quieta'); else passar.classList.remove('quieta'); } };
+    var ir = function (n) { if (cits.length < 2) return; cits[ci].classList.remove('ativa'); ci = (n + cits.length) % cits.length; cits[ci].classList.add('ativa'); marcar(); };
+    var arrancar = function () { clearInterval(relogio); if (porTraco) return; relogio = setInterval(function () { if (!parada()) ir(ci + 1); }, 6000); };
+    if (porTraco) tracos.addEventListener('animationend', function (ev) { if (ev.animationName === 'traco-enche' && ev.target.parentNode && ev.target.parentNode.classList.contains('ativo')) ir(ci + 1); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { vista = en[0].isIntersecting; frasesAcertar(); }, { threshold: 0.3 }).observe(lista);
+    d.addEventListener('visibilitychange', frasesAcertar);
     lista.addEventListener('click', function () { ir(ci + 1); arrancar(); });
+    if (passar) passar.addEventListener('click', function (ev) {
+      var b = ev.target && ev.target.closest ? ev.target.closest('.citacoes-seta') : null; if (!b) return;
+      ir(ci + (parseInt(b.getAttribute('data-passo'), 10) < 0 ? -1 : 1)); arrancar();
+    });
+    // O dedo para o lado, em cima da frase, passa-a (para cima e para baixo continua a rolar a página).
+    var x0 = null, y0 = null;
+    lista.addEventListener('touchstart', function (ev) { if (ev.touches.length === 1) { x0 = ev.touches[0].clientX; y0 = ev.touches[0].clientY; } else x0 = null; }, { passive: true });
+    lista.addEventListener('touchend', function (ev) {
+      if (x0 === null || !ev.changedTouches || !ev.changedTouches.length) return;
+      var dx = ev.changedTouches[0].clientX - x0, dy = ev.changedTouches[0].clientY - y0; x0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) { ir(ci + (dx < 0 ? 1 : -1)); arrancar(); if (ev.cancelable) ev.preventDefault(); }
+    });
     if (comRato) {                                              // só com rato: num ecrã de toque um toque «entra» e nunca mais «sai»
-      lista.addEventListener('mouseenter', function () { quieta = true; });
-      lista.addEventListener('mouseleave', function () { quieta = false; });
+      lista.addEventListener('mouseenter', function () { quieta = true; frasesAcertar(); });
+      lista.addEventListener('mouseleave', function () { quieta = false; frasesAcertar(); });
     }
+    frasesAcertar();
     arrancar();
     if (window.fetch) fetch('api/avaliacoes.php').then(function (r) { return r.json(); }).then(function (j) {
       (j && j.avaliacoes || []).forEach(function (a) {
@@ -538,6 +666,7 @@
         var m = /^(\d{4})-(\d{2})/.exec(a.mes || '');
         p.textContent = 'Quem ficou' + (m ? ' · ' + MESES[+m[2] - 1].toLowerCase() + ' de ' + m[1] : '');
         li.appendChild(bq); li.appendChild(p); lista.appendChild(li); cits.push(li);
+        if (tracos) { var tr = d.createElement('li'); tr.appendChild(d.createElement('span')); tracos.appendChild(tr); }
       });
     }).catch(function () {});
   }
@@ -622,13 +751,13 @@
     function aviso(t) { if (!t) return; var li = d.createElement('li'); li.textContent = t; elAvisos.appendChild(li); }
 
     function calcular() {
-      var e = elEntrada.value, s = elSaida.value, pax = elPax.value;
+      var e = elEntrada.value, s = elSaida.value, pax = elPax.value;   // vazio até a pessoa escolher (a conta não depende dele)
       desenharMeses();
       if (!e || !s) { contaFrase(txt('conta_vazia', 'Escolham a chegada e a partida.')); elAvisos.innerHTML = ''; formPedido.hidden = true; ultimaConta = null; mostrarProximos(); return; }
       contaFrase(txt('conta_calcular', 'A fazer as contas…'));
       clearTimeout(temporizador);
       temporizador = setTimeout(function () {
-        fetch('api/tarifa.php?entrada=' + e + '&saida=' + s + '&pax=' + pax).then(function (r) { return r.json(); }).then(mostrarConta).catch(function () {
+        fetch('api/tarifa.php?entrada=' + e + '&saida=' + s + (pax ? '&pax=' + pax : '')).then(function (r) { return r.json(); }).then(mostrarConta).catch(function () {
           contaFrase(txt('conta_falha', 'Não foi possível fazer as contas agora.'), true); formPedido.hidden = true;
         });
       }, 250);
@@ -660,7 +789,8 @@
     }
     function textoPedido(extra) {
       var R = ultimaConta; if (!R) return '';
-      var t = 'Olá Diogo, gostávamos de ficar no Monte Casa Branca de ' + fmtData(R.entrada) + ' a ' + fmtData(R.saida) + ' (' + R.noites + ' noites, ' + R.pax + ' pessoas).';
+      var pessoas = elPax.value ? ', ' + elPax.value + ' ' + (elPax.value === '1' ? 'pessoa' : 'pessoas') : '';
+      var t = 'Olá Diogo, gostávamos de ficar no Monte Casa Branca de ' + fmtData(R.entrada) + ' a ' + fmtData(R.saida) + ' (' + R.noites + ' noites' + pessoas + ').';
       if (R.total) t += ' Vi no site o valor de ' + euros(R.total) + '.';
       if (extra.nome) t += ' Sou ' + extra.nome + '.';
       if (extra.mensagem) t += ' ' + extra.mensagem;
@@ -681,10 +811,11 @@
     function enviarPedido(confirmoPreco) {
       var R = ultimaConta, est = $('#pedido-estado'), btn = $('#enviar-pedido'); if (!R || !R.ok || !est || !btn) return;
       var f = formPedido;
+      if (!elPax.value) { est.className = 'pedido-estado erro'; est.textContent = txt('falta_pessoas', 'Digam-nos quantas pessoas vêm.'); try { elPax.focus(); } catch (e) {} return; }
       if (!f.nome.value.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value.trim())) { est.className = 'pedido-estado erro'; est.textContent = 'Digam-nos o vosso nome e um email válido.'; return; }
       btn.disabled = true; est.className = 'pedido-estado'; est.textContent = 'A enviar…';
       var pedido = { nome: f.nome.value.trim(), email: f.email.value.trim(), telefone: f.telefone.value.trim() || undefined, mensagem: f.mensagem.value.trim() || undefined,
-        entrada: R.entrada, saida: R.saida, pax: +R.pax, preco_mostrado: R.total, lingua: 'pt', origem: 'inicio',
+        entrada: R.entrada, saida: R.saida, pax: +elPax.value, preco_mostrado: R.total, lingua: 'pt', origem: 'inicio',
         segundos_a_preencher: inicioPreenchimento ? Math.round((Date.now() - inicioPreenchimento) / 1000) : undefined, armadilha: f.armadilha.value || '' };
       if (confirmoPreco) pedido.confirmo_preco = true;
       fetch('api/prereserva.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(pedido) })
@@ -748,6 +879,8 @@
 
   seguro('ligações internas', ligacoes);
   seguro('capa', capa);
+  seguro('fotografias que passam devagar', passar);
+  seguro('voltar onde estava', voltar);
   seguro('revelar', revelar);
   seguro('barra de baixo', barra);
   seguro('pílula', pilula);
