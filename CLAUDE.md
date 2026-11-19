@@ -1317,3 +1317,34 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real ·
   20 ensaio · 21 real · 22 ensaio · **23 real**. **Por dizer pelo Diogo:** o que achou da V5 (as frases) e quando avançar para a V6.
   **Próxima sugestão: S37.**
+
+- **19/11/2026 (01h10–02h10, hora de Lisboa) · «Faltou esta parte» · VERSÃO 6 = A PÍLULA DE DESCER, em `main` (commit `75f243c`), POR
+  PUBLICAR (espera o «Lança»).** O Diogo viu a V5 no iPhone e mandou a captura da capa com o botão redondo do canto rodeado: a pílula
+  decidida a 18/11 («O ícone do rato pode ficar no meio, mais flutuante e sem ficar em frente ao texto. Sobe a posição») não tinha
+  entrado, porque a V5 foi só de textos. **Falha minha:** com «Retira as frases e lança» devia ter perguntado se a pílula ia já.
+  **Feito (só a pílula; o resto das notas da V4 continua para depois):** `partes/inicio.php` → `a#pilula.pilula` com `span.pilula-rato`
+  (o rato com um ponto a descer, a forma da V1 e da V2); `site.css` → «A pílula de descer»: sem JavaScript fica na capa, ao centro, por
+  baixo do botão (`position: absolute`); com JavaScript, classe `flutua` (`position: fixed`, `z-index` 38, `bottom: .75rem +
+  safe-area`), classe `alto` quando a barra de baixo está visível (`translate3d(0, -5.6rem, 0)`: o rato fica uns 44 px acima da
+  barra), classe `apagada` (opacidade 0, sem apanhar toques), classe `topo` no fim (rodada 180°); `.contactos` com mais espaço em baixo
+  (`10.75rem` + safe-area, também a partir de 768 px) para no fim ela ficar sobre o verde; `@keyframes saltar` saiu (sem uso).
+  `site.js` → bloco «A pílula de descer» (`seguro('pílula', pilula)`, depois da barra): vê o que tem por baixo com
+  `document.elementsFromPoint` numa grelha de 3 colunas × 8 linhas à volta do rato (margem 8 px): texto = elemento dentro de `p, h1–h6,
+  li, dt, dd, blockquote, figcaption, label, summary, a, button, .eyebrow…` com texto; fotografia (`.foto-botao, .foto-larga-caixa,
+  .hero-fundo, picture, img`) não conta; e os blocos `.reveal` ainda a subir para o lugar contam já na posição final (`textoACaminho`,
+  lê o `ty` do transform). Apaga-se logo; volta 220 ms depois (não pisca entre linhas). Vê de 90 em 90 ms enquanto a página rola, aos
+  260 ms e aos 1100 ms depois de parar, depois de cada clique, no `transitionend` dos `.reveal`, ao subir/descer (620 ms) e com
+  camadas (`aoMudarCamadas` e `barra()` chamam `pilulaAcertar`). Toque: secção seguinte (`#inicio, main > section, #contactos`) pela
+  `irPara`; no fim, `irPara(#inicio)`. Com teclado (`:focus-visible`) não se apaga. **Testes:** `geometria.cjs` ponto 8 (Chromium e
+  WebKit; letras medidas linha a linha com `Range.getClientRects`, sem respostas fechadas de `<details>`; o teste rola com um `wheel`
+  antes, para acabar a viagem de um toque anterior, como uma pessoa) e no bloco sem JavaScript (pílula na capa, ao centro);
+  `captura-site.cjs` (um dedo a sério na pílula, na capa, leva à casa). Bateria local verde; varredura de 90 em 90 px no telemóvel e no
+  computador sem nenhuma paragem com a pílula por cima de letras (90 e 139 paragens com ela à vista). `site/versao.json` = 6; ficha
+  `### V6` (por publicar) em `docs/versoes/REGISTO.md`; na V5, «O que o Diogo achou» da capa = «Faltou esta parte»; `versoes.json` com a
+  6; capturas `docs/versoes/v6/`; `site/LEIA-ME.md` e as notas da V4 (secção 2) atualizados. Vídeo do telemóvel (43 s, gravado no
+  computador de testes) enviado na conversa (`versao-6-pilula-telemovel.mp4`, fica só na pasta de trabalho).
+  **Lições:** um teste que lê o ecrã logo a seguir a parar apanha os blocos de texto ainda a subir (a transição `.reveal` dura 1,1 s):
+  contar já a posição final; o conteúdo de um `<details>` fechado tem caixas no Chromium e não se vê (não é texto por baixo).
+  **Por dizer pelo Diogo:** «Lança» da V6 · o que acha da pílula no iPhone (a altura, ao centro, quando se esconde) · o resto das notas
+  da V4 (fotografias grandes, voltar onde estava, mais avaliações, cartaz em degraus, galeria curta e no fim, cimo do painel fixo, o
+  «4», a N2 num só bloco, a ecopista com régua) quando ele quiser. **Próxima sugestão: S37.**
