@@ -1382,3 +1382,10 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   heredocs com aspas e regex em Python dentro do Bash são recusados pela verificação de segurança: escrever o guião num ficheiro do
   scratchpad e correr `python3 ficheiro`; um teste que clica num botão fora do ecrã faz o Playwright rolar a página (medir depois de o pôr à
   vista). **Por dizer pelo Diogo:** «Lança» da V6 · o que acha de cada parte no iPhone. **Próxima sugestão: S37.**
+  **19/11 (03h) · GitHub e ensaio a seco da V6 completa (commit `4d687e5`):** «Capturas» n.º 76 verde (o trabalho «site» com a geometria em
+  Chromium e WebKit; a instalação dos browsers voltou a ser rápida, 42 s). **Ensaio a seco n.º 24** (run 44448045320): versão 6, etiqueta
+  `novo-v6`; `<fcst` só em `conteudo.php`, `index.php`, `versao.json`, `assets/css/site.css`, `assets/js/site.js`, `inc/util.php` e oito
+  partes (`avaliacoes`, `casa`, `dock`, `galeria`, `inicio`, `momentos`, `montemor`, `nacional2`); nada entra nem sai; as fotografias ficam
+  como estão; 42 697 317 bytes; nada enviado. **O envio a sério (será o n.º 25) espera o «Lança»**; precisa do «Capturas» verde do commit que
+  estiver em `main` (este commit, só de memória, tem a sua própria corrida). **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio ·
+  7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real · 20 ensaio · 21 real · 22 ensaio · 23 real · 24 ensaio.
