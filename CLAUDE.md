@@ -1389,3 +1389,27 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   como estão; 42 697 317 bytes; nada enviado. **O envio a sério (será o n.º 25) espera o «Lança»**; precisa do «Capturas» verde do commit que
   estiver em `main` (este commit, só de memória, tem a sua própria corrida). **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio ·
   7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real · 20 ensaio · 21 real · 22 ensaio · 23 real · 24 ensaio.
+
+- **19/11/2026 (10h42, hora de Lisboa) · «Lança» · A VERSÃO 6 ESTÁ NO AR EM `novo.montecasabranca.pt` (deploy n.º 25, commit `37b0736`,
+  etiqueta `novo-v6`).** Envio a sério n.º 25 (run 44508071986): pré-voos, «Capturas» (n.º 77 verde para `37b0736`) e sintaxe verdes;
+  rsync em 3 s, `<fcst` nos mesmos 14 ficheiros do ensaio n.º 24 (`conteudo.php`, `index.php`, `versao.json`, `site.css`, `site.js`,
+  `inc/util.php` e as oito partes), nada entrou nem saiu, 42 697 317 bytes; `config.php` ficou como estava; HTTP 200 à primeira; previsão,
+  conta (`fonte: site`) e médias do tempo (à primeira tentativa) OK; `noindex`, `robots.txt` de bloqueio e «Ensaio · versão 6»
+  confirmados; **etiqueta `novo-v6` criada pelo próprio deploy**.
+  «Verificar o site (só lê)», corrida n.º 5 (run 44508253223): página HTTP 200 em 1,4 s (148 110 bytes), «Ensaio · versão 6 · 19/11/2026»,
+  `noindex`, `robots.txt` de bloqueio e sem ligações para as plataformas; **as 190 fotografias respondem todas**; previsão, conta,
+  calendário e médias em 0,50–0,58 s cada; o arquivo do Open-Meteo, pedido do GitHub, em 1,1 s (1 826 dias, sem valores em falta).
+  **Registo:** ficha da V6 «Publicada» em `docs/versoes/REGISTO.md`; a V5 esteve no ar a 19/11, das 01h01 às 10h42; na tabela da V5,
+  as palavras do Diogo de 19/11 nas partes 2 e 5 e em «toda a página»; `versoes.json` com o commit completo
+  (`37b073670d4b27185720deeb29f071e77c751433`) e a etiqueta. **A partir daqui qualquer mudança em `site/` é a versão 7:** subir o número
+  em `site/versao.json` e abrir a ficha `### V7 · …` (o deploy recusa a V6 com outro conteúdo).
+  **Deploys do site:** 1–3 travões · 4 ensaio · 5 real · 6 ensaio · 7 real · 8–13 ensaios · 14 real · 15–18 ensaios · 19 real · 20 ensaio ·
+  21 real · 22 ensaio · 23 real · 24 ensaio · **25 real**.
+  **Por dizer pelo Diogo:** o que achou da V6 no iPhone, parte a parte: a pílula de descer, o cartaz em escada, as fotografias grandes a
+  passar devagar, Montemor com a ecopista, a N2 num só bloco, as setas e os traços das avaliações, a galeria curta com «Ver todas», «Voltar
+  onde estava», o cimo do painel e «Quantas pessoas vêm?». **Em aberto, de antes:** as 2 ou 3 fotografias da ecopista que o Diogo junta ·
+  as do Instagram para as réguas, quando estiverem disponíveis · as doze notas do GPT por decidir · a ideia do menu (nota 6a) · a 34 em
+  «A Quinta» · a ligação de partilha do Google Maps · as ligações da ecopista e da N2 · os originais das quatro frases traduzidas · os
+  textos · melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em
+  falta · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público ·
+  S31–S33 · o Lovable continua com a composição aos passos. **Próxima sugestão: S37.**

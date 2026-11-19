@@ -1,5 +1,7 @@
 # Notas do Diogo sobre a versão 4 (18/11/2026, entre as 00h40 e as 00h55, no iPhone)
 
+**Atualização de 19/11, 10h42: a versão 6 está no ar em `novo.`** (deploy n.º 25, etiqueta `novo-v6`), com tudo o que está abaixo.
+
 **Atualização de 19/11, 03h: TUDO o que estava decidido ou proposto neste documento está feito na versão 6, por publicar** (espera o
 «Lança»). O Diogo, com a V5 no iPhone: «Grande parte das alterações não as fizeste. Revê o que pedi: botão de deslizar, menu do por
 dentro sem pressa e por fora, falta o botão de voltar quando abro as fotos pelo scroll down, mantiveste a n2 igual? O montado está

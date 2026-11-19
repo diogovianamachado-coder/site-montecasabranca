@@ -43,7 +43,16 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 
 ### V6 · 19/11/2026 · as notas de 18 e 19/11: a pílula, o cartaz em escada, as fotografias grandes, a ecopista, a N2, as avaliações, a galeria, o voltar e o painel
 
-- **Por publicar:** espera o «Lança» do Diogo. (Quando for para o ar: a data, o n.º do deploy, o commit e a etiqueta `novo-v6`.)
+- **Publicada:** 19/11/2026, às 10h42 (hora de Lisboa), com o «Lança» do Diogo: deploy do site n.º 25 (o n.º 24 foi o ensaio a
+  seco), commit `37b0736`, **etiqueta `novo-v6`**. É a que está no ar em `novo.`. Face à V5 mudaram 14 ficheiros (`conteudo.php`,
+  `index.php`, `versao.json`, `assets/css/site.css`, `assets/js/site.js`, `inc/util.php` e oito partes: `avaliacoes`, `casa`, `dock`,
+  `galeria`, `inicio`, `momentos`, `montemor`, `nacional2`); nada entrou nem saiu, e as fotografias ficaram como estavam. Commits do
+  site: `75f243c` (a pílula de descer) e `4d687e5` (as outras notas de 18 e 19/11); testes «Capturas» n.º 76 e n.º 77 verdes
+  (Chromium e WebKit).
+- **Verificação depois do envio:** a página responde (HTTP 200 à primeira) e mostra «Ensaio · versão 6»; continua fora dos motores de
+  busca (`noindex` e `robots.txt` de bloqueio); a previsão, a conta e as médias do tempo respondem; `config.php` ficou como estava.
+  «Verificar o site (só lê)», corrida n.º 5: a página responde em 1,4 s e mostra a versão 6; sem ligações para as plataformas; as 190
+  fotografias da página existem no servidor; as portas (previsão, conta, calendário e médias do tempo) respondem em meio segundo cada.
 - **De onde vem:** o Diogo viu a V5 no iPhone e mandou duas mensagens. A primeira, a captura da capa com o botão do canto rodeado:
   «Faltou esta parte» (a pílula). A segunda, com seis capturas: «Grande parte das alterações não as fizeste. Revê o que pedi: botão de
   deslizar, menu do por dentro sem pressa e por fora, falta o botão de voltar quando abro as fotos pelo scroll down, mantiveste a n2
@@ -108,7 +117,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 ### V5 · 19/11/2026 · as frases retiradas
 
 - **Publicada:** 19/11/2026, às 01h01 (hora de Lisboa), com o «Lança» do Diogo («Retira as frases e lança»): deploy do site n.º 23
-  (o n.º 22 foi o ensaio a seco), commit `ea2fbd4`, **etiqueta `novo-v5`**. É a que está no ar em `novo.`. Face à V4 mudaram 7
+  (o n.º 22 foi o ensaio a seco), commit `ea2fbd4`, **etiqueta `novo-v5`**. Esteve no ar em `novo.` a 19/11/2026, das 01h01 às 10h42. Face à V4 mudaram 7
   ficheiros, todos de texto (`conteudo.php`, `llms.txt`, `versao.json`, `inc/util.php`, `partes/avaliacoes.php`, `partes/inicio.php`,
   `partes/nacional2.php`); nada entrou nem saiu, e as fotografias ficaram como estavam. Testes «Capturas» n.º 72 verdes (Chromium e
   WebKit).
@@ -127,10 +136,10 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 | Parte | O que mudou face à V4 | O que o Diogo achou |
 |---|---|---|
 | 1 Capa | Sai «Sem receção, sem pressa», que estava ao lado de «Entrar pela casa»; a ideia passou para «Antes de chegar» | «Faltou esta parte» (19/11, com a captura da capa e o botão redondo do canto rodeado): a pílula de descer, decidida a 18/11, não tinha entrado → V6 |
-| 2 A casa | Igual | por dizer |
+| 2 A casa | Igual | «menu do por dentro sem pressa e por fora» (19/11): o cartaz em escada, decidido a 19/11, não tinha entrado → V6 |
 | 3 Os espaços | As fotografias dos três capítulos deixam de ter a legenda escrita por cima (e a sombra em baixo que a deixava ler). A descrição fica para quem usa leitor de ecrã e por baixo da fotografia aberta em grande | por dizer |
 | 4 Fecho e régua | Igual (a régua já não tinha legendas) | por dizer |
-| 5 Montemor, N2 e onde estamos | As fotografias de Montemor também sem legenda por cima; a fotografia da N2 sem a legenda por baixo («A mesma casa à vossa espera ao fim do dia») | por dizer |
+| 5 Montemor, N2 e onde estamos | As fotografias de Montemor também sem legenda por cima; a fotografia da N2 sem a legenda por baixo («A mesma casa à vossa espera ao fim do dia») | «mantiveste a n2 igual? O montado está vazio.» (19/11): a N2 num só bloco e a ecopista com a sua régua não tinham entrado → V6 |
 | 6 A galeria | Igual | por dizer |
 | 7 Antes de chegar | «A que horas podemos chegar?» passa a dizer: «A entrada é a partir das 16h, sem receção e sem pressa: o Diogo envia antes as indicações para entrarem sozinhos. A saída é até às 11h; quando ninguém entra no mesmo dia, pode ficar para as 18h, para aproveitarem o dia até ao fim.» | por dizer |
 | 8 Quem já ficou | A linha de baixo fica só «Recebemos hóspedes desde 2022» (sai «· notas de novembro de 2026») | por dizer |
@@ -138,7 +147,7 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 | 10 Menu completo | Igual | por dizer |
 | 11 Painel das datas | Igual | por dizer |
 | 12 Barra de baixo | Igual | por dizer |
-| Toda a página | No resumo para os assistentes de pesquisa (`llms.txt`), a entrada passa a dizer que é sem receção | por dizer |
+| Toda a página | No resumo para os assistentes de pesquisa (`llms.txt`), a entrada passa a dizer que é sem receção | «Grande parte das alterações não as fizeste» e «falta o botão de voltar quando abro as fotos pelo scroll down» (19/11): as notas de 18 e 19/11 ficaram por fazer → todas na V6 |
 
 ### V4 · 18/11/2026 · o movimento: as fotografias deslizam sozinhas, devagar e sem parar
 
