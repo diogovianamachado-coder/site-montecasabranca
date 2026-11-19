@@ -1268,3 +1268,18 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   dele; Dropbox `13. APP Gestão AL/site/` só com `zenfolio/`). As doze notas dele ainda por decidir (fecho de 24/10, propostas de 17/10 e
   a entrada «Simular preços» do commit `7056b2b`), com a recomendação do Claude, a lista do que ele já decidiu e os três factos por
   confirmar estão no mesmo documento (secção «Notas do GPT por decidir»); as respostas dele entram na coluna «Diogo». Nada em `site/`.
+- **19/11/2026 (00h–00h30, hora de Lisboa) · SETE NOTAS NOVAS DO DIOGO PARA A V5, SÓ REGISTADAS («Mais sugestões de alteração»).**
+  Continua a valer «Ainda não alteres nada. Regista só»; nada em `site/`, nada no servidor, a V4 continua no ar. Registadas, com cinco
+  capturas dele, em `docs/integracao-app/2026-11-18_notas_do_diogo_v4.md` (secção «Notas de 19/11») e `revisao-2026-11-18/diogo-5…9`;
+  ficha da V4 atualizada (partes 2, 3, 5, 6 e 11). **(1)** cartaz «Por fora · Sem pressa · Por dentro» em degraus, como na V2 (`37c9ca0`),
+  sem setas, cada palavra a levar ao seu capítulo («menu em escada»; a captura é de um estudo do ChatGPT de 10 páginas que não está no
+  GitHub nem no Dropbox) · **(2)** sem legendas pequenas nas fotografias (faixas e N2); descrição só no `alt`; responde «não» à nota 4 da
+  lista do GPT · **(3)** a galeria, grande a meio da página, afasta quem lê no telemóvel: recomendação curta (uma fila e «Ver todas» a abrir
+  por cima) e antes dos contactos, com o menu de cima na mesma ordem · **(4)** o cimo do painel das datas (título, fechar, mês, dias da
+  semana) sempre à vista, sem `position: sticky` (parte de cima fixa, parte de baixo a rolar) · **(5)** «o 4 é exemplo ou por defeito?»:
+  **por defeito**, escrito em `partes/dock.php` (`$i === 4`) desde o site de 7/11; não mexe no preço; proposta: começar vazio e o pedido
+  pedi-lo · **(6)** a N2 «parece feita à pressa» (três peças soltas): um só bloco como na V2 (traço fino à esquerda, programa pequeno com os
+  dias em itálico), com a fotografia grande e o título por cima e a mensagem em destaque (comparação das versões 1, 2 e 4 em
+  `revisao-2026-11-18/versoes-1-2-4-parte5-telemovel.jpg`) · **(7)** a ecopista com uma régua pequena, a começar pela fotografia da bicicleta
+  no túnel de árvores (`montemor/caminho-arvores-bicicleta.jpg`); duas com a mesma bicicleta (estação do Paião, montado) a confirmar se são
+  da ecopista; o Diogo junta mais 2 ou 3; nas partes de apoio as fotografias ficam mais pequenas. **Próxima sugestão: S37.**

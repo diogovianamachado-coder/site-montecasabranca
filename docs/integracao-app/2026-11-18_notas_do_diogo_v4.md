@@ -120,7 +120,7 @@ dele já foram adaptados ao painel das datas; ficou de fora a entrada no menu). 
 | 1 | «Simular preços» no menu completo, a abrir as contas (15/11) | sim | por dizer |
 | 2 | Mais protagonismo à piscina, de dia e ao entardecer ou à noite; a biblioteca com a lareira para mostrar o inverno; o campo nas várias estações (24/10) | sim, nas fotografias grandes da V5 | por dizer |
 | 3 | «A mesma vista, outra luz»: uma vista da piscina que muda entre dia, entardecer e noite (24/10) | sim, se houver três fotografias tiradas do mesmo sítio (ver primeiro) | por dizer |
-| 4 | Em poucas fotografias, uma frase curta com graça em vez da legenda descritiva («a biblioteca no inverno», «o último café no alpendre») (24/10) | sim, com os textos mostrados antes | por dizer |
+| 4 | Em poucas fotografias, uma frase curta com graça em vez da legenda descritiva («a biblioteca no inverno», «o último café no alpendre») (24/10) | sim, com os textos mostrados antes | **não**, pela nota 2 de 19/11 («retirar as micro legendas das fotos»), salvo indicação contrária |
 | 5 | O roteiro das duas noites também numa página leve, para guardar no telemóvel (24/10) | não por agora (já está na página) | por dizer |
 | 6 | Galeria arrumada por espaços, com verão e inverno como filtro (24/10) | não (a 15/11 o Diogo escolheu os álbuns do Zenfolio) | por dizer |
 | 7 | Um ícone e a contagem nas fotografias, para dizer que há mais (24/10) | não (nota 8 de 15/11: o movimento mostra isso) | por dizer |
@@ -137,6 +137,51 @@ disponibilidade» (nota 15 de 15/11, «manter»); as fotografias de cada parte a
 **Factos que o GPT deixou por confirmar:** 3,2 ou 3,6 hectares (o site não diz a área) · as regras miúdas dos animais, do
 cancelamento e do Wi-Fi · a autorização escrita do Diogo para as fotografias do Rodrigo, antes de o site passar para
 `montecasabranca.pt`.
+
+## Notas de 19/11 (mais sugestões de alteração)
+
+Mensagem do Diogo, pouco depois da meia-noite de 19/11, com cinco capturas (`diogo-5…9-*.jpg` na pasta da revisão): «Mais sugestões de
+alteração», numeradas por ele de 1 a 7. Continua a valer «Ainda não alteres nada. Regista só»: tudo isto é para a V5.
+
+1. **«Menu em escada»** (2 A casa). A captura é de um estudo do ChatGPT («Monte-Casa-Branca-Estudo-…», página 2 de 10, que **não está
+   no GitHub**): o Diogo riscou o cartaz da V4 (três linhas com setas) e rodeou o da V2 («Em degraus»). **Na V5:** o cartaz volta ao
+   desenho em degraus da V2 (commit `37c9ca0`): «Por fora» à esquerda, «Sem pressa» ao centro, em itálico e na cor terracota, «Por
+   dentro» à direita, sem setas; cada palavra continua a levar ao seu capítulo.
+2. **«Retirar as micro legendas das fotos»** (3 Os espaços; 5 Montemor e N2). Saem as legendas pequenas escritas sobre as fotografias
+   das faixas (por exemplo «De bicicleta, à sombra») e a de baixo da fotografia da N2 («A mesma casa à vossa espera ao fim do dia»). A
+   descrição fica escondida no `alt`, para quem usa leitor de ecrã e para as pesquisas. **Isto responde também à nota 4 da lista do
+   GPT** (frases com graça nas fotografias): passa a «não», salvo indicação contrária do Diogo.
+3. **«Reposicionar a secção de fotos … no mobile, por ser uma secção grande no meio, pode afastar o utilizador de passar para as
+   seguintes secções. No fim antes dos contactos? Repensar»** (6 A galeria). Duas formas, a mostrar antes: (a) a galeria passa para
+   antes dos contactos; (b) fica curta, uma fila de fotografias e «Ver todas», que abre a galeria inteira por cima e, ao fechar, volta
+   ao mesmo ponto. **Recomendação do Claude: as duas juntas** (curta e antes dos contactos). O menu de cima muda de ordem com ela (a
+   regra é a ordem do menu ser a da página).
+4. **«Manter cabeçalho visível na disponibilidade»** (11 Painel das datas). Na captura, o cimo do painel (título e fechar) já saiu do
+   ecrã e os dias da semana estão cortados. **Na V5:** o cimo do painel (título, fechar, mês e dias da semana) fica fixo e só o resto
+   rola por baixo. Nota técnica: sem `position: sticky` (regra de construção da V3, por causa do iPhone): o painel passa a ter uma parte
+   de cima fixa e uma parte de baixo que rola.
+5. **«O número 4 é exemplo ou está a aparecer por defeito?»** (11 Painel das datas). **Está por defeito:** o campo «Quantas pessoas
+   vêm?» começa em 4 por estar escrito assim no código (`partes/dock.php`, `$i === 4`), desde o site em PHP de 7/11. Não muda o preço (a
+   casa é inteira; a conta só confere que não passa de 8) e só segue no pedido de datas. **Proposta para a V5:** começar vazio
+   («Escolham»), a conta aparecer sem precisar dele, e o pedido de datas pedi-lo.
+6. **A Nacional 2: «parecem 3 módulos diferentes: estilo, foto, tabela de 3 acontecimentos. Parece que foi feita à pressa. Acho que tens
+   nas versões anteriores uma formatação e organização deste espaço mais agradável. Dar importância às fotos e mensagem e ter o programa
+   como acessório mais informativo sem ser um choque que entra pelos olhos e fere a vista»** (5 Montemor, N2 e onde estamos). Visto nas
+   capturas das versões (`versoes-1-2-4-parte5-telemovel.jpg`): **na V2** a N2 era um só bloco, com um traço fino à esquerda, o título, o
+   texto e o programa pequeno (os dias em itálico, pequenos, com o texto ao lado); **na V1** era um bloco igual, só com texto; **na V4**
+   são três peças soltas (texto, fotografia grande com legenda, e o programa com os dias em letra grande). **Proposta para a V5:** a
+   fotografia grande com o título por cima (como as fotografias grandes da V1, nota 1 de 18/11), a mensagem, e o programa pequeno à
+   maneira da V2, dentro do mesmo bloco.
+7. **A ecopista: «precisa de brilho e fotos … incluir uma régua de fotos não tão grande. Aliás nestes separadores de suporte, as fotos
+   deveriam ser mais pequenas. Neste caso a foto ilustrada é da ecopista e pode entrar aqui. Eu depois acrescento mais 2/3»** (5
+   Montemor, N2 e onde estamos). **Na V5:** o bloco da ecopista ganha uma régua pequena, que começa com a fotografia da bicicleta no
+   túnel de árvores (`montemor/caminho-arvores-bicicleta.jpg`, hoje na faixa de Montemor). No álbum de Montemor há mais duas com a mesma
+   bicicleta vermelha (à porta da antiga estação do Paião e junto ao montado) que podem ser da ecopista: a confirmar pelo Diogo. Com as
+   2 ou 3 que ele vai juntar (pela pasta do Dropbox ou pela conversa), a régua fica com 4 a 6. **Nas partes de apoio** (Montemor, N2,
+   ecopista) as fotografias ficam mais pequenas do que nos capítulos da casa.
+
+**Nota de monitor:** a primeira captura mostra que o ChatGPT está a fazer um estudo de 10 páginas para o Diogo, que não está no GitHub
+nem no Dropbox. Se forem essas «as notas do GPT» que ele queria numeradas, o Claude precisa das 10 páginas (capturas ou o ficheiro).
 
 ## Próximas ideias
 
