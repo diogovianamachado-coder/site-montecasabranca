@@ -1413,3 +1413,17 @@ staging em `novo.montecasabranca.pt` antes do go/no-go do Linktree. As quatro po
   textos · melhoria de `tempo_clima()` · cópia do FACTOS (secção 11) para a app · «sim» à passagem do GPT (v1.3) · as 21 do Zenfolio em
   falta · alta resolução do Rodrigo · versão de 2 400 px · `creditos.md` · portas #189–#192 e `SITE_CHAVE` · EN · repositório público ·
   S31–S33 · o Lovable continua com a composição aos passos. **Próxima sugestão: S37.**
+  **19/11 (tarde) · «Porque é que as fotos principais mudaram?» e QUATRO NOTAS DO DIOGO SOBRE A V6, SÓ REGISTADAS («guarda estas
+  notas para uma proxima revisão»).** Nada mudou em `site/` e nada foi para o servidor; a V6 continua no ar. (1) **As fotografias
+  principais:** as quatro fotografias grandes da V6 (Por fora, Sem pressa, Por dentro, Montemor) foram escolha minha, sem perguntar
+  (fotografias que não estavam nas faixas, para não repetirem); as que ele conhecia continuam como primeira de cada faixa. Dito-lhe
+  assim, como erro meu, com a folha «antes e agora» (`docs/integracao-app/revisao-2026-11-19/fotografias-principais-antes-e-agora.jpg`);
+  **proposta de as repor, à espera da palavra dele.** (2) «Escolham» em «Quantas pessoas vêm?»: «deixa em branco». (3) O rato
+  parado em cima das fotografias pára a faixa: «não deve parar. o rato deverá estar livre» (a causa: pára com o rato a mexer-se e
+  retoma 1,4 s depois; a mão pousada faz movimentos de um píxel). (4) «pelo desktop parece que o site está bem. as fotos grandes no
+  mobile parece que ficam cortadas e sem nexo» (a causa: a fotografia deitada enche 70 % da altura do ecrã e vê-se pouco mais de um
+  terço dela, e menos nítida). Tudo em **`docs/integracao-app/2026-11-19_notas_do_diogo_v6.md`** (palavras dele, porquê, onde se
+  mexe, opções a), b), c) para o telemóvel com a recomendação, testes a mudar) e na tabela da V6 do `REGISTO.md`. **Regra:** «guarda
+  estas notas» = registar e não mexer; a próxima revisão será a **V7**. **Por dizer pelo Diogo:** repor ou não as fotografias
+  principais · a forma das fotografias grandes no telemóvel (a, b ou c) · se as frases de «Quem já ficou» também deixam de esperar
+  com o rato por cima · quando avançar para a V7. **Próxima sugestão: S37.**

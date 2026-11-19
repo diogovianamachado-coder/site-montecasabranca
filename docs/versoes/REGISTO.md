@@ -102,17 +102,17 @@ O desenho de todas as partes vive em `assets/css/site.css` (cada parte tem o seu
 |---|---|---|
 | 1 Capa | O botão redondo do canto passa a ser a pílula de descer, ao centro, por baixo de «Entrar pela casa» | por dizer |
 | 2 A casa | O cartaz em escada, como na V2, sem setas | por dizer |
-| 3 Os espaços | Cada capítulo abre com uma fotografia grande e a palavra por cima, que passa devagar ao rolar; as fotografias da faixa entram uma a uma | por dizer |
+| 3 Os espaços | Cada capítulo abre com uma fotografia grande e a palavra por cima, que passa devagar ao rolar; as fotografias da faixa entram uma a uma | «Porque é que as fotos principais mudaram?» (19/11): as fotografias grandes foram escolha minha, sem perguntar; repor as de antes espera a palavra dele · «as fotos grandes no mobile parece que ficam cortadas e sem nexo» (19/11) → próxima revisão (`docs/integracao-app/2026-11-19_notas_do_diogo_v6.md`) |
 | 4 Fecho e régua | Igual | por dizer |
-| 5 Montemor, N2 e onde estamos | Montemor abre com uma fotografia grande e o título por cima; a faixa da vila mais pequena (sete); a ecopista com a régua pequena das três fotografias da bicicleta; a N2 num só bloco, com a fotografia em destaque e o programa pequeno | por dizer |
+| 5 Montemor, N2 e onde estamos | Montemor abre com uma fotografia grande e o título por cima; a faixa da vila mais pequena (sete); a ecopista com a régua pequena das três fotografias da bicicleta; a N2 num só bloco, com a fotografia em destaque e o programa pequeno | A fotografia grande de Montemor entra nas duas notas da parte 3 (escolha minha; cortada no telemóvel) → próxima revisão |
 | 6 A galeria | Passou para antes dos contactos; curta (seis), com «Ver todas as fotografias», que abre o álbum inteiro por cima | por dizer |
 | 7 Antes de chegar | Igual (vem agora logo a seguir a «Onde estamos») | por dizer |
 | 8 Quem já ficou | Duas setas e um traço por frase, que se enche enquanto ela está à vista; o dedo para o lado passa a frase | por dizer |
 | 9 Contactos e rodapé | Mais espaço verde em baixo, para a pílula ficar ali no fim a dizer «voltar ao topo» (no ensaio, «Ensaio · versão 6 · 19/11/2026») | por dizer |
 | 10 Menu completo | A ordem nova: «Passear pelo Monte» antes de «Contactos» | por dizer |
-| 11 Painel das datas | O cimo sempre à vista; «Quantas pessoas vêm?» começa vazio e o pedido pede-o | por dizer |
+| 11 Painel das datas | O cimo sempre à vista; «Quantas pessoas vêm?» começa vazio e o pedido pede-o | Sobre «Escolham»: «esta palavra não fica bem aqui. deixa em branco» (19/11, no computador) → próxima revisão |
 | 12 Barra de baixo | Igual; a pílula flutua por cima dela | por dizer |
-| Toda a página | A pílula de descer em todo o site; «Voltar onde estava» depois de um salto grande (e o gesto de voltar do iPhone) | por dizer |
+| Toda a página | A pílula de descer em todo o site; «Voltar onde estava» depois de um salto grande (e o gesto de voltar do iPhone) | «pelo desktop parece que o site está bem» · «quando o rato do pc está estacionado em cima da foto a régua para. não deve parar. o rato deverá estar livre» (19/11) → próxima revisão |
 
 ### V5 · 19/11/2026 · as frases retiradas
 
